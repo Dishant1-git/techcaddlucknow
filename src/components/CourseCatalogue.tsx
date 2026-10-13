@@ -3,7 +3,7 @@
 import { NavLink } from "./NavLink";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight, Search, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, ChevronDown, Search, X } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { site, stats } from "@/lib/site";
@@ -26,20 +26,12 @@ export type CatalogueSection = {
 
 type Item = CatalogueSection["courses"][number];
 
-const pad = (n: number) => String(n).padStart(2, "0");
-
 const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
 
 const badgeColors = {
   Hot: "bg-sun text-hero-950",
   New: "bg-brand/10 text-brand",
   Trending: "bg-cyan/25 text-navy",
-};
-
-const badgeColorsDark = {
-  Hot: "bg-sun text-hero-950",
-  New: "bg-white/15 text-white",
-  Trending: "bg-cyan text-hero-950",
 };
 
 /** Counts up from zero once, when the page loads. */
@@ -58,29 +50,6 @@ function CountUp({ value }: { value: number }) {
   }, [value]);
 
   return <>{n.toLocaleString("en-IN")}</>;
-}
-
-/** True once the element has scrolled into view; it never switches back. */
-function useSeen<T extends Element>() {
-  const ref = useRef<T>(null);
-  const [seen, setSeen] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setSeen(true);
-        observer.disconnect();
-      },
-      { rootMargin: "0px 0px -12% 0px" },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return [ref, seen] as const;
 }
 
 /**
@@ -103,7 +72,7 @@ function initials(label: string) {
   return (words.length > 1 ? words[0][0] + words[1][0] : label.slice(0, 2)).toUpperCase();
 }
 
-function LogoTile({ item, dark = false }: { item: Item; dark?: boolean }) {
+function LogoTile({ item }: { item: Item }) {
   const logo = courseLogos[item.logo ?? item.label];
   const shape =
     "grid size-12 shrink-0 place-items-center rounded-2xl transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110";
@@ -111,21 +80,19 @@ function LogoTile({ item, dark = false }: { item: Item; dark?: boolean }) {
     return (
       <span
         aria-hidden
-        className={`${shape} font-display text-xs font-bold tracking-tight ${
-          dark ? "bg-white/10 text-cyan" : "bg-brand/10 text-brand"
-        }`}
+        className={`${shape} bg-brand/10 font-display text-xs font-bold tracking-tight text-brand`}
       >
         {initials(item.label)}
       </span>
     );
   }
-  // Light logos need a dark tile; on dark sections everything else sits on white.
+  // Light logos (JavaScript yellow, etc.) need a dark tile to stay visible.
   const light = isLight(logo.hex);
   return (
     <span
       aria-hidden
-      className={`${shape} ${light ? "bg-hero-800" : dark ? "bg-white" : ""}`}
-      style={light || dark ? undefined : { backgroundColor: `#${logo.hex}1a` }}
+      className={`${shape} ${light ? "bg-hero-800" : ""}`}
+      style={light ? undefined : { backgroundColor: `#${logo.hex}1a` }}
     >
       <svg viewBox="0 0 24 24" className="size-5" fill={`#${logo.hex}`}>
         <path d={logo.path} />
@@ -134,293 +101,107 @@ function LogoTile({ item, dark = false }: { item: Item; dark?: boolean }) {
   );
 }
 
-// Two rings of logos circling the hub. Radius is a percentage of the stage.
-const rings = [
-  { count: 6, radius: 27, duration: 60 },
-  { count: 10, radius: 46, duration: 95 },
+// Where each floating card sits in the hero, how far it leans and when its
+// bobbing starts. Later cards overlap earlier ones.
+const floatSpots = [
+  { place: "right-0 top-0 w-[49%] rotate-6", wait: "0s" },
+  { place: "left-0 top-[4.5rem] z-10 w-[49%] -rotate-6", wait: "-1.5s" },
+  { place: "right-0 top-[15.5rem] z-20 w-[49%] rotate-3", wait: "-3s" },
+  { place: "left-0 top-[19.5rem] z-30 w-[49%] -rotate-3", wait: "-4.5s" },
 ];
 
-/** Hero visual: course logos in slow orbit around the total. */
-function Orbit({ items, total, noun }: { items: Item[]; total: number; noun: string }) {
+/** Hero visual: a few real courses as cards, fanned out and gently bobbing. */
+function FloatingCards({ cards }: { cards: { item: Item; group: string }[] }) {
   return (
-    <div
-      aria-hidden
-      data-speed="0.5"
-      className="relative mx-auto aspect-square w-full max-w-[32rem] text-[3rem]"
-    >
-      <div className="orb absolute inset-[6%] [--orb:rgba(28,83,209,0.45)]" />
-
-      <div className="absolute left-1/2 top-1/2 grid size-[26%] -translate-x-1/2 -translate-y-1/2 place-items-center">
-        <span className="absolute inset-0 animate-pulse-ring rounded-full bg-cyan/20" />
-        <span className="hex grid size-full place-items-center bg-gradient-to-br from-cyan to-brand p-[2px]">
-          <span className="hex grid size-full place-items-center bg-hero-900 text-center">
-            <span>
-              <span className="block font-display text-[0.62em] font-extrabold leading-none text-white">
-                {total}
-              </span>
-              <span className="mt-1 block text-[0.2em] font-bold uppercase tracking-[0.18em] text-cyan">
-                {noun}
-              </span>
-            </span>
-          </span>
-        </span>
-      </div>
-
-      {rings.map((ring, r) => {
-        const from = rings.slice(0, r).reduce((n, x) => n + x.count, 0);
-        const ringItems = items.slice(from, from + ring.count);
-        return (
-          <div key={r} className="absolute inset-0">
-            <span
-              style={{ inset: `${50 - ring.radius}%` }}
-              className="absolute rounded-full border border-dashed border-white/10"
-            />
-            <div
-              style={{ "--dur": `${ring.duration}s` } as CSSProperties}
-              className={`orbit-spin absolute inset-0 ${r % 2 ? "orbit-rev" : ""}`}
+    <div data-speed="0.5" className="relative mx-auto h-[32.5rem] w-full max-w-[31.5rem]">
+      <div className="orb absolute inset-[4%] [--orb:rgba(28,83,209,0.45)]" />
+      {cards.map(({ item, group }, i) => (
+        // Three layers so the lean, the bobbing and the hover never fight over
+        // the same transform.
+        <div
+          key={item.href}
+          className={`absolute transition duration-500 hover:z-40 hover:rotate-0 ${floatSpots[i].place}`}
+        >
+          <div className="animate-float" style={{ animationDelay: floatSpots[i].wait }}>
+            <Link
+              href={item.href}
+              className="group block rounded-3xl border border-white/60 bg-white p-5 text-navy shadow-2xl shadow-black/40 transition duration-500 hover:scale-105"
             >
-              {ringItems.map((item, i) => {
-                const angle = (i / ringItems.length) * Math.PI * 2 - Math.PI / 2;
-                const logo = courseLogos[item.logo ?? item.label];
-                return (
-                  <div
-                    key={item.label}
-                    style={{
-                      left: `${(50 + ring.radius * Math.cos(angle)).toFixed(3)}%`,
-                      top: `${(50 + ring.radius * Math.sin(angle)).toFixed(3)}%`,
-                    }}
-                    className="absolute size-[1em] -translate-x-1/2 -translate-y-1/2"
+              <span className="flex items-start justify-between gap-3">
+                <LogoTile item={item} />
+                {item.badge && (
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider ${badgeColors[item.badge]}`}
                   >
-                    {/* Counter-rotates so the logo stays upright */}
-                    <div
-                      style={{ "--dur": `${ring.duration}s` } as CSSProperties}
-                      className={`orbit-spin grid size-full place-items-center rounded-2xl shadow-lg shadow-black/40 ring-1 ring-white/15 ${
-                        r % 2 ? "" : "orbit-rev"
-                      } ${isLight(logo.hex) ? "bg-hero-800" : "bg-white"}`}
-                    >
-                      <svg viewBox="0 0 24 24" className="size-[48%]" fill={`#${logo.hex}`}>
-                        <path d={logo.path} />
-                      </svg>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                    {item.badge}
+                  </span>
+                )}
+              </span>
+              <span className="mt-4 block truncate text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">
+                {group}
+              </span>
+              <span className="mt-1 block truncate font-display text-lg font-bold tracking-tight">
+                {item.label}
+              </span>
+              <span className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-500">
+                {site.city} · Live projects
+                <span className="grid size-7 place-items-center rounded-full bg-brand/10 text-brand transition duration-500 group-hover:rotate-45 group-hover:bg-brand group-hover:text-white">
+                  <ArrowUpRight className="size-3.5" />
+                </span>
+              </span>
+            </Link>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }
 
-// Section backgrounds cycle light → dark → tinted down the page.
-const themes = ["light", "dark", "tint"] as const;
+// How many cards the grid opens with, and how many "Load more" adds.
+const pageSize = 12;
 
-function CategorySection({
-  section,
-  index,
-  total,
-  noun,
-  instant,
-}: {
-  section: CatalogueSection;
-  index: number;
-  total: number;
-  noun: string;
-  /** Skip the scroll-in animation (search results should just appear). */
-  instant: boolean;
-}) {
-  const [ref, seen] = useSeen<HTMLElement>();
-  const ghostRef = useRef<HTMLSpanElement>(null);
-  const countRef = useRef<HTMLSpanElement>(null);
-  const shown = seen || instant;
-
-  // Tied to the scrollbar: the section opens out from a rounded card as it
-  // arrives, its oversized name drifts sideways and the count floats past.
-  useScrollMotion(() => {
-    const section = ref.current;
-    gsap.fromTo(
-      section,
-      { clipPath: "inset(0% 5% 0% 5% round 3rem)" },
-      {
-        clipPath: "inset(0% 0% 0% 0% round 0rem)",
-        ease: "none",
-        scrollTrigger: { trigger: section, start: "top bottom", end: "top 30%", scrub: 0.4 },
-      },
-    );
-    gsap.fromTo(
-      ghostRef.current,
-      { xPercent: 8 },
-      {
-        xPercent: -24,
-        ease: "none",
-        scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: 0.6 },
-      },
-    );
-    gsap.fromTo(
-      countRef.current,
-      { y: 36 },
-      {
-        y: -36,
-        ease: "none",
-        scrollTrigger: { trigger: countRef.current, start: "top bottom", end: "bottom top", scrub: 0.6 },
-      },
-    );
-  });
-  const theme = themes[index % themes.length];
-  const dark = theme === "dark";
-  const count = section.courses.length;
-
-  // Each piece waits its turn, then settles into place.
-  const enter = (hidden: string) =>
-    `transition duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${shown ? "" : `motion-safe:opacity-0 ${hidden}`}`;
-
+/** One course in the grid. `order` staggers its entrance. */
+function CourseCard({ item, group, order }: { item: Item; group: string; order: number }) {
   return (
-    <section
-      ref={ref}
-      id={section.id}
-      data-category
-      className={`relative isolate -scroll-mt-[6.5rem] overflow-clip pb-20 pt-36 lg:pb-28 lg:pt-40 ${
-        dark ? "bg-hero-950 text-white" : theme === "tint" ? "bg-slate-50 text-navy" : "bg-white text-navy"
-      }`}
-    >
-      {dark ? (
-        <>
-          <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />
-          <div className="glow-dark absolute inset-0 -z-10" />
-          <div
-            data-speed="0.6"
-            className="orb absolute -right-40 top-1/4 -z-10 size-[34rem] [--orb:rgba(0,212,255,0.14)]"
-          />
-        </>
-      ) : (
-        theme === "light" && (
-          <>
-            <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
-            <div className="glow-light absolute inset-0 -z-10" />
-          </>
-        )
-      )}
-
-      {/* Oversized section name that fades in, then drifts sideways with the scroll */}
-      <p
-        aria-hidden
-        className={`pointer-events-none absolute top-16 left-0 -z-10 select-none whitespace-nowrap font-display text-[19vw] font-extrabold uppercase leading-none tracking-tighter transition-opacity duration-[1600ms] ease-out lg:text-[11rem] ${
-          dark ? "text-white/[0.04]" : "text-navy/[0.04]"
-        } ${shown ? "" : "motion-safe:opacity-0"}`}
+    // The wrapper animates in; the card inside keeps its own hover motion.
+    <div style={delay(order * 0.04)} className="rise min-w-0">
+      <Link
+        href={item.href}
+        data-spot
+        className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-hero-950/[0.03] transition duration-500 [--spot:rgba(47,125,255,0.12)] hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-2xl hover:shadow-hero-950/10"
       >
-        <span ref={ghostRef} className="inline-block">
-          {section.title} · {section.title}
-        </span>
-      </p>
-
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
-          <div>
-            <p
-              className={`flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] ${
-                dark ? "text-cyan" : "text-brand"
-              } ${enter("motion-safe:-translate-x-6")}`}
+        <span className="flex items-start justify-between gap-3">
+          <LogoTile item={item} />
+          {item.badge && (
+            <span
+              className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider ${badgeColors[item.badge]}`}
             >
-              {pad(index + 1)} <span className="opacity-40">/ {pad(total)}</span>
-              <span
-                className={`h-px w-16 origin-left bg-current transition-transform delay-300 duration-1000 ${
-                  shown ? "" : "motion-safe:scale-x-0"
-                }`}
-              />
-            </p>
-            <h2
-              style={{ transitionDelay: "80ms" }}
-              className={`mt-5 font-display text-[2rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl ${enter(
-                "motion-safe:translate-y-10 motion-safe:blur-sm",
-              )}`}
-            >
-              {section.title}
-            </h2>
-            <p
-              style={{ transitionDelay: "160ms" }}
-              className={`mt-4 max-w-xl text-lg ${dark ? "text-slate-300" : "text-slate-600"} ${enter(
-                "motion-safe:translate-y-8",
-              )}`}
-            >
-              {section.text}
-            </p>
-          </div>
-          <p
-            style={{ transitionDelay: "240ms" }}
-            className={`font-display text-sm font-bold ${enter("motion-safe:translate-y-8")}`}
-          >
-            <span ref={countRef} className="inline-block">
-              <span className="text-gradient text-5xl font-extrabold lg:text-6xl">{pad(count)}</span>{" "}
-              <span className={dark ? "text-slate-400" : "text-slate-500"}>
-                {count === 1 ? noun.replace(/s$/, "") : noun}
-              </span>
+              {item.badge}
             </span>
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-          {section.courses.map((c, i) => (
-            // The wrapper animates in; the card inside keeps its own hover motion.
-            <div
-              key={c.label}
-              style={{ transitionDelay: `${240 + Math.min(i, 11) * 70}ms` }}
-              className={`min-w-0 ${enter("motion-safe:translate-y-12 motion-safe:scale-95 motion-safe:blur-sm")}`}
-            >
-              <Link
-                href={c.href}
-                data-spot
-                className={`group relative flex h-full items-center gap-4 overflow-hidden rounded-3xl border p-5 transition duration-500 hover:-translate-y-1.5 ${
-                  dark
-                    ? "border-white/10 bg-white/[0.04] backdrop-blur hover:border-cyan/40 hover:bg-white/[0.07]"
-                    : "border-slate-200 bg-white shadow-lg shadow-hero-950/[0.03] [--spot:rgba(47,125,255,0.12)] hover:border-brand/30 hover:shadow-2xl hover:shadow-hero-950/10"
-                }`}
-              >
-                <LogoTile item={c} dark={dark} />
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-center gap-2">
-                    <span className="truncate font-display text-base font-bold tracking-tight">
-                      {c.label}
-                    </span>
-                    {c.badge && (
-                      <span
-                        className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-extrabold ${
-                          (dark ? badgeColorsDark : badgeColors)[c.badge]
-                        }`}
-                      >
-                        {c.badge}
-                      </span>
-                    )}
-                  </span>
-                  <span
-                    className={`mt-1 block truncate text-xs ${dark ? "text-slate-400" : "text-slate-500"}`}
-                  >
-                    {site.city} · Live projects
-                  </span>
-                </span>
-                <span
-                  className={`grid size-9 shrink-0 place-items-center rounded-full transition duration-500 group-hover:rotate-45 ${
-                    dark
-                      ? "bg-white/10 text-cyan group-hover:bg-cyan group-hover:text-hero-950"
-                      : "bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white"
-                  }`}
-                >
-                  <ArrowUpRight className="size-4" />
-                </span>
-                {/* Accent line that draws across the bottom on hover */}
-                <span className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-cyan to-sky transition-transform duration-500 group-hover:scale-x-100" />
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+          )}
+        </span>
+        <span className="mt-5 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">
+          {group}
+        </span>
+        <span className="mt-1.5 flex-1 font-display text-lg font-bold leading-snug tracking-tight text-navy">
+          {item.label}
+        </span>
+        <span className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-xs text-slate-500">
+          {site.city} · Live projects
+          <span className="grid size-8 place-items-center rounded-full bg-brand/10 text-brand transition duration-500 group-hover:rotate-45 group-hover:bg-brand group-hover:text-white">
+            <ArrowUpRight className="size-4" />
+          </span>
+        </span>
+        {/* Accent line that draws across the bottom on hover */}
+        <span className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-cyan to-sky transition-transform duration-500 group-hover:scale-x-100" />
+      </Link>
+    </div>
   );
 }
 
 /**
- * A full catalogue page: hero with the logo orbit, a sticky bar holding the
- * search box and section links, then one animated card grid per section.
+ * A full catalogue page: hero with floating course cards, then a single grid of
+ * everything, narrowed by the search box and the section filter chips.
  */
 export function CourseCatalogue({
   eyebrow,
@@ -438,15 +219,14 @@ export function CourseCatalogue({
   noun?: string;
 }) {
   const [query, setQuery] = useState("");
-  const [active, setActive] = useState(sections[0]?.id);
-  const listRef = useRef<HTMLDivElement>(null);
-  const railRef = useRef<HTMLElement>(null);
+  // "all", or the id of the one section being shown.
+  const [filter, setFilter] = useState("all");
+  const [limit, setLimit] = useState(pageSize);
+  const listRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLSpanElement>(null);
   const q = query.trim().toLowerCase();
 
-  // Tied to the scrollbar: the hero sinks back and dims as the list rises over
-  // it, and a line under the sticky bar fills as you work down the list.
+  // Tied to the scrollbar: the hero sinks back and dims as the list rises over it.
   useScrollMotion(() => {
     gsap.to(heroRef.current, {
       y: 140,
@@ -455,33 +235,35 @@ export function CourseCatalogue({
       ease: "none",
       scrollTrigger: { trigger: heroRef.current, start: "top top", end: "bottom top", scrub: 0.4 },
     });
-    gsap.fromTo(
-      barRef.current,
-      { scaleX: 0 },
-      {
-        scaleX: 1,
-        ease: "none",
-        scrollTrigger: { trigger: listRef.current, start: "top 20%", end: "bottom bottom", scrub: 0.3 },
-      },
-    );
   });
 
   const all = sections.flatMap((s) => s.courses);
-  const withLogo = all.filter(
-    (c, i) =>
-      courseLogos[c.logo ?? c.label] &&
-      all.findIndex((x) => (x.logo ?? x.label) === (c.logo ?? c.label)) === i,
-  );
+  // One course from each of the first few sections for the hero: its badged
+  // course if it has one, otherwise a different pick per section so the cards
+  // do not all show the same subject.
+  const featured = sections
+    .map((s, k) => {
+      const withLogo = s.courses.filter((c) => courseLogos[c.logo ?? c.label]);
+      const item = withLogo.find((c) => c.badge) ?? withLogo[k % (withLogo.length || 1)];
+      return item && { item, group: s.title };
+    })
+    .filter((c) => !!c)
+    .slice(0, floatSpots.length);
 
-  const visible = sections
-    .map((s) => ({
-      ...s,
-      courses: q
-        ? s.courses.filter((c) => `${c.label} ${s.title}`.toLowerCase().includes(q))
-        : s.courses,
-    }))
-    .filter((s) => s.courses.length > 0);
-  const matches = visible.reduce((n, s) => n + s.courses.length, 0);
+  const results = sections.flatMap((s) =>
+    filter === "all" || filter === s.id
+      ? s.courses
+          .filter((c) => !q || `${c.label} ${s.title}`.toLowerCase().includes(q))
+          .map((c) => ({ item: c, group: s.title }))
+      : [],
+  );
+  const shown = results.slice(0, limit);
+  const filterTitle = sections.find((s) => s.id === filter)?.title;
+
+  const pick = (id: string) => {
+    setFilter(id);
+    setLimit(pageSize);
+  };
 
   const heroStats = [
     { value: all.length, suffix: "", label: noun[0].toUpperCase() + noun.slice(1) },
@@ -489,37 +271,35 @@ export function CourseCatalogue({
     ...stats.slice(0, 2),
   ];
 
-  // Filtering changes the page height, so the scroll animations re-measure, and
-  // the results are brought back into view if they collapsed above the fold.
+  // The grid changing height moves everything below it, so the scroll
+  // animations re-measure.
   useEffect(() => {
     ScrollTrigger.refresh();
-    const top = listRef.current?.getBoundingClientRect().top ?? 0;
-    if (q && top < 0) window.scrollTo({ top: window.scrollY + top });
-  }, [q]);
+  }, [q, filter, limit]);
 
-  // Highlight whichever section is crossing the middle of the screen.
+  // Links such as /courses#programming open with that section selected and
+  // the grid in view. The scroll waits a moment: on first load the scroll
+  // animations are still measuring the page and would put it back at the top.
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const hit = entries.find((e) => e.isIntersecting);
-        if (hit) setActive(hit.target.id);
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    listRef.current?.querySelectorAll("[data-category]").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [q]);
-
-  // Keep the highlighted link visible when the bar scrolls sideways on phones.
-  useEffect(() => {
-    const rail = railRef.current;
-    const link = rail?.querySelector<HTMLElement>(`[data-rail="${active}"]`);
-    if (!rail || !link) return;
-    rail.scrollTo({
-      left: link.offsetLeft - (rail.clientWidth - link.offsetWidth) / 2,
-      behavior: "smooth",
-    });
-  }, [active]);
+    let timer = 0;
+    const fromHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!sections.some((s) => s.id === id)) return;
+      setFilter(id);
+      setLimit(pageSize);
+      timer = window.setTimeout(() => {
+        const top = listRef.current?.getBoundingClientRect().top ?? 0;
+        window.scrollTo({ top: window.scrollY + top - 96 });
+      }, 700);
+    };
+    const frame = requestAnimationFrame(fromHash);
+    window.addEventListener("hashchange", fromHash);
+    return () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(timer);
+      window.removeEventListener("hashchange", fromHash);
+    };
+  }, [sections]);
 
   return (
     <>
@@ -583,7 +363,7 @@ export function CourseCatalogue({
           </div>
 
           <div style={delay(0.35)} className="rise hidden lg:block">
-            <Orbit items={withLogo} total={all.length} noun={noun} />
+            <FloatingCards cards={featured} />
           </div>
         </div>
 
@@ -603,49 +383,48 @@ export function CourseCatalogue({
         </div>
       </section>
 
-      <div id="courses" ref={listRef} className="relative bg-white">
-        {/* Search box and section links, pinned under the header while you browse */}
-        <div className="sticky top-[4.75rem] z-30 -mb-[4.25rem] px-2 pt-3 lg:px-4">
-          <div className="relative mx-auto flex max-w-7xl items-center gap-2 rounded-full border border-slate-200 bg-white/85 p-1.5 shadow-xl shadow-hero-950/10 backdrop-blur-xl">
-            {/* How far down the list you are */}
-            <span
-              ref={barRef}
-              aria-hidden
-              style={{ transform: "scaleX(0)" }}
-              className={`absolute inset-x-8 -bottom-px h-0.5 origin-left rounded-full bg-gradient-to-r from-cyan via-sky to-brand ${
-                q ? "opacity-0" : ""
-              }`}
-            />
-            {/* On phones the box is just its icon until it is focused or filled */}
-            <div
-              className={`relative shrink-0 transition-[width] duration-300 focus-within:w-48 sm:w-64 sm:focus-within:w-64 ${
-                query ? "w-48" : "w-11"
-              }`}
-            >
+      <section id="courses" ref={listRef} className="relative isolate scroll-mt-24 bg-white text-navy">
+        <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
+        <div className="glow-light absolute inset-0 -z-10" />
+
+        <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Eyebrow>Catalogue</Eyebrow>
+              <h2 className="mt-5 font-display text-[2rem] font-extrabold leading-[1.05] tracking-tight sm:text-5xl">
+                Find your <span className="text-gradient">{noun.replace(/s$/, "")}</span>
+              </h2>
+            </div>
+            <div className="relative w-full sm:w-96">
               <Search
                 aria-hidden
-                className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-slate-400"
+                className="pointer-events-none absolute left-5 top-1/2 size-4 -translate-y-1/2 text-slate-400"
               />
               <input
                 type="search"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setLimit(pageSize);
+                }}
                 placeholder={`Search ${all.length} ${noun}`}
                 aria-label={`Search ${noun}`}
-                className="w-full rounded-full bg-slate-100 py-2.5 pl-10 pr-9 text-base text-navy outline-none transition placeholder:text-slate-400 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-brand/40 sm:text-sm [&::-webkit-search-cancel-button]:hidden"
+                className="w-full rounded-full border border-slate-200 bg-white py-3.5 pl-12 pr-12 text-base text-navy shadow-lg shadow-hero-950/[0.04] outline-none transition placeholder:text-slate-400 focus-visible:border-brand/50 focus-visible:ring-4 focus-visible:ring-brand/10 sm:text-sm [&::-webkit-search-cancel-button]:hidden"
               />
               {query && (
                 <button
                   type="button"
                   aria-label="Clear search"
                   onClick={() => setQuery("")}
-                  className="absolute right-1.5 top-1/2 grid size-7 -translate-y-1/2 place-items-center rounded-full text-slate-500 transition-colors hover:bg-slate-200 hover:text-navy"
+                  className="absolute right-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 hover:text-navy"
                 >
-                  <X className="size-3.5" />
+                  <X className="size-4" />
                 </button>
               )}
             </div>
+          </div>
 
+<<<<<<< Updated upstream
             {q ? (
               <p aria-live="polite" className="truncate px-3 text-sm font-semibold text-slate-600">
                 {matches} {matches === 1 ? "result" : "results"} for “{query.trim()}”
@@ -677,27 +456,70 @@ export function CourseCatalogue({
                   </NavLink>
                 ))}
               </nav>
+=======
+          {/* Filter chips: everything, or one section at a time */}
+          <div
+            role="group"
+            aria-label="Filter by section"
+            className="no-scrollbar -mx-5 mt-9 flex gap-2 overflow-x-auto px-5 lg:mx-0 lg:flex-wrap lg:px-0"
+          >
+            {[{ id: "all", title: "All", count: all.length }, ...sections.map((s) => ({ id: s.id, title: s.title, count: s.courses.length }))].map(
+              (chip) => (
+                <button
+                  key={chip.id}
+                  type="button"
+                  aria-pressed={filter === chip.id}
+                  onClick={() => pick(chip.id)}
+                  className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                    filter === chip.id
+                      ? "border-navy bg-navy text-white shadow-lg shadow-navy/25"
+                      : "border-slate-200 bg-white text-slate-600 hover:border-brand/30 hover:text-brand"
+                  }`}
+                >
+                  {chip.title}
+                  <span
+                    className={`text-xs font-medium ${filter === chip.id ? "text-cyan" : "text-slate-400"}`}
+                  >
+                    {chip.count}
+                  </span>
+                </button>
+              ),
+>>>>>>> Stashed changes
             )}
           </div>
-        </div>
 
-        {visible.map((s, i) => (
-          <CategorySection
-            key={s.id}
-            section={s}
-            index={i}
-            total={visible.length}
-            noun={noun}
-            instant={!!q}
-          />
-        ))}
+          <p aria-live="polite" className="mt-7 text-sm text-slate-500">
+            Showing {shown.length} of {results.length}
+            {filterTitle ? ` in ${filterTitle}` : ` ${noun}`}
+            {q ? ` matching “${query.trim()}”` : ""}
+          </p>
 
-        {visible.length === 0 && (
-          <section className="px-5 pb-24 pt-40 text-center text-navy">
-            <div className="mx-auto max-w-xl">
-              <h2 className="font-display text-3xl font-extrabold tracking-tight">
+          {/* Keyed by filter so the cards replay their entrance when it changes */}
+          <div key={filter} className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5 xl:grid-cols-4">
+            {shown.map(({ item, group }, i) => (
+              <CourseCard key={item.href} item={item} group={group} order={i % pageSize} />
+            ))}
+          </div>
+
+          {results.length > shown.length && (
+            <div className="mt-12 text-center">
+              <button
+                type="button"
+                onClick={() => setLimit(limit + pageSize)}
+                className="group inline-flex items-center gap-2 rounded-full bg-navy px-8 py-4 text-sm font-bold text-white shadow-lg shadow-navy/25 transition-colors duration-300 hover:bg-brand"
+              >
+                Load more {noun}
+                <span className="text-cyan">{results.length - shown.length} left</span>
+                <ChevronDown className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+              </button>
+            </div>
+          )}
+
+          {results.length === 0 && (
+            <div className="mx-auto max-w-xl py-16 text-center">
+              <h3 className="font-display text-3xl font-extrabold tracking-tight">
                 Nothing matches “{query.trim()}”
-              </h2>
+              </h3>
               <p className="mt-3 text-slate-500">
                 Try a different keyword, or tell a counsellor what you want to
                 learn and they will point you at the right track.
@@ -705,7 +527,10 @@ export function CourseCatalogue({
               <div className="mt-7 flex flex-wrap justify-center gap-3">
                 <button
                   type="button"
-                  onClick={() => setQuery("")}
+                  onClick={() => {
+                    setQuery("");
+                    pick("all");
+                  }}
                   className="rounded-full border border-slate-200 px-6 py-3 text-sm font-bold transition-colors hover:border-brand/30 hover:text-brand"
                 >
                   Clear search
@@ -715,9 +540,9 @@ export function CourseCatalogue({
                 </BookDemoButton>
               </div>
             </div>
-          </section>
-        )}
-      </div>
+          )}
+        </div>
+      </section>
 
       {/* Closing line whose words light up as it scrolls through the screen */}
       <section className="bg-white px-5 py-24 lg:px-8 lg:py-36">
