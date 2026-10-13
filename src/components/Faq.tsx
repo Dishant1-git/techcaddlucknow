@@ -1,5 +1,6 @@
 "use client";
 
+import { NavLink } from "./NavLink";
 import { useState } from "react";
 import { Mail, MessageCircle, Phone, Plus } from "lucide-react";
 import { faqs, site } from "@/lib/site";
@@ -26,24 +27,24 @@ export function Faq() {
             <p className="font-display font-bold">Ask us directly</p>
             <ul className="mt-4 space-y-3 text-sm text-slate-300">
               <li>
-                <a href={site.phoneHref} className="flex items-center gap-3 hover:text-white">
+                <NavLink href={site.phoneHref} className="flex items-center gap-3 hover:text-white">
                   <Phone className="size-4 text-cyan" /> {site.phone}
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a
+                <NavLink
                   href={site.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 hover:text-white"
                 >
                   <MessageCircle className="size-4 text-cyan" /> WhatsApp us
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href={`mailto:${site.email}`} className="flex items-center gap-3 hover:text-white">
+                <NavLink href={`mailto:${site.email}`} className="flex items-center gap-3 hover:text-white">
                   <Mail className="size-4 text-cyan" /> {site.email}
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>

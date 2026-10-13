@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
@@ -65,9 +66,9 @@ export function PageHero({
               <li key={c.label} className="flex items-center gap-1.5">
                 <ChevronRight aria-hidden className="size-3.5 opacity-60" />
                 {c.href ? (
-                  <a href={c.href} className="transition-colors hover:text-white">
+                  <NavLink href={c.href} className="transition-colors hover:text-white">
                     {c.label}
-                  </a>
+                  </NavLink>
                 ) : (
                   <span aria-current="page" className="font-semibold text-white">
                     {c.label}

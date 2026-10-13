@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import { MessageCircle } from "lucide-react";
 import { courseTracks, programmes, site } from "@/lib/site";
 import { Logo } from "./ui";
@@ -43,15 +44,15 @@ export function Footer() {
               An IT training centre in {site.city} — AI, software and
               career-ready skills, taught by people who still build.
             </p>
-            <a
+            <NavLink
               href={`mailto:${site.email}`}
               className="mt-6 inline-block rounded-full bg-navy px-6 py-3 text-sm font-bold text-white transition hover:bg-brand"
             >
               {site.email}
-            </a>
-            <a href={site.phoneHref} className="mt-4 block text-sm hover:text-brand">
+            </NavLink>
+            <NavLink href={site.phoneHref} className="mt-4 block text-sm hover:text-brand">
               {site.phone}
-            </a>
+            </NavLink>
             <p className="mt-2 text-sm">{site.address}</p>
           </div>
 
@@ -61,9 +62,9 @@ export function Footer() {
               <ul className="mt-4 space-y-3 text-sm">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <a href={l.href} className="hover:text-brand">
+                    <NavLink href={l.href} className="hover:text-brand">
                       {l.label}
-                    </a>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
@@ -88,7 +89,7 @@ export function Footer() {
 
 export function WhatsAppButton() {
   return (
-    <a
+    <NavLink
       href={site.whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
@@ -96,6 +97,6 @@ export function WhatsAppButton() {
       className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-500/40 ring-8 ring-emerald-500/15 transition hover:scale-105"
     >
       <MessageCircle className="size-6 fill-current" />
-    </a>
+    </NavLink>
   );
 }

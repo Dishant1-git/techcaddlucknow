@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -187,12 +188,12 @@ export function Future() {
         ))}
       </ul>
       <div data-reveal className="mt-10">
-        <a
+        <NavLink
           href="/#ai"
           className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition hover:bg-brand"
         >
           Explore AI courses <ArrowRight className="size-4" />
-        </a>
+        </NavLink>
       </div>
     </LightSection>
   );

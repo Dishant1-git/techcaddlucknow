@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -173,7 +174,7 @@ export function WhoWeAre() {
 
 export function Ecosystem() {
   return (
-    <section className="bg-slate-50">
+    <section className="overflow-clip bg-slate-50">
       <div className="mx-auto grid max-w-7xl gap-20 px-5 py-20 lg:px-8 lg:py-32">
         {/* More than training */}
         <div className="grid items-center gap-12 lg:grid-cols-2">
@@ -333,7 +334,7 @@ export function LearningPath() {
 
 export function Difference() {
   return (
-    <section className="bg-slate-50">
+    <section className="overflow-clip bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-32">
         <SectionHeading
           eyebrow="The difference"
@@ -399,12 +400,12 @@ export function SkillDomains() {
         ))}
       </div>
       <div data-reveal className="mt-10 text-center">
-        <a
+        <NavLink
           href="/courses"
           className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition hover:bg-brand"
         >
           Explore all courses <ArrowRight className="size-4" />
-        </a>
+        </NavLink>
       </div>
     </LightSection>
   );
@@ -524,7 +525,7 @@ export function Recognition() {
 
 export function Journey() {
   return (
-    <section className="bg-slate-50">
+    <section className="overflow-clip bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-32">
         <SectionHeading
           eyebrow="Our journey"

@@ -1,5 +1,6 @@
 "use client";
 
+import { NavLink } from "./NavLink";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, Search, X } from "lucide-react";
@@ -549,7 +550,7 @@ export function CourseCatalogue({
               {text}
             </p>
             <div style={delay(0.3)} className="rise mt-9 flex flex-wrap items-center gap-3">
-              <a
+              <NavLink
                 href="#courses"
                 data-magnetic
                 className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan to-sky py-2 pl-7 pr-2 text-sm font-bold text-hero-950 shadow-[0_0_40px_-10px] shadow-cyan transition hover:brightness-110"
@@ -558,7 +559,7 @@ export function CourseCatalogue({
                 <span className="grid size-8 place-items-center rounded-full bg-hero-950 text-white transition-transform duration-300 group-hover:translate-y-0.5">
                   <ArrowDown className="size-4" />
                 </span>
-              </a>
+              </NavLink>
               <BookDemoButton className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold backdrop-blur transition hover:border-white/40">
                 Book a free demo class
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
@@ -656,7 +657,7 @@ export function CourseCatalogue({
                 className="no-scrollbar relative flex min-w-0 flex-1 items-center gap-1 overflow-x-auto"
               >
                 {sections.map((s) => (
-                  <a
+                  <NavLink
                     key={s.id}
                     href={`#${s.id}`}
                     data-rail={s.id}
@@ -673,7 +674,7 @@ export function CourseCatalogue({
                     >
                       {s.courses.length}
                     </span>
-                  </a>
+                  </NavLink>
                 ))}
               </nav>
             )}

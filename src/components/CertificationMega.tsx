@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import {
   ArrowRight,
   Box,
@@ -46,7 +47,7 @@ export function CertificationMega() {
           {certificatePrograms.map((c) => {
             const Icon = icons[c.icon];
             return (
-              <a
+              <NavLink
                 key={c.label}
                 href="/#programmes"
                 title={c.label}
@@ -63,7 +64,7 @@ export function CertificationMega() {
                     {c.badge}
                   </span>
                 )}
-              </a>
+              </NavLink>
             );
           })}
         </div>
@@ -73,13 +74,13 @@ export function CertificationMega() {
             Every programme ends with a certificate, a project report and an
             internship letter.
           </p>
-          <a
+          <NavLink
             href="/courses"
             className="group/cta inline-flex shrink-0 items-center gap-2 font-semibold text-brand transition-colors hover:text-navy"
           >
             See all certificate courses
             <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-1" />
-          </a>
+          </NavLink>
         </div>
       </div>
     </div>

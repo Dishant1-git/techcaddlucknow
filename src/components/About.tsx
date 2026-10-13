@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import {
   ArrowRight,
   Award,
@@ -54,12 +55,12 @@ export function About() {
           </ul>
 
           <div data-reveal className="mt-10 flex flex-wrap gap-3">
-            <a
+            <NavLink
               href="/#why"
               className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition hover:bg-brand"
             >
               Why {site.name} <ArrowRight className="size-4" />
-            </a>
+            </NavLink>
             <BookDemoButton className="rounded-full border border-slate-200 bg-white px-7 py-3.5 font-semibold text-navy transition hover:border-brand hover:text-brand">
               Talk to a counsellor
             </BookDemoButton>

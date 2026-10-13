@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -64,13 +65,13 @@ export function AiSection() {
             so what you learn matches what is shipping right now.
           </p>
           <div data-reveal className="mt-8 flex flex-wrap gap-3">
-            <a
+            <NavLink
               href="/#courses"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-sky px-7 py-3.5 font-bold text-hero-950 shadow-[0_0_40px_-10px] shadow-cyan transition hover:brightness-110"
             >
               Explore AI courses
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-            </a>
+            </NavLink>
             <BookDemoButton className="rounded-full border border-white/15 bg-white/5 px-7 py-3.5 font-semibold transition hover:border-white/40">
               Talk to a counsellor
             </BookDemoButton>
@@ -309,7 +310,7 @@ export function Fields() {
             {fields.map((f, i) => {
               const Icon = fieldIcons[f.icon];
               return (
-                <a
+                <NavLink
                   key={f.title}
                   href="/#courses"
                   data-hscroll-item
@@ -328,10 +329,10 @@ export function Fields() {
                     Explore track
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-1.5" />
                   </span>
-                </a>
+                </NavLink>
               );
             })}
-            <a
+            <NavLink
               href="/courses"
               data-hscroll-item
               className="group flex h-[21rem] w-[18.5rem] shrink-0 flex-col justify-between rounded-[2rem] bg-gradient-to-br from-cyan to-brand p-8 sm:w-[25rem] lg:h-[max(18.5rem,min(23rem,44vh))]"
@@ -343,7 +344,7 @@ export function Fields() {
                   <ArrowRight className="size-5" />
                 </span>
               </span>
-            </a>
+            </NavLink>
           </div>
         </div>
 
@@ -589,7 +590,7 @@ export function Testimonials() {
           text="Placements happen because of project work, not because of promises."
         />
         <div data-reveal="scale" className="mt-8 flex justify-center">
-          <a
+          <NavLink
             href={googleReviews.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -629,7 +630,7 @@ export function Testimonials() {
               <ArrowUpRight className="size-4" />
               <span className="sr-only">Read our reviews on Google</span>
             </span>
-          </a>
+          </NavLink>
         </div>
       </div>
       <div data-reveal className="mask-x mt-14 space-y-6">
@@ -679,7 +680,7 @@ export function Cta() {
                 ),
               )}
             </ul>
-            <a
+            <NavLink
               href={site.phoneHref}
               data-magnetic
               className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 font-bold backdrop-blur transition-colors hover:border-cyan"
@@ -688,7 +689,7 @@ export function Cta() {
                 <Phone className="size-4" />
               </span>
               Call now · {site.phone}
-            </a>
+            </NavLink>
           </div>
 
           <div

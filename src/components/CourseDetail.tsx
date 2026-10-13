@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -80,12 +81,12 @@ export function CourseHero({ course }: { course: Course }) {
               <ArrowRight className="size-4" />
             </span>
           </BookDemoButton>
-          <a
+          <NavLink
             href="#syllabus"
             className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold transition hover:border-white/40"
           >
             View syllabus
-          </a>
+          </NavLink>
         </div>
 
         <ul className="rise mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300 [--d:.4s]">
@@ -453,13 +454,13 @@ export function CourseFaq({ course }: { course: Course }) {
             Still unsure? A ten-minute call with a counsellor usually settles it
             faster than any brochure.
           </p>
-          <a
+          <NavLink
             data-reveal
             href={site.phoneHref}
             className="mt-6 inline-block font-display text-lg font-bold text-brand hover:text-navy"
           >
             {site.phone}
-          </a>
+          </NavLink>
         </div>
         <div className="space-y-3">
           {course.faqs.map((f, i) => (

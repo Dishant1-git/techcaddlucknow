@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import type { ReactNode } from "react";
 import { ArrowRight, Play, Sparkles, Star } from "lucide-react";
 import {
@@ -63,7 +64,7 @@ function ColumnsMega({
               <ul className="mt-[0.6em]">
                 {col.courses.map((c) => (
                   <li key={c.label}>
-                    <a
+                    <NavLink
                       href={c.href ?? (courseSlugs[c.label] ? courseHref(c.label) : href)}
                       className="group/link flex items-center gap-2 py-[0.28em] leading-normal text-slate-600 transition-colors hover:text-brand"
                     >
@@ -77,7 +78,7 @@ function ColumnsMega({
                           {c.badge}
                         </span>
                       )}
-                    </a>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
@@ -88,13 +89,13 @@ function ColumnsMega({
 
         <div className="flex items-center justify-between gap-6 border-t border-slate-200 bg-white px-8 py-[0.9em]">
           <p className="text-slate-600">{footer}</p>
-          <a
+          <NavLink
             href={ctaHref}
             className="group/cta inline-flex shrink-0 items-center gap-2 font-semibold text-brand transition-colors hover:text-navy"
           >
             {cta}
             <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-1" />
-          </a>
+          </NavLink>
         </div>
       </div>
     </div>
@@ -143,7 +144,7 @@ export function ResourcesMega() {
       aside={
         <div className="space-y-[1em]">
           {/* Video card — links out until a real embed is added */}
-          <a
+          <NavLink
             href={promoVideoUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -168,7 +169,7 @@ export function ResourcesMega() {
             <span className="font-display text-[1.1em] font-bold leading-snug">
               When the world says ‘impossible,’ {site.name} says ‘watch this.’ 🔥
             </span>
-          </a>
+          </NavLink>
 
           {/* Mentorship card */}
           <div className="rounded-3xl border border-slate-200 bg-white p-[1.2em] shadow-lg shadow-hero-950/5">

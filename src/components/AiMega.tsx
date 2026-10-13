@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import { ArrowRight, Rocket, Sparkles } from "lucide-react";
 import { aiMenu, site } from "@/lib/site";
 
@@ -42,7 +43,7 @@ export function AiMega() {
                     <ul className="mt-4 space-y-1">
                       {col.links.map((l) => (
                         <li key={l.label}>
-                          <a
+                          <NavLink
                             href="/#ai"
                             className="group/link flex flex-wrap items-center gap-x-2.5 gap-y-1 py-1.5 text-[15px] text-slate-200 transition-colors hover:text-cyan"
                           >
@@ -56,7 +57,7 @@ export function AiMega() {
                                 {l.badge}
                               </span>
                             )}
-                          </a>
+                          </NavLink>
                         </li>
                       ))}
                     </ul>
@@ -67,7 +68,7 @@ export function AiMega() {
           </div>
 
           {/* Featured course */}
-          <a
+          <NavLink
             href="/#ai"
             className="group/card flex flex-col overflow-hidden rounded-3xl bg-white text-navy transition duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-cyan/20"
           >
@@ -83,7 +84,7 @@ export function AiMega() {
                 Artificial Intelligence Training in {site.city}
               </p>
             </div>
-          </a>
+          </NavLink>
 
           {/* Promo */}
           <div className="flex flex-col justify-between rounded-3xl bg-gradient-to-br from-brand via-sky to-cyan p-7">
@@ -91,13 +92,13 @@ export function AiMega() {
               Start with AI fundamentals, then move into real projects and
               career-ready tools.
             </p>
-            <a
+            <NavLink
               href="/#ai"
               className="group/cta mt-8 inline-flex items-center gap-2 self-start rounded-full bg-white px-6 py-3 font-bold text-brand shadow-lg transition-colors hover:bg-hero-950 hover:text-white"
             >
               Explore AI
               <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-1" />
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

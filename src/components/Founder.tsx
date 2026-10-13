@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Check, Play, Quote } from "lucide-react";
 import {
@@ -131,12 +132,12 @@ export function MeetFounder() {
           </blockquote>
 
           <div data-reveal className="mt-8">
-            <a
+            <NavLink
               href="/courses"
               className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition hover:bg-brand"
             >
               Explore the courses <ArrowRight className="size-4" />
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -240,18 +241,18 @@ export function Story() {
 
       <div className="mt-16 grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-16">
         {/* Chapter rail: stays in view while the chapters scroll past */}
-        <aside className="lg:sticky lg:top-32 lg:self-start">
+        <aside className="min-w-0 lg:sticky lg:top-32 lg:self-start">
           <nav aria-label="Chapters">
             <ol className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:border-l lg:border-slate-200 lg:px-0">
               {chapters.map((c) => (
                 <li key={c.id} className="shrink-0">
-                  <a
+                  <NavLink
                     href={`#chapter-${c.id}`}
                     className="group flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:border-brand hover:text-brand lg:-ml-px lg:rounded-none lg:border-0 lg:border-l-2 lg:border-transparent lg:bg-transparent lg:py-3 lg:pl-5 lg:font-display lg:text-lg lg:hover:border-brand"
                   >
                     {c.marker}
                     <ArrowRight className="hidden size-4 -translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100 lg:block" />
-                  </a>
+                  </NavLink>
                 </li>
               ))}
             </ol>
@@ -262,7 +263,7 @@ export function Story() {
           </p>
         </aside>
 
-        <div className="space-y-8">
+        <div className="min-w-0 space-y-8">
           {chapters.map((c, i) => (
             <article
               key={c.id}
@@ -446,13 +447,13 @@ export function Reels() {
             tap a reel to play it.
           </p>
         </div>
-        <a
+        <NavLink
           href={instagramProfile}
           {...external}
           className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold transition-colors hover:border-cyan"
         >
           See more <ArrowUpRight className="size-4" />
-        </a>
+        </NavLink>
       </div>
 
       <ul
@@ -461,7 +462,7 @@ export function Reels() {
       >
         {reels.map((url, i) => (
           <li key={url} className="shrink-0 snap-start">
-            <a
+            <NavLink
               href={url}
               {...external}
               aria-label={`Play reel ${i + 1} of ${reels.length} on Instagram`}
@@ -482,7 +483,7 @@ export function Reels() {
                 Watch on Instagram
                 <ArrowUpRight className="size-4" />
               </span>
-            </a>
+            </NavLink>
           </li>
         ))}
       </ul>
@@ -513,22 +514,22 @@ export function Connect() {
         Learn. Grow. Believe. <span className="text-gradient">Achieve.</span>
       </p>
       <div data-reveal className="mt-10 flex flex-wrap justify-center gap-3">
-        <a
+        <NavLink
           href={founder.instagram}
           {...external}
           data-magnetic
           className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition-colors hover:bg-brand"
         >
           Follow on Instagram <ArrowUpRight className="size-4" />
-        </a>
-        <a
+        </NavLink>
+        <NavLink
           href={founder.linkedin}
           {...external}
           data-magnetic
           className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-7 py-3.5 font-semibold text-navy transition-colors hover:border-brand hover:text-brand"
         >
           Connect on LinkedIn <ArrowUpRight className="size-4" />
-        </a>
+        </NavLink>
       </div>
       <p data-reveal className="mt-10 text-sm text-slate-500">
         {founder.name} — Inspiring careers. Empowering dreams. Building futures.

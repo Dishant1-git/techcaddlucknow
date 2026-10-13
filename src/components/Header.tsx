@@ -1,5 +1,6 @@
 "use client";
 
+import { NavLink } from "./NavLink";
 import { useEffect, useState } from "react";
 import { ChevronDown, Clock, Mail, MapPin, Menu, Phone, Sparkles, X } from "lucide-react";
 import { nav, site } from "@/lib/site";
@@ -23,12 +24,12 @@ export function TopBar() {
           </span>
         </div>
         <div className="flex items-center gap-6">
-          <a href={site.phoneHref} className="flex items-center gap-2 hover:text-white">
+          <NavLink href={site.phoneHref} className="flex items-center gap-2 hover:text-white">
             <Phone className="size-3.5" /> {site.phone}
-          </a>
-          <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:text-white">
+          </NavLink>
+          <NavLink href={`mailto:${site.email}`} className="flex items-center gap-2 hover:text-white">
             <Mail className="size-3.5" /> {site.email}
-          </a>
+          </NavLink>
         </div>
       </div>
     </div>
@@ -54,7 +55,7 @@ export function Header() {
         scrolled ? "top-3" : "top-0 lg:top-9"
       }`}
     >
-      <a
+      <NavLink
         href="/#programmes"
         aria-label="Explore internship and training programmes"
         className="internship-side-badge fixed left-2 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-2 rounded-2xl px-2.5 py-4 text-white shadow-xl sm:left-4"
@@ -64,7 +65,7 @@ export function Header() {
         <span className="rounded-full bg-white/20 px-2 py-0.5 text-[9px] font-extrabold tracking-[0.16em]">
           JOIN
         </span>
-      </a>
+      </NavLink>
       <div className="mx-auto max-w-7xl px-2 lg:px-4">
         <div
           className={`relative flex items-center justify-between gap-2 px-3 py-2.5 transition-all duration-300 lg:px-4 ${
@@ -79,7 +80,7 @@ export function Header() {
             {nav.map((item) =>
               item.highlight ? (
                 <div key={item.label} className="group">
-                  <a
+                  <NavLink
                     href={item.href}
                     className="ai-nav-glow relative mx-1 inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-1.5 text-[15px] font-semibold text-white"
                   >
@@ -88,12 +89,12 @@ export function Header() {
                     <span aria-hidden="true" className="ai-nav-star ai-nav-star-one">✦</span>
                     <span aria-hidden="true" className="ai-nav-star ai-nav-star-two">✧</span>
                     <span aria-hidden="true" className="ai-nav-star ai-nav-star-three">·</span>
-                  </a>
+                  </NavLink>
                   <AiMega />
                 </div>
               ) : (
                 <div key={item.label} className={`group ${item.mega ? "" : "relative"}`}>
-                  <a
+                  <NavLink
                     href={item.href}
                     className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-medium 2xl:text-sm opacity-90 transition hover:opacity-100 ${
                       item.label === "Internship & Training"
@@ -113,7 +114,7 @@ export function Header() {
                     {item.children && (
                       <ChevronDown className="size-3.5 transition group-hover:rotate-180" />
                     )}
-                  </a>
+                  </NavLink>
                   {item.mega === "about" && <AboutMega />}
                   {item.mega === "courses" && <CoursesMega />}
                   {item.mega === "after12th" && <After12thMega />}
@@ -123,7 +124,7 @@ export function Header() {
                     <div className="invisible absolute left-0 top-full z-[10000] w-72 translate-y-2 pt-3 opacity-0 transition duration-300 group-focus-within:translate-y-0 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
                       <div className="rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-2xl shadow-hero-950/25">
                         {item.children.map((c) => (
-                          <a
+                          <NavLink
                             key={c.label}
                             href={c.href}
                             {...(c.href.startsWith("http") && {
@@ -138,7 +139,7 @@ export function Header() {
                                 {c.note}
                               </span>
                             )}
-                          </a>
+                          </NavLink>
                         ))}
                       </div>
                     </div>
@@ -168,7 +169,7 @@ export function Header() {
           <nav data-lenis-prevent className="mt-2 max-h-[70vh] overflow-y-auto rounded-3xl bg-white p-3 text-navy shadow-2xl xl:hidden">
             {nav.map((item) => (
               <div key={item.label}>
-                <a
+                <NavLink
                   href={item.href}
                   onClick={() => setMenuOpen(false)}
                   className={`relative block rounded-xl px-4 py-3 font-semibold hover:bg-brand/5 ${
@@ -190,29 +191,29 @@ export function Header() {
                       <span aria-hidden="true" className="ai-nav-star ai-nav-star-two training-nav-star">✧</span>
                     </>
                   )}
-                </a>
+                </NavLink>
                 {item.children && (
                   <div className="mb-1 ml-4 border-l border-slate-200 pl-2">
                     {item.children.map((c) => (
-                      <a
+                      <NavLink
                         key={c.label}
                         href={c.href}
                         onClick={() => setMenuOpen(false)}
                         className="block rounded-lg px-3 py-2 text-sm text-slate-600 hover:text-brand"
                       >
                         {c.label}
-                      </a>
+                      </NavLink>
                     ))}
                   </div>
                 )}
               </div>
             ))}
-            <a
+            <NavLink
               href={site.phoneHref}
               className="mt-2 flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-3 text-sm font-semibold"
             >
               <Phone className="size-4 text-brand" /> {site.phone}
-            </a>
+            </NavLink>
           </nav>
         )}
       </div>

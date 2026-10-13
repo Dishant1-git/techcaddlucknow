@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import type { CSSProperties } from "react";
 import { ArrowDown, ArrowRight, Check, Code } from "lucide-react";
 import { programmes, site } from "@/lib/site";
@@ -116,12 +117,12 @@ export function HeroZoom() {
               Book a free demo
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
             </BookDemoButton>
-            <a
+            <NavLink
               href="/#courses"
               className="rounded-full border border-white/15 bg-white/[0.03] px-7 py-3.5 font-semibold text-white/85 backdrop-blur transition hover:border-cyan/60 hover:text-white"
             >
               Explore courses
-            </a>
+            </NavLink>
           </div>
         </div>
 

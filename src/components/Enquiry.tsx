@@ -1,5 +1,6 @@
 "use client";
 
+import { NavLink } from "./NavLink";
 import {
   createContext,
   useContext,
@@ -147,7 +148,7 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
                   Not here? The dropdown lists all {allCourses.length} courses.
                 </p>
 
-                <a
+                <NavLink
                   href={googleReviews.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -168,16 +169,16 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
                     ))}
                   </span>
                   <ArrowUpRight className="size-4 shrink-0 text-slate-400 transition group-hover:text-brand" />
-                </a>
+                </NavLink>
 
                 <p className="mt-4 text-xs leading-relaxed text-slate-400">
                   You can also share your requirements at{" "}
-                  <a
+                  <NavLink
                     href={`mailto:${site.email}`}
                     className="break-all font-semibold text-white underline underline-offset-2"
                   >
                     {site.email}
-                  </a>
+                  </NavLink>
                   , and our team will get back to you right away.
                 </p>
               </div>

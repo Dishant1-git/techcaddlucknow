@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -31,10 +32,25 @@ import { SplitText } from "gsap/SplitText";
  *   data-spot           cursor-following spotlight (styled in globals.css)
  */
 export function Motion() {
+  // usePathname can suspend while a dynamic route is prerendered.
+  return (
+    <Suspense fallback={null}>
+      <MotionEffects />
+    </Suspense>
+  );
+}
+
+function MotionEffects() {
+  // Moving between pages swaps the DOM without a reload, so every animation is
+  // torn down and set up again for the new page.
+  const pathname = usePathname();
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, SplitText);
     const q = (selector: string) => gsap.utils.toArray<HTMLElement>(selector);
     const mm = gsap.matchMedia();
+    // Only the first setup for a page may move the scroll position.
+    let arrived = false;
 
     mm.add(
       {
@@ -425,14 +441,24 @@ export function Motion() {
         }
 
         // Web fonts change heading heights, which shifts every trigger below them.
-        document.fonts?.ready.then(() => ScrollTrigger.refresh());
+        document.fonts?.ready.then(() => {
+          ScrollTrigger.refresh();
+          // Arriving on "/#faq" from another page: the pinned sections above
+          // have only now taken up their full height, so go to the target again.
+          const id = decodeURIComponent(window.location.hash.slice(1));
+          const target = document.getElementById(id);
+          if (target && !arrived) {
+            lenis.scrollTo(target, { immediate: true, force: true, offset: -104 });
+          }
+          arrived = true;
+        });
 
         return () => cleanups.forEach((fn) => fn());
       },
     );
 
     return () => mm.revert();
-  }, []);
+  }, [pathname]);
 
   return (
     <div

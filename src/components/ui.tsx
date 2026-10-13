@@ -1,20 +1,21 @@
+import { NavLink } from "./NavLink";
 import type { ReactNode } from "react";
 import { site } from "@/lib/site";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <a href="/#top" className={`inline-flex flex-col leading-none ${className}`}>
+    <NavLink href="/#top" className={`inline-flex flex-col leading-none ${className}`}>
       {/* The logo file is used as a mask, so it takes the surrounding text colour
           (white over the dark hero, navy on the white header bar and footer). */}
       <span
         role="img"
         aria-label={site.name}
-        className="block aspect-[952/262] h-11 bg-current [mask:url(/images/tce.webp)_center/contain_no-repeat]"
+        className="block aspect-[952/262] h-9 bg-current min-[360px]:h-11 [mask:url(/images/tce.webp)_center/contain_no-repeat]"
       />
       <span className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.22em] opacity-70">
         {site.city}
       </span>
-    </a>
+    </NavLink>
   );
 }
 

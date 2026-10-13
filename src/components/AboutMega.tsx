@@ -1,3 +1,4 @@
+import { NavLink } from "./NavLink";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { aboutMenu, aboutTagline } from "@/lib/site";
@@ -18,14 +19,14 @@ export function AboutMega() {
         <div className="grid grid-cols-[16rem_1fr] gap-8 p-8">
           <div className="flex flex-col border-r border-slate-200 pr-8">
             {aboutMenu.map((m) => (
-              <a
+              <NavLink
                 key={m.link}
                 href={m.href}
                 className="group/link flex items-center justify-between py-3.5 font-display text-lg font-semibold transition-colors hover:text-brand"
               >
                 {m.link}
                 <ArrowRight className="size-4 -translate-x-2 opacity-0 transition duration-300 group-hover/link:translate-x-0 group-hover/link:opacity-100" />
-              </a>
+              </NavLink>
             ))}
             <BookDemoButton className={`${counsellorLink} mt-auto pt-6 text-left`}>
               Talk to a counsellor
@@ -36,7 +37,7 @@ export function AboutMega() {
           <div className="grid grid-cols-4 gap-5">
             {aboutMenu.map((m) => {
               return (
-                <a key={m.title} href={m.href} className="group/card block">
+                <NavLink key={m.title} href={m.href} className="group/card block">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-slate-200 transition duration-500 group-hover/card:-translate-y-1.5 group-hover/card:shadow-xl group-hover/card:shadow-brand/20">
                     <Image
                       src={m.image}
@@ -57,7 +58,7 @@ export function AboutMega() {
                       {m.caption}
                     </span>
                   </p>
-                </a>
+                </NavLink>
               );
             })}
           </div>
