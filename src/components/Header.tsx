@@ -39,9 +39,22 @@ export function TopBar() {
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // Section of the mobile menu that is expanded, by label.
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  // The internship badge docks under the header while the page scrolls down
+  // and returns to the side of the screen when it scrolls back up.
+  const [docked, setDocked] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 40);
+      // Ignore sub-pixel jitter so the badge does not flicker between states.
+      if (Math.abs(y - lastY) < 6) return;
+      setDocked(y > lastY && y > 120);
+      lastY = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -58,7 +71,11 @@ export function Header() {
       <NavLink
         href="/#programmes"
         aria-label="Explore internship and training programmes"
-        className="internship-side-badge fixed left-2 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-2 rounded-2xl px-2.5 py-4 text-white shadow-xl sm:left-4"
+        // Keyed on the state so the entrance animation replays at each position.
+        key={docked ? "docked" : "side"}
+        className={`internship-side-badge ${docked ? "is-docked" : ""} ${
+          menuOpen ? "is-hidden" : ""
+        }`}
       >
         <Sparkles aria-hidden="true" className="size-4" />
         <span className="internship-side-badge-label">INTERNSHIP</span>
@@ -166,48 +183,80 @@ export function Header() {
         </div>
 
         {menuOpen && (
-          <nav data-lenis-prevent className="mt-2 max-h-[70vh] overflow-y-auto rounded-3xl bg-white p-3 text-navy shadow-2xl xl:hidden">
-            {nav.map((item) => (
-              <div key={item.label}>
-                <NavLink
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`relative block rounded-xl px-4 py-3 font-semibold hover:bg-brand/5 ${
-                    item.highlight ? "ai-mobile-nav" : ""
-                  } ${
-                    item.label === "Internship & Training" ? "training-nav-glow-mobile" : ""
-                  }`}
-                >
-                  {item.label}
-                  {item.highlight && (
-                    <>
-                      <span aria-hidden="true" className="ai-nav-star ai-nav-star-one">✦</span>
-                      <span aria-hidden="true" className="ai-nav-star ai-nav-star-two">✧</span>
-                    </>
+          <nav
+            data-lenis-prevent
+            className="mt-2 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain rounded-3xl bg-white p-3 text-navy shadow-2xl xl:hidden"
+          >
+            {nav.map((item) => {
+              const rowClass = `relative flex w-full items-center justify-between gap-3 rounded-xl px-4 py-3 text-left font-semibold hover:bg-brand/5 ${
+                item.highlight ? "ai-mobile-nav" : ""
+              } ${item.label === "Internship & Training" ? "training-nav-glow-mobile" : ""}`;
+              const open = openGroup === item.label;
+
+              if (!item.children) {
+                return (
+                  <NavLink
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={rowClass}
+                  >
+                    {item.label}
+                    {item.highlight && (
+                      <>
+                        <span aria-hidden="true" className="ai-nav-star ai-nav-star-one">✦</span>
+                        <span aria-hidden="true" className="ai-nav-star ai-nav-star-two">✧</span>
+                      </>
+                    )}
+                  </NavLink>
+                );
+              }
+
+              return (
+                <div key={item.label}>
+                  {/* Sections open in place, one at a time, so the list stays short. */}
+                  <button
+                    type="button"
+                    aria-expanded={open}
+                    onClick={() => setOpenGroup(open ? null : item.label)}
+                    className={rowClass}
+                  >
+                    {item.label}
+                    <ChevronDown
+                      className={`size-4 shrink-0 transition-transform duration-300 ${
+                        open ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  {open && (
+                    <div className="mb-2 ml-4 mt-1 border-l border-slate-200 pl-2">
+                      {!item.children.some((c) => c.href === item.href) && (
+                        <NavLink
+                          href={item.href}
+                          onClick={() => setMenuOpen(false)}
+                          className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-brand"
+                        >
+                          All {item.label}
+                        </NavLink>
+                      )}
+                      {item.children.map((c) => (
+                        <NavLink
+                          key={c.label}
+                          href={c.href}
+                          onClick={() => setMenuOpen(false)}
+                          className="block rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:text-brand"
+                        >
+                          {c.label}
+                          {c.note && (
+                            <span className="block text-xs text-slate-400">{c.note}</span>
+                          )}
+                        </NavLink>
+                      ))}
+                    </div>
                   )}
-                  {item.label === "Internship & Training" && (
-                    <>
-                      <span aria-hidden="true" className="ai-nav-star ai-nav-star-one training-nav-star">✦</span>
-                      <span aria-hidden="true" className="ai-nav-star ai-nav-star-two training-nav-star">✧</span>
-                    </>
-                  )}
-                </NavLink>
-                {item.children && (
-                  <div className="mb-1 ml-4 border-l border-slate-200 pl-2">
-                    {item.children.map((c) => (
-                      <NavLink
-                        key={c.label}
-                        href={c.href}
-                        onClick={() => setMenuOpen(false)}
-                        className="block rounded-lg px-3 py-2 text-sm text-slate-600 hover:text-brand"
-                      >
-                        {c.label}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
             <NavLink
               href={site.phoneHref}
               className="mt-2 flex items-center gap-2 rounded-xl bg-slate-50 px-4 py-3 text-sm font-semibold"

@@ -424,39 +424,6 @@ export function CourseCatalogue({
             </div>
           </div>
 
-<<<<<<< Updated upstream
-            {q ? (
-              <p aria-live="polite" className="truncate px-3 text-sm font-semibold text-slate-600">
-                {matches} {matches === 1 ? "result" : "results"} for “{query.trim()}”
-              </p>
-            ) : (
-              <nav
-                ref={railRef}
-                aria-label="Sections"
-                className="no-scrollbar relative flex min-w-0 flex-1 items-center gap-1 overflow-x-auto"
-              >
-                {sections.map((s) => (
-                  <NavLink
-                    key={s.id}
-                    href={`#${s.id}`}
-                    data-rail={s.id}
-                    aria-current={active === s.id ? "true" : undefined}
-                    className={`flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
-                      active === s.id
-                        ? "bg-navy text-white shadow-lg shadow-navy/30"
-                        : "text-slate-600 hover:bg-brand/5 hover:text-brand"
-                    }`}
-                  >
-                    {s.title}
-                    <span
-                      className={`text-xs font-medium ${active === s.id ? "text-cyan" : "text-slate-400"}`}
-                    >
-                      {s.courses.length}
-                    </span>
-                  </NavLink>
-                ))}
-              </nav>
-=======
           {/* Filter chips: everything, or one section at a time */}
           <div
             role="group"
@@ -484,7 +451,6 @@ export function CourseCatalogue({
                   </span>
                 </button>
               ),
->>>>>>> Stashed changes
             )}
           </div>
 

@@ -167,41 +167,118 @@ header a.training-nav-glow:focus-visible {
   text-shadow: 0 1px 3px rgba(6, 14, 43, 0.75);
 }
 
+/* Internship badge. It sits upright on the left edge of the screen; while the
+   page scrolls down, Header.tsx adds .is-docked and it becomes a horizontal
+   pill just under the header. A gradient ring circles it in both positions. */
+@property --badge-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes badge-ring {
+  to {
+    --badge-angle: 360deg;
+  }
+}
+@keyframes badge-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.55), 0 8px 26px rgba(6, 14, 43, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 26px rgba(0, 212, 255, 0.95), 0 0 46px rgba(255, 210, 63, 0.55),
+      0 8px 26px rgba(6, 14, 43, 0.4);
+  }
+}
+@keyframes badge-arrive {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
 header a.internship-side-badge {
-  position: fixed !important;
-  left: 8px !important;
-  top: 55% !important;
-  z-index: 9999 !important;
-  display: flex !important;
-  width: 48px !important;
-  min-width: 48px !important;
-  align-items: center !important;
-  gap: 7px !important;
-  padding: 10px 6px !important;
-  color: #071535 !important;
-  background: linear-gradient(160deg, #ffe66d 0%, #ffc857 48%, #ff8c42 100%) !important;
-  border: 2px solid #ffffff !important;
-  border-radius: 18px !important;
-  box-shadow: 0 0 0 3px #1557c0, 0 8px 30px rgba(6, 14, 43, 0.45) !important;
-  transform: translateY(-50%) !important;
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  position: fixed;
+  left: 10px;
+  top: 55%;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 48px;
+  padding: 10px 6px;
+  color: #071535;
+  background: linear-gradient(160deg, #ffe66d 0%, #ffc857 48%, #ff8c42 100%);
+  border: 2px solid #ffffff;
+  border-radius: 18px;
+  translate: 0 -50%;
+  transition: scale 200ms ease, opacity 200ms ease;
+  animation:
+    badge-arrive 450ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards,
+    badge-glow 2.4s ease-in-out infinite;
+}
+
+/* The ring: a conic gradient masked down to a 3px band, rotated by --badge-angle */
+header a.internship-side-badge::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 23px;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--badge-angle),
+    #00d4ff,
+    #1c53d1,
+    #ffd23f,
+    #ffffff,
+    #00d4ff
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: badge-ring 3s linear infinite;
+  pointer-events: none;
 }
 
 header a.internship-side-badge:hover,
 header a.internship-side-badge:focus-visible {
-  transform: translateY(-50%) scale(1.06) !important;
-  box-shadow: 0 0 0 4px #00d4ff, 0 10px 36px rgba(6, 14, 43, 0.5) !important;
+  scale: 1.06;
 }
 
 header a.internship-side-badge .internship-side-badge-label {
-  display: block !important;
-  writing-mode: vertical-rl !important;
-  white-space: nowrap !important;
-  transform: rotate(180deg) !important;
-  color: #071535 !important;
-  font-size: 0.58rem !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.14em !important;
+  display: block;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  rotate: 180deg;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+
+header a.internship-side-badge.is-docked {
+  top: 5.5rem;
+  left: 50%;
+  translate: -50% 0;
+  flex-direction: row;
+  gap: 8px;
+  width: auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+header a.internship-side-badge.is-docked::before {
+  border-radius: 999px;
+}
+header a.internship-side-badge.is-docked .internship-side-badge-label {
+  writing-mode: horizontal-tb;
+  rotate: none;
+  font-size: 0.7rem;
+}
+
+/* Out of the way while the mobile menu is open */
+header a.internship-side-badge.is-hidden {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .ai-nav-star-one {
@@ -394,7 +471,8 @@ body {
   .training-nav-glow,
   .ai-nav-glow,
   .ai-nav-star,
-  .internship-side-badge {
+  header a.internship-side-badge,
+  header a.internship-side-badge::before {
     animation: none;
   }
   .draw {
