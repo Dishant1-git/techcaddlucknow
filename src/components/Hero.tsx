@@ -89,7 +89,7 @@ export function Hero() {
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </BookDemoButton>
           <a
-            href="#courses"
+            href="/#courses"
             className="rounded-full border border-white/15 bg-white/[0.03] px-7 py-3.5 font-semibold text-white/85 backdrop-blur transition hover:border-cyan/60 hover:text-white"
           >
             Explore courses

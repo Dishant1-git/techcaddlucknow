@@ -65,7 +65,7 @@ export function AiSection() {
           </p>
           <div data-reveal className="mt-8 flex flex-wrap gap-3">
             <a
-              href="#courses"
+              href="/#courses"
               className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-sky px-7 py-3.5 font-bold text-hero-950 shadow-[0_0_40px_-10px] shadow-cyan transition hover:brightness-110"
             >
               Explore AI courses
@@ -311,7 +311,7 @@ export function Fields() {
               return (
                 <a
                   key={f.title}
-                  href="#courses"
+                  href="/#courses"
                   data-hscroll-item
                   data-spot
                   className="border-glow group relative flex h-[21rem] w-[18.5rem] shrink-0 flex-col overflow-hidden rounded-[2rem] bg-white/[0.05] p-8 sm:w-[25rem] lg:h-[max(18.5rem,min(23rem,44vh))]"

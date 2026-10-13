@@ -55,7 +55,7 @@ export function About() {
 
           <div data-reveal className="mt-10 flex flex-wrap gap-3">
             <a
-              href="#why"
+              href="/#why"
               className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition hover:bg-brand"
             >
               Why {site.name} <ArrowRight className="size-4" />

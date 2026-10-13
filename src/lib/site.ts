@@ -500,7 +500,7 @@ export const aboutMenu = [
     art: "Empowering learners",
     icon: "users",
     image: "/images/about-techcadd.png",
-    href: "/#about",
+    href: "/about",
   },
   {
     link: "Mission and Vision",
@@ -510,7 +510,7 @@ export const aboutMenu = [
     art: "Mission · Vision",
     icon: "target",
     image: "/images/vision-mision-techcadd.png",
-    href: "/#vision",
+    href: "/about/mission-vision",
   },
   {
     link: "Accreditations & Awards",
@@ -520,7 +520,7 @@ export const aboutMenu = [
     art: "Recognised. Trusted.",
     icon: "award",
     image: "/images/Accreditations.png",
-    href: "/#why",
+    href: "/about#recognition",
   },
   {
     link: "Founder",
@@ -530,7 +530,7 @@ export const aboutMenu = [
     art: "Builder · Educator · Mentor",
     icon: "mic",
     image: "/images/founder.png",
-    href: "/#about",
+    href: "/about/founder",
   },
 ] as const;
 
@@ -1019,7 +1019,7 @@ export const nav: NavItem[] = [
   { label: "Home", href: "/#top" },
   {
     label: "About",
-    href: "/#about",
+    href: "/about",
     mega: "about",
     children: aboutMenu.map((m) => ({ label: m.link, href: m.href })),
   },
