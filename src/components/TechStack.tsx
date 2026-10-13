@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import { Cpu } from "lucide-react";
 import { site, techCategories, technologies } from "@/lib/site";
-import { techLogos } from "@/lib/techLogos";
+import { isLight, techLogos } from "@/lib/techLogos";
 import { DarkSection, SectionHeading } from "./ui";
 
 type Category = (typeof techCategories)[number];
@@ -24,12 +24,6 @@ const orbits = (() => {
     return { ...ring, items };
   });
 })();
-
-// Light brand colours (JavaScript yellow, etc.) need a dark badge to stay visible.
-function isLight(hex: string) {
-  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
-  return 0.299 * r + 0.587 * g + 0.114 * b > 170;
-}
 
 function Badge({ name }: { name: string }) {
   const logo = techLogos[name];

@@ -500,7 +500,7 @@ export const aboutMenu = [
     art: "Empowering learners",
     icon: "users",
     image: "/images/about-techcadd.png",
-    href: "#about",
+    href: "/#about",
   },
   {
     link: "Mission and Vision",
@@ -510,7 +510,7 @@ export const aboutMenu = [
     art: "Mission · Vision",
     icon: "target",
     image: "/images/vision-mision-techcadd.png",
-    href: "#vision",
+    href: "/#vision",
   },
   {
     link: "Accreditations & Awards",
@@ -520,7 +520,7 @@ export const aboutMenu = [
     art: "Recognised. Trusted.",
     icon: "award",
     image: "/images/Accreditations.png",
-    href: "#why",
+    href: "/#why",
   },
   {
     link: "Founder",
@@ -530,7 +530,7 @@ export const aboutMenu = [
     art: "Builder · Educator · Mentor",
     icon: "mic",
     image: "/images/founder.png",
-    href: "#about",
+    href: "/#about",
   },
 ] as const;
 
@@ -643,6 +643,206 @@ export const coursesMenu: MenuColumn[] = [
   },
 ];
 
+// Sections on the /courses page. The first four reuse the mega menu's lists; CAD
+// courses get their own section there, as on techcaddjalandhar.com.
+// TODO: confirm every course below is offered at the Lucknow branch.
+const cadCourses = ["AutoCAD", "SolidWorks", "Revit Architecture", "3ds Max & V-Ray"];
+
+const menuCourses = (title: string) =>
+  coursesMenu
+    .find((col) => col.title === title)!
+    .courses.filter((c) => !cadCourses.includes(c.label));
+
+export type CatalogueCategory = {
+  id: string;
+  title: string;
+  text: string;
+  courses: { label: string; badge?: "Hot" | "New" | "Trending" }[];
+};
+
+export const courseCatalogue: CatalogueCategory[] = [
+  {
+    id: "programming",
+    title: "Programming",
+    text: "Core languages and full-stack engineering",
+    courses: menuCourses("Programming"),
+  },
+  {
+    id: "ai-data",
+    title: "AI & Data",
+    text: "Models, analytics and decision intelligence",
+    courses: menuCourses("AI & Data"),
+  },
+  {
+    id: "marketing-design",
+    title: "Marketing & Design",
+    text: "Growth, performance and visual design",
+    courses: menuCourses("Marketing & Design"),
+  },
+  {
+    id: "cyber-cloud",
+    title: "Cyber & Cloud",
+    text: "Secure, resilient infrastructure",
+    courses: menuCourses("Cyber & Cloud"),
+  },
+  {
+    id: "full-stack-streams",
+    title: "Full Stack Streams",
+    text: "One language, front end to deployment",
+    courses: [{ label: "Python + Django Full Stack" }],
+  },
+  {
+    id: "civil-mechanical",
+    title: "Civil / Mechanical",
+    text: "Drafting and modelling for engineers and architects",
+    courses: cadCourses.map((label) => ({ label })),
+  },
+  {
+    id: "basic-skills",
+    title: "Basic Skills",
+    text: "Everyday computer and office skills",
+    courses: [
+      { label: "Basic Computer" },
+      { label: "MS Office" },
+      { label: "Tally" },
+      { label: "Desktop Publishing (DTP)" },
+      { label: "Typing" },
+    ],
+  },
+  {
+    id: "ai-development",
+    title: "AI Development",
+    text: "Applied AI for products and campaigns",
+    courses: [
+      { label: "AI-Powered Marketing", badge: "Trending" },
+      { label: "RAG (Retrieval-Augmented Generation)" },
+      { label: "AI-Powered Courses" },
+    ],
+  },
+  {
+    id: "more-courses",
+    title: "More courses",
+    text: "Short, focused modules on a single skill",
+    courses: [
+      { label: "SQL" },
+      { label: "Pandas" },
+      { label: "Python for Data Analytics" },
+      { label: "Data Cleaning" },
+      { label: "NLP" },
+      { label: "Computer Vision" },
+      { label: "LLM Development" },
+      { label: "AI Agents" },
+      { label: "Speech Recognition & AI Voice" },
+      { label: "DSA Certificate" },
+      { label: "OSINT" },
+      { label: "Web Security" },
+      { label: "Network Security & CCNA" },
+      { label: "Meta Ads" },
+      { label: "Instagram Marketing" },
+      { label: "WhatsApp Marketing" },
+      { label: "Content Marketing" },
+      { label: "E-mail Marketing" },
+      { label: "Marketing Automation" },
+      { label: "Influencer Marketing" },
+      { label: "Technical SEO" },
+      { label: "Local SEO" },
+      { label: "WooCommerce" },
+      { label: "WordPress & Elementor Pro" },
+    ],
+  },
+];
+
+// URL slug of each course's detail page (/courses/<slug>). The page content
+// itself lives in courseContent.json, keyed by the same slug.
+export const courseSlugs: Record<string, string> = {
+  "Python Programming": "python",
+  "Java Programming": "java",
+  "C, C++ & Data Structures": "c-cpp",
+  "Web Designing": "web-designing",
+  "WordPress": "wordpress",
+  "Shopify": "shopify",
+  "Kotlin": "kotlin",
+  "Flutter": "flutter",
+  "Web Development": "web-development",
+  "Full Stack Development": "full-stack-development",
+  "MERN Full Stack": "mern-stack",
+  "MEAN Stack": "mean-stack",
+  "PHP Full Stack": "php-full-stack",
+  "Artificial Intelligence": "artificial-intelligence",
+  "Generative AI": "generative-ai",
+  "Agentic AI": "agentic-ai",
+  "ChatGPT & AI Tools": "chatgpt-ai-tools",
+  "AI for Managers": "ai-for-managers",
+  "Prompt Engineering": "prompt-engineering",
+  "Machine Learning": "machine-learning",
+  "Deep Learning": "deep-learning",
+  "AI & Robotics": "ai-robotics",
+  "Data Science": "data-science",
+  "Data Analytics": "data-analytics",
+  "Power BI": "power-bi",
+  "Tableau": "tableau",
+  "Digital Marketing": "digital-marketing",
+  "GEO (Generative Engine Optimization)": "geo",
+  "AEO (Answer Engine Optimization)": "aeo",
+  "Dropshipping & E-Commerce": "dropshipping-ecommerce",
+  "Social Media Marketing": "social-media-marketing",
+  "Google Ads": "google-ads",
+  "SEO": "seo",
+  "Graphic Designing": "graphic-designing",
+  "UI/UX Design": "ui-ux-design",
+  "Cyber Security": "cyber-security",
+  "Ethical Hacking": "ethical-hacking",
+  "Penetration Testing": "penetration-testing",
+  "SOC Analyst": "soc-analyst",
+  "Cyber Forensics": "cyber-forensics",
+  "Cloud Computing": "cloud-computing",
+  "AWS Cloud": "aws-cloud",
+  "Microsoft Azure": "microsoft-azure",
+  "DevOps Engineering": "devops-engineering",
+  "Docker & Kubernetes": "docker-kubernetes",
+  "Linux Administration": "linux-administration",
+  "Python + Django Full Stack": "python-django-full-stack",
+  "AutoCAD": "autocad",
+  "SolidWorks": "solidworks",
+  "Revit Architecture": "revit-architecture",
+  "3ds Max & V-Ray": "3ds-max",
+  "Basic Computer": "basic-computer",
+  "MS Office": "ms-office",
+  "Tally": "tally",
+  "Desktop Publishing (DTP)": "dtp",
+  "Typing": "typing",
+  "AI-Powered Marketing": "ai-powered-marketing",
+  "RAG (Retrieval-Augmented Generation)": "rag-development",
+  "AI-Powered Courses": "ai-powered-courses",
+  "SQL": "sql",
+  "Pandas": "pandas",
+  "Python for Data Analytics": "python-for-data-analytics",
+  "Data Cleaning": "data-cleaning",
+  "NLP": "nlp",
+  "Computer Vision": "computer-vision",
+  "LLM Development": "llm-development",
+  "AI Agents": "ai-agents",
+  "Speech Recognition & AI Voice": "speech-recognition-ai-voice",
+  "DSA Certificate": "dsa",
+  "OSINT": "osint",
+  "Web Security": "web-security",
+  "Network Security & CCNA": "network-security-ccna",
+  "Meta Ads": "meta-ads",
+  "Instagram Marketing": "instagram-marketing",
+  "WhatsApp Marketing": "whatsapp-marketing",
+  "Content Marketing": "content-marketing",
+  "E-mail Marketing": "email-marketing",
+  "Marketing Automation": "marketing-automation",
+  "Influencer Marketing": "influencer-marketing",
+  "Technical SEO": "technical-seo",
+  "Local SEO": "local-seo",
+  "WooCommerce": "woocommerce",
+  "WordPress & Elementor Pro": "wordpress-elementor-pro",
+};
+
+export const courseHref = (label: string) =>
+  courseSlugs[label] ? `/courses/${courseSlugs[label]}` : "/courses";
+
 // Tiles in the Certification mega menu.
 export const certificatePrograms: {
   label: string;
@@ -664,46 +864,95 @@ export const certificatePrograms: {
   { label: "Basic Computer & Office Skills", icon: "monitor" },
 ];
 
-// Columns in the After 12th mega menu.
-const after12thSubjects = [
-  "Cloud Computing",
-  "Flutter App Development",
-  "MERN Stack",
-  "Agentic AI",
-  "Digital Marketing",
-  "Data Analytics",
-  "Data Science",
-  "Cyber Security",
-  "Artificial Intelligence",
-  "Full Stack Development",
-];
-
-export const after12thMenu: MenuColumn[] = [
+// Sections on the /after-12th-courses page; each programme has a detail page at
+// /after-12th-courses/<slug>, with its content in after12thContent.json.
+// TODO: confirm every programme below is offered at the Lucknow branch.
+export const after12thCatalogue: (Omit<CatalogueCategory, "courses"> & {
+  courses: { label: string; slug: string }[];
+})[] = [
   {
+    id: "after-12th-3-month-program",
     title: "After 12th 3-Month Program",
     text: "One subject, one term, one live project",
-    courses: after12thSubjects.flatMap((s) =>
-      s === "Digital Marketing"
-        ? [{ label: `${s} Program (3 Months)` }, { label: `${s} Program (4 Months)` }]
-        : [{ label: `${s} Program` }],
-    ),
+    courses: [
+      { label: "Cloud Computing Program", slug: "3-month-cloud-computing" },
+      { label: "Flutter App Development Program", slug: "3-month-flutter" },
+      { label: "MERN Stack Program", slug: "3-month-mern-stack" },
+      { label: "Agentic AI Program", slug: "3-month-agentic-ai" },
+      { label: "Digital Marketing Program (3 Months)", slug: "3-month-digital-marketing" },
+      { label: "Digital Marketing Program (4 Months)", slug: "4-month-digital-marketing" },
+      { label: "Data Analytics Program", slug: "4-month-data-analytics" },
+      { label: "Data Science Program", slug: "4-month-data-science" },
+      { label: "Cyber Security Program", slug: "3-month-cybersecurity" },
+      { label: "Artificial Intelligence Program", slug: "4-month-artificial-intelligence" },
+      { label: "Full Stack Development Program", slug: "3-month-full-stack-development" },
+    ],
   },
   {
+    id: "after-12th-6-month-program",
     title: "After 12th 6-Month Program",
     text: "Half a year, finishing with a portfolio",
-    courses: after12thSubjects.map((s) => ({
-      label: s === "Flutter App Development" ? `${s} Diploma Certificate Program` : `${s} Certificate Program`,
-    })),
+    courses: [
+      { label: "Cloud Computing Certificate Program", slug: "6-month-cloud-computing" },
+      { label: "Flutter App Development Diploma Certificate Program", slug: "6-month-flutter" },
+      { label: "MERN Stack Certificate Program", slug: "6-month-mern-stack" },
+      { label: "Agentic AI Certificate Program", slug: "6-month-agentic-ai" },
+      { label: "Digital Marketing Certificate Program", slug: "6-month-digital-marketing" },
+      { label: "Data Analytics Certificate Program", slug: "6-month-data-analytics" },
+      { label: "Data Science Certificate Program", slug: "6-month-data-science" },
+      { label: "Cyber Security Certificate Program", slug: "6-month-cybersecurity" },
+      { label: "Artificial Intelligence Certificate Program", slug: "6-month-artificial-intelligence" },
+      { label: "Full Stack Development Certificate Program", slug: "6-month-full-stack-development" },
+    ],
   },
   {
+    id: "after-12th-9-month-program",
     title: "After 12th 9-Month Program",
     text: "The longest track, with placement preparation",
-    // No 9-month Data Analytics or Data Science track.
-    courses: after12thSubjects
-      .filter((s) => !s.startsWith("Data "))
-      .map((s) => ({ label: `${s} Diploma Program` })),
+    courses: [
+      { label: "Cloud Computing Diploma Program", slug: "9-month-cloud-computing" },
+      { label: "Flutter App Development Diploma Program", slug: "9-month-flutter" },
+      { label: "MERN Stack Diploma Program", slug: "9-month-mern-stack" },
+      { label: "Agentic AI Diploma Program", slug: "9-month-agentic-ai" },
+      { label: "Digital Marketing Diploma Program", slug: "9-month-digital-marketing" },
+      { label: "Cyber Security Diploma Program", slug: "9-month-cybersecurity" },
+      { label: "Artificial Intelligence Diploma Program", slug: "9-month-artificial-intelligence" },
+      { label: "Full Stack Development Diploma Program", slug: "9-month-full-stack-development" },
+    ],
+  },
+  {
+    id: "1-year-certificates",
+    title: "1 Year Certificates",
+    text: "A full year from fundamentals to a specialisation",
+    courses: [
+      { label: "Generative AI (1 Year)", slug: "generative-ai" },
+      { label: "Cloud Computing & DevOps (1 Year)", slug: "cloud-computing-devops" },
+      { label: "AI & Data Science (1 Year)", slug: "ai-data-science" },
+      { label: "Machine Learning & Deep Learning (1 Year)", slug: "machine-learning-deep-learning" },
+      { label: "Cybersecurity & Ethical Hacking (1 Year)", slug: "cybersecurity-ethical-hacking" },
+    ],
+  },
+  {
+    id: "6-month-certificates",
+    title: "6 Month Certificates",
+    text: "A focused certificate in a single field",
+    courses: [
+      { label: "Digital Marketing & Communication (6 Months)", slug: "digital-marketing-communication" },
+      { label: "Python Programming (6 Months)", slug: "python-programming" },
+      { label: "Machine Learning & AI (6 Months)", slug: "ml-ai" },
+      { label: "Cybersecurity (6 Months)", slug: "cybersecurity" },
+    ],
   },
 ];
+
+export const after12thHref = (slug: string) => `/after-12th-courses/${slug}`;
+
+// Columns in the After 12th mega menu: the three "After 12th" tracks above.
+export const after12thMenu: MenuColumn[] = after12thCatalogue.slice(0, 3).map((cat) => ({
+  title: cat.title,
+  text: cat.text,
+  courses: cat.courses.map((c) => ({ label: c.label, href: after12thHref(c.slug) })),
+}));
 
 // Columns in the Resources mega menu. Only Student Reviews exists on the page so
 // far; the other entries fall back to the contact section.
@@ -733,7 +982,7 @@ export const resourcesMenu: MenuColumn[] = [
       { label: "Blogs" },
       { label: "Events & Seminars" },
       { label: "Campus Gallery" },
-      { label: "Student Reviews", href: "#reviews" },
+      { label: "Student Reviews", href: "/#reviews" },
       { label: "College Partnerships" },
       { label: "All Pages Directory" },
     ],
@@ -748,14 +997,14 @@ export const aboutTagline =
 
 // TODO: add each branch's website link; branches without one fall back to the contact section.
 export const branches = [
-  { label: site.city, note: "This centre", href: "#contact" },
+  { label: site.city, note: "This centre", href: "/#contact" },
   { label: "Mohali", note: "Sector 75", href: "https://techcaddmohali.com" },
-  { label: "Jalandhar", note: "Head office & flagship campus", href: "#contact" },
-  { label: "Ludhiana", href: "#contact" },
-  { label: "Phagwara", href: "#contact" },
-  { label: "Maqsudan", href: "#contact" },
-  { label: "Hoshiarpur", href: "#contact" },
-  { label: "Amritsar", href: "#contact" },
+  { label: "Jalandhar", note: "Head office & flagship campus", href: "/#contact" },
+  { label: "Ludhiana", href: "/#contact" },
+  { label: "Phagwara", href: "/#contact" },
+  { label: "Maqsudan", href: "/#contact" },
+  { label: "Hoshiarpur", href: "/#contact" },
+  { label: "Amritsar", href: "/#contact" },
 ];
 
 export type NavItem = {
@@ -767,38 +1016,38 @@ export type NavItem = {
 };
 
 export const nav: NavItem[] = [
-  { label: "Home", href: "#top" },
+  { label: "Home", href: "/#top" },
   {
     label: "About",
-    href: "#about",
+    href: "/#about",
     mega: "about",
     children: aboutMenu.map((m) => ({ label: m.link, href: m.href })),
   },
-  { label: "AI", href: "#ai", highlight: true, mega: "ai" },
+  { label: "AI", href: "/#ai", highlight: true, mega: "ai" },
   {
     label: "Courses",
-    href: "#courses",
+    href: "/courses",
     mega: "courses",
-    children: courseTracks.map((t) => ({ label: t.title, href: "#courses" })),
+    children: courseTracks.map((t) => ({ label: t.title, href: "/courses" })),
   },
   {
     label: "Internship & Training",
-    href: "#programmes",
+    href: "/#programmes",
     mega: "certification",
-    children: certificatePrograms.map((c) => ({ label: c.label, href: "#programmes" })),
+    children: certificatePrograms.map((c) => ({ label: c.label, href: "/#programmes" })),
   },
   {
     label: "After 12th",
-    href: "#programmes",
+    href: "/after-12th-courses",
     mega: "after12th",
-    children: after12thMenu.map((c) => ({ label: c.title, href: "#programmes" })),
+    children: after12thCatalogue.map((c) => ({ label: c.title, href: `/after-12th-courses#${c.id}` })),
   },
   {
     label: "Resources",
-    href: "#reviews",
+    href: "/#reviews",
     mega: "resources",
-    children: resourcesMenu.map((c) => ({ label: c.title, href: "#contact" })),
+    children: resourcesMenu.map((c) => ({ label: c.title, href: "/#contact" })),
   },
-  { label: "Branches", href: "#contact", children: branches },
-  { label: "Contact", href: "#contact" },
+  { label: "Branches", href: "/#contact", children: branches },
+  { label: "Contact", href: "/#contact" },
 ];

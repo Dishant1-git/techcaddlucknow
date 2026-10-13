@@ -48,7 +48,7 @@ export function CertificationMega() {
             return (
               <a
                 key={c.label}
-                href="#programmes"
+                href="/#programmes"
                 title={c.label}
                 className="group/tile flex items-center gap-3.5 rounded-2xl border border-slate-200 bg-white p-4 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10"
               >
@@ -74,7 +74,7 @@ export function CertificationMega() {
             internship letter.
           </p>
           <a
-            href="#courses"
+            href="/courses"
             className="group/cta inline-flex shrink-0 items-center gap-2 font-semibold text-brand transition-colors hover:text-navy"
           >
             See all certificate courses

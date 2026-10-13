@@ -5,28 +5,28 @@ import { Logo } from "./ui";
 const columns = [
   {
     title: "Courses",
-    links: courseTracks.map((t) => ({ label: t.title, href: "#courses" })),
+    links: courseTracks.map((t) => ({ label: t.title, href: "/courses" })),
   },
   {
     title: "Industrial Training",
-    links: programmes.map((p) => ({ label: `${p.duration} Training`, href: "#programmes" })),
+    links: programmes.map((p) => ({ label: `${p.duration} Training`, href: "/#programmes" })),
   },
   {
     title: "Company",
     links: [
-      { label: "About us", href: "#about" },
-      { label: "Mission & Vision", href: "#about" },
-      { label: `Why ${site.name}`, href: "#why" },
-      { label: "Contact us", href: "#contact" },
+      { label: "About us", href: "/#about" },
+      { label: "Mission & Vision", href: "/#about" },
+      { label: `Why ${site.name}`, href: "/#why" },
+      { label: "Contact us", href: "/#contact" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "AI courses", href: "#ai" },
-      { label: "Technologies", href: "#tech" },
-      { label: "Student reviews", href: "#reviews" },
-      { label: "FAQ", href: "#faq" },
+      { label: "AI courses", href: "/#ai" },
+      { label: "Technologies", href: "/#tech" },
+      { label: "Student reviews", href: "/#reviews" },
+      { label: "FAQ", href: "/#faq" },
     ],
   },
 ];

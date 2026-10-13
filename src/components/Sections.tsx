@@ -332,7 +332,7 @@ export function Fields() {
               );
             })}
             <a
-              href="#courses"
+              href="/courses"
               data-hscroll-item
               className="group flex h-[21rem] w-[18.5rem] shrink-0 flex-col justify-between rounded-[2rem] bg-gradient-to-br from-cyan to-brand p-8 sm:w-[25rem] lg:h-[max(18.5rem,min(23rem,44vh))]"
             >

@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import { ArrowRight, Play, Sparkles, Star } from "lucide-react";
 import {
   after12thMenu,
+  courseHref,
+  courseSlugs,
   coursesMenu,
   googleReviews,
   promoVideoUrl,
@@ -62,7 +64,7 @@ function ColumnsMega({
                 {col.courses.map((c) => (
                   <li key={c.label}>
                     <a
-                      href={c.href ?? href}
+                      href={c.href ?? (courseSlugs[c.label] ? courseHref(c.label) : href)}
                       className="group/link flex items-center gap-2 py-[0.28em] leading-normal text-slate-600 transition-colors hover:text-brand"
                     >
                       <span className="transition-transform duration-300 group-hover/link:translate-x-1">
@@ -103,7 +105,7 @@ export function CoursesMega() {
   return (
     <ColumnsMega
       columns={coursesMenu}
-      href="#courses"
+      href="/courses"
       gridClass="grid-cols-4"
       cta="Browse all courses"
       footer={
@@ -122,7 +124,7 @@ export function After12thMega() {
   return (
     <ColumnsMega
       columns={after12thMenu}
-      href="#programmes"
+      href="/after-12th-courses"
       gridClass="grid-cols-3"
       cta="Browse After 12th courses"
       footer="Not sure where to start? A counsellor maps your stream and marks to a track in ten minutes."
@@ -134,7 +136,7 @@ export function ResourcesMega() {
   return (
     <ColumnsMega
       columns={resourcesMenu}
-      href="#contact"
+      href="/#contact"
       gridClass="grid-cols-[1fr_1fr_1.3fr]"
       cta="Ask us a question"
       footer="Not sure where to start? Tell us your background and we will point you at the right track."

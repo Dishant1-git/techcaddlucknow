@@ -23,10 +23,10 @@ import {
   Star,
   X,
 } from "lucide-react";
-import { coursesMenu, googleReviews, site } from "@/lib/site";
+import { after12thCatalogue, courseCatalogue, coursesMenu, googleReviews, site } from "@/lib/site";
 import { GoogleG } from "./ui";
 
-const EnquiryContext = createContext<{ open: () => void }>({ open: () => {} });
+const EnquiryContext = createContext<{ open: (course?: string) => void }>({ open: () => {} });
 
 export const useEnquiry = () => useContext(EnquiryContext);
 
@@ -40,7 +40,9 @@ const popularTracks = [
 ];
 
 const allCourses = Array.from(
-  new Set(coursesMenu.flatMap((col) => col.courses.map((c) => c.label))),
+  new Set(
+    [...coursesMenu, ...courseCatalogue, ...after12thCatalogue].flatMap((col) => col.courses.map((c) => c.label)),
+  ),
 );
 
 export function EnquiryProvider({ children }: { children: ReactNode }) {
@@ -73,7 +75,14 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
   }, [isOpen]);
 
   return (
-    <EnquiryContext.Provider value={{ open: () => setIsOpen(true) }}>
+    <EnquiryContext.Provider
+      value={{
+        open: (c) => {
+          if (c) setCourse(c);
+          setIsOpen(true);
+        },
+      }}
+    >
       {children}
       {isOpen && (
         <div
@@ -362,14 +371,17 @@ export function EnquiryForm({
 export function BookDemoButton({
   children = "Book Demo",
   className = "",
+  course,
   ...rest
 }: {
   children?: ReactNode;
   className?: string;
+  /** Preselects this course in the popup's form. */
+  course?: string;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick" | "type">) {
   const { open } = useEnquiry();
   return (
-    <button type="button" onClick={open} className={className} {...rest}>
+    <button type="button" onClick={() => open(course)} className={className} {...rest}>
       {children}
     </button>
   );

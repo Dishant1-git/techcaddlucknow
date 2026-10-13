@@ -43,7 +43,7 @@ export function AiMega() {
                       {col.links.map((l) => (
                         <li key={l.label}>
                           <a
-                            href="#ai"
+                            href="/#ai"
                             className="group/link flex flex-wrap items-center gap-x-2.5 gap-y-1 py-1.5 text-[15px] text-slate-200 transition-colors hover:text-cyan"
                           >
                             <span className="transition-transform duration-300 group-hover/link:translate-x-1">
@@ -68,7 +68,7 @@ export function AiMega() {
 
           {/* Featured course */}
           <a
-            href="#ai"
+            href="/#ai"
             className="group/card flex flex-col overflow-hidden rounded-3xl bg-white text-navy transition duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-cyan/20"
           >
             <div className="relative h-32 overflow-hidden bg-gradient-to-br from-hero-800 via-brand to-cyan">
@@ -92,7 +92,7 @@ export function AiMega() {
               career-ready tools.
             </p>
             <a
-              href="#ai"
+              href="/#ai"
               className="group/cta mt-8 inline-flex items-center gap-2 self-start rounded-full bg-white px-6 py-3 font-bold text-brand shadow-lg transition-colors hover:bg-hero-950 hover:text-white"
             >
               Explore AI

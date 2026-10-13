@@ -3,7 +3,7 @@ import { site } from "@/lib/site";
 
 export function Logo({ className = "" }: { className?: string }) {
   return (
-    <a href="#top" className={`inline-flex flex-col leading-none ${className}`}>
+    <a href="/#top" className={`inline-flex flex-col leading-none ${className}`}>
       {/* The logo file is used as a mask, so it takes the surrounding text colour
           (white over the dark hero, navy on the white header bar and footer). */}
       <span

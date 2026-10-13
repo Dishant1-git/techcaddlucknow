@@ -55,7 +55,7 @@ export function Header() {
       }`}
     >
       <a
-        href="#programmes"
+        href="/#programmes"
         aria-label="Explore internship and training programmes"
         className="internship-side-badge fixed left-2 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-2 rounded-2xl px-2.5 py-4 text-white shadow-xl sm:left-4"
       >

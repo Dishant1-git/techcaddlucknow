@@ -105,7 +105,7 @@ export function Capabilities() {
 
             <button
               type="button"
-              onClick={open}
+              onClick={() => open()}
               style={{ "--d": "0.5s" } as CSSProperties}
               className="rise group mt-8 inline-flex items-center gap-3 rounded-full bg-sun py-2.5 pl-6 pr-2.5 text-sm font-bold text-hero-950 transition-[filter] hover:brightness-105"
             >
