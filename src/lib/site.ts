@@ -995,16 +995,16 @@ export const promoVideoUrl = "https://www.youtube.com/";
 export const aboutTagline =
   "Fifteen years of training, four hundred and fifty hiring partners, one method.";
 
-// TODO: add each branch's website link; branches without one fall back to the contact section.
+// TODO: add each branch's website link; branches without one fall back to the branches list on the contact page.
 export const branches = [
-  { label: site.city, note: "This centre", href: "/#contact" },
+  { label: site.city, note: "This centre", href: "/contact" },
   { label: "Mohali", note: "Sector 75", href: "https://techcaddmohali.com" },
-  { label: "Jalandhar", note: "Head office & flagship campus", href: "/#contact" },
-  { label: "Ludhiana", href: "/#contact" },
-  { label: "Phagwara", href: "/#contact" },
-  { label: "Maqsudan", href: "/#contact" },
-  { label: "Hoshiarpur", href: "/#contact" },
-  { label: "Amritsar", href: "/#contact" },
+  { label: "Jalandhar", note: "Head office & flagship campus", href: "/contact#branches" },
+  { label: "Ludhiana", href: "/contact#branches" },
+  { label: "Phagwara", href: "/contact#branches" },
+  { label: "Maqsudan", href: "/contact#branches" },
+  { label: "Hoshiarpur", href: "/contact#branches" },
+  { label: "Amritsar", href: "/contact#branches" },
 ];
 
 export type NavItem = {
@@ -1048,6 +1048,6 @@ export const nav: NavItem[] = [
     mega: "resources",
     children: resourcesMenu.map((c) => ({ label: c.title, href: "/#contact" })),
   },
-  { label: "Branches", href: "/#contact", children: branches },
-  { label: "Contact", href: "/#contact" },
+  { label: "Branches", href: "/contact#branches", children: branches },
+  { label: "Contact", href: "/contact" },
 ];

@@ -25,6 +25,7 @@ import { SplitText } from "gsap/SplitText";
  *   data-zoom-hero      sticky hero: headline splits, portal opens (data-hz-*)
  *   data-doors          sticky doors that swing open onto [data-door-room]
  *   data-panels         sticky stack of [data-panel]s that wipe over each other
+ *   data-syllabus       sticky deck: [data-syllabus-card]s fly in from the right and stack
  *   data-words          sticky sentence revealed one [data-word] at a time
  *   data-grow="0.4"     scales up to full size as it enters the viewport
  *   data-tilt           3D tilt towards the pointer
@@ -210,6 +211,92 @@ function MotionEffects() {
           tl.to({}, { duration: 0.5 });
           const bar = wrap.querySelector("[data-panels-bar]");
           if (bar) tl.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: tl.duration() }, 0);
+        });
+
+        // Syllabus: each week's card flies in from the right and lands on the
+        // stack, pushing the earlier weeks back.
+        q("[data-syllabus]").forEach((wrap) => {
+          const cards = each(wrap, "[data-syllabus-card]");
+          if (!desktop) return;
+          // Cards have a fixed height here, so long modules step their text down
+          // until they fit (never below 11px; past that the card scrolls).
+          const fit = () =>
+            cards.forEach((card) => {
+              const body = card.querySelector<HTMLElement>("[data-syllabus-body]");
+              const list = card.querySelector<HTMLElement>("[data-syllabus-list]");
+              if (!body || !list) return;
+              list.style.fontSize = "";
+              let size = parseFloat(getComputedStyle(list).fontSize);
+              while (body.scrollHeight > body.clientHeight + 1 && size > 11) {
+                size -= 0.5;
+                list.style.fontSize = `${size}px`;
+              }
+              more(body);
+            });
+          // Flags a card that still overflows, until it has been scrolled to the end.
+          const more = (body: HTMLElement) =>
+            body.parentElement?.toggleAttribute(
+              "data-more",
+              body.scrollTop + body.clientHeight < body.scrollHeight - 4,
+            );
+          const onScroll = (e: Event) => {
+            const body = (e.target as HTMLElement).closest<HTMLElement>("[data-syllabus-body]");
+            if (body) more(body);
+          };
+          wrap.addEventListener("scroll", onScroll, true);
+          fit();
+          document.fonts.ready.then(fit);
+          window.addEventListener("resize", fit);
+          cleanups.push(() => {
+            window.removeEventListener("resize", fit);
+            wrap.removeEventListener("scroll", onScroll, true);
+            cards.forEach((card) => card.removeAttribute("data-more"));
+            each(wrap, "[data-syllabus-list]").forEach((list) => (list.style.fontSize = ""));
+          });
+
+          if (cards.length < 2) return;
+          const n = cards.length;
+          // Lenis already smooths the scroll, so the timeline follows it directly
+          // instead of adding a second layer of scrub lag.
+          const tl = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: { trigger: wrap, start: "top top", end: "bottom bottom", scrub: true },
+          });
+          tl.to({}, { duration: 0.2 });
+          cards.forEach((card, i) => {
+            if (i === 0) return;
+            const at = i - 0.8;
+            tl.fromTo(
+              card,
+              { xPercent: 160, rotation: 6 },
+              { xPercent: 0, rotation: 0, ease: "power3.out", duration: 0.7 },
+              at,
+            );
+            // Only transforms and opacity here: animating `filter` flashes dark.
+            cards.slice(0, i).forEach((under, j) => {
+              const depth = Math.min(i - j, 4);
+              tl.to(
+                under,
+                {
+                  y: -24 * Math.min(depth, 3),
+                  scale: 1 - 0.05 * Math.min(depth, 3),
+                  autoAlpha: depth > 3 ? 0 : 1,
+                  ease: "power3.out",
+                  duration: 0.7,
+                },
+                at,
+              );
+            });
+          });
+          tl.to({}, { duration: 0.5 });
+          const counter = wrap.querySelector("[data-syllabus-count]");
+          if (counter) {
+            cards.forEach((_, i) => {
+              if (i > 0) tl.to(counter, { yPercent: (-100 * i) / n, ease: "power2.inOut", duration: 0.35 }, i - 0.7);
+            });
+          }
+          const bar = wrap.querySelector("[data-syllabus-bar]");
+          if (bar) tl.fromTo(bar, { scaleX: 1 / n }, { scaleX: 1, duration: tl.duration() }, 0);
         });
 
         // Word sequence: a sentence arrives one word at a time.

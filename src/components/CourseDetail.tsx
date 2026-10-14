@@ -1,5 +1,6 @@
 import { NavLink } from "./NavLink";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -170,56 +171,127 @@ export function CourseOverview({ course }: { course: Course }) {
   );
 }
 
+// On desktop (with motion allowed) the syllabus is a pinned stage: Motion.tsx
+// flies each week's card in from the right onto a growing stack. Everywhere
+// else it is a plain list of cards.
 export function CourseSyllabus({ course }: { course: Course }) {
   const count = course.modules.length;
   return (
-    <section id="syllabus" className="scroll-mt-24 bg-slate-50">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-28">
-        <div className="lg:sticky lg:top-32 lg:self-start">
-          <Eyebrow>Syllabus</Eyebrow>
-          <Heading className="mt-5">
-            What you will
-            <br />
-            <span className="text-gradient">actually build</span>
-          </Heading>
-          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600">
-            {course.syllabusIntro ||
-              `${count} modules, each ending with something you can demonstrate. The final work becomes part of your portfolio.`}
-          </p>
-          <p data-reveal className="mt-6 text-sm font-semibold text-slate-500">
-            {count} modules{course.duration ? ` · ${course.duration}` : ""}
-          </p>
-        </div>
+    <section
+      id="syllabus"
+      data-syllabus
+      style={{ "--weeks": count } as CSSProperties}
+      className="relative scroll-mt-24 overflow-x-clip bg-slate-50 lg:motion-safe:h-[calc(var(--weeks)*55vh+100vh)]"
+    >
+      <div className="lg:motion-safe:sticky lg:motion-safe:top-0 lg:motion-safe:flex lg:motion-safe:h-svh lg:motion-safe:min-h-[40rem] lg:motion-safe:items-center lg:motion-safe:pt-20">
+        <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:px-8 lg:py-28 lg:motion-safe:grid-cols-[0.62fr_1.38fr] lg:motion-safe:gap-10 lg:motion-safe:py-0">
+          <div className="lg:sticky lg:top-32 lg:self-start lg:motion-safe:static lg:motion-safe:self-center">
+            <Eyebrow>Syllabus</Eyebrow>
+            <Heading className="mt-5">
+              What you will
+              <br />
+              <span className="text-gradient">actually build</span>
+            </Heading>
+            <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600">
+              {course.syllabusIntro ||
+                `${count} modules, each ending with something you can demonstrate. The final work becomes part of your portfolio.`}
+            </p>
+            <p data-reveal className="mt-6 text-sm font-semibold text-slate-500">
+              {count} modules{course.duration ? ` · ${course.duration}` : ""}
+            </p>
 
-        <div className="space-y-3">
-          {course.modules.map((m, i) => (
-            <details
-              key={`${i}-${m.title}`}
-              open={i === 0}
-              className="group rounded-2xl border border-slate-200 bg-white transition-colors open:border-brand/30"
-            >
-              <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-5 sm:px-6 [&::-webkit-details-marker]:hidden">
-                <span className="font-display text-sm font-extrabold text-brand">{pad(i + 1)}</span>
-                <span className="flex-1 font-display text-[17px] font-bold text-navy">
-                  {m.title}
+            <div aria-hidden className="mt-10 hidden lg:motion-safe:block">
+              <p className="flex items-baseline gap-3 font-display font-extrabold text-navy">
+                <span className="text-xs uppercase tracking-[0.24em] text-brand">Week</span>
+                <span className="block h-[1em] overflow-hidden text-6xl leading-none">
+                  <span data-syllabus-count className="block">
+                    {course.modules.map((_, i) => (
+                      <span key={i} className="block h-[1em]">
+                        {pad(i + 1)}
+                      </span>
+                    ))}
+                  </span>
                 </span>
-                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand/10 text-brand transition-transform duration-300 group-open:rotate-45">
-                  <Plus className="size-4" />
-                </span>
-              </summary>
-              <ul className="space-y-2.5 px-5 pb-6 pl-14 text-slate-600 sm:px-6 sm:pl-[3.75rem]">
-                {m.points.map((p) => (
-                  <li key={p} className="flex gap-3">
-                    <Check className="mt-1 size-4 shrink-0 text-brand" />
-                    {p}
-                  </li>
-                ))}
-              </ul>
-            </details>
-          ))}
+                <span className="text-xl text-slate-400">/ {pad(count)}</span>
+              </p>
+              <div className="mt-5 h-1 max-w-xs overflow-hidden rounded-full bg-slate-200">
+                <div
+                  data-syllabus-bar
+                  className="h-full origin-left rounded-full bg-gradient-to-r from-brand to-cyan"
+                />
+              </div>
+            </div>
+          </div>
+
+          <ol className="space-y-4 lg:motion-safe:relative lg:motion-safe:mt-6 lg:motion-safe:h-[calc(100svh-9rem)] lg:motion-safe:max-h-[46rem] lg:motion-safe:space-y-0">
+            {course.modules.map((m, i) => (
+              <li
+                key={`${i}-${m.title}`}
+                data-syllabus-card
+                className="group flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_18px_40px_-28px_rgba(15,23,42,0.18)] will-change-transform lg:motion-safe:absolute lg:motion-safe:inset-0 lg:motion-safe:my-auto lg:motion-safe:h-fit lg:motion-safe:max-h-full"
+              >
+                <div className="flex items-center gap-4 border-b border-slate-100 px-6 py-4 sm:px-8">
+                  <span className="rounded-full bg-brand/10 px-3 py-1 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-brand">
+                    Week {pad(i + 1)}
+                  </span>
+                  <span className="ml-auto font-display text-sm font-bold text-slate-400">
+                    {pad(i + 1)} / {pad(count)}
+                  </span>
+                </div>
+                <SyllabusBody module={m} />
+                <p
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden items-end justify-center bg-gradient-to-t from-white via-white/90 to-transparent pb-3 pt-12 text-[11px] font-bold uppercase tracking-[0.2em] text-brand group-data-[more]:flex"
+                >
+                  Scroll for more
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
+  );
+}
+
+// Long syllabus points read "Topic (12 hrs) — details". Splitting them lets the
+// topic stand out, and the text tightens as a module's content grows so the
+// card fits on screen without scrolling.
+function SyllabusBody({ module: m }: { module: Course["modules"][number] }) {
+  const chars = m.points.join("").length;
+  const density = chars > 1400 ? "dense" : chars > 500 || m.points.length > 6 ? "medium" : "light";
+  const look = {
+    light: { title: "text-2xl", list: "text-base", cols: "" },
+    medium: { title: "text-xl", list: "text-[15px]", cols: "xl:columns-2 [&>li]:break-inside-avoid" },
+    dense: { title: "text-lg", list: "text-[13px] leading-snug", cols: "lg:columns-2" },
+  }[density];
+  return (
+    <div data-lenis-prevent data-syllabus-body className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-6 py-5 sm:px-8">
+      <h3 className={`font-display font-bold tracking-tight text-navy ${look.title}`}>{m.title}</h3>
+      <ul data-syllabus-list className={`mt-4 gap-x-8 text-slate-600 [&>li]:mb-2.5 ${look.list} ${look.cols}`}>
+        {m.points.map((p) => {
+          // Prefer the dash after "(12 hrs)", since topic names can contain one too.
+          const hrs = p.indexOf(") — ");
+          const cut = hrs > 0 && hrs < 120 ? hrs + 1 : p.indexOf(" — ");
+          const head = cut > 0 && cut < 120 ? p.slice(0, cut) : null;
+          return (
+            <li key={p} className="flex gap-2.5">
+              <Check className="mt-[0.2em] size-[1.1em] shrink-0 text-brand" />
+              <span>
+                {head ? (
+                  <>
+                    <span className="font-semibold text-navy">{head}</span>
+                    <span className="mt-0.5 block">{p.slice(cut + 3)}</span>
+                  </>
+                ) : (
+                  p
+                )}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 

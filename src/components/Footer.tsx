@@ -19,7 +19,7 @@ const columns = [
       { label: "Mission & Vision", href: "/about/mission-vision" },
       { label: "Our Founder", href: "/about/founder" },
       { label: `Why ${site.name}`, href: "/#why" },
-      { label: "Contact us", href: "/#contact" },
+      { label: "Contact us", href: "/contact" },
     ],
   },
   {
@@ -77,12 +77,11 @@ export function Footer() {
           <span className="font-semibold text-brand">{site.city}</span>.
         </p>
       </div>
-      <p
+      {/* The logo file as a mask, so the watermark takes a faint navy tint. */}
+      <span
         aria-hidden
-        className="pointer-events-none -mb-[0.28em] select-none text-center font-display text-[22vw] font-extrabold leading-none tracking-tighter text-navy/[0.05]"
-      >
-        {site.name}
-      </p>
+        className="pointer-events-none mx-auto -mb-[2%] block aspect-[952/262] w-full max-w-[110rem] select-none bg-navy/[0.07] [mask:url(/images/tce.webp)_center/contain_no-repeat]"
+      />
     </footer>
   );
 }
