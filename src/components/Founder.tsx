@@ -61,7 +61,7 @@ export function FounderIntro() {
             src={founder.portrait}
             alt={`${founder.name}, founder of ${site.name}, speaking to students with a microphone`}
             fill
-            priority
+            loading="eager"
             sizes="(min-width: 1024px) 40vw, 90vw"
             className="object-cover object-top"
           />

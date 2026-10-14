@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Approach,
   Belief,
+  CampusGallery,
   Difference,
   Ecosystem,
   Journey,
@@ -43,6 +44,7 @@ export default function AboutPage() {
       <Approach />
       <Recognition />
       <Journey />
+      <CampusGallery />
       <Belief />
     </PageShell>
   );

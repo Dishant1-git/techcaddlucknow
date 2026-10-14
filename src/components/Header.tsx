@@ -16,9 +16,15 @@ export function TopBar() {
     <div className="absolute inset-x-0 top-0 z-40 hidden h-9 text-[13px] text-white/85 lg:block">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-8">
         <div className="flex items-center gap-6">
-          <span className="flex items-center gap-2">
-            <MapPin className="size-3.5" /> {site.address}
-          </span>
+          <NavLink
+            href={site.mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={site.address}
+            className="flex items-center gap-2 hover:text-white"
+          >
+            <MapPin className="size-3.5" /> {site.shortAddress}
+          </NavLink>
           <span className="flex items-center gap-2">
             <Clock className="size-3.5" /> {site.hours}
           </span>

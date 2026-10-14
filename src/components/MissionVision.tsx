@@ -12,8 +12,11 @@ import {
   Users,
 } from "lucide-react";
 import { futureFields, missionPoints, visionPoints } from "@/lib/about";
+import { galleryPhoto } from "@/lib/gallery";
 import { site } from "@/lib/site";
 import { DarkSection, Eyebrow, Heading, LightSection } from "./ui";
+
+const futurePhotos = ["robotics-soldering", "robot-dog-closeup", "ai-course-presentation"];
 
 const missionIcons = [GraduationCap, Hammer, Users, TrendingUp, Globe];
 
@@ -54,7 +57,7 @@ export function Mission() {
               src="/images/vision-mision-techcadd.png"
               alt={`${site.name} mission and vision`}
               fill
-              priority
+              loading="eager"
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"
             />
@@ -187,6 +190,31 @@ export function Future() {
           </li>
         ))}
       </ul>
+
+      {/* Where that future is already being built */}
+      <div data-stagger className="mt-14 grid gap-4 text-left sm:grid-cols-3">
+        {futurePhotos.map((name) => {
+          const p = galleryPhoto(name);
+          return (
+            <figure
+              key={name}
+              className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-slate-200"
+            >
+              <Image
+                src={p.src}
+                alt={p.alt}
+                fill
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-hero-950/80 to-transparent p-4 pt-12 font-display text-sm font-bold text-white">
+                {p.caption}
+              </figcaption>
+            </figure>
+          );
+        })}
+      </div>
+
       <div data-reveal className="mt-10">
         <NavLink
           href="/#ai"

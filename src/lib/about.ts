@@ -24,23 +24,21 @@ export const whatWeTeach = [
   "CAD/CAM",
 ];
 
-// TODO: these photos come from the Jalandhar head office's events. Swap in
-// Lucknow campus photos when they are available.
 export const teamPhotos = [
   {
-    src: "/images/about/alpine-college-team-with-faculty.jpeg",
-    alt: `The ${site.name} team with faculty at a partner college`,
+    src: "/images/gallery/team-stage-group.webp",
+    alt: `The ${site.name} team seated and standing on a stage beneath a large ${site.name} logo`,
     caption: `Team ${site.name}`,
   },
   {
-    src: "/images/about/agentic-ai-workshop-langchain-lab.jpeg",
-    alt: "Workshop participants working through LangChain on their laptops",
-    caption: "LangChain lab",
+    src: "/images/gallery/robotics-soldering.webp",
+    alt: "A student solders a small robotics kit while a classmate hands her parts",
+    caption: "Robotics lab",
   },
   {
-    src: "/images/about/agentic-ai-workshop-live-demo.jpeg",
-    alt: "A live demonstration on screen during the Agentic AI workshop",
-    caption: "Live demo",
+    src: "/images/gallery/robot-dog-student.webp",
+    alt: `A student crouches to greet a ${site.name}-branded robot dog outdoors`,
+    caption: "Meet the robot dog",
   },
 ];
 
@@ -278,8 +276,8 @@ export const founder = {
   tags: ["Founder", "Educator", "Mentor"],
   instagram: "https://www.instagram.com/gouravgupta0/",
   linkedin: "https://www.linkedin.com/in/gouravguptatechcadd/",
-  portrait: "/images/founder/founder-portrait.png",
-  about: "/images/founder/founder-about.jpg",
+  portrait: "/images/gallery/founder-mic.webp",
+  about: "/images/gallery/founder-google.webp",
 };
 
 // TODO: confirm these figures; the student count and centre count are taken
@@ -296,20 +294,28 @@ export const founderStats = [
 
 export const stagePhotos = [
   {
-    src: "/images/founder/stage-1.jpg",
-    alt: "Gourav Gupta on stage in a large auditorium, with a robot on the stage floor beside him",
+    src: "/images/gallery/founder-talk-robot-dog.webp",
+    alt: "Gourav Gupta speaking on stage with the robot dog beside him",
   },
   {
-    src: "/images/founder/stage-2.jpg",
-    alt: "Gourav Gupta walking across the stage in front of a packed auditorium",
+    src: "/images/gallery/founder-auditorium.webp",
+    alt: "Gourav Gupta addressing a packed auditorium of students",
   },
   {
-    src: "/images/founder/stage-3.jpg",
-    alt: "Gourav Gupta addressing a full hall of students from the stage",
+    src: "/images/gallery/founder-robot-dog-stage.webp",
+    alt: "Gourav Gupta presenting while the robot dog stands on its hind legs",
   },
   {
-    src: "/images/founder/stage-4.jpg",
-    alt: "Gourav Gupta raising his hand to the audience during a talk",
+    src: "/images/gallery/founder-bouquet.webp",
+    alt: "Gourav Gupta welcomed with a bouquet in front of a seated audience",
+  },
+  {
+    src: "/images/gallery/guest-of-honour.webp",
+    alt: "Gourav Gupta receiving a guest of honour plaque on stage",
+  },
+  {
+    src: "/images/gallery/founder-stage-talk.webp",
+    alt: "Gourav Gupta speaking at a college event beside a techcadd banner",
   },
 ];
 
@@ -383,7 +389,7 @@ export const chapters: Chapter[] = [
     marker: "2018",
     label: "Chapter 02",
     title: "More Than an Entrepreneur — A Career Coach and Mentor",
-    image: "/images/founder/journey-2018.jpg",
+    image: "/images/gallery/founder-auditorium.webp",
     paragraphs: [
       "Gourav Gupta believes that education should do more than provide a certificate. It should build confidence, develop practical skills and empower individuals to create meaningful careers.",
       "As a career coach and mentor, he is passionate about helping students and young professionals:",
@@ -406,7 +412,7 @@ export const chapters: Chapter[] = [
     marker: "2020",
     label: "Chapter 03",
     title: "The Philosophy Behind His Success",
-    image: "/images/founder/journey-2020.jpg",
+    image: "/images/gallery/founder-stage-talk.webp",
     paragraphs: [
       "Gourav Gupta’s story is not about overnight success. It is about showing up every day, embracing challenges and continuing to work toward a bigger vision.",
       "His personal and professional philosophy is built around a few core principles:",
@@ -439,7 +445,7 @@ export const chapters: Chapter[] = [
     marker: "2023",
     label: "Chapter 04",
     title: "His Vision as a Career Coach",
-    image: "/images/founder/journey-2023.jpg",
+    image: "/images/gallery/mou-ai-unleashed.webp",
     paragraphs: [
       "Gourav Gupta envisions a future where students and young professionals have access to the right guidance, practical skills and opportunities to build successful careers.",
       "Through his work as a mentor and career coach, he aims to bridge the gap between academic education and industry expectations. His focus is on encouraging learners to think beyond conventional career paths, develop confidence in their abilities and prepare themselves for a changing professional world.",
@@ -451,7 +457,7 @@ export const chapters: Chapter[] = [
     marker: "2026",
     label: "Chapter 05",
     title: "An Inspiration for Every Dreamer",
-    image: "/images/founder/founder-portrait.png",
+    image: "/images/gallery/founder-robot-dog-stage.webp",
     paragraphs: [
       `From driving an auto to complete his engineering education, to personally building the foundations of ${site.name} through offline branding and hands-on effort, Gourav Gupta’s journey is a story of perseverance, humility and determination.`,
       "His life demonstrates that success is not defined by where you start, but by the courage to keep going.",

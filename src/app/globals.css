@@ -87,6 +87,16 @@
     background-position: 200% 50%;
   }
 }
+/* Capabilities: the hairline that fills before the next track takes over */
+@keyframes cap-progress {
+  from {
+    transform: scaleX(0);
+  }
+}
+.cap-progress {
+  animation: cap-progress 7s linear forwards;
+}
+
 @keyframes scroll-dot {
   0% {
     transform: translateY(0);
@@ -465,6 +475,7 @@ body {
   .animate-pulse-ring,
   .rise,
   .orbit-spin,
+  .cap-progress,
   .text-shine {
     animation: none;
   }

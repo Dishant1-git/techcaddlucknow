@@ -1,11 +1,17 @@
 // All site copy and contact details live here so they can be edited in one place.
 
-// TODO: replace the phone, WhatsApp number and address with the real Lucknow branch details.
+const address =
+  "533/1, Kursi Road, Main, Kapoorthala Chauraha, opp. Central Bank Of India, Lucknow, Uttar Pradesh 226024";
+
+// TODO: replace the phone and WhatsApp number with the real Lucknow branch details.
 export const site = {
   name: "techcadd",
   city: "Lucknow",
   region: "Uttar Pradesh",
-  address: "Your campus address, Lucknow, Uttar Pradesh",
+  address,
+  // Fits the thin contact bar above the header; the full address is in the footer.
+  shortAddress: "Kursi Road, Kapoorthala Chauraha, Lucknow",
+  mapsHref: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`techcadd ${address}`)}`,
   hours: "Mon – Sun, 8 AM – 8 PM",
   phone: "+91 00000 00000",
   phoneHref: "tel:+910000000000",
@@ -981,7 +987,7 @@ export const resourcesMenu: MenuColumn[] = [
       { label: "Verify Certificate" },
       { label: "Blogs" },
       { label: "Events & Seminars" },
-      { label: "Campus Gallery" },
+      { label: "Campus Gallery", href: "/about#gallery" },
       { label: "Student Reviews", href: "/#reviews" },
       { label: "College Partnerships" },
       { label: "All Pages Directory" },

@@ -16,6 +16,7 @@ import {
   siFigma,
   siFirebase,
   siFlutter,
+  siGit,
   siGithub,
   siGoogleads,
   siGoogleanalytics,
@@ -37,6 +38,7 @@ import {
   siLinux,
   siMailchimp,
   siMeta,
+  siMetasploit,
   siMongodb,
   siMysql,
   siNextdotjs,
@@ -58,6 +60,7 @@ import {
   siShopify,
   siSpacy,
   siSplunk,
+  siTailwindcss,
   siTensorflow,
   siTerraform,
   siTypescript,
@@ -69,6 +72,7 @@ import {
   siWordpress,
   siZapier,
 } from "simple-icons";
+import { extraLogos } from "./extraLogos";
 
 type Logo = { path: string; hex: string };
 
@@ -118,6 +122,23 @@ export const techLogos: Record<string, Logo> = {
   Linux: siLinux,
   "Google Cloud": siGooglecloud,
   Vercel: siVercel,
+  // Tools named in the capabilities section
+  Jupyter: siJupyter,
+  "Tailwind CSS": siTailwindcss,
+  Git: siGit,
+  NumPy: siNumpy,
+  "Kali Linux": siKalilinux,
+  Wireshark: siWireshark,
+  Metasploit: siMetasploit,
+  "Burp Suite": siBurpsuite,
+  Splunk: siSplunk,
+  "Google Ads": siGoogleads,
+  "Meta Ads": siMeta,
+  "Google Analytics": siGoogleanalytics,
+  "Search Console": siGooglesearchconsole,
+  WordPress: siWordpress,
+  // OpenAI, Power BI, Tableau, Excel, AWS, Azure and Canva
+  ...extraLogos,
 };
 
 // Keyed by the course names in site.ts (courseCatalogue). Courses without an

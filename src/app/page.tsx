@@ -1,4 +1,5 @@
 import { About } from "@/components/About";
+import { CampusLife } from "@/components/CampusLife";
 import { Capabilities } from "@/components/Capabilities";
 import { Faq } from "@/components/Faq";
 import { Footer, WhatsAppButton } from "@/components/Footer";
@@ -42,6 +43,7 @@ export default function Home() {
         <KeywordRows />
         <WordSequence />
         <WhyUs />
+        <CampusLife />
         <Testimonials />
         <TechStack />
         <Capabilities />

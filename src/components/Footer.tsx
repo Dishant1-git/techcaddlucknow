@@ -53,7 +53,14 @@ export function Footer() {
             <NavLink href={site.phoneHref} className="mt-4 block text-sm hover:text-brand">
               {site.phone}
             </NavLink>
-            <p className="mt-2 text-sm">{site.address}</p>
+            <NavLink
+              href={site.mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 block max-w-xs text-sm leading-relaxed hover:text-brand"
+            >
+              {site.address}
+            </NavLink>
           </div>
 
           {columns.map((col) => (

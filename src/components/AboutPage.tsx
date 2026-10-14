@@ -34,6 +34,7 @@ import {
 } from "@/lib/about";
 import { site } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
+import { Gallery } from "./Gallery";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
 
 const differenceIcons = {
@@ -180,14 +181,14 @@ export function Ecosystem() {
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div data-reveal="left" className="grid grid-cols-2 gap-4">
             <Photo
-              src="/images/about/alpine-college-trainer-addressing.jpeg"
-              alt={`A ${site.name} trainer taking questions during a campus session`}
+              src="/images/gallery/design-lab-mentor.webp"
+              alt="A mentor guides students editing video at desktop computers"
               sizes="(min-width: 1024px) 25vw, 50vw"
               className="aspect-[3/4]"
             />
             <Photo
-              src="/images/about/alpine-college-student-questions.jpeg"
-              alt={`Students meeting a ${site.name} counsellor after a campus session`}
+              src="/images/gallery/aero-lab-mentors.webp"
+              alt="Two mentors help students in the aircraft-cabin styled computer lab"
               sizes="(min-width: 1024px) 25vw, 50vw"
               className="mt-10 aspect-[3/4]"
             />
@@ -243,8 +244,8 @@ export function Ecosystem() {
           </div>
           <div data-reveal="right">
             <Photo
-              src="/images/about/alpine-college-front-rows.jpeg"
-              alt="Students in the front rows of a campus technology session"
+              src="/images/gallery/lab-coding-class.webp"
+              alt="Students coding at desktop computers in a bright lab"
               className="aspect-[4/3] shadow-2xl shadow-hero-950/15"
             />
           </div>
@@ -444,8 +445,8 @@ export function Approach() {
 
         <div data-reveal="right">
           <Photo
-            src="/images/about/agentic-ai-workshop-banner.jpeg"
-            alt="An Agentic AI workshop run with a partner group of institutions"
+            src="/images/gallery/langchain-seminar.webp"
+            alt={`A ${site.name} trainer presents 'Why use LangChain?' to a large hall`}
             className="aspect-[4/3]"
           />
           <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.05] p-7">
@@ -580,6 +581,25 @@ export function Journey() {
         </ol>
       </div>
     </section>
+  );
+}
+
+export function CampusGallery() {
+  return (
+    <LightSection id="gallery">
+      <SectionHeading
+        eyebrow="Gallery"
+        title={
+          <>
+            Life at <span className="text-gradient">{site.name}</span>
+          </>
+        }
+        text="Labs, workshops, robotics demos and the colleges we work with. Tap any photo to see it full size."
+      />
+      <div className="mt-12">
+        <Gallery />
+      </div>
+    </LightSection>
   );
 }
 
