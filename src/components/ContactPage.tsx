@@ -93,8 +93,8 @@ export function ContactIntro() {
         <div data-reveal="scale" className="relative sm:pb-12">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-slate-200 shadow-2xl shadow-hero-950/15">
             <Image
-              src="/images/about/alpine-college-student-questions.jpeg"
-              alt={`A ${site.name} trainer advising a group of students`}
+              src="/images/gallery/data-session.webp"
+              alt={`A ${site.name} trainer walking a small group through data on a wall screen`}
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
               className="object-cover"

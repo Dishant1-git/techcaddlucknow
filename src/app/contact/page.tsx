@@ -8,6 +8,7 @@ import {
   VisitCampus,
 } from "@/components/ContactPage";
 import { PageHero, PageShell } from "@/components/PageShell";
+import { SupportDesks } from "@/components/SupportDesks";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function ContactPage() {
       />
       <ContactIntro />
       <EnquiryTopics />
+      <SupportDesks />
       <ContactSteps />
       <VisitCampus />
       <Branches />

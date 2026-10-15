@@ -3,7 +3,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  ArrowUpRight,
   Briefcase,
   Check,
   ChevronRight,
@@ -162,32 +161,6 @@ export function SixMonthWhoAndWhy() {
   );
 }
 
-export function SixMonthDomains() {
-  return (
-    <LightSection id="domains">
-      <SectionHeading eyebrow="Internship domains" title={c.domains.title} text={c.domains.intro} />
-      <ul data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
-        {c.domains.items.map((d, i) => (
-          <li key={d.title} className={i < 3 ? "lg:col-span-2" : "lg:col-span-3"}>
-            <Link
-              href={d.href}
-              className="group flex h-full flex-col rounded-3xl border border-slate-100 bg-white p-7 shadow-xl shadow-hero-950/5 transition duration-500 hover:-translate-y-1.5 hover:border-sky/50"
-            >
-              <span className="flex items-center justify-between">
-                <span className="font-display text-4xl font-extrabold text-slate-200">{pad(i + 1)}</span>
-                <ArrowUpRight className="size-5 text-brand transition-transform group-hover:rotate-45" />
-              </span>
-              <h3 className="mt-4 font-display text-xl font-bold text-navy">{d.title}</h3>
-              <p className="mt-2 flex-1 leading-relaxed text-slate-600">{d.text}</p>
-              {d.note && <p className="mt-4 rounded-xl bg-slate-50 px-3 py-2 text-sm text-navy">{d.note}</p>}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </LightSection>
-  );
-}
-
 export function SixMonthRoadmap() {
   return (
     <section id="roadmap" className="bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
@@ -268,10 +241,10 @@ export function SixMonthProjects() {
   );
 }
 
-export function SixMonthProcess() {
+export function SixMonthProcess({ title = c.process.title }: { title?: string }) {
   return (
     <LightSection id="process">
-      <SectionHeading eyebrow="Internship process" title={c.process.title} />
+      <SectionHeading eyebrow="Internship process" title={title} />
       <ol className="relative mt-16 grid gap-8 lg:grid-cols-4">
         <span aria-hidden className="absolute inset-x-[12%] top-7 hidden h-1 rounded-full bg-gradient-to-r from-cyan via-sky to-brand lg:block" />
         {c.process.steps.map((s, i) => (
@@ -372,7 +345,7 @@ export function SixMonthOutcomes() {
   );
 }
 
-export function SixMonthVisit() {
+export function SixMonthVisit({ title = c.visit.title }: { title?: string }) {
   return (
     <section className="bg-white px-5 pb-20 lg:px-8 lg:pb-28">
       <div
@@ -381,7 +354,7 @@ export function SixMonthVisit() {
       >
         <div className="flex-1">
           <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-hero-950/60">Internship location</p>
-          <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">{c.visit.title}</h2>
+          <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">{title}</h2>
           <p className="mt-3 max-w-2xl leading-relaxed text-hero-950/80">{c.visit.text}</p>
           <a
             href={site.mapsHref}

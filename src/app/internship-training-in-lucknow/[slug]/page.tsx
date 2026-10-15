@@ -14,17 +14,17 @@ import {
 import { Faq } from "@/components/Faq";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
+import { DomainPicker } from "@/components/InternshipDomain";
 import {
   CompareDurations,
   InternshipHero,
   TrainingPath,
   TrainingReceive,
-  TrainingTracks,
 } from "@/components/Internship";
 import { Motion } from "@/components/Motion";
+import { PhotoStrip, photoSets } from "@/components/PhotoStrip";
 import {
   SixMonthDifference,
-  SixMonthDomains,
   SixMonthFaq,
   SixMonthHero,
   SixMonthOutcomes,
@@ -41,8 +41,8 @@ import { getTraining, trainingSlugList } from "@/lib/courses";
 import { sixMonths } from "@/lib/internship6m";
 import { programmes, site } from "@/lib/site";
 
-// Two kinds of page share this route: the duration programmes (45 Days,
-// 6 Weeks, ...) from `programmes`, and the per-course training pages from
+// Two kinds of page share this route: the duration programmes (45 Days
+// / 6 Weeks and 6 Months) from `programmes`, and the per-course training pages from
 // trainingContent.json. Their slugs don't overlap.
 // Every page is built ahead of time, so an unknown slug waits for the full
 // render and gets a real 404 instead of a streamed "not found".
@@ -59,7 +59,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/internship-training/[slug]">): Promise<Metadata> {
+}: PageProps<"/internship-training-in-lucknow/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = findProgramme(slug);
   if (p?.slug === "6-months") return sixMonths.meta;
@@ -77,7 +77,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function TrainingPage({ params }: PageProps<"/internship-training/[slug]">) {
+export default async function TrainingPage({ params }: PageProps<"/internship-training-in-lucknow/[slug]">) {
   const { slug } = await params;
   const p = findProgramme(slug);
   const course = p ? undefined : getTraining(slug);
@@ -93,13 +93,19 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
           <SixMonthHero />
           <SixMonthOverview />
           <SixMonthWhoAndWhy />
-          <SixMonthDomains />
+          <DomainPicker duration={p.slug} label={p.duration} title={sixMonths.domains.title} text={sixMonths.domains.intro} />
           <SixMonthRoadmap />
           <SixMonthDifference />
           <SixMonthProjects />
           <SixMonthProcess />
           <SixMonthPaperwork />
           <SixMonthOutcomes />
+          <PhotoStrip
+            eyebrow="Inside the lab"
+            title={<>Six months of <span className="text-gradient">real work</span></>}
+            text="Project rooms, mentor reviews and hands-on builds — real photos from techcadd labs."
+            photos={photoSets.internship}
+          />
           <SixMonthVisit />
           <SixMonthFaq />
           <CompareDurations current={p.slug} />
@@ -108,9 +114,14 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
       ) : p ? (
         <main>
           <InternshipHero programme={p} />
-          <TrainingTracks duration={p.duration} />
+          <DomainPicker duration={p.slug} label={p.duration} />
           <TrainingPath />
           <TrainingReceive />
+          <PhotoStrip
+            title={<>Where interns <span className="text-gradient">train</span></>}
+            text="Live projects, mentor reviews and team work — real photos from techcadd labs."
+            photos={photoSets.internship}
+          />
           <CompareDurations current={p.slug} />
           <Faq />
           <Cta />
@@ -126,6 +137,11 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
           <CourseOutcomes course={course!} />
           <CourseFaq course={course!} />
           <RelatedCourses course={course!} />
+          <PhotoStrip
+            title={<>Where you will <span className="text-gradient">learn</span></>}
+            text="Mentor-led labs, small groups and workshops — real photos from techcadd batches."
+            photos={photoSets.labs}
+          />
           <Cta />
         </main>
       )}

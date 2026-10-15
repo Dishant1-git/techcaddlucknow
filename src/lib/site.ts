@@ -84,24 +84,17 @@ export const campusBadges = [
   "Certified courses",
 ];
 
-// Internship & training programmes; each has a page at /internship-training/<slug>.
+// Internship & training programmes; each has a page at
+// /internship-training-in-lucknow/<slug>, and a page per domain below that.
 export const programmes = [
   {
+    // One track for both: 45 days is roughly six weeks.
     slug: "45-days",
-    duration: "45 Days",
-    bestFor: "Students on a summer or winter break who want one skill and a finished project.",
-    title: "Summer & Winter Industrial Training",
-    text: "A fast, focused sprint on one technology with a working project and a certificate.",
-    points: ["One core technology", "Guided mini project", "Training certificate"],
-    popular: false,
-  },
-  {
-    slug: "6-weeks",
-    duration: "6 Weeks",
-    bestFor: "Students whose college or university asks for industrial training with documents.",
-    title: "University-Mandated Training",
-    text: "Meets AICTE / university requirements with documentation your college accepts.",
-    points: ["Syllabus-aligned modules", "Project report & viva prep", "College-ready documents"],
+    duration: "45 Days / 6 Weeks",
+    bestFor: "Students on a summer or winter break, or whose university asks for six weeks of industrial training with documents.",
+    title: "Short-Term Industrial Training",
+    text: "A focused sprint on one technology with a documented project, a report and a training certificate.",
+    points: ["One core technology", "Guided project & report", "College-ready documents"],
     popular: false,
   },
   {
@@ -113,19 +106,13 @@ export const programmes = [
     points: ["Complete stack coverage", "Live project experience", "Internship letter & placement"],
     popular: true,
   },
-  {
-    slug: "9-months",
-    duration: "9 Months",
-    bestFor: "Learners who want depth in two specialisations and a mentor alongside them.",
-    title: "Expert Track",
-    text: "Our deepest programme — client-level projects, advanced modules and dedicated mentoring.",
-    points: ["Two specialisations", "Client-level projects", "Dedicated 1:1 mentor"],
-    popular: false,
-  },
 ];
 
+/** Root of the Internship & Training section. The route folder has the same name. */
+export const internshipBase = "/internship-training-in-lucknow";
+
 export const internshipHref = (slug?: string) =>
-  slug ? `/internship-training/${slug}` : "/internship-training";
+  slug ? `${internshipBase}/${slug}` : internshipBase;
 
 export const steps = [
   {
@@ -863,7 +850,7 @@ export const courseHref = (label: string) =>
 
 // Tiles in the Certification mega menu.
 // Programmes in the Internship & Training menu. Those with a `slug` have a page
-// at /internship-training/<slug>, with content in trainingContent.json; the rest
+// at /internship-training-in-lucknow/<slug>, with content in trainingContent.json; the rest
 // link to the training section on the home page until their syllabus is added.
 export const certificatePrograms: {
   label: string;
@@ -1058,7 +1045,7 @@ export const nav: NavItem[] = [
   },
   {
     label: "Internship & Training",
-    href: internshipHref("6-months"),
+    href: internshipHref(),
     mega: "certification",
     children: certificatePrograms.map((c) => ({ label: c.label, href: trainingHref(c) })),
   },
