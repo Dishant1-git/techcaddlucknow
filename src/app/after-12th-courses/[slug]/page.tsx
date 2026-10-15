@@ -8,8 +8,8 @@ import {
   CourseOverview,
   CourseProjects,
   CourseSyllabus,
-  CourseTools,
-  RelatedCourses,
+    RelatedCourses,
+  Toolchain,
 } from "@/components/CourseDetail";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
@@ -52,7 +52,7 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
         <CourseHero course={course} />
         <CourseOverview course={course} />
         <CourseSyllabus course={course} />
-        <CourseTools course={course} />
+        <Toolchain course={course} />
         <CourseAudience course={course} />
         <CourseProjects course={course} />
         <CourseOutcomes course={course} />

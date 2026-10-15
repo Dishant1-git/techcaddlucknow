@@ -20,6 +20,7 @@ import {
   Monitor,
   Rocket,
   Shield,
+  Smartphone,
   Sparkles,
   Star,
   Target,
@@ -35,6 +36,7 @@ import {
   programmes,
   site,
   steps,
+  trainingHref,
 } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
@@ -50,6 +52,7 @@ const icons: Record<string, LucideIcon> = {
   chart: ChartColumn,
   layers: Layers,
   shield: Shield,
+  smartphone: Smartphone,
   terminal: Terminal,
   monitor: Monitor,
   target: Target,
@@ -304,7 +307,7 @@ export function TrainingTracks({ duration }: { duration?: string }) {
       <ul data-stagger className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {certificatePrograms.map((c) => {
           const Icon = icons[c.icon];
-          const href = courseSlugs[c.label] ? courseHref(c.label) : undefined;
+          const href = c.slug ? trainingHref(c) : courseSlugs[c.label] ? courseHref(c.label) : undefined;
           const body = (
             <>
               <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-cyan to-sky text-hero-950 transition-transform duration-300 group-hover:-rotate-6">

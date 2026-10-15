@@ -16,11 +16,7 @@ import {
   Terminal,
   type LucideIcon,
 } from "lucide-react";
-<<<<<<< Updated upstream
-import { certificatePrograms, internshipHref } from "@/lib/site";
-=======
 import { certificatePrograms, trainingHref } from "@/lib/site";
->>>>>>> Stashed changes
 
 const icons: Record<string, LucideIcon> = {
   cloud: Cloud,
@@ -55,11 +51,7 @@ export function CertificationMega() {
             return (
               <NavLink
                 key={c.label}
-<<<<<<< Updated upstream
-                href={internshipHref()}
-=======
                 href={trainingHref(c)}
->>>>>>> Stashed changes
                 title={c.label}
                 className="group/tile flex items-center gap-3.5 rounded-2xl border border-slate-200 bg-white p-4 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10"
               >

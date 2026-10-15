@@ -95,7 +95,64 @@
       "title": "Cloud Support Associate",
       "text": "You will be able to explain cloud concepts in plain language, launch and manage a virtual server, store and secure data, and handle networking and access-control basics — the groundwork for cloud support, technical support, IT helpdesk and junior systems roles, and for vendor fundamentals certifications."
     },
-    "hiredBy": []
+    "hiredBy": [],
+    "toolGroups": [
+      {
+        "title": "Cloud Platforms",
+        "tools": [
+          {
+            "name": "AWS",
+            "text": "EC2 virtual machines, S3 storage, IAM users and the free-tier console."
+          },
+          {
+            "name": "Microsoft Azure",
+            "text": "Virtual machines, storage accounts and resource groups in the Azure portal."
+          },
+          {
+            "name": "Google Cloud",
+            "text": "Compute Engine, Cloud Storage and the Google Cloud console."
+          }
+        ]
+      },
+      {
+        "title": "Servers & Access",
+        "tools": [
+          {
+            "name": "Linux",
+            "text": "The command line, file permissions, packages and services on cloud servers."
+          },
+          {
+            "name": "Windows",
+            "text": "Setting up Windows machines, users and remote administration."
+          },
+          {
+            "name": "SSH",
+            "text": "Key-based login and secure remote access to Linux servers."
+          },
+          {
+            "name": "Remote Desktop",
+            "text": "Connecting to and managing Windows machines in the cloud."
+          }
+        ]
+      },
+      {
+        "title": "Operations & Workflow",
+        "tools": [
+          {
+            "name": "Cloud Consoles & Dashboards",
+            "text": "Monitoring, billing alerts and cost dashboards across providers."
+          },
+          {
+            "name": "Basic Scripting",
+            "text": "Small scripts that automate setup and routine admin tasks."
+          },
+          {
+            "name": "Microsoft Office",
+            "text": "Documentation, reports and architecture notes for your projects."
+          }
+        ]
+      }
+    ]
   },
   "flutter-app-development": {
     "summary": "Build Android and iOS apps from a single codebase. This Flutter app development course in {city} moves from Dart fundamentals to UI, state management, APIs, Firebase and Play Store publishing, and ends with a capstone app for your portfolio.",
@@ -224,16 +281,16 @@
     "tools": [
       "Flutter",
       "Dart",
+      "pub.dev Packages",
       "Android Studio",
       "VS Code",
       "Android Emulator",
       "Flutter DevTools",
+      "Xcode",
       "Firebase",
       "Postman",
       "Git & GitHub",
-      "Figma",
-      "pub.dev Packages",
-      "Xcode"
+      "Figma"
     ],
     "projects": [
       {
@@ -256,6 +313,71 @@
       "title": "Junior Flutter Developer",
       "text": "With a solid portfolio you can apply for junior Flutter developer, mobile app developer, cross-platform developer and app tester roles — or freelance, building catalogue, booking and delivery apps for small businesses in {city} and nearby cities."
     },
-    "hiredBy": []
+    "hiredBy": [],
+    "toolGroups": [
+      {
+        "title": "Core Framework",
+        "tools": [
+          {
+            "name": "Flutter",
+            "text": "Widgets, layouts, navigation, theming and state management."
+          },
+          {
+            "name": "Dart",
+            "text": "Variables, classes, async/await and null safety — the language behind Flutter."
+          },
+          {
+            "name": "pub.dev Packages",
+            "text": "Finding and adding packages for HTTP, storage, maps and more."
+          }
+        ]
+      },
+      {
+        "title": "Build & Debug",
+        "tools": [
+          {
+            "name": "Android Studio",
+            "text": "Project setup, the SDK manager and Android builds."
+          },
+          {
+            "name": "VS Code",
+            "text": "The everyday editor, with the Flutter and Dart extensions."
+          },
+          {
+            "name": "Android Emulator",
+            "text": "Running and testing your apps on virtual devices."
+          },
+          {
+            "name": "Flutter DevTools",
+            "text": "Inspecting widgets, debugging and profiling performance."
+          },
+          {
+            "name": "Xcode",
+            "text": "iOS builds and the iPhone simulator on macOS."
+          }
+        ]
+      },
+      {
+        "title": "Backend & Workflow",
+        "tools": [
+          {
+            "name": "Firebase",
+            "text": "Authentication, the Firestore database and push notifications."
+          },
+          {
+            "name": "Postman",
+            "text": "Testing REST APIs before wiring them into your app."
+          },
+          {
+            "name": "Git & GitHub",
+            "text": "Version control, commits and publishing your portfolio."
+          },
+          {
+            "name": "Figma",
+            "text": "Reading app designs and turning screens into widgets."
+          }
+        ]
+      }
+    ]
   }
 }

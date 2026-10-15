@@ -888,7 +888,7 @@ export const certificatePrograms: {
 ];
 
 export const trainingHref = (p: { slug?: string }) =>
-  p.slug ? `/internship-training/${p.slug}` : "/#programmes";
+  internshipHref(p.slug);
 
 // Sections on the /after-12th-courses page; each programme has a detail page at
 // /after-12th-courses/<slug>, with its content in after12thContent.json.
@@ -1060,11 +1060,7 @@ export const nav: NavItem[] = [
     label: "Internship & Training",
     href: internshipHref(),
     mega: "certification",
-<<<<<<< Updated upstream
-    children: certificatePrograms.map((c) => ({ label: c.label, href: internshipHref() })),
-=======
     children: certificatePrograms.map((c) => ({ label: c.label, href: trainingHref(c) })),
->>>>>>> Stashed changes
   },
   {
     label: "After 12th",

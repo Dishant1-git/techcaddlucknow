@@ -5,10 +5,19 @@
 import programmeContent from "./after12thContent.json";
 import guideContent from "./courseGuides.json";
 import content from "./courseContent.json";
-<<<<<<< Updated upstream
-import { after12thCatalogue, after12thHref, aiMenu, courseCatalogue, courseSlugs, site } from "./site";
+import trainingContent from "./trainingContent.json";
+import {
+  after12thCatalogue,
+  after12thHref,
+  aiMenu,
+  certificatePrograms,
+  courseCatalogue,
+  courseSlugs,
+  internshipHref,
+  site,
+  trainingHref,
+} from "./site";
 
-/** A titled block of copy: a paragraph, a list, or both. */
 /** A titled block of copy: a paragraph, a list, or both; `after` follows the list. */
 export type GuideItem = { title: string; text?: string; points?: string[]; after?: string };
 type GuideSection = { intro: string; items: GuideItem[]; close: GuideItem | null };
@@ -49,18 +58,6 @@ const officeAiTools = [
   "Microsoft PowerPoint",
   "Microsoft Outlook",
 ];
-=======
-import trainingContent from "./trainingContent.json";
-import {
-  after12thCatalogue,
-  after12thHref,
-  certificatePrograms,
-  courseCatalogue,
-  courseSlugs,
-  site,
-  trainingHref,
-} from "./site";
->>>>>>> Stashed changes
 
 type RawCourse = {
   summary: string;
@@ -70,6 +67,8 @@ type RawCourse = {
   syllabusIntro: string;
   modules: { title: string; text?: string; points: string[]; after?: string }[];
   tools: string[];
+  /** The tools again, grouped and each with a line on what it is used for. */
+  toolGroups?: { title: string; tools: { name: string; text: string }[] }[];
   projects: { title: string; text: string; tags: string[] }[];
   role: { title: string; text: string } | null;
   hiredBy: string[];
@@ -92,7 +91,7 @@ export type Course = RawCourse & {
   faqs: { q: string; a: string }[];
   related: Link[];
   /** What each syllabus card is called: "Week" for timed courses, "Module" otherwise. */
-  unit: "Week" | "Module";
+  unit: "Week" | "Month" | "Module";
   /** Page style: the AI courses and After 12th programmes each have their own. */
   theme: "course" | "ai" | "after12th";
   guide?: CourseGuide;
@@ -112,7 +111,7 @@ function buildFaqs(name: string, c: RawCourse, duration?: string) {
   return [
     duration && {
       q: `How long is the ${name}?`,
-      a: `The ${name} at ${site.name} ${site.city} runs ${duration}. Weekday, evening and weekend batches cover the same syllabus, so you can pick the schedule that fits around college or work.`,
+      a: `The ${name} at ${site.name} ${site.city} runs ${duration.toLowerCase()}. Weekday, evening and weekend batches cover the same syllabus, so you can pick the schedule that fits around college or work.`,
     },
     {
       q: `Who can join the ${name}?`,
@@ -162,7 +161,7 @@ function build(
   const overview = c.overview.length
     ? c.overview
     : [
-        `The ${name} at ${site.name} ${site.city} is a hands-on programme${duration ? ` that runs ${duration}` : ""}, built for students, graduates and working professionals. The syllabus moves through ${list(c.modules.slice(0, 4).map((m) => m.title))}, and every module ends with something you have built rather than a set of notes.`,
+        `The ${name} at ${site.name} ${site.city} is a hands-on programme${duration ? ` that runs ${duration.toLowerCase()}` : ""}, built for students, graduates and working professionals. The syllabus moves through ${list(c.modules.slice(0, 4).map((m) => m.title))}, and every module ends with something you have built rather than a set of notes.`,
         `${c.tools.length ? `You practise on ${list(c.tools.slice(0, 6))}. ` : ""}Trainers review your work as you go, so by the end you have a portfolio you can explain in an interview, plus resume and mock-interview support from the placement cell.`,
       ];
 
@@ -267,7 +266,10 @@ export function getProgramme(slug: string): Course | undefined {
     },
     base === label ? label : `${base} programme`,
   );
-  return { ...programme, theme: "after12th" };
+  // Programmes are taught month by month ("Month 1 — ..."); the longer ones
+  // group months ("Months 1 – 2 — ..."), so their stages are just numbered.
+  const monthly = programme.modules.every((m) => /^Month \d/.test(m.title));
+  return { ...programme, unit: monthly ? "Month" : "Module", theme: "after12th" };
 }
 
 const rawTraining = trainingContent as Record<string, RawCourse>;
@@ -279,7 +281,7 @@ export const trainingSlugList = certificatePrograms
 export function getTraining(slug: string): Course | undefined {
   const programme = certificatePrograms.find((p) => p.slug === slug);
   if (!programme || !rawTraining[slug]) return undefined;
-  const section = { label: "Internship & Training", href: "/#programmes" };
+  const section = { label: "Internship & Training", href: internshipHref() };
 
   return build(
     rawTraining[slug],

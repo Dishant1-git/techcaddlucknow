@@ -5,7 +5,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   Award,
-  BookOpen,
   Briefcase,
   Building2,
   Check,
@@ -13,15 +12,16 @@ import {
   FileText,
   FolderGit2,
   GraduationCap,
-  Hammer,
   Plus,
   Sparkles,
-  Trophy,
 } from "lucide-react";
 import type { Course } from "@/lib/courses";
 import { included, site, stats } from "@/lib/site";
+import { toolCatalogue, toolGroupOrder } from "@/lib/toolCatalogue";
 import { isLight, techLogos } from "@/lib/techLogos";
 import { BookDemoButton } from "./Enquiry";
+import { ToolMarquee } from "./ToolMarquee";
+import { type OrbitTool, ToolOrbit } from "./ToolOrbit";
 import { DarkSection, Eyebrow, Heading, LightSection } from "./ui";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -82,63 +82,75 @@ function AiConsole({ course }: { course: Course }) {
   );
 }
 
+// "Month 1 — Web Fundamentals" → ["Month 1", "Web Fundamentals"]; titles
+// without that prefix are numbered by position.
+function splitModule(title: string, i: number) {
+  const cut = title.indexOf(" — ");
+  return cut > 0 ? [title.slice(0, cut), title.slice(cut + 3)] : [`Stage ${i + 1}`, title];
+}
+
+// Where the tool logos float round the admission pass, and their bob offset.
+const passLogoSpots = [
+  "-left-7 top-16 [animation-delay:-1s]",
+  "-right-6 top-1/3 [animation-delay:-3s]",
+  "-bottom-6 left-14 [animation-delay:-4.5s]",
+  "-right-4 -top-5 [animation-delay:-2s]",
+];
+
 /**
- * After 12th pages: a light card with a Class 12 → career journey, framed in
- * dark green so the transparent header above it stays readable.
+ * After 12th pages: a light card, framed in the dark hero colour so the
+ * transparent header above it stays readable. Beside the pitch sits an
+ * "admission pass" ticket: the programme's length, its month-by-month plan
+ * and a tear-off stub with the practical details, with tool logos floating
+ * round it.
  */
 function After12thHero({ course }: { course: Course }) {
-  const steps = [
-    { icon: GraduationCap, title: "Class 12 pass", text: "Any stream: science, commerce or arts" },
-    ...course.modules.slice(0, 2).map((m, i) => ({
-      icon: i ? Hammer : BookOpen,
-      title: i ? "Build" : "Learn",
-      text: m.title,
-    })),
-    {
-      icon: Trophy,
-      title: "Finish job-ready",
-      text: course.duration ? `Certificate and portfolio in ${course.duration}` : "Certificate and portfolio",
-    },
-  ];
+  const months = course.modules.map((m, i) => splitModule(m.title, i));
+  const shownMonths = months.slice(0, 4);
+  const details = course.facts.filter(([label]) => label !== "Duration").slice(0, 3);
+  const logos = course.tools
+    .map((name) => ({ name, logo: techLogos[name] }))
+    .filter((t) => t.logo)
+    .slice(0, passLogoSpots.length);
+
   return (
-    <section id="top" className="relative isolate bg-hero-950 px-2 pb-2 pt-24 text-navy sm:px-3 sm:pb-3 lg:pt-36">
+    <section id="top" className="relative isolate bg-hero-950 px-2 pb-2 pt-24 text-navy sm:px-3 sm:pb-3 lg:pt-32">
       <div className="bg-grid-dark absolute inset-0 -z-10" />
       <div className="glow-dark absolute inset-0 -z-10" />
 
-      <div className="relative isolate mx-auto max-w-[90rem] overflow-clip rounded-[2rem] bg-gradient-to-b from-emerald-50 via-white to-white sm:rounded-[2.5rem]">
-      <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
-      <div className="orb absolute -right-40 -top-40 -z-10 size-[38rem] animate-aurora [--orb:rgba(16,185,129,0.22)]" />
+      <div className="relative isolate mx-auto max-w-[90rem] overflow-clip rounded-[2rem] bg-white bg-gradient-to-b from-brand/8 via-white to-white sm:rounded-[2.5rem]">
+        <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
+        <div className="orb absolute -right-40 -top-40 -z-10 size-[38rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-sky)_22%,transparent)]" />
+        <div className="orb absolute -bottom-56 -left-40 -z-10 size-[30rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-sun)_18%,transparent)] [animation-delay:-8s]" />
 
-      <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
-        <nav aria-label="Breadcrumb" className="rise text-sm text-slate-500">
-          <ol className="flex flex-wrap items-center gap-2">
-            <li>
-              <Link href="/" className="hover:text-brand">
-                Home
-              </Link>
-            </li>
-            <ChevronRight aria-hidden className="size-3.5" />
-            <li>
-              <Link href={course.parent.href} className="hover:text-brand">
-                {course.parent.label}
-              </Link>
-            </li>
-            <ChevronRight aria-hidden className="size-3.5" />
-            <li aria-current="page" className="text-navy">
-              {course.label}
-            </li>
-          </ol>
-        </nav>
-
-        <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-8 lg:py-14">
           <div className="min-w-0">
-            <div className="rise flex flex-wrap items-center gap-3 [--d:.05s]">
+            <nav aria-label="Breadcrumb" className="rise text-sm text-slate-500">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li>
+                  <Link href="/" className="hover:text-brand">
+                    Home
+                  </Link>
+                </li>
+                <ChevronRight aria-hidden className="size-3.5" />
+                <li>
+                  <Link href={course.parent.href} className="hover:text-brand">
+                    {course.parent.label}
+                  </Link>
+                </li>
+                <ChevronRight aria-hidden className="size-3.5" />
+                <li aria-current="page" className="text-navy">
+                  {course.label}
+                </li>
+              </ol>
+            </nav>
+
+            <div className="rise mt-8 flex flex-wrap items-center gap-3 [--d:.05s]">
               <Eyebrow>{course.category.label}</Eyebrow>
-              {course.duration && (
-                <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-hero-950">
-                  {course.duration}
-                </span>
-              )}
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-navy px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                <GraduationCap className="size-3.5 text-cyan" />
+                Any stream welcome
+              </span>
             </div>
             <h1 className="rise mt-6 text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight [--d:.1s] sm:text-5xl lg:text-6xl">
               {course.title} in <span className="text-gradient">{site.city}</span>
@@ -163,44 +175,105 @@ function After12thHero({ course }: { course: Course }) {
                 View syllabus
               </NavLink>
             </div>
+
+            <dl className="rise mt-10 grid grid-cols-3 gap-4 border-t border-slate-200 pt-7 [--d:.4s] sm:flex sm:gap-x-8">
+              {stats.slice(0, 3).map((s) => (
+                <div key={s.label}>
+                  <dd className="font-display text-xl font-extrabold text-navy sm:text-2xl">
+                    {s.value.toLocaleString("en-IN")}
+                    <span className="text-brand">{s.suffix}</span>
+                  </dd>
+                  <dt className="text-xs text-slate-500 sm:text-sm">{s.label}</dt>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          <ol className="rise relative min-w-0 space-y-3 [--d:.3s]">
-            <span aria-hidden className="absolute bottom-8 left-[1.6rem] top-8 w-0.5 bg-gradient-to-b from-sky to-brand" />
-            {steps.map((s, i) => (
-              <li
-                key={s.title}
-                className="relative flex items-center gap-4 rounded-2xl border border-emerald-100 bg-white/90 p-3 pr-5 shadow-lg shadow-emerald-900/5 backdrop-blur"
+          {/* Admission pass */}
+          <div className="rise relative mx-auto w-full min-w-0 max-w-md [--d:.3s] lg:max-w-none">
+            {logos.map((t, i) => (
+              <span
+                key={t.name}
+                title={t.name}
+                className={`absolute z-10 hidden size-14 animate-float place-items-center rounded-full border border-slate-100 shadow-xl shadow-hero-950/15 sm:grid ${
+                  isLight(t.logo.hex) ? "bg-hero-800" : "bg-white"
+                } ${passLogoSpots[i]}`}
               >
-                <span
-                  className={`relative grid size-11 shrink-0 place-items-center rounded-xl text-white ${
-                    i === steps.length - 1 ? "bg-sun text-hero-950" : "bg-gradient-to-br from-sky to-brand"
-                  }`}
-                >
-                  <s.icon className="size-5" />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-[11px] font-bold uppercase tracking-[0.18em] text-brand">
-                    Step {i + 1} · {s.title}
-                  </span>
-                  <span className="mt-0.5 block truncate font-semibold">{s.text}</span>
-                </span>
-              </li>
+                <svg viewBox="0 0 24 24" aria-hidden className="size-7" fill={`#${t.logo.hex}`}>
+                  <path d={t.logo.path} />
+                </svg>
+              </span>
             ))}
-          </ol>
-        </div>
 
-        {course.facts.length > 0 && (
-          <dl className="rise mt-12 grid gap-3 [--d:.5s] sm:grid-cols-2 lg:grid-cols-4">
-            {course.facts.map(([label, value]) => (
-              <div key={label} className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm">
-                <dt className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand">{label}</dt>
-                <dd className="mt-2 font-display text-lg font-bold leading-snug">{value}</dd>
+            <div className="relative overflow-hidden rounded-[2rem] bg-navy text-white shadow-2xl shadow-hero-950/30 transition duration-500 lg:rotate-2 lg:hover:rotate-0">
+              <div className="orb absolute -right-24 -top-24 size-64 [--orb:color-mix(in_srgb,var(--color-cyan)_30%,transparent)]" />
+              <div className="relative p-6 sm:p-8">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11px] font-bold uppercase tracking-[0.24em] text-cyan">Admission pass</span>
+                  <span className="rounded-full border border-white/15 px-3 py-1 text-[11px] font-semibold text-slate-300">
+                    {course.parent.label}
+                  </span>
+                </div>
+                <p className="mt-4 font-display text-xl font-bold leading-snug sm:text-2xl">{course.label}</p>
+                {course.duration && (
+                  <p className="text-gradient mt-1 font-display text-5xl font-extrabold tracking-tight sm:text-6xl">
+                    {course.duration}
+                  </p>
+                )}
+
+                <ol className="relative mt-7 space-y-4">
+                  <span aria-hidden className="absolute bottom-2 left-[5px] top-2 w-px bg-gradient-to-b from-cyan via-white/20 to-transparent" />
+                  {shownMonths.map(([label, title], i) => (
+                    <li key={label + title} className="relative flex gap-4 pl-0">
+                      <span
+                        className={`relative mt-1.5 size-[11px] shrink-0 rounded-full ${
+                          i === 0 ? "bg-cyan shadow-[0_0_0_4px] shadow-cyan/25" : "border-2 border-white/30 bg-navy"
+                        }`}
+                      />
+                      <span className="min-w-0">
+                        <span className="block text-[11px] font-bold uppercase tracking-[0.16em] text-cyan/90">
+                          {label}
+                        </span>
+                        <span className="line-clamp-2 block text-sm font-medium text-slate-200">{title}</span>
+                      </span>
+                    </li>
+                  ))}
+                  {months.length > shownMonths.length && (
+                    <li className="pl-[27px] text-sm font-semibold text-slate-400">
+                      + {months.length - shownMonths.length} more in the syllabus
+                    </li>
+                  )}
+                </ol>
               </div>
-            ))}
-          </dl>
-        )}
-      </div>
+
+              {/* Tear line */}
+              <div aria-hidden className="relative mx-6 border-t-2 border-dashed border-white/15">
+                <span className="absolute -left-10 top-0 size-8 -translate-y-1/2 rounded-full bg-white" />
+                <span className="absolute -right-10 top-0 size-8 -translate-y-1/2 rounded-full bg-white" />
+              </div>
+
+              <div className="relative p-6 sm:px-8">
+                {details.length > 0 && (
+                  <dl className="grid grid-cols-3 gap-3">
+                    {details.map(([label, value]) => (
+                      <div key={label} className="min-w-0">
+                        <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">{label}</dt>
+                        <dd className="mt-1 text-sm font-semibold leading-snug">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                <BookDemoButton
+                  course={course.label}
+                  className="group mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-sun py-3.5 text-sm font-extrabold text-hero-950 transition hover:brightness-105"
+                >
+                  Reserve your seat
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </BookDemoButton>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -409,34 +482,44 @@ export function CourseSyllabus({ course }: { course: Course }) {
           </div>
 
           <ol className="space-y-4 lg:motion-safe:relative lg:motion-safe:mt-6 lg:motion-safe:h-[calc(100svh-9rem)] lg:motion-safe:max-h-[46rem] lg:motion-safe:space-y-0">
-            {course.modules.map((m, i) => (
-              <li
-                key={`${i}-${m.title}`}
-                data-syllabus-card
-                className="group flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_18px_40px_-28px_rgba(15,23,42,0.18)] will-change-transform lg:motion-safe:absolute lg:motion-safe:inset-0 lg:motion-safe:my-auto lg:motion-safe:h-fit lg:motion-safe:max-h-full"
-              >
-                <div className="flex items-center gap-4 border-b border-slate-100 px-6 py-4 sm:px-8">
-                  <span className="rounded-full bg-brand/10 px-3 py-1 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-brand">
-                    {course.unit} {pad(i + 1)}
-                  </span>
-                  <span className="ml-auto font-display text-sm font-bold text-slate-400">
-                    {pad(i + 1)} / {pad(count)}
-                  </span>
-                </div>
-                <SyllabusBody module={m} />
-                <p
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden items-end justify-center bg-gradient-to-t from-white via-white/90 to-transparent pb-3 pt-12 text-[11px] font-bold uppercase tracking-[0.2em] text-brand group-data-[more]:flex"
+            {course.modules.map((m, i) => {
+              const split = splitPeriod(m.title);
+              return (
+                <li
+                  key={`${i}-${m.title}`}
+                  data-syllabus-card
+                  className="group flex flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_18px_40px_-28px_rgba(15,23,42,0.18)] will-change-transform lg:motion-safe:absolute lg:motion-safe:inset-0 lg:motion-safe:my-auto lg:motion-safe:h-fit lg:motion-safe:max-h-full"
                 >
-                  Scroll for more
-                </p>
-              </li>
-            ))}
+                  <div className="flex items-center gap-4 border-b border-slate-100 px-6 py-4 sm:px-8">
+                    <span className="rounded-full bg-brand/10 px-3 py-1 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-brand">
+                      {split?.period ?? `${course.unit} ${pad(i + 1)}`}
+                    </span>
+                    <span className="ml-auto font-display text-sm font-bold text-slate-400">
+                      {pad(i + 1)} / {pad(count)}
+                    </span>
+                  </div>
+                  <SyllabusBody module={split ? { ...m, title: split.title } : m} />
+                  <p
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 hidden items-end justify-center bg-gradient-to-t from-white via-white/90 to-transparent pb-3 pt-12 text-[11px] font-bold uppercase tracking-[0.2em] text-brand group-data-[more]:flex"
+                  >
+                    Scroll for more
+                  </p>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </div>
     </section>
   );
+}
+
+// "Month 1 — Dart Basics" → { period: "Month 1", title: "Dart Basics" }, so the
+// card's badge carries the period instead of repeating it in the heading.
+function splitPeriod(title: string) {
+  const m = /^((?:Months?|Weeks?|Modules?) \d+(?:\s*[–-]\s*\d+)?) — (.+)$/.exec(title);
+  return m ? { period: m[1], title: m[2] } : null;
 }
 
 // Long syllabus points read "Topic (12 hrs) — details". Splitting them lets the
@@ -522,6 +605,98 @@ export function CourseTools({ course }: { course: Course }) {
         ))}
       </ul>
     </DarkSection>
+  );
+}
+
+// Short name for the orbit's centre: "Flutter App Development Program (3 Months)"
+// → "Flutter", "MERN Stack Program" → "MERN Stack".
+function hubLabel(label: string) {
+  const name = label.replace(/\s*\(.*?\)/g, "").replace(/ (Program|Programme|Certificate Course)$/, "");
+  return name.length <= 12 ? name : name.split(" ")[0];
+}
+
+// The course's tools, grouped by the content's own `toolGroups` when it has
+// them and by the shared tool catalogue otherwise, with their logos.
+function groupedTools(course: Course): OrbitTool[] {
+  const groups =
+    course.toolGroups ??
+    [...toolGroupOrder, undefined]
+      .map((group) => ({
+        title: group ?? "Tools & Workflow",
+        tools: course.tools
+          .filter((name) => toolCatalogue[name]?.group === group)
+          .map((name) => ({ name, text: toolCatalogue[name]?.text ?? "" })),
+      }))
+      .filter((g) => g.tools.length > 0);
+  return groups.flatMap((g) =>
+    g.tools.map((t) => {
+      const logo = techLogos[t.name];
+      return {
+        ...t,
+        text: t.text || "Installed on the lab machines and used in your project work.",
+        group: g.title,
+        logo: logo ? { path: logo.path, hex: logo.hex } : null,
+        darkTile: !!logo && isLight(logo.hex),
+      };
+    }),
+  );
+}
+
+/**
+ * The toolchain on Internship & Training pages (tool logos orbiting the
+ * course, see ToolOrbit) and After 12th pages (drifting rows of logos framed like
+ * the After 12th hero, see ToolMarquee).
+ */
+export function Toolchain({ course }: { course: Course }) {
+  if (course.tools.length === 0) return null;
+  const tools = groupedTools(course);
+  if (course.theme === "after12th") {
+    return (
+      <section id="tools" className="relative isolate scroll-mt-24 bg-hero-950 p-2 sm:p-3">
+        <div className="bg-grid-dark absolute inset-0 -z-10" />
+        <div className="glow-dark absolute inset-0 -z-10" />
+        <div className="relative isolate mx-auto max-w-[90rem] overflow-clip rounded-[2rem] bg-white sm:rounded-[2.5rem]">
+          <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
+          <div className="orb absolute -bottom-48 -left-40 -z-10 size-[34rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-sky)_16%,transparent)]" />
+          <div className="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+            <ToolMarquee
+              tools={tools}
+              heading={
+                <>
+                  <Eyebrow>Your toolkit</Eyebrow>
+                  <Heading className="mt-4">
+                    Tools you&apos;ll <span className="text-gradient">master</span>
+                  </Heading>
+                </>
+              }
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
+  return (
+    // Same backdrop as the course hero: grid, glows and drifting colour orbs.
+    <section id="tools" className="relative isolate scroll-mt-24 overflow-clip bg-hero-950 text-white">
+      <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />
+      <div className="glow-dark absolute inset-0 -z-10" />
+      <div className="orb absolute -left-40 -top-40 -z-10 size-[36rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-brand)_50%,transparent)]" />
+      <div className="orb absolute -bottom-52 -right-20 -z-10 size-[34rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-cyan)_18%,transparent)] [animation-delay:-8s]" />
+      <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+        <ToolOrbit
+          hub={hubLabel(course.label)}
+          tools={tools}
+          heading={
+            <>
+              <Eyebrow dark>Skills & stack</Eyebrow>
+              <Heading dark className="mt-4">
+                Core skills & <span className="text-gradient">technologies</span>
+              </Heading>
+            </>
+          }
+        />
+      </div>
+    </section>
   );
 }
 

@@ -43,7 +43,7 @@ export default function After12thPage() {
     <>
       <TopBar />
       <Header />
-      <main data-theme="after12th">
+      <main>
         <CourseCatalogue
           eyebrow="After 12th"
           title="After 12th IT & AI Career Courses"

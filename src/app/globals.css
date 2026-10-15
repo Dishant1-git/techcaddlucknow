@@ -338,7 +338,7 @@ html {
 
 /* Page palettes. Each kind of course page sets data-theme on its <main>, and
    every colour utility, gradient and glow inside it follows. Regular course
-   pages keep the site's blue. */
+   and After 12th pages keep the site's blue. */
 [data-theme="ai"] {
   --color-hero-950: #0b0618;
   --color-hero-900: #170a35;
@@ -360,17 +360,6 @@ html {
   --color-sky: #f59e0b;
   --color-cyan: #fcd34d;
   --color-sun: #fde68a;
-}
-[data-theme="after12th"] {
-  --color-hero-950: #04231c;
-  --color-hero-900: #063b2e;
-  --color-hero-800: #08563f;
-  --color-navy: #053b2e;
-  --color-brand: #059669;
-  --color-brand-600: #047857;
-  --color-sky: #10b981;
-  --color-cyan: #5eead4;
-  --color-sun: #fcd34d;
 }
 /* Lenis handles smooth scrolling when it is running */
 html:not(.lenis) {
