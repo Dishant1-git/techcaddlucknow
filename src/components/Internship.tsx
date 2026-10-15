@@ -295,7 +295,7 @@ export function TrainingTracks({ duration }: { duration?: string }) {
     <DarkSection id="tracks">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <Eyebrow dark>Technologies</Eyebrow>
+          <Eyebrow dark>What you will learn</Eyebrow>
           <Heading dark className="mt-5">
             {duration ? `Your ${duration} in` : "Train in"}
             <br />

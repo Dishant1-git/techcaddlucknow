@@ -436,7 +436,7 @@
         "points": [
           "Introduction to C++, its features, and the difference between C and C++",
           "Structure of a C++ program, compilation and comments",
-          "cin, cout, cerr, clog, >, and input/output formatting",
+          "cin, cout, cerr, clog, << and >>, and input/output formatting",
           "Scope resolution (::), operator precedence, if-else, switch, loops and the range-based for"
         ]
       },
@@ -473,7 +473,7 @@
           "Compile-time vs runtime polymorphism, function overloading and overriding",
           "Virtual functions, abstract classes, pure virtual functions, interfaces and virtual destructors",
           "Unary and binary operator overloading, member and friend function operators",
-          "Overloading >"
+          "Overloading << and >>"
         ]
       },
       {
@@ -516,9 +516,9 @@
         "title": "Week 9 · Namespaces & the C++ Standard Library",
         "points": [
           "Namespace creation and usage, nested namespaces, std and namespace aliases",
-          "Working with , , and",
-          "Working with , and",
-          "Working with and"
+          "Working with <iostream>, <string>, <cmath> and <iomanip>",
+          "Working with <fstream>, <memory> and <utility>",
+          "Working with <algorithm> and <functional>"
         ]
       },
       {

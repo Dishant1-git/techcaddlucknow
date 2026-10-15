@@ -44,6 +44,13 @@ export type CourseGuide = {
     toolNote: string | null;
   };
   faqs: { q: string; a: string }[];
+  /**
+   * The brief's student reviews. The briefs mark them as illustrative samples,
+   * so the page labels them as such until real, consented reviews replace them.
+   */
+  reviews: { note: string | null; items: { name: string; role: string; quote: string; rating?: number }[] } | null;
+  /** The brief's enquiry section: its heading, intro and "Why enquire?" points. */
+  enquiry: { title: string; text: string[]; points: string[] } | null;
 };
 
 // The beginner AI courses teach AI assistants inside the Office apps, so their
@@ -180,7 +187,12 @@ function build(
 
 const guides = guideContent as Record<string, CourseGuide>;
 
-/** Lays the course's content brief over the generated page: its copy replaces ours. */
+/**
+ * Lays the course's content brief over the generated page: its copy replaces
+ * ours. The syllabus stays the module plan from courseContent.json (the same as
+ * techcaddjalandhar.com); the brief's own "what you will learn" topics appear
+ * in the skills and outcomes section instead.
+ */
 function withGuide(course: Course): Course {
   const guide = guides[course.slug] && localise(guides[course.slug]);
   if (!guide) return course;
@@ -189,16 +201,86 @@ function withGuide(course: Course): Course {
     guide,
     summary: guide.summary,
     overview: guide.overview,
-    syllabusIntro: guide.learn.intro,
-    modules: guide.learn.modules.map((m) => ({ ...m, points: m.points ?? [] })),
     tools: officeAiCourses.has(course.slug) ? officeAiTools : course.tools,
     // The briefs make no project, job-title or employer claims, so neither do these pages.
     projects: [],
     role: null,
     hiredBy: [],
     faqs: guide.faqs,
-    unit: "Module",
   };
+}
+
+// Pages without a brief of their own (After 12th programmes, internship
+// domains, courses like "LLM Development") borrow the closest course's brief
+// for its "why techcadd" points and student reviews. Most specific first.
+const related: [RegExp, string][] = [
+  [/Agentic|\bAgents?\b/i, "agentic-ai"],
+  [/Generative AI|\bLLM\b/i, "generative-ai"],
+  [/ChatGPT/i, "chatgpt-ai-tools"],
+  [/Prompt/i, "prompt-engineering"],
+  [/\bRAG\b/i, "rag-development"],
+  [/AI for Managers/i, "ai-for-managers"],
+  [/AI-Powered Marketing/i, "ai-powered-marketing"],
+  [/Deep Learning|Computer Vision|Speech/i, "deep-learning"],
+  [/Machine Learning|\bML\b/i, "machine-learning"],
+  [/Data Science/i, "data-science"],
+  [/Data Analytics|\bSQL\b|Pandas|Data Cleaning/i, "data-analytics"],
+  [/Power BI/i, "power-bi"],
+  [/Tableau/i, "tableau"],
+  [/Artificial Intelligence|\bNLP\b|Robotics|\bAI\b/i, "artificial-intelligence"],
+  [/MERN/i, "mern-stack"],
+  [/MEAN/i, "mean-stack"],
+  [/PHP/i, "php-full-stack"],
+  [/Full Stack/i, "full-stack-development"],
+  [/Flutter/i, "flutter"],
+  [/Kotlin/i, "kotlin"],
+  [/DevOps/i, "devops-engineering"],
+  [/Docker|Kubernetes/i, "docker-kubernetes"],
+  [/AWS/i, "aws-cloud"],
+  [/Azure/i, "microsoft-azure"],
+  [/Cloud/i, "cloud-computing"],
+  [/Linux/i, "linux-administration"],
+  [/Ethical Hacking/i, "ethical-hacking"],
+  [/Penetration/i, "penetration-testing"],
+  [/\bSOC\b/i, "soc-analyst"],
+  [/Forensics/i, "cyber-forensics"],
+  [/Network Security|CCNA/i, "network-security-ccna"],
+  [/Cyber|OSINT|Web Security/i, "cyber-security"],
+  [/Google Ads|Meta Ads/i, "google-ads"],
+  [/\bSEO\b/i, "seo"],
+  [/Social Media|Instagram|Influencer|WhatsApp/i, "social-media-marketing"],
+  [/Digital Marketing|Content Marketing|Email Marketing|Marketing Automation/i, "digital-marketing"],
+  [/WordPress|WooCommerce/i, "wordpress"],
+  [/Shopify/i, "shopify"],
+  [/Dropshipping|E-?Commerce/i, "dropshipping-ecommerce"],
+  [/UI\/UX/i, "ui-ux-design"],
+  [/Graphic/i, "graphic-designing"],
+  [/Web Design/i, "web-designing"],
+  [/Web Development/i, "web-development"],
+  [/Python/i, "python"],
+  [/Java\b/i, "java"],
+  [/\bC\+\+|\bC &|\bC Programming/i, "c-cpp"],
+];
+
+/** The closest course with a brief, by name — with that course's label. */
+export function relatedGuide(name: string): { label: string; guide: CourseGuide } | undefined {
+  const slug = related.find(([re]) => re.test(name))?.[1];
+  if (!slug || !guides[slug]) return undefined;
+  const label = Object.keys(courseSlugs).find((l) => courseSlugs[l] === slug) ?? name;
+  return { label, guide: localise(guides[slug]) };
+}
+
+export type ReviewItem = NonNullable<CourseGuide["reviews"]>["items"][number] & { course?: string };
+
+/** One review from each of several courses, for pages that span many domains. */
+export function mixedReviews(
+  slugs = ["python", "data-analytics", "web-designing", "cyber-security", "digital-marketing", "cloud-computing", "artificial-intelligence", "mern-stack", "graphic-designing"],
+): ReviewItem[] {
+  return slugs.flatMap((slug) => {
+    const r = guides[slug]?.reviews?.items[0];
+    const label = Object.keys(courseSlugs).find((l) => courseSlugs[l] === slug) ?? slug;
+    return r ? [{ ...localise(r), course: label }] : [];
+  });
 }
 
 // The courses listed in the AI menu get the AI page style.

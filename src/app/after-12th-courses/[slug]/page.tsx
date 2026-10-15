@@ -13,6 +13,7 @@ import {
 } from "@/components/CourseDetail";
 import {
   CourseAudienceNote,
+  CourseReviews,
   CourseTakeaways,
   CourseWhyProgramme,
   CourseWhyUs,
@@ -69,6 +70,7 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
         <CourseProjects course={course} />
         <CourseWhyUs course={course} />
         <CourseOutcomes course={course} />
+        <CourseReviews course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
         <PhotoStrip

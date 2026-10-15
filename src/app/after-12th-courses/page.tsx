@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { CourseCatalogue } from "@/components/CourseCatalogue";
+import { Reviews, WhyTechcadd } from "@/components/CourseGuide";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
 import { Cta } from "@/components/Sections";
+import { mixedReviews } from "@/lib/courses";
 import { after12thCatalogue, after12thHref, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -51,6 +53,8 @@ export default function After12thPage() {
           sections={sections}
           noun="programmes"
         />
+        <WhyTechcadd label="a career course after 12th" />
+        <Reviews items={mixedReviews()} />
         <Cta />
       </main>
       <Footer />
