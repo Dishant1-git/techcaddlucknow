@@ -4,9 +4,16 @@ import { Check, CircleCheck, Info, Lightbulb, ListChecks, Quote, Star } from "lu
 import { mixedReviews, relatedGuide, type Course, type CourseGuide, type GuideItem, type ReviewItem } from "@/lib/courses";
 import { site, whyUs } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
-import { DarkSection, Eyebrow, Heading, LightSection } from "./ui";
+import { cardRow, Clamp, copyLength, DarkSection, Eyebrow, Heading, LightSection } from "./ui";
 
 const pad = (n: number) => String(n).padStart(2, "0");
+
+// After 12th programme briefs run long, so their cards wrap neatly and cut
+// their copy to a few lines.
+const isCompact = (course: Course) => course.theme === "after12th";
+
+// After 12th labels already say what they are: "Cloud Computing Program".
+const courseName = (label: string) => (/\bProgram\b/.test(label) ? label : `${label} course`);
 
 function Points({ points, dark = false }: { points?: string[]; dark?: boolean }) {
   if (!points?.length) return null;
@@ -48,13 +55,15 @@ export function CourseAudienceNote({ course }: { course: Course }) {
 
 export function CourseWhyProgramme({ course }: { course: Course }) {
   const why = course.guide?.why;
-  if (!why) return null;
+  if (!why?.items.length) return null;
+  const compact = isCompact(course);
+  const row = cardRow(why.items.length);
   return (
     <DarkSection id="why-this-programme">
       <div className="mx-auto max-w-3xl text-center">
         <Eyebrow dark>Why this programme</Eyebrow>
         <Heading dark className="mt-5">
-          Why choose the <span className="text-gradient">{course.label} course</span>
+          Why choose the <span className="text-gradient">{courseName(course.label)}</span>
         </Heading>
         {why.intro && (
           <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-300">
@@ -63,20 +72,36 @@ export function CourseWhyProgramme({ course }: { course: Course }) {
         )}
       </div>
 
-      <div data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {why.items.map((w, i) => (
-          <article
-            key={w.title}
-            data-spot
-            className="border-glow relative rounded-3xl bg-white/[0.04] p-7"
-          >
-            <span className="font-display text-sm font-bold text-cyan">{pad(i + 1)}</span>
-            <h3 className="mt-4 font-display text-lg font-bold leading-snug">{w.title}</h3>
-            {w.text && <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{w.text}</p>}
-            <Points points={w.points} dark />
-            {w.after && <p className="mt-3 text-[15px] leading-relaxed text-slate-300">{w.after}</p>}
-          </article>
-        ))}
+      <div
+        data-stagger
+        className={compact ? `mt-14 ${row.row}` : "mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"}
+      >
+        {why.items.map((w, i) => {
+          const copy = (
+            <>
+              {w.text && <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{w.text}</p>}
+              <Points points={w.points} dark />
+              {w.after && <p className="mt-3 text-[15px] leading-relaxed text-slate-300">{w.after}</p>}
+            </>
+          );
+          return (
+            <article
+              key={w.title}
+              data-spot
+              className={`border-glow relative rounded-3xl bg-white/[0.04] p-7 ${compact ? row.card : ""}`}
+            >
+              <span className="font-display text-sm font-bold text-cyan">{pad(i + 1)}</span>
+              <h3 className="mt-4 font-display text-lg font-bold leading-snug">{w.title}</h3>
+              {compact ? (
+                <Clamp length={copyLength(w)} dark>
+                  {copy}
+                </Clamp>
+              ) : (
+                copy
+              )}
+            </article>
+          );
+        })}
       </div>
 
       {why.close && (
@@ -124,7 +149,14 @@ export function CourseTakeaways({ course }: { course: Course }) {
       </div>
 
       {cards.length > 0 && (
-        <div data-stagger className="mt-14 grid gap-5 lg:grid-cols-2">
+        <div
+          data-stagger
+          className={
+            isCompact(course)
+              ? "mt-14 gap-5 lg:columns-2 [&>*]:mb-5 [&>*]:break-inside-avoid"
+              : "mt-14 grid gap-5 lg:grid-cols-2"
+          }
+        >
           {cards.map((o) => (
             <article
               key={o.title}
@@ -134,7 +166,14 @@ export function CourseTakeaways({ course }: { course: Course }) {
                 <CircleCheck className="size-5" />
               </span>
               <h3 className="mt-5 font-display text-xl font-bold text-navy">{o.title}</h3>
-              {o.text && <p className="mt-2 leading-relaxed text-slate-600">{o.text}</p>}
+              {o.text &&
+                (isCompact(course) && !o.points?.length ? (
+                  <Clamp length={o.text.length}>
+                    <p className="mt-2 leading-relaxed text-slate-600">{o.text}</p>
+                  </Clamp>
+                ) : (
+                  <p className="mt-2 leading-relaxed text-slate-600">{o.text}</p>
+                ))}
               <Points points={o.points} />
               {o.after && <p className="mt-3 leading-relaxed text-slate-600">{o.after}</p>}
             </article>
@@ -150,9 +189,20 @@ export function CourseTakeaways({ course }: { course: Course }) {
           <p className="border-b border-slate-100 px-7 py-5 font-display text-lg font-bold text-navy">
             Tools and what you practise in them
           </p>
-          <dl className="divide-y divide-slate-100">
+          <dl
+            className={
+              isCompact(course)
+                ? "grid lg:grid-cols-2 [&>div]:border-b [&>div]:border-slate-100 lg:[&>div:nth-child(odd)]:border-r"
+                : "divide-y divide-slate-100"
+            }
+          >
             {learn.tools.map((t) => (
-              <div key={t.title} className="grid gap-1 px-7 py-4 sm:grid-cols-[16rem_1fr] sm:gap-6">
+              <div
+                key={t.title}
+                className={`grid gap-1 px-7 py-4 sm:gap-6 ${
+                  isCompact(course) ? "sm:grid-cols-[12rem_1fr]" : "sm:grid-cols-[16rem_1fr]"
+                }`}
+              >
                 <dt className="font-semibold text-navy">{t.title}</dt>
                 <dd className="text-slate-600">{t.text}</dd>
               </div>
@@ -167,7 +217,7 @@ export function CourseTakeaways({ course }: { course: Course }) {
   );
 }
 
-function UsCard({ item, index }: { item: GuideItem; index: number }) {
+function UsCard({ item, index, compact }: { item: GuideItem; index: number; compact: boolean }) {
   const checklist = !!item.points?.length;
   return (
     <article
@@ -183,7 +233,14 @@ function UsCard({ item, index }: { item: GuideItem; index: number }) {
         </span>
         <h3 className="font-display text-lg font-bold leading-snug text-navy">{item.title}</h3>
       </div>
-      {item.text && <p className="mt-4 leading-relaxed text-slate-600">{item.text}</p>}
+      {item.text &&
+        (compact && !checklist ? (
+          <Clamp length={item.text.length}>
+            <p className="mt-4 leading-relaxed text-slate-600">{item.text}</p>
+          </Clamp>
+        ) : (
+          <p className="mt-4 leading-relaxed text-slate-600">{item.text}</p>
+        ))}
       {checklist && (
         <ul className="mt-4 grid gap-2 sm:grid-cols-2">
           {item.points!.map((p) => (
@@ -218,6 +275,18 @@ const fallbackWhyUs = (label: string): WhyUsContent => ({
 /** "Why techcadd" for any page: a course brief's points, or the site-wide ones. */
 export function WhyTechcadd({ label, us }: { label: string; us?: WhyUsContent | null }) {
   const content = us ?? fallbackWhyUs(label);
+  if (!content.items.length) return null;
+
+  return (
+    <section id="why-techcadd" className="scroll-mt-24 bg-slate-50">
+      <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+
+export function CourseWhyUs({ course }: { course: Course }) {
+  const us = course.guide?.whyUs;
+  if (!us?.items.length) return null;
+
+  return <WhyTechcadd label={course.title} us={us} />;
+}
   return (
     <section id="why-techcadd" className="scroll-mt-24 bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
@@ -247,7 +316,7 @@ export function WhyTechcadd({ label, us }: { label: string; us?: WhyUsContent | 
 
           <div data-stagger className="grid gap-5 sm:grid-cols-2">
             {content.items.map((item, i) => (
-              <UsCard key={item.title} item={item} index={i} />
+              <UsCard key={item.title} item={item} index={i} compact={isCompact(course)} />
             ))}
           </div>
         </div>

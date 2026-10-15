@@ -3,6 +3,7 @@
 // (/internship-training-in-lucknow/<slug>). Import this from Server Components only: it
 // pulls in the whole of every content file.
 import programmeContent from "./after12thContent.json";
+import programmeGuideContent from "./after12thGuides.json";
 import guideContent from "./courseGuides.json";
 import content from "./courseContent.json";
 import trainingContent from "./trainingContent.json";
@@ -351,7 +352,25 @@ export function getProgramme(slug: string): Course | undefined {
   // Programmes are taught month by month ("Month 1 — ..."); the longer ones
   // group months ("Months 1 – 2 — ..."), so their stages are just numbered.
   const monthly = programme.modules.every((m) => /^Month \d/.test(m.title));
-  return { ...programme, unit: monthly ? "Month" : "Module", theme: "after12th" };
+  return withProgrammeGuide({ ...programme, unit: monthly ? "Month" : "Module", theme: "after12th" });
+}
+
+const programmeGuides = programmeGuideContent as Record<string, CourseGuide>;
+
+/**
+ * Adds the programme's content brief (after12thGuides.json). Unlike the course
+ * briefs it keeps our month-by-month syllabus, tools and projects: the brief
+ * supplies the overview, the guide sections and the FAQs.
+ */
+function withProgrammeGuide(programme: Course): Course {
+  const guide = programmeGuides[programme.slug] && localise(programmeGuides[programme.slug]);
+  if (!guide) return programme;
+  return {
+    ...programme,
+    guide,
+    overview: guide.overview.length ? guide.overview : programme.overview,
+    faqs: guide.faqs.length ? guide.faqs : programme.faqs,
+  };
 }
 
 const rawTraining = trainingContent as Record<string, RawCourse>;
