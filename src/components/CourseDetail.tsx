@@ -279,7 +279,116 @@ function After12thHero({ course }: { course: Course }) {
   );
 }
 
-export function CourseHero({ course }: { course: Course }) {
+const certificateCorners = [
+  "left-2 top-2 border-l-2 border-t-2",
+  "right-2 top-2 border-r-2 border-t-2",
+  "bottom-2 left-2 border-b-2 border-l-2",
+  "bottom-2 right-2 border-b-2 border-r-2",
+];
+
+/**
+ * A sample techcadd certificate for the course, shown in the Internship &
+ * Training hero. It is clearly marked as a sample: the name, number and
+ * signature are placeholders.
+ */
+function SampleCertificate({ course }: { course: Course }) {
+  const initials = course.slug
+    .split("-")
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+  return (
+    <div className="rise relative mx-auto w-full max-w-xl [--d:.3s]">
+      <span className="absolute -top-4 left-6 z-10 rounded-full bg-sun px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-hero-950 shadow-lg">
+        Sample certificate
+      </span>
+      <span className="absolute -bottom-4 right-6 z-10 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-hero-900/90 px-3.5 py-1.5 text-xs font-semibold text-white shadow-lg backdrop-blur">
+        <Check className="size-3.5 text-cyan" strokeWidth={3} />
+        Awarded on completion
+      </span>
+
+      <div className="group relative -rotate-2 rounded-2xl bg-[#fffdf6] p-2.5 shadow-2xl shadow-black/50 transition duration-500 hover:rotate-0 sm:p-3">
+        {/* Sheen that sweeps across on hover */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
+          <span className="absolute inset-y-0 -left-full w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/70 to-transparent transition-[left] duration-1000 group-hover:left-[150%]" />
+        </span>
+
+        <div className="rounded-xl border-2 border-sun/80 p-1">
+          <div className="relative overflow-hidden rounded-lg border border-navy/15 px-5 py-6 text-center text-navy sm:px-8 sm:py-7">
+            {/* Corner flourishes */}
+            {certificateCorners.map((c) => (
+              <span key={c} aria-hidden className={`absolute size-5 border-brand/40 ${c}`} />
+            ))}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 grid -rotate-12 select-none place-items-center font-display text-7xl font-extrabold tracking-widest text-navy/[0.04] sm:text-8xl"
+            >
+              SAMPLE
+            </span>
+
+            <span
+              role="img"
+              aria-label={site.name}
+              className="mx-auto block aspect-[952/262] h-8 bg-navy [mask:url(/images/tce.webp)_center/contain_no-repeat] sm:h-9"
+            />
+            <p className="mt-4 font-display text-xl font-extrabold uppercase tracking-[0.22em] sm:text-2xl">
+              Certificate
+            </p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-brand">of completion</p>
+
+            <p className="mt-4 text-xs text-slate-500">This is to certify that</p>
+            <p className="mx-auto mt-1 w-4/5 border-b border-dashed border-navy/25 pb-1 font-serif text-2xl italic text-navy sm:text-3xl">
+              Your Name
+            </p>
+            <p className="mt-3 text-xs text-slate-500">has successfully completed the</p>
+            <p className="mt-1 text-balance font-display text-lg font-extrabold leading-snug text-brand sm:text-xl">
+              {course.title}
+            </p>
+            <p className="mt-1 text-xs text-slate-500">
+              at {site.name} {site.city}
+              {course.duration ? ` · ${course.duration}` : ""}
+            </p>
+
+            <div className="mt-6 grid grid-cols-3 items-end gap-3 text-[10px] text-slate-500">
+              <div className="text-left">
+                <svg viewBox="0 0 120 32" aria-hidden className="h-7 w-24 text-navy/70">
+                  <path
+                    d="M4 22c8-14 14-16 16-8s-4 12 2 6 10-14 14-6-2 10 6 4 8-10 14-4 6 6 14 0 12-6 18-2 10 2 24-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <p className="mt-1 border-t border-navy/20 pt-1 font-semibold uppercase tracking-wider">Director</p>
+              </div>
+              <div className="grid place-items-center">
+                <span className="relative grid size-14 place-items-center rounded-full bg-gradient-to-br from-sun to-amber-500 text-hero-950 shadow-lg shadow-amber-500/30 ring-4 ring-sun/30 sm:size-16">
+                  <span className="absolute inset-1 rounded-full border border-dashed border-hero-950/30" />
+                  <Award className="size-6 sm:size-7" />
+                </span>
+              </div>
+              <div className="text-right">
+                <p className="whitespace-nowrap font-mono text-[9px] font-semibold text-navy sm:text-[11px]">
+                  TC-{site.city.slice(0, 3).toUpperCase()}-{initials}-0001
+                </p>
+                <p className="mt-1 whitespace-nowrap border-t border-navy/20 pt-1 font-semibold uppercase tracking-wider">
+                  Certificate no.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * The course page hero. AI courses show a console beside the pitch, and the
+ * Internship & Training pages (`certificate`) a sample certificate.
+ */
+export function CourseHero({ course, certificate = false }: { course: Course; certificate?: boolean }) {
   if (course.theme === "after12th") return <After12thHero course={course} />;
   const ai = course.theme === "ai";
   return (
@@ -310,8 +419,8 @@ export function CourseHero({ course }: { course: Course }) {
           </ol>
         </nav>
 
-        <div className={ai ? "mt-8 grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]" : "mt-8"}>
-          <div>
+        <div className={ai || certificate ? "mt-8 grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]" : "mt-8"}>
+          <div className="min-w-0">
             <div className="rise flex flex-wrap items-center gap-3 [--d:.05s]">
               <Eyebrow dark>{course.category.label}</Eyebrow>
               {course.badge && (
@@ -357,6 +466,7 @@ export function CourseHero({ course }: { course: Course }) {
             </ul>
           </div>
           {ai && <AiConsole course={course} />}
+          {certificate && !ai && <SampleCertificate course={course} />}
         </div>
 
         {course.facts.length > 0 && (

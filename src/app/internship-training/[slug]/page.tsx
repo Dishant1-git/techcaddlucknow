@@ -83,7 +83,7 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
         </main>
       ) : (
         <main>
-          <CourseHero course={course!} />
+          <CourseHero course={course!} certificate />
           <CourseOverview course={course!} />
           <CourseSyllabus course={course!} />
           <Toolchain course={course!} />
