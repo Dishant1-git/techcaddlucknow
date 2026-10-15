@@ -862,12 +862,17 @@ export const courseHref = (label: string) =>
   courseSlugs[label] ? `/courses/${courseSlugs[label]}` : "/courses";
 
 // Tiles in the Certification mega menu.
+// Programmes in the Internship & Training menu. Those with a `slug` have a page
+// at /internship-training/<slug>, with content in trainingContent.json; the rest
+// link to the training section on the home page until their syllabus is added.
 export const certificatePrograms: {
   label: string;
   icon: string;
   badge?: "Hot" | "New" | "Trending";
+  slug?: string;
 }[] = [
-  { label: "Cloud Computing", icon: "cloud" },
+  { label: "Cloud Computing", icon: "cloud", slug: "cloud-computing" },
+  { label: "Flutter App Development", icon: "smartphone", slug: "flutter-app-development" },
   { label: "MERN Full Stack", icon: "code" },
   { label: "Artificial Intelligence", icon: "sparkles", badge: "Hot" },
   { label: "Generative AI", icon: "rocket", badge: "New" },
@@ -881,6 +886,9 @@ export const certificatePrograms: {
   { label: "AutoCAD & SolidWorks", icon: "box" },
   { label: "Basic Computer & Office Skills", icon: "monitor" },
 ];
+
+export const trainingHref = (p: { slug?: string }) =>
+  p.slug ? `/internship-training/${p.slug}` : "/#programmes";
 
 // Sections on the /after-12th-courses page; each programme has a detail page at
 // /after-12th-courses/<slug>, with its content in after12thContent.json.
@@ -1052,7 +1060,11 @@ export const nav: NavItem[] = [
     label: "Internship & Training",
     href: internshipHref(),
     mega: "certification",
+<<<<<<< Updated upstream
     children: certificatePrograms.map((c) => ({ label: c.label, href: internshipHref() })),
+=======
+    children: certificatePrograms.map((c) => ({ label: c.label, href: trainingHref(c) })),
+>>>>>>> Stashed changes
   },
   {
     label: "After 12th",

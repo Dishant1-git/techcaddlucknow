@@ -1,0 +1,261 @@
+{
+  "cloud-computing": {
+    "summary": "A practical, beginner-friendly cloud computing certificate course in {city}: cloud service models, virtual machines, storage, networking, security and deployment, practised hands-on on real cloud platforms. No advanced coding background needed.",
+    "facts": [
+      ["Mode", "Practical + Theory"],
+      ["Level", "Beginner"],
+      ["Eligibility", "12th Pass, Graduates & Professionals"],
+      ["Includes", "Certificate + Hands-on Labs"]
+    ],
+    "overview": [
+      "The Cloud Computing Certificate Course in {city} is a practical, career-focused programme for students and professionals who want to build skills in one of the fastest-growing areas of IT. Cloud computing powers the apps, websites, storage and business systems that companies use every day, which makes these skills useful across many industries.",
+      "The course introduces cloud fundamentals in simple, beginner-friendly steps — service models (IaaS, PaaS and SaaS), virtual machines, storage, networking basics, security fundamentals, and how organisations deploy and manage services online. The emphasis is on hands-on practice, so you understand how cloud platforms work in real workplace situations. It suits 12th-pass students, graduates, job seekers and working professionals who want to move into IT roles or upgrade their technical profile."
+    ],
+    "syllabusIntro": "Seven modules that take you from what the cloud is to launching, securing and monitoring services on a real platform — and documenting the work like a professional.",
+    "modules": [
+      {
+        "title": "Cloud Fundamentals",
+        "points": [
+          "What cloud computing is, and how it differs from traditional on-premise IT",
+          "Why businesses adopt the cloud",
+          "Service models: IaaS, PaaS and SaaS",
+          "Deployment models: public, private and hybrid cloud",
+          "Core terms: scalability, availability and pay-as-you-go pricing"
+        ]
+      },
+      {
+        "title": "Virtual Machines and Compute",
+        "points": [
+          "Creating and configuring virtual servers",
+          "Starting, stopping and monitoring instances",
+          "Compute resources: CPU, memory and operating systems",
+          "How applications actually run in the cloud"
+        ]
+      },
+      {
+        "title": "Cloud Storage and Databases",
+        "points": [
+          "Object and file storage",
+          "Backups and data lifecycle basics",
+          "Introduction to cloud databases",
+          "Organising and protecting stored data"
+        ]
+      },
+      {
+        "title": "Networking Basics",
+        "points": [
+          "IP addresses and DNS",
+          "Firewalls and virtual networks",
+          "How traffic moves between users and cloud services",
+          "The networking foundation of cloud administration and IT support"
+        ]
+      },
+      {
+        "title": "Security and Access Management",
+        "points": [
+          "Identity and access management (IAM) essentials",
+          "Passwords and multi-factor authentication",
+          "User roles and permissions",
+          "The shared responsibility model"
+        ]
+      },
+      {
+        "title": "Deployment, Monitoring and Cost Awareness",
+        "points": [
+          "Deploying simple applications and websites",
+          "Monitoring performance",
+          "Avoiding unnecessary cloud costs",
+          "Cost management as a practical, employable skill"
+        ]
+      },
+      {
+        "title": "Workplace and Documentation Skills",
+        "points": [
+          "Word: reports, documentation and standard operating procedures",
+          "Excel: formulas, sorting, filters and charts for tracking resources, usage and costs",
+          "PowerPoint: presenting a project or architecture idea clearly",
+          "Outlook: professional email, calendars and team communication"
+        ]
+      }
+    ],
+    "tools": [
+      "AWS",
+      "Microsoft Azure",
+      "Google Cloud",
+      "Linux",
+      "Windows",
+      "SSH",
+      "Remote Desktop",
+      "Cloud Consoles & Dashboards",
+      "Basic Scripting",
+      "Microsoft Office"
+    ],
+    "projects": [],
+    "role": {
+      "title": "Cloud Support Associate",
+      "text": "You will be able to explain cloud concepts in plain language, launch and manage a virtual server, store and secure data, and handle networking and access-control basics — the groundwork for cloud support, technical support, IT helpdesk and junior systems roles, and for vendor fundamentals certifications."
+    },
+    "hiredBy": []
+  },
+  "flutter-app-development": {
+    "summary": "Build Android and iOS apps from a single codebase. This Flutter app development course in {city} moves from Dart fundamentals to UI, state management, APIs, Firebase and Play Store publishing, and ends with a capstone app for your portfolio.",
+    "facts": [
+      ["Mode", "Practical + Theory"],
+      ["Level", "Beginner to Job-Ready"],
+      ["Eligibility", "Basic Computer Skills"],
+      ["Includes", "Certificate + Capstone Project"]
+    ],
+    "overview": [
+      "The Flutter App Development Course in {city} is designed for learners who want to build modern mobile apps for Android and iOS from a single codebase. Flutter is Google's open-source UI toolkit; it uses the Dart language and is widely used by startups and software companies for fast cross-platform development.",
+      "The course follows how apps are built at work: from Dart fundamentals to UI building, state management, backend integration with Firebase and finally app release, so each topic builds on the one before. It is open to 12th-pass students, graduates, job seekers, working professionals and freelancers — you need curiosity and regular practice, not a computer science degree."
+    ],
+    "syllabusIntro": "Eleven modules, each ending with a clear outcome, that take you from your first Dart program to an app published on the Play Store.",
+    "modules": [
+      {
+        "title": "Programming and Dart Fundamentals",
+        "points": [
+          "Variables, data types, operators, conditions, loops and functions",
+          "Null safety and collections: lists, sets and maps",
+          "Classes, inheritance and mixins",
+          "Asynchronous programming with Future, async/await and Streams",
+          "Outcome: write clean Dart programs and understand how object-oriented code is structured"
+        ]
+      },
+      {
+        "title": "Flutter Setup and Core Widgets",
+        "points": [
+          "Installing the Flutter SDK and setting up Android Studio or VS Code",
+          "Running apps on an emulator",
+          "The widget tree, StatelessWidget and StatefulWidget",
+          "Text, Image, Container, Row, Column, Stack, ListView and GridView",
+          "Outcome: build static app screens and understand how Flutter renders them"
+        ]
+      },
+      {
+        "title": "Layouts, Theming and Responsive Design",
+        "points": [
+          "Constraints, padding and alignment",
+          "MediaQuery and LayoutBuilder",
+          "Themes, custom fonts and Material 3 design",
+          "Screens that adapt to different phone sizes and orientations",
+          "Outcome: turn a design, such as a Figma screen, into a clean, responsive interface"
+        ]
+      },
+      {
+        "title": "Navigation, Forms and User Input",
+        "points": [
+          "Navigator and named routes",
+          "Declarative routing with go_router",
+          "Forms with validation, text fields, dropdowns, date pickers and dialogs",
+          "Outcome: build multi-screen apps with login, signup and input flows"
+        ]
+      },
+      {
+        "title": "State Management",
+        "points": [
+          "Starting with setState",
+          "Provider and Riverpod",
+          "Introduction to Bloc and Cubit",
+          "Choosing the right approach for each app",
+          "Outcome: organise app data and logic so apps stay maintainable as they grow"
+        ]
+      },
+      {
+        "title": "Working with APIs and Data",
+        "points": [
+          "Calling REST APIs with http or Dio",
+          "Parsing JSON and handling loading and error states",
+          "Displaying dynamic lists",
+          "Local storage with SharedPreferences, Hive and SQLite (sqflite)",
+          "Outcome: build apps that fetch live data and work with saved data"
+        ]
+      },
+      {
+        "title": "Firebase Integration",
+        "points": [
+          "Authentication: email, phone OTP and Google sign-in",
+          "Cloud Firestore databases",
+          "Firebase Storage for files",
+          "Push notifications with Firebase Cloud Messaging",
+          "Outcome: a complete app with user accounts, a cloud database and notifications, without writing your own backend"
+        ]
+      },
+      {
+        "title": "Device Features and Animations",
+        "points": [
+          "Camera, gallery, location and maps",
+          "Permissions and URL launching",
+          "Implicit and explicit animations and hero transitions",
+          "Basic custom painting",
+          "Outcome: add polish and native-like features to your apps"
+        ]
+      },
+      {
+        "title": "Testing, Debugging and Performance",
+        "points": [
+          "Flutter DevTools",
+          "Unit, widget and basic integration testing",
+          "Reading error logs",
+          "Spotting performance issues such as unnecessary rebuilds",
+          "Outcome: find and fix bugs and write more reliable code"
+        ]
+      },
+      {
+        "title": "Git, Release and Publishing",
+        "points": [
+          "Version control with Git and GitHub",
+          "App signing and build flavours",
+          "Generating APK and App Bundle files",
+          "Publishing to the Google Play Store",
+          "iOS publishing, introduced conceptually (it needs a Mac and an Apple Developer account)",
+          "Outcome: take an app from your laptop to a store listing"
+        ]
+      },
+      {
+        "title": "Capstone Project and Portfolio",
+        "points": [
+          "A complete project: an e-commerce, food delivery, task manager or learning app",
+          "A GitHub profile that shows your work",
+          "A short project walkthrough for interviews",
+          "Outcome: a showcase project and a portfolio to present to employers"
+        ]
+      }
+    ],
+    "tools": [
+      "Flutter",
+      "Dart",
+      "Android Studio",
+      "VS Code",
+      "Android Emulator",
+      "Flutter DevTools",
+      "Firebase",
+      "Postman",
+      "Git & GitHub",
+      "Figma",
+      "pub.dev Packages",
+      "Xcode"
+    ],
+    "projects": [
+      {
+        "title": "Capstone App",
+        "text": "A complete app of your choice — e-commerce, food delivery, task manager or learning app — with a GitHub repository and an interview walkthrough.",
+        "tags": ["Flutter", "Dart", "Firebase", "Git"]
+      },
+      {
+        "title": "Firebase-Powered App",
+        "text": "User accounts with email, phone OTP or Google sign-in, a Cloud Firestore database, file storage and push notifications.",
+        "tags": ["Firebase Auth", "Firestore", "FCM"]
+      },
+      {
+        "title": "Live-Data App",
+        "text": "An app that calls a REST API, parses JSON, handles loading and error states, and caches data locally for offline use.",
+        "tags": ["REST APIs", "Dio", "Hive"]
+      }
+    ],
+    "role": {
+      "title": "Junior Flutter Developer",
+      "text": "With a solid portfolio you can apply for junior Flutter developer, mobile app developer, cross-platform developer and app tester roles — or freelance, building catalogue, booking and delivery apps for small businesses in {city} and nearby cities."
+    },
+    "hiredBy": []
+  }
+}

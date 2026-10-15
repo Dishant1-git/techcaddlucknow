@@ -1,9 +1,11 @@
-// Detail pages for courses (/courses/<slug>) and After 12th programmes
-// (/after-12th-courses/<slug>). Import this from Server Components only: it
-// pulls in the whole of both content files.
+// Detail pages for courses (/courses/<slug>), After 12th programmes
+// (/after-12th-courses/<slug>) and Internship & Training programmes
+// (/internship-training/<slug>). Import this from Server Components only: it
+// pulls in the whole of every content file.
 import programmeContent from "./after12thContent.json";
 import guideContent from "./courseGuides.json";
 import content from "./courseContent.json";
+<<<<<<< Updated upstream
 import { after12thCatalogue, after12thHref, aiMenu, courseCatalogue, courseSlugs, site } from "./site";
 
 /** A titled block of copy: a paragraph, a list, or both. */
@@ -47,6 +49,18 @@ const officeAiTools = [
   "Microsoft PowerPoint",
   "Microsoft Outlook",
 ];
+=======
+import trainingContent from "./trainingContent.json";
+import {
+  after12thCatalogue,
+  after12thHref,
+  certificatePrograms,
+  courseCatalogue,
+  courseSlugs,
+  site,
+  trainingHref,
+} from "./site";
+>>>>>>> Stashed changes
 
 type RawCourse = {
   summary: string;
@@ -254,4 +268,33 @@ export function getProgramme(slug: string): Course | undefined {
     base === label ? label : `${base} programme`,
   );
   return { ...programme, theme: "after12th" };
+}
+
+const rawTraining = trainingContent as Record<string, RawCourse>;
+
+export const trainingSlugList = certificatePrograms
+  .flatMap((p) => (p.slug ? [p.slug] : []))
+  .filter((slug) => slug in rawTraining);
+
+export function getTraining(slug: string): Course | undefined {
+  const programme = certificatePrograms.find((p) => p.slug === slug);
+  if (!programme || !rawTraining[slug]) return undefined;
+  const section = { label: "Internship & Training", href: "/#programmes" };
+
+  return build(
+    rawTraining[slug],
+    {
+      slug,
+      label: programme.label,
+      title: `${programme.label} Certificate Course`,
+      parent: section,
+      category: section,
+      badge: programme.badge,
+      related: certificatePrograms
+        .filter((p) => p.slug !== slug && p.slug && p.slug in rawTraining)
+        .slice(0, 6)
+        .map((p) => ({ label: p.label, href: trainingHref(p) })),
+    },
+    `${programme.label} certificate course`,
+  );
 }
