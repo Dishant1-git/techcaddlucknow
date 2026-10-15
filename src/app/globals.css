@@ -350,17 +350,6 @@ html {
   --color-cyan: #22d3ee;
   --color-sun: #f0abfc;
 }
-[data-theme="after12th"] {
-  --color-hero-950: #04231c;
-  --color-hero-900: #063b2e;
-  --color-hero-800: #08563f;
-  --color-navy: #053b2e;
-  --color-brand: #059669;
-  --color-brand-600: #047857;
-  --color-sky: #10b981;
-  --color-cyan: #5eead4;
-  --color-sun: #fcd34d;
-}
 /* Lenis handles smooth scrolling when it is running */
 html:not(.lenis) {
   scroll-behavior: smooth;

@@ -22,7 +22,7 @@ import { isLight, techLogos } from "@/lib/techLogos";
 import { BookDemoButton } from "./Enquiry";
 import { ToolMarquee } from "./ToolMarquee";
 import { type OrbitTool, ToolOrbit } from "./ToolOrbit";
-import { DarkSection, Eyebrow, Heading, LightSection } from "./ui";
+import { cardRow, Clamp, copyLength, DarkSection, Eyebrow, Heading, LightSection } from "./ui";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -837,51 +837,121 @@ const audiences = [
   },
 ];
 
-export function CourseAudience({ course }: { course: Course }) {
+// With `deal` (after-12th pages), desktop with motion allowed gets a pinned
+// stage: Motion.tsx starts the cards as a pile on the left and deals them
+// diagonally into the grid, in order, as the page scrolls.
+export function CourseAudience({ course, deal = false }: { course: Course; deal?: boolean }) {
   // Courses with a content brief carry their own list.
-  const items = course.guide?.audience.items ?? audiences;
+  const items = course.guide?.audience.items.length ? course.guide.audience.items : audiences;
+  const intro =
+    course.guide?.audience.intro ||
+    `The ${course.label} batch is deliberately mixed. What matters more than your background is turning up and finishing what each module asks you to build.`;
+  // The dealt version wraps (last row centred) and cuts long text to a few lines.
+  const row = cardRow(items.length);
+  const cards = items.map((a, i) => (
+    <div
+      key={a.title}
+      data-deal-card={deal || undefined}
+      className={`relative rounded-[1.75rem] border border-slate-100 bg-white bg-gradient-to-br from-white to-sky/10 p-7 shadow-xl shadow-hero-950/5 ${deal ? row.card : ""}`}
+    >
+      <span className="font-display text-sm font-extrabold text-brand">{pad(i + 1)}</span>
+      <h3 className="mt-4 font-display text-xl font-bold text-navy">{a.title}</h3>
+      {deal ? (
+        <Clamp length={copyLength(a)}>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">{a.text}</p>
+          {"points" in a && a.points && (
+            <ul className="mt-3 list-disc space-y-1 pl-4 text-sm text-slate-600">
+              {a.points.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          )}
+          {"after" in a && a.after && <p className="mt-3 text-sm leading-relaxed text-slate-600">{a.after}</p>}
+        </Clamp>
+      ) : (
+        <p className="mt-2 text-sm leading-relaxed text-slate-600">{a.text}</p>
+      )}
+    </div>
+  ));
+  if (!deal) {
+    return (
+      <LightSection id="who-can-join">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Eligibility</Eyebrow>
+          <Heading className="mt-5">
+            Who can do <span className="text-gradient">this course</span>
+          </Heading>
+          <p data-reveal className="mt-6 text-lg text-slate-600">
+            {intro}
+          </p>
+        </div>
+        <div data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {cards}
+        </div>
+      </LightSection>
+    );
+  }
   return (
-    <LightSection id="who-can-join">
-      <div className="mx-auto max-w-3xl text-center">
-        <Eyebrow>Eligibility</Eyebrow>
-        <Heading className="mt-5">
-          Who can do <span className="text-gradient">this course</span>
-        </Heading>
-        <p data-reveal className="mt-6 text-lg text-slate-600">
-          {course.guide?.audience.intro ||
-            `The ${course.label} batch is deliberately mixed. What matters more than your background is turning up and finishing what each module asks you to build.`}
-        </p>
-      </div>
-      <div data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((a, i) => (
-          <div
-            key={a.title}
-            className="rounded-[1.75rem] border border-slate-100 bg-gradient-to-br from-white to-sky/10 p-7 shadow-xl shadow-hero-950/5"
-          >
-            <span className="font-display text-sm font-extrabold text-brand">{pad(i + 1)}</span>
-            <h3 className="mt-4 font-display text-xl font-bold text-navy">{a.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600">{a.text}</p>
+    <section
+      id="who-can-join"
+      data-deal
+      style={{ "--cards": items.length } as CSSProperties}
+      className="relative isolate scroll-mt-24 overflow-x-clip bg-white"
+    >
+      <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
+      <div className="glow-light absolute inset-0 -z-10" />
+      {/* A stage taller than the window pins once its bottom reaches the
+          bottom of the window (Motion.tsx sets its `top`, and drops the pin
+          when the cards alone don't fit). */}
+      <div
+        data-deal-stage
+        className="lg:motion-safe:sticky lg:motion-safe:top-0 lg:motion-safe:flex lg:motion-safe:min-h-svh lg:motion-safe:items-center lg:motion-safe:pt-20 lg:motion-safe:pb-12"
+      >
+        <div className="mx-auto w-full max-w-7xl px-5 py-20 lg:px-8 lg:py-32 lg:motion-safe:py-0">
+          <div className="mx-auto max-w-3xl text-center">
+            <Eyebrow>Eligibility</Eyebrow>
+            <Heading className="mt-5">
+              Who can do <span className="text-gradient">this course</span>
+            </Heading>
+            <p data-reveal className="mt-6 text-lg text-slate-600">
+              {intro}
+            </p>
           </div>
-        ))}
+          <div
+            data-deal-grid
+            className={`relative mt-14 ${row.row}`}
+          >
+            {cards}
+          </div>
+        </div>
       </div>
-    </LightSection>
+      {/* The scroll distance the cards are dealt over. */}
+      <div
+        data-deal-space
+        aria-hidden
+        className="hidden lg:motion-safe:block lg:motion-safe:h-[calc(var(--cards)*40vh)]"
+      />
+    </section>
   );
 }
 
 export function CourseProjects({ course }: { course: Course }) {
   if (course.projects.length === 0) return null;
+  // After 12th pages wrap the cards so a short last row is centred.
+  const wrap = course.theme === "after12th";
+  const row = cardRow(course.projects.length);
   return (
     <DarkSection id="projects">
       <Eyebrow dark>Portfolio</Eyebrow>
       <Heading dark className="mt-5">
         Hands-on projects <span className="text-gradient">you will ship</span>
       </Heading>
-      <div data-stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div data-stagger className={wrap ? `mt-12 ${row.row}` : "mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"}>
         {course.projects.map((p, i) => (
           <article
             key={p.title}
             data-spot
-            className="flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 backdrop-blur"
+            className={`flex flex-col rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-7 backdrop-blur ${wrap ? row.card : ""}`}
           >
             <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-sun">
               Project {pad(i + 1)}

@@ -1,5 +1,5 @@
 import { NavLink } from "./NavLink";
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 import { site } from "@/lib/site";
 
 export function Logo({ className = "" }: { className?: string }) {
@@ -159,4 +159,56 @@ export function LightSection({
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-32">{children}</div>
     </section>
   );
+}
+
+/**
+ * Card copy cut to about four lines, fading out, with a "Read more" toggle
+ * (CSS only, so the full text stays in the page). `length` is the copy's
+ * character count; short copy is shown whole.
+ */
+export function Clamp({
+  children,
+  length,
+  dark = false,
+}: {
+  children: ReactNode;
+  length: number;
+  dark?: boolean;
+}) {
+  const id = useId();
+  if (length < 220) return <>{children}</>;
+  const toggle = `mt-2 cursor-pointer text-sm font-semibold peer-focus-visible:underline ${dark ? "text-cyan" : "text-brand"}`;
+  return (
+    <div data-clamp>
+      <input id={id} type="checkbox" className="peer sr-only" />
+      <div className="max-h-[6.25rem] overflow-hidden [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] peer-checked:max-h-none peer-checked:[mask-image:none]">
+        {children}
+      </div>
+      <label htmlFor={id} className={`${toggle} inline-block peer-checked:hidden`}>
+        Read more
+      </label>
+      <label htmlFor={id} className={`${toggle} hidden peer-checked:inline-block`}>
+        Show less
+      </label>
+    </div>
+  );
+}
+
+/** Characters of copy in a card, for <Clamp>. */
+export const copyLength = (item: { text?: string; points?: string[]; after?: string }) =>
+  (item.text?.length ?? 0) + (item.points?.join("").length ?? 0) + (item.after?.length ?? 0);
+
+/**
+ * Classes for a wrapping row of cards: three or four to a row on desktop,
+ * whichever fills the last row better, with the last row centred.
+ */
+export function cardRow(count: number) {
+  const fill = (cols: number) => (count % cols || cols) / cols;
+  const four = fill(4) > fill(3);
+  return {
+    row: "flex flex-wrap justify-center gap-5",
+    card: `w-full sm:w-[calc((100%-1.25rem)/2)] ${
+      four ? "lg:w-[calc((100%-3.75rem)/4)]" : "lg:w-[calc((100%-2.5rem)/3)]"
+    }`,
+  };
 }

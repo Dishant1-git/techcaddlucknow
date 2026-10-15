@@ -26,6 +26,7 @@ import { SplitText } from "gsap/SplitText";
  *   data-doors          sticky doors that swing open onto [data-door-room]
  *   data-panels         sticky stack of [data-panel]s that wipe over each other
  *   data-syllabus       sticky deck: [data-syllabus-card]s fly in from the right and stack
+ *   data-deal           sticky grid: [data-deal-card]s are dealt from a pile on the left
  *   data-words          sticky sentence revealed one [data-word] at a time
  *   data-grow="0.4"     scales up to full size as it enters the viewport
  *   data-tilt           3D tilt towards the pointer
@@ -299,6 +300,98 @@ function MotionEffects() {
           if (bar) tl.fromTo(bar, { scaleX: 1 / n }, { scaleX: 1, duration: tl.duration() }, 0);
         });
 
+        // Deal: the cards start as a loose pile at the left of the grid and fly
+        // diagonally into their own slots, first card first.
+        q("[data-deal]").forEach((wrap) => {
+          const grid = wrap.querySelector<HTMLElement>("[data-deal-grid]");
+          const stage = wrap.querySelector<HTMLElement>("[data-deal-stage]");
+          const cards = each(wrap, "[data-deal-card]");
+          const space = wrap.querySelector<HTMLElement>("[data-deal-space]");
+          if (!desktop || !grid || !stage || !space || cards.length < 2) return;
+          const n = cards.length;
+          // Card offsets are relative to the grid, and transforms don't change them.
+          const col = (card: HTMLElement) => Math.round(card.offsetLeft / card.offsetWidth);
+
+          // A grid taller than the window (long cards, or many of them) can't be
+          // pinned with every card in view, so it isn't pinned: each card slides
+          // in diagonally from the left as it scrolls up, column by column.
+          if (grid.offsetHeight > window.innerHeight - 160) {
+            stage.style.position = "static";
+            space.style.display = "none";
+            cleanups.push(() => {
+              stage.style.position = "";
+              space.style.display = "";
+            });
+            cards.forEach((card) => {
+              const c = col(card);
+              gsap.fromTo(
+                card,
+                { x: () => -card.offsetLeft - 60, y: 120, rotation: -6, autoAlpha: 0 },
+                {
+                  x: 0,
+                  y: 0,
+                  rotation: 0,
+                  autoAlpha: 1,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: `top ${100 - c * 6}%`,
+                    end: `top ${68 - c * 6}%`,
+                    scrub: true,
+                    invalidateOnRefresh: true,
+                  },
+                },
+              );
+            });
+            return;
+          }
+
+          // A stage taller than the window sticks with its bottom on the window's
+          // bottom, so every card stays in view while it is dealt.
+          let top = 0;
+          const pin = () => {
+            top = Math.min(0, window.innerHeight - stage.offsetHeight);
+            stage.style.top = `${top}px`;
+          };
+          pin();
+          ScrollTrigger.addEventListener("refreshInit", pin);
+          cleanups.push(() => {
+            ScrollTrigger.removeEventListener("refreshInit", pin);
+            stage.style.top = "";
+          });
+          const pileX = (card: HTMLElement, i: number) => -card.offsetLeft + i * 8;
+          const pileY = (card: HTMLElement, i: number) =>
+            (grid.offsetHeight - card.offsetHeight) / 2 - card.offsetTop + i * 8;
+          cards.forEach((card, i) => gsap.set(card, { zIndex: n - i }));
+          const tl = gsap.timeline({
+            defaults: { ease: "none" },
+            scrollTrigger: {
+              trigger: wrap,
+              start: () => `top ${top}px`,
+              end: "bottom bottom",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          });
+          tl.to({}, { duration: 0.3 });
+          cards.forEach((card, i) => {
+            const at = 0.3 + i * 0.7;
+            // Leaving the pile, a card rises above the ones already dealt.
+            tl.set(card, { zIndex: n + i }, at);
+            tl.fromTo(
+              card,
+              {
+                x: () => pileX(card, i),
+                y: () => pileY(card, i),
+                rotation: (i % 2 ? 1 : -1) * (2 + i),
+              },
+              { x: 0, y: 0, rotation: 0, ease: "power2.inOut", duration: 0.8 },
+              at,
+            );
+          });
+          tl.to({}, { duration: 0.4 });
+        });
+
         // Word sequence: a sentence arrives one word at a time.
         q("[data-words]").forEach((wrap) => {
           const tl = scrubbed(wrap);
@@ -472,6 +565,13 @@ function MotionEffects() {
           ease: "none",
           scrollTrigger: { start: 0, end: "max", scrub: 0.3 },
         });
+
+        // Opening a "Read more" card changes the page height under every trigger.
+        const onClamp = (e: Event) => {
+          if ((e.target as Element).closest("[data-clamp]")) ScrollTrigger.refresh();
+        };
+        document.addEventListener("change", onClamp);
+        cleanups.push(() => document.removeEventListener("change", onClamp));
 
         // Pointer effects only make sense with a mouse.
         if (desktop && window.matchMedia("(hover: hover)").matches) {

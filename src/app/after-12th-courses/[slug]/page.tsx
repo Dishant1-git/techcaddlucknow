@@ -8,9 +8,15 @@ import {
   CourseOverview,
   CourseProjects,
   CourseSyllabus,
-    RelatedCourses,
+  RelatedCourses,
   Toolchain,
 } from "@/components/CourseDetail";
+import {
+  CourseAudienceNote,
+  CourseTakeaways,
+  CourseWhyProgramme,
+  CourseWhyUs,
+} from "@/components/CourseGuide";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
@@ -51,10 +57,16 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
       <main data-theme={course.theme}>
         <CourseHero course={course} />
         <CourseOverview course={course} />
+        {/* Programmes with a content brief add its sections (CourseGuide.tsx). */}
+        {course.guide && <CourseAudience course={course} deal />}
+        <CourseAudienceNote course={course} />
+        <CourseWhyProgramme course={course} />
         <CourseSyllabus course={course} />
         <Toolchain course={course} />
-        <CourseAudience course={course} />
+        <CourseTakeaways course={course} />
+        {!course.guide && <CourseAudience course={course} deal />}
         <CourseProjects course={course} />
+        <CourseWhyUs course={course} />
         <CourseOutcomes course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
