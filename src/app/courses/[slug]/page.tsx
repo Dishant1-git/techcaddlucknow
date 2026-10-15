@@ -18,6 +18,7 @@ import {
   CourseWhyUs,
 } from "@/components/CourseGuide";
 import { Footer, WhatsAppButton } from "@/components/Footer";
+import { PhotoStrip, photoSets } from "@/components/PhotoStrip";
 import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
 import { Cta } from "@/components/Sections";
@@ -71,6 +72,11 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
         <CourseOutcomes course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
+        <PhotoStrip
+          title={<>Where you will <span className="text-gradient">learn</span></>}
+          text="Mentor-led labs, small groups and workshops — real photos from techcadd batches."
+          photos={course.theme === "ai" ? photoSets.ai : photoSets.labs}
+        />
         <Cta course={course.label} />
       </main>
       <Footer />

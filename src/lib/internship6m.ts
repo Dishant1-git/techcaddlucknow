@@ -1,5 +1,5 @@
 // Copy for the 6 Months Internship & Industrial Training page
-// (/internship-training/6-months), adapted for the Lucknow centre from the
+// (/internship-training-in-lucknow/6-months), adapted for the Lucknow centre from the
 // "6 Months Internship & Industrial Training" content brief. The brief repeats
 // a handful of paragraphs across its 20 sections; each appears here once.
 import { site } from "./site";
@@ -81,38 +81,6 @@ export const sixMonths = {
     title: "Choose a technology domain for your six-month journey",
     intro:
       "No single internship domain suits every student. A learner who enjoys mathematics and data exploration may prefer analytics; someone who likes building interfaces may prefer web development; a student interested in systems might explore cloud, Linux or networking.",
-    items: [
-      {
-        title: "Artificial intelligence and machine learning",
-        text: "Python fundamentals, data preparation, model evaluation, responsible use of AI, and a small reproducible project.",
-        note: "Not an advanced research track for complete beginners.",
-        href: "/courses/artificial-intelligence",
-      },
-      {
-        title: "Data science and data analytics",
-        text: "Spreadsheets, SQL, data cleaning, dashboards, storytelling and business questions.",
-        note: "Includes understanding data limitations and avoiding misleading visualisations.",
-        href: "/courses/data-analytics",
-      },
-      {
-        title: "Python and full-stack web development",
-        text: "HTML, CSS, JavaScript, APIs, databases, authentication basics, testing and deployment.",
-        note: "Projects are built incrementally and documented.",
-        href: "/courses/full-stack-development",
-      },
-      {
-        title: "Cybersecurity",
-        text: "Networking fundamentals, Linux, security hygiene, logging and authorised lab exercises.",
-        note: "All exercises use permitted environments.",
-        href: "/courses/cyber-security",
-      },
-      {
-        title: "Cloud and DevOps",
-        text: "Linux, Git, networking, cloud service models, IAM principles, deployment, containers, CI/CD concepts and cost awareness.",
-        note: "",
-        href: "/courses/devops-engineering",
-      },
-    ],
   },
 
   roadmap: {

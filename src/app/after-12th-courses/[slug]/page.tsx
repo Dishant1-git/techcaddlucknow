@@ -12,6 +12,7 @@ import {
   Toolchain,
 } from "@/components/CourseDetail";
 import { Footer, WhatsAppButton } from "@/components/Footer";
+import { PhotoStrip, photoSets } from "@/components/PhotoStrip";
 import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
 import { Cta } from "@/components/Sections";
@@ -58,6 +59,11 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
         <CourseOutcomes course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
+        <PhotoStrip
+          title={<>Life after 12th, <span className="text-gradient">in the lab</span></>}
+          text="Classes, hands-on practice and certificate days — real photos from techcadd batches."
+          photos={photoSets.after12th}
+        />
         <Cta course={course.label} />
       </main>
       <Footer />

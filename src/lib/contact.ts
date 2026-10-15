@@ -22,8 +22,8 @@ export const enquiryTopics = [
   {
     icon: "briefcase",
     title: "Industrial training & internship",
-    text: "45-day, 6-week and 6-month training for college students, with the documents your university asks for.",
-    action: { label: "View training programmes", href: "/internship-training" },
+    text: "45-day (six-week) and 6-month training for college students, with the documents your university asks for.",
+    action: { label: "View training programmes", href: "/internship-training-in-lucknow" },
   },
   {
     icon: "building",
@@ -83,10 +83,43 @@ export const contactFaqs = [
   },
   {
     q: "I need mandatory training for my college. Who do I talk to?",
-    a: "Mention it in the form or on the phone. Our 6-week and 6-month programmes come with the project report and documents universities ask for.",
+    a: "Mention it in the form or on the phone. Our 45-day (six-week) and 6-month programmes come with the project report and documents universities ask for.",
   },
   {
     q: "How quickly will someone get back to me?",
     a: "Enquiries sent during working hours are usually answered within minutes. Anything sent after hours is picked up first thing the next morning.",
   },
 ];
+
+// Desks in the "Support & Assistance" tabs. All share the centre's phone and
+// email until desk-specific contacts are added.
+export const supportDesks = [
+  {
+    icon: "students",
+    tab: "Student Desk",
+    title: "Student Support",
+    text: "Get help with courses, schedules, admissions and your learning journey.",
+    subject: "Student support query",
+  },
+  {
+    icon: "partners",
+    tab: "Partnerships Desk",
+    title: "College & Corporate Partnerships",
+    text: "Workshops, MoUs, campus training programmes and industry collaborations with colleges and companies.",
+    subject: "Partnership enquiry",
+  },
+  {
+    icon: "placement",
+    tab: "Placement Cell",
+    title: "Placement Support",
+    text: "Resume reviews, mock interviews and placement drives for students — and trained candidates for employers who are hiring.",
+    subject: "Placement cell enquiry",
+  },
+  {
+    icon: "franchise",
+    tab: "Franchise Desk",
+    title: "Franchise Enquiries",
+    text: `Interested in opening a ${site.name} training centre? Talk to us about the franchise model and next steps.`,
+    subject: "Franchise enquiry",
+  },
+] as const;

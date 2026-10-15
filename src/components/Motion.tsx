@@ -6,6 +6,7 @@ import gsap from "gsap";
 import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { setLenis } from "@/lib/scroll";
 
 /**
  * Site-wide scroll and pointer animations, driven by data attributes so the
@@ -68,11 +69,13 @@ function MotionEffects() {
         // sticky and fixed elements keep working; it also handles in-page links.
         const lenis = new Lenis({ lerp: 0.1, anchors: { offset: -104 } });
         lenis.on("scroll", ScrollTrigger.update);
+        setLenis(lenis);
         const tick = (time: number) => lenis.raf(time * 1000);
         gsap.ticker.add(tick);
         gsap.ticker.lagSmoothing(0);
         cleanups.push(() => {
           gsap.ticker.remove(tick);
+          setLenis(null);
           lenis.destroy();
         });
 

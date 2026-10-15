@@ -1,6 +1,6 @@
 // Detail pages for courses (/courses/<slug>), After 12th programmes
 // (/after-12th-courses/<slug>) and Internship & Training programmes
-// (/internship-training/<slug>). Import this from Server Components only: it
+// (/internship-training-in-lucknow/<slug>). Import this from Server Components only: it
 // pulls in the whole of every content file.
 import programmeContent from "./after12thContent.json";
 import guideContent from "./courseGuides.json";

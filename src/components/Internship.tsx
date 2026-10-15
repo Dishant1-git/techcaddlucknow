@@ -1,5 +1,5 @@
-// Sections for the Internship & Training pages (/internship-training and one
-// page per programme).
+// Sections for the Internship & Training pages (/internship-training-in-lucknow
+// and one page per programme).
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import {
@@ -38,12 +38,14 @@ import {
   steps,
   trainingHref,
 } from "@/lib/site";
+import { domainHref, internshipDomains } from "@/lib/internshipDomains";
 import { BookDemoButton } from "./Enquiry";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
 
 export type Programme = (typeof programmes)[number];
 
-const icons: Record<string, LucideIcon> = {
+/** Icons for the `icon` names in `certificatePrograms`. */
+export const programIcons: Record<string, LucideIcon> = {
   cloud: Cloud,
   code: Code,
   sparkles: Sparkles,
@@ -175,10 +177,10 @@ export function InternshipHero({ programme }: { programme?: Programme }) {
                 </span>
               </BookDemoButton>
               <a
-                href={programme ? "#tracks" : "#durations"}
+                href={programme ? "#domains" : "#durations"}
                 className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold transition hover:border-white/40"
               >
-                {programme ? "Choose a technology" : "Compare durations"}
+                {programme ? "Choose a domain" : "Choose a duration"}
               </a>
             </div>
           </div>
@@ -225,7 +227,7 @@ export function CompareDurations({ current }: { current?: string }) {
   return (
     <LightSection id="durations">
       <SectionHeading
-        eyebrow="Durations"
+        eyebrow={current ? "Durations" : "Step 1 · Choose a duration"}
         title={
           <>
             {current ? "Compare with the " : "Choose the "}
@@ -234,7 +236,7 @@ export function CompareDurations({ current }: { current?: string }) {
         }
         text="Every track uses the same lab, trainers and project reviews. The longer you stay, the more you build."
       />
-      <ul data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <ul data-stagger className="mx-auto mt-14 grid max-w-4xl gap-5 sm:grid-cols-2">
         {programmes.map((p) => {
           const on = p.slug === current;
           const { n, unit } = split(p.duration);
@@ -306,8 +308,16 @@ export function TrainingTracks({ duration }: { duration?: string }) {
       </div>
       <ul data-stagger className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {certificatePrograms.map((c) => {
-          const Icon = icons[c.icon];
-          const href = c.slug ? trainingHref(c) : courseSlugs[c.label] ? courseHref(c.label) : undefined;
+          const Icon = programIcons[c.icon];
+          // Each course is an internship domain; the tiles open its six-month page.
+          const domain = internshipDomains.find((d) => d.label === c.label);
+          const href = domain
+            ? domainHref("6-months", domain.slug)
+            : c.slug
+              ? trainingHref(c)
+              : courseSlugs[c.label]
+                ? courseHref(c.label)
+                : undefined;
           const body = (
             <>
               <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-cyan to-sky text-hero-950 transition-transform duration-300 group-hover:-rotate-6">

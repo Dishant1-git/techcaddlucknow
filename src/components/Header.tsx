@@ -75,7 +75,7 @@ export function Header() {
       }`}
     >
       <NavLink
-        href={internshipHref("6-months")}
+        href={internshipHref()}
         aria-label="Explore internship and training programmes"
         // Keyed on the state so the entrance animation replays at each position.
         key={docked ? "docked" : "side"}
