@@ -4,10 +4,10 @@ import { Capabilities } from "@/components/Capabilities";
 import { Faq } from "@/components/Faq";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
+import { HomeCta } from "@/components/HomeCta";
 import { Motion } from "@/components/Motion";
 import {
   Doors,
-  Finale,
   HeroZoom,
   KeywordRows,
   ProgrammePanels,
@@ -16,7 +16,6 @@ import {
 import {
   AiSection,
   CourseTracks,
-  Cta,
   Fields,
   Process,
   Testimonials,
@@ -48,8 +47,7 @@ export default function Home() {
         <TechStack />
         <Capabilities />
         <Faq />
-        <Finale />
-        <Cta />
+        <HomeCta />
       </main>
       <Footer />
       <WhatsAppButton />

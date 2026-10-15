@@ -5,6 +5,7 @@ import {
   siAutodeskrevit,
   siBurpsuite,
   siCisco,
+  siClaude,
   siCplusplus,
   siCrewai,
   siDart,
@@ -137,8 +138,16 @@ export const techLogos: Record<string, Logo> = {
   "Google Analytics": siGoogleanalytics,
   "Search Console": siGooglesearchconsole,
   WordPress: siWordpress,
-  // OpenAI, Power BI, Tableau, Excel, AWS, Azure and Canva
+  // OpenAI, Power BI, Tableau, Excel, Word, PowerPoint, Outlook, AWS, Azure and Canva
   ...extraLogos,
+  // Names used on the AI course pages
+  ChatGPT: extraLogos.OpenAI,
+  Gemini: siGooglegemini,
+  Claude: siClaude,
+  "Microsoft Word": extraLogos.Word,
+  "Microsoft Excel": extraLogos.Excel,
+  "Microsoft PowerPoint": extraLogos.PowerPoint,
+  "Microsoft Outlook": extraLogos.Outlook,
 };
 
 // Keyed by the course names in site.ts (courseCatalogue). Courses without an

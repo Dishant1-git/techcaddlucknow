@@ -652,7 +652,8 @@ export function Testimonials() {
   );
 }
 
-export function Cta() {
+/** Closing enquiry block; on a course page, pass the course to preselect it. */
+export function Cta({ course }: { course?: string }) {
   return (
     <section id="contact" className="bg-slate-50 px-3 pb-6 pt-4 sm:px-5">
       <div className="relative isolate mx-auto max-w-[90rem] overflow-clip rounded-[2.5rem] bg-hero-950 px-5 py-16 text-white sm:px-10 lg:px-16 lg:py-24">
@@ -700,7 +701,8 @@ export function Cta() {
             <p className="mt-2 text-sm text-white/85">
               Leave your number and a counsellor will call you back.
             </p>
-            <EnquiryForm className="mt-6" />
+            {/* Keyed so moving to another course page resets the selection. */}
+            <EnquiryForm key={course} defaultCourse={course} className="mt-6" />
           </div>
         </div>
       </div>

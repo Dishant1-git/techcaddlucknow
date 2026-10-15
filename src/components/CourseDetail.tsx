@@ -202,7 +202,7 @@ export function CourseSyllabus({ course }: { course: Course }) {
 
             <div aria-hidden className="mt-10 hidden lg:motion-safe:block">
               <p className="flex items-baseline gap-3 font-display font-extrabold text-navy">
-                <span className="text-xs uppercase tracking-[0.24em] text-brand">Week</span>
+                <span className="text-xs uppercase tracking-[0.24em] text-brand">{course.unit}</span>
                 <span className="block h-[1em] overflow-hidden text-6xl leading-none">
                   <span data-syllabus-count className="block">
                     {course.modules.map((_, i) => (
@@ -232,7 +232,7 @@ export function CourseSyllabus({ course }: { course: Course }) {
               >
                 <div className="flex items-center gap-4 border-b border-slate-100 px-6 py-4 sm:px-8">
                   <span className="rounded-full bg-brand/10 px-3 py-1 font-display text-xs font-extrabold uppercase tracking-[0.18em] text-brand">
-                    Week {pad(i + 1)}
+                    {course.unit} {pad(i + 1)}
                   </span>
                   <span className="ml-auto font-display text-sm font-bold text-slate-400">
                     {pad(i + 1)} / {pad(count)}
@@ -258,7 +258,7 @@ export function CourseSyllabus({ course }: { course: Course }) {
 // topic stand out, and the text tightens as a module's content grows so the
 // card fits on screen without scrolling.
 function SyllabusBody({ module: m }: { module: Course["modules"][number] }) {
-  const chars = m.points.join("").length;
+  const chars = m.points.join("").length + (m.text?.length ?? 0) + (m.after?.length ?? 0);
   const density = chars > 1400 ? "dense" : chars > 500 || m.points.length > 6 ? "medium" : "light";
   const look = {
     light: { title: "text-2xl", list: "text-base", cols: "" },
@@ -268,7 +268,8 @@ function SyllabusBody({ module: m }: { module: Course["modules"][number] }) {
   return (
     <div data-lenis-prevent data-syllabus-body className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-6 py-5 sm:px-8">
       <h3 className={`font-display font-bold tracking-tight text-navy ${look.title}`}>{m.title}</h3>
-      <ul data-syllabus-list className={`mt-4 gap-x-8 text-slate-600 [&>li]:mb-2.5 ${look.list} ${look.cols}`}>
+      {m.text && <p className={`mt-3 leading-relaxed text-slate-600 ${look.list}`}>{m.text}</p>}
+      <ul data-syllabus-list className={`mt-4 gap-x-8 text-slate-600 [&>li]:mb-2.5 empty:hidden ${look.list} ${look.cols}`}>
         {m.points.map((p) => {
           // Prefer the dash after "(12 hrs)", since topic names can contain one too.
           const hrs = p.indexOf(") — ");
@@ -291,6 +292,7 @@ function SyllabusBody({ module: m }: { module: Course["modules"][number] }) {
           );
         })}
       </ul>
+      {m.after && <p className={`leading-relaxed text-slate-600 ${look.list}`}>{m.after}</p>}
     </div>
   );
 }
@@ -366,6 +368,8 @@ const audiences = [
 ];
 
 export function CourseAudience({ course }: { course: Course }) {
+  // Courses with a content brief carry their own list.
+  const items = course.guide?.audience.items ?? audiences;
   return (
     <LightSection id="who-can-join">
       <div className="mx-auto max-w-3xl text-center">
@@ -374,13 +378,12 @@ export function CourseAudience({ course }: { course: Course }) {
           Who can do <span className="text-gradient">this course</span>
         </Heading>
         <p data-reveal className="mt-6 text-lg text-slate-600">
-          The {course.label} batch is deliberately mixed. What matters more than
-          your background is turning up and finishing what each module asks you
-          to build.
+          {course.guide?.audience.intro ||
+            `The ${course.label} batch is deliberately mixed. What matters more than your background is turning up and finishing what each module asks you to build.`}
         </p>
       </div>
       <div data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {audiences.map((a, i) => (
+        {items.map((a, i) => (
           <div
             key={a.title}
             className="rounded-[1.75rem] border border-slate-100 bg-gradient-to-br from-white to-sky/10 p-7 shadow-xl shadow-hero-950/5"

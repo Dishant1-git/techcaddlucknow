@@ -2,8 +2,51 @@
 // (/after-12th-courses/<slug>). Import this from Server Components only: it
 // pulls in the whole of both content files.
 import programmeContent from "./after12thContent.json";
+import guideContent from "./courseGuides.json";
 import content from "./courseContent.json";
 import { after12thCatalogue, after12thHref, courseCatalogue, courseSlugs, site } from "./site";
+
+/** A titled block of copy: a paragraph, a list, or both. */
+/** A titled block of copy: a paragraph, a list, or both; `after` follows the list. */
+export type GuideItem = { title: string; text?: string; points?: string[]; after?: string };
+type GuideSection = { intro: string; items: GuideItem[]; close: GuideItem | null };
+
+/**
+ * Long-form page copy from the course content briefs (courseGuides.json): who
+ * the course suits, why the programme and why techcadd, what it teaches and
+ * the course's own FAQs.
+ */
+export type CourseGuide = {
+  summary: string;
+  overview: string[];
+  audience: { intro: string; items: GuideItem[]; note: GuideItem | null };
+  why: GuideSection;
+  whyUs: GuideSection;
+  learn: {
+    intro: string;
+    modules: GuideItem[];
+    /** Rows of the brief's "tool / what you practise" table, if it has one. */
+    tools: GuideItem[];
+    outcomes: GuideItem[];
+    /** Caveat printed under that table. */
+    toolNote: string | null;
+  };
+  faqs: { q: string; a: string }[];
+};
+
+// The beginner AI courses teach AI assistants inside the Office apps, so their
+// tool list says so; every other course keeps its own curated list.
+const officeAiCourses = new Set(["generative-ai", "prompt-engineering", "rag-development", "ai-powered-courses"]);
+const officeAiTools = [
+  "ChatGPT",
+  "Gemini",
+  "Claude",
+  "Microsoft Copilot",
+  "Microsoft Word",
+  "Microsoft Excel",
+  "Microsoft PowerPoint",
+  "Microsoft Outlook",
+];
 
 type RawCourse = {
   summary: string;
@@ -11,7 +54,7 @@ type RawCourse = {
   facts: string[][];
   overview: string[];
   syllabusIntro: string;
-  modules: { title: string; points: string[] }[];
+  modules: { title: string; text?: string; points: string[]; after?: string }[];
   tools: string[];
   projects: { title: string; text: string; tags: string[] }[];
   role: { title: string; text: string } | null;
@@ -34,6 +77,9 @@ export type Course = RawCourse & {
   duration?: string;
   faqs: { q: string; a: string }[];
   related: Link[];
+  /** What each syllabus card is called: "Week" for timed courses, "Module" otherwise. */
+  unit: "Week" | "Module";
+  guide?: CourseGuide;
 };
 
 // The copy uses "{city}" wherever the branch is named.
@@ -104,7 +150,38 @@ function build(
         `${c.tools.length ? `You practise on ${list(c.tools.slice(0, 6))}. ` : ""}Trainers review your work as you go, so by the end you have a portfolio you can explain in an interview, plus resume and mock-interview support from the placement cell.`,
       ];
 
-  return { ...c, ...page, summary, overview, duration, faqs: buildFaqs(name, c, duration) };
+  return {
+    ...c,
+    ...page,
+    summary,
+    overview,
+    duration,
+    faqs: buildFaqs(name, c, duration),
+    unit: "Week",
+  };
+}
+
+const guides = guideContent as Record<string, CourseGuide>;
+
+/** Lays the course's content brief over the generated page: its copy replaces ours. */
+function withGuide(course: Course): Course {
+  const guide = guides[course.slug] && localise(guides[course.slug]);
+  if (!guide) return course;
+  return {
+    ...course,
+    guide,
+    summary: guide.summary,
+    overview: guide.overview,
+    syllabusIntro: guide.learn.intro,
+    modules: guide.learn.modules.map((m) => ({ ...m, points: m.points ?? [] })),
+    tools: officeAiCourses.has(course.slug) ? officeAiTools : course.tools,
+    // The briefs make no project, job-title or employer claims, so neither do these pages.
+    projects: [],
+    role: null,
+    hiredBy: [],
+    faqs: guide.faqs,
+    unit: "Module",
+  };
 }
 
 const raw = content as Record<string, RawCourse>;
@@ -116,12 +193,13 @@ export function getCourse(slug: string): Course | undefined {
   const category = courseCatalogue.find((cat) => cat.courses.some((c) => c.label === label));
   if (!label || !category || !raw[slug]) return undefined;
 
-  return build(
+  const course = build(
     raw[slug],
     {
       slug,
       label,
-      title: `${label} Course`,
+      // "AI-Powered Courses" reads as "AI-Powered Course", not "… Courses Course".
+      title: label.endsWith(" Courses") ? label.slice(0, -1) : `${label} Course`,
       parent: { label: "Courses", href: "/courses" },
       category: { label: category.title, href: `/courses#${category.id}` },
       badge: category.courses.find((x) => x.label === label)?.badge,
@@ -132,6 +210,7 @@ export function getCourse(slug: string): Course | undefined {
     },
     `${label} course`,
   );
+  return withGuide(course);
 }
 
 const rawProgrammes = programmeContent as Record<string, RawCourse>;

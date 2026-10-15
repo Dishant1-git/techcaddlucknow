@@ -27,7 +27,10 @@ import {
 import { after12thCatalogue, courseCatalogue, coursesMenu, googleReviews, site } from "@/lib/site";
 import { GoogleG } from "./ui";
 
-const EnquiryContext = createContext<{ open: (course?: string) => void }>({ open: () => {} });
+/** Opens the enquiry popup, optionally with a course and mobile number filled in. */
+const EnquiryContext = createContext<{ open: (course?: string, phone?: string) => void }>({
+  open: () => {},
+});
 
 export const useEnquiry = () => useContext(EnquiryContext);
 
@@ -49,6 +52,7 @@ const allCourses = Array.from(
 export function EnquiryProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [course, setCourse] = useState("");
+  const [phone, setPhone] = useState("");
 
   // Show the popup once per browser session, like the reference site.
   useEffect(() => {
@@ -78,8 +82,9 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
   return (
     <EnquiryContext.Provider
       value={{
-        open: (c) => {
+        open: (c, p) => {
           if (c) setCourse(c);
+          if (p) setPhone(p);
           setIsOpen(true);
         },
       }}
@@ -190,6 +195,7 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
                 <EnquiryForm
                   course={course}
                   onCourseChange={setCourse}
+                  defaultPhone={phone}
                   className="mt-4"
                 />
               </div>
@@ -209,16 +215,22 @@ const newSum = () => ({
 export function EnquiryForm({
   course: controlledCourse,
   onCourseChange,
+  defaultCourse,
+  defaultPhone,
   className = "",
 }: {
   /** Pass both to control the selected course from outside (the popup's track chips). */
   course?: string;
   onCourseChange?: (course: string) => void;
+  /** Course selected when the form first appears, e.g. on a course page. */
+  defaultCourse?: string;
+  /** Mobile number already typed elsewhere, such as the home page call to action. */
+  defaultPhone?: string;
   className?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [error, setError] = useState("");
-  const [ownCourse, setOwnCourse] = useState("");
+  const [ownCourse, setOwnCourse] = useState(defaultCourse ?? "");
   // The sum is created in the browser only, so server and client markup match.
   const [sum, setSum] = useState<{ a: number; b: number } | null>(null);
   const [answer, setAnswer] = useState("");
@@ -316,6 +328,7 @@ export function EnquiryForm({
         inputMode="numeric"
         autoComplete="tel-national"
         maxLength={10}
+        defaultValue={defaultPhone}
         placeholder="Contact Number (10 Digits)*"
         aria-label="Contact number"
         className={field}

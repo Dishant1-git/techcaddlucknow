@@ -44,7 +44,7 @@ export function AiMega() {
                       {col.links.map((l) => (
                         <li key={l.label}>
                           <NavLink
-                            href="/#ai"
+                            href={l.href}
                             className="group/link flex flex-wrap items-center gap-x-2.5 gap-y-1 py-1.5 text-[15px] text-slate-200 transition-colors hover:text-cyan"
                           >
                             <span className="transition-transform duration-300 group-hover/link:translate-x-1">

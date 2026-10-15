@@ -11,6 +11,12 @@ import {
   CourseTools,
   RelatedCourses,
 } from "@/components/CourseDetail";
+import {
+  CourseAudienceNote,
+  CourseTakeaways,
+  CourseWhyProgramme,
+  CourseWhyUs,
+} from "@/components/CourseGuide";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
@@ -51,14 +57,20 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
       <main>
         <CourseHero course={course} />
         <CourseOverview course={course} />
+        {/* Courses with a content brief add its sections (CourseGuide.tsx). */}
+        {course.guide && <CourseAudience course={course} />}
+        <CourseAudienceNote course={course} />
+        <CourseWhyProgramme course={course} />
         <CourseSyllabus course={course} />
         <CourseTools course={course} />
-        <CourseAudience course={course} />
+        <CourseTakeaways course={course} />
+        {!course.guide && <CourseAudience course={course} />}
         <CourseProjects course={course} />
+        <CourseWhyUs course={course} />
         <CourseOutcomes course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
-        <Cta />
+        <Cta course={course.label} />
       </main>
       <Footer />
       <WhatsAppButton />

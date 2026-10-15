@@ -58,7 +58,7 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
         <CourseOutcomes course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
-        <Cta />
+        <Cta course={course.label} />
       </main>
       <Footer />
       <WhatsAppButton />
