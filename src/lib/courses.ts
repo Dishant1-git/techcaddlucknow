@@ -4,7 +4,7 @@
 import programmeContent from "./after12thContent.json";
 import guideContent from "./courseGuides.json";
 import content from "./courseContent.json";
-import { after12thCatalogue, after12thHref, courseCatalogue, courseSlugs, site } from "./site";
+import { after12thCatalogue, after12thHref, aiMenu, courseCatalogue, courseSlugs, site } from "./site";
 
 /** A titled block of copy: a paragraph, a list, or both. */
 /** A titled block of copy: a paragraph, a list, or both; `after` follows the list. */
@@ -79,6 +79,8 @@ export type Course = RawCourse & {
   related: Link[];
   /** What each syllabus card is called: "Week" for timed courses, "Module" otherwise. */
   unit: "Week" | "Module";
+  /** Page style: the AI courses and After 12th programmes each have their own. */
+  theme: "course" | "ai" | "after12th";
   guide?: CourseGuide;
 };
 
@@ -158,6 +160,7 @@ function build(
     duration,
     faqs: buildFaqs(name, c, duration),
     unit: "Week",
+    theme: "course",
   };
 }
 
@@ -183,6 +186,13 @@ function withGuide(course: Course): Course {
     unit: "Module",
   };
 }
+
+// The courses listed in the AI menu get the AI page style.
+const aiSlugs = new Set(
+  aiMenu
+    .flatMap((col) => col.links.map((l) => l.href as string))
+    .flatMap((h) => h.match(/^\/courses\/([^/#]+)$/)?.[1] ?? []),
+);
 
 const raw = content as Record<string, RawCourse>;
 
@@ -210,7 +220,7 @@ export function getCourse(slug: string): Course | undefined {
     },
     `${label} course`,
   );
-  return withGuide(course);
+  return withGuide({ ...course, theme: aiSlugs.has(slug) ? "ai" : "course" });
 }
 
 const rawProgrammes = programmeContent as Record<string, RawCourse>;
@@ -228,7 +238,7 @@ export function getProgramme(slug: string): Course | undefined {
   const base = label.replace(/ \((1 Year|6 Months)\)$/, "");
   const isTrack = category.title.startsWith("After 12th");
 
-  return build(
+  const programme = build(
     rawProgrammes[slug],
     {
       slug,
@@ -243,4 +253,5 @@ export function getProgramme(slug: string): Course | undefined {
     },
     base === label ? label : `${base} programme`,
   );
+  return { ...programme, theme: "after12th" };
 }

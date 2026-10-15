@@ -54,7 +54,8 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
     <>
       <TopBar />
       <Header />
-      <main>
+      {/* The page palette: AI courses have their own (globals.css) */}
+      <main data-theme={course.theme}>
         <CourseHero course={course} />
         <CourseOverview course={course} />
         {/* Courses with a content brief add its sections (CourseGuide.tsx). */}

@@ -3,7 +3,7 @@
 import { NavLink } from "./NavLink";
 import { useEffect, useState } from "react";
 import { ChevronDown, Clock, Mail, MapPin, Menu, Phone, Sparkles, X } from "lucide-react";
-import { nav, site } from "@/lib/site";
+import { internshipHref, nav, site } from "@/lib/site";
 import { AboutMega } from "./AboutMega";
 import { AiMega } from "./AiMega";
 import { CertificationMega } from "./CertificationMega";
@@ -75,7 +75,7 @@ export function Header() {
       }`}
     >
       <NavLink
-        href="/#programmes"
+        href={internshipHref()}
         aria-label="Explore internship and training programmes"
         // Keyed on the state so the entrance animation replays at each position.
         key={docked ? "docked" : "side"}

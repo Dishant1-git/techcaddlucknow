@@ -1,6 +1,6 @@
 import { NavLink } from "./NavLink";
 import { MessageCircle } from "lucide-react";
-import { courseTracks, programmes, site } from "@/lib/site";
+import { courseTracks, internshipHref, programmes, site } from "@/lib/site";
 import { Logo } from "./ui";
 
 const columns = [
@@ -10,7 +10,7 @@ const columns = [
   },
   {
     title: "Industrial Training",
-    links: programmes.map((p) => ({ label: `${p.duration} Training`, href: "/#programmes" })),
+    links: programmes.map((p) => ({ label: `${p.duration} Training`, href: internshipHref(p.slug) })),
   },
   {
     title: "Company",

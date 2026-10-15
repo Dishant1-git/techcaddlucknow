@@ -5,13 +5,18 @@ import {
   ArrowRight,
   ArrowUpRight,
   Award,
+  BookOpen,
   Briefcase,
   Building2,
   Check,
   ChevronRight,
   FileText,
   FolderGit2,
+  GraduationCap,
+  Hammer,
   Plus,
+  Sparkles,
+  Trophy,
 } from "lucide-react";
 import type { Course } from "@/lib/courses";
 import { included, site, stats } from "@/lib/site";
@@ -28,13 +33,188 @@ const heroPoints = [
   "Certificate + internship",
 ];
 
+/** AI pages: a chat-style card that lays out the course as a learning path. */
+function AiConsole({ course }: { course: Course }) {
+  return (
+    <div className="rise border-glow relative rounded-3xl bg-white/[0.05] backdrop-blur [--d:.35s]">
+      <div className="flex items-center gap-2 border-b border-white/10 px-5 py-3">
+        <span className="size-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="size-2.5 rounded-full bg-[#febc2e]" />
+        <span className="size-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-3 font-mono text-[11px] text-slate-400">{site.name}-ai · learning path</span>
+      </div>
+      <div className="space-y-4 p-5">
+        <p className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-md bg-brand px-4 py-2.5 text-sm font-medium">
+          Teach me {course.label}
+        </p>
+        <div className="flex gap-3">
+          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand to-cyan">
+            <Sparkles className="size-4" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-slate-300">Here is your path, one module at a time:</p>
+            <ol className="mt-3 space-y-2">
+              {course.modules.slice(0, 4).map((m, i) => (
+                <li
+                  key={m.title}
+                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-hero-900/70 px-3 py-2 text-sm"
+                >
+                  <span className="font-mono text-xs text-cyan">{pad(i + 1)}</span>
+                  <span className="truncate">{m.title}</span>
+                </li>
+              ))}
+            </ol>
+            {course.modules.length > 4 && (
+              <p className="mt-2 text-xs text-slate-400">+ {course.modules.length - 4} more modules</p>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-1.5 border-t border-white/10 px-5 py-4">
+        {course.tools.slice(0, 5).map((t) => (
+          <span key={t} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-slate-200">
+            {t}
+          </span>
+        ))}
+        <span aria-hidden className="ai-caret ml-1 h-4 w-px self-center bg-cyan" />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * After 12th pages: a light card with a Class 12 → career journey, framed in
+ * dark green so the transparent header above it stays readable.
+ */
+function After12thHero({ course }: { course: Course }) {
+  const steps = [
+    { icon: GraduationCap, title: "Class 12 pass", text: "Any stream: science, commerce or arts" },
+    ...course.modules.slice(0, 2).map((m, i) => ({
+      icon: i ? Hammer : BookOpen,
+      title: i ? "Build" : "Learn",
+      text: m.title,
+    })),
+    {
+      icon: Trophy,
+      title: "Finish job-ready",
+      text: course.duration ? `Certificate and portfolio in ${course.duration}` : "Certificate and portfolio",
+    },
+  ];
+  return (
+    <section id="top" className="relative isolate bg-hero-950 px-2 pb-2 pt-24 text-navy sm:px-3 sm:pb-3 lg:pt-36">
+      <div className="bg-grid-dark absolute inset-0 -z-10" />
+      <div className="glow-dark absolute inset-0 -z-10" />
+
+      <div className="relative isolate mx-auto max-w-[90rem] overflow-clip rounded-[2rem] bg-gradient-to-b from-emerald-50 via-white to-white sm:rounded-[2.5rem]">
+      <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
+      <div className="orb absolute -right-40 -top-40 -z-10 size-[38rem] animate-aurora [--orb:rgba(16,185,129,0.22)]" />
+
+      <div className="mx-auto max-w-7xl px-5 py-12 lg:px-8 lg:py-16">
+        <nav aria-label="Breadcrumb" className="rise text-sm text-slate-500">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>
+              <Link href="/" className="hover:text-brand">
+                Home
+              </Link>
+            </li>
+            <ChevronRight aria-hidden className="size-3.5" />
+            <li>
+              <Link href={course.parent.href} className="hover:text-brand">
+                {course.parent.label}
+              </Link>
+            </li>
+            <ChevronRight aria-hidden className="size-3.5" />
+            <li aria-current="page" className="text-navy">
+              {course.label}
+            </li>
+          </ol>
+        </nav>
+
+        <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="min-w-0">
+            <div className="rise flex flex-wrap items-center gap-3 [--d:.05s]">
+              <Eyebrow>{course.category.label}</Eyebrow>
+              {course.duration && (
+                <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-hero-950">
+                  {course.duration}
+                </span>
+              )}
+            </div>
+            <h1 className="rise mt-6 text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight [--d:.1s] sm:text-5xl lg:text-6xl">
+              {course.title} in <span className="text-gradient">{site.city}</span>
+            </h1>
+            <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-600 [--d:.2s] lg:text-lg">
+              {course.summary}
+            </p>
+            <div className="rise mt-9 flex flex-wrap items-center gap-3 [--d:.3s]">
+              <BookDemoButton
+                course={course.label}
+                className="group inline-flex items-center gap-3 rounded-full bg-brand py-2 pl-7 pr-2 text-sm font-bold text-white shadow-lg shadow-brand/30 transition-colors duration-300 hover:bg-brand-600"
+              >
+                Book a free counselling call
+                <span className="grid size-8 place-items-center rounded-full bg-white text-brand transition-transform duration-300 group-hover:translate-x-0.5">
+                  <ArrowRight className="size-4" />
+                </span>
+              </BookDemoButton>
+              <NavLink
+                href="#syllabus"
+                className="rounded-full border border-slate-200 bg-white px-7 py-3 text-sm font-semibold transition hover:border-brand hover:text-brand"
+              >
+                View syllabus
+              </NavLink>
+            </div>
+          </div>
+
+          <ol className="rise relative min-w-0 space-y-3 [--d:.3s]">
+            <span aria-hidden className="absolute bottom-8 left-[1.6rem] top-8 w-0.5 bg-gradient-to-b from-sky to-brand" />
+            {steps.map((s, i) => (
+              <li
+                key={s.title}
+                className="relative flex items-center gap-4 rounded-2xl border border-emerald-100 bg-white/90 p-3 pr-5 shadow-lg shadow-emerald-900/5 backdrop-blur"
+              >
+                <span
+                  className={`relative grid size-11 shrink-0 place-items-center rounded-xl text-white ${
+                    i === steps.length - 1 ? "bg-sun text-hero-950" : "bg-gradient-to-br from-sky to-brand"
+                  }`}
+                >
+                  <s.icon className="size-5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[11px] font-bold uppercase tracking-[0.18em] text-brand">
+                    Step {i + 1} · {s.title}
+                  </span>
+                  <span className="mt-0.5 block truncate font-semibold">{s.text}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {course.facts.length > 0 && (
+          <dl className="rise mt-12 grid gap-3 [--d:.5s] sm:grid-cols-2 lg:grid-cols-4">
+            {course.facts.map(([label, value]) => (
+              <div key={label} className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm">
+                <dt className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand">{label}</dt>
+                <dd className="mt-2 font-display text-lg font-bold leading-snug">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+      </div>
+    </section>
+  );
+}
+
 export function CourseHero({ course }: { course: Course }) {
+  if (course.theme === "after12th") return <After12thHero course={course} />;
+  const ai = course.theme === "ai";
   return (
     <section id="top" className="relative isolate overflow-clip bg-hero-950 text-white">
       <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />
       <div className="glow-dark absolute inset-0 -z-10" />
-      <div className="orb absolute -left-40 -top-40 -z-10 size-[36rem] animate-aurora [--orb:rgba(28,83,209,0.5)]" />
-      <div className="orb absolute -bottom-52 -right-20 -z-10 size-[34rem] animate-aurora [--orb:rgba(0,212,255,0.18)] [animation-delay:-8s]" />
+      <div className="orb absolute -left-40 -top-40 -z-10 size-[36rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-brand)_50%,transparent)]" />
+      <div className="orb absolute -bottom-52 -right-20 -z-10 size-[34rem] animate-aurora [--orb:color-mix(in_srgb,var(--color-cyan)_18%,transparent)] [animation-delay:-8s]" />
 
       <div className="mx-auto max-w-7xl px-5 pb-14 pt-28 lg:px-8 lg:pb-20 lg:pt-44">
         <nav aria-label="Breadcrumb" className="rise text-sm text-slate-400">
@@ -57,49 +237,54 @@ export function CourseHero({ course }: { course: Course }) {
           </ol>
         </nav>
 
-        <div className="rise mt-8 flex flex-wrap items-center gap-3 [--d:.05s]">
-          <Eyebrow dark>{course.category.label}</Eyebrow>
-          {course.badge && (
-            <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-hero-950">
-              {course.badge}
-            </span>
-          )}
-        </div>
-        <h1 className="rise mt-6 max-w-4xl text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight [--d:.1s] sm:text-5xl lg:text-6xl">
-          {course.title} in <span className="text-gradient">{site.city}</span>
-        </h1>
-        <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg">
-          {course.summary}
-        </p>
+        <div className={ai ? "mt-8 grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]" : "mt-8"}>
+          <div>
+            <div className="rise flex flex-wrap items-center gap-3 [--d:.05s]">
+              <Eyebrow dark>{course.category.label}</Eyebrow>
+              {course.badge && (
+                <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-hero-950">
+                  {course.badge}
+                </span>
+              )}
+            </div>
+            <h1 className="rise mt-6 max-w-4xl text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight [--d:.1s] sm:text-5xl lg:text-6xl">
+              {course.title} in <span className="text-gradient">{site.city}</span>
+            </h1>
+            <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg">
+              {course.summary}
+            </p>
 
-        <div className="rise mt-9 flex flex-wrap items-center gap-3 [--d:.3s]">
-          <BookDemoButton
-            course={course.label}
-            className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pl-7 pr-2 text-sm font-bold text-navy transition-colors duration-300 hover:bg-sky/15 hover:text-white"
-          >
-            Book a free demo class
-            <span className="grid size-8 place-items-center rounded-full bg-brand text-white transition-transform duration-300 group-hover:translate-x-0.5">
-              <ArrowRight className="size-4" />
-            </span>
-          </BookDemoButton>
-          <NavLink
-            href="#syllabus"
-            className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold transition hover:border-white/40"
-          >
-            View syllabus
-          </NavLink>
-        </div>
+            <div className="rise mt-9 flex flex-wrap items-center gap-3 [--d:.3s]">
+              <BookDemoButton
+                course={course.label}
+                className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pl-7 pr-2 text-sm font-bold text-navy transition-colors duration-300 hover:bg-sky/15 hover:text-white"
+              >
+                Book a free demo class
+                <span className="grid size-8 place-items-center rounded-full bg-brand text-white transition-transform duration-300 group-hover:translate-x-0.5">
+                  <ArrowRight className="size-4" />
+                </span>
+              </BookDemoButton>
+              <NavLink
+                href="#syllabus"
+                className="rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold transition hover:border-white/40"
+              >
+                View syllabus
+              </NavLink>
+            </div>
 
-        <ul className="rise mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300 [--d:.4s]">
-          {heroPoints.map((p) => (
-            <li key={p} className="flex items-center gap-2">
-              <span className="grid size-5 place-items-center rounded-full bg-cyan text-hero-950">
-                <Check className="size-3" strokeWidth={3} />
-              </span>
-              {p}
-            </li>
-          ))}
-        </ul>
+            <ul className="rise mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300 [--d:.4s]">
+              {heroPoints.map((p) => (
+                <li key={p} className="flex items-center gap-2">
+                  <span className="grid size-5 place-items-center rounded-full bg-cyan text-hero-950">
+                    <Check className="size-3" strokeWidth={3} />
+                  </span>
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {ai && <AiConsole course={course} />}
+        </div>
 
         {course.facts.length > 0 && (
           <dl className="rise mt-12 grid gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 [--d:.5s] sm:grid-cols-2 lg:grid-cols-4">
@@ -576,7 +761,7 @@ export function RelatedCourses({ course }: { course: Course }) {
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
           {course.related.map((r) => (
             <Link
               key={r.href}

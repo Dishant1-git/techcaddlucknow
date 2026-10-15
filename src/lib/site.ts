@@ -84,36 +84,48 @@ export const campusBadges = [
   "Certified courses",
 ];
 
+// Internship & training programmes; each has a page at /internship-training/<slug>.
 export const programmes = [
   {
+    slug: "45-days",
     duration: "45 Days",
+    bestFor: "Students on a summer or winter break who want one skill and a finished project.",
     title: "Summer & Winter Industrial Training",
     text: "A fast, focused sprint on one technology with a working project and a certificate.",
     points: ["One core technology", "Guided mini project", "Training certificate"],
     popular: false,
   },
   {
+    slug: "6-weeks",
     duration: "6 Weeks",
+    bestFor: "Students whose college or university asks for industrial training with documents.",
     title: "University-Mandated Training",
     text: "Meets AICTE / university requirements with documentation your college accepts.",
     points: ["Syllabus-aligned modules", "Project report & viva prep", "College-ready documents"],
     popular: false,
   },
   {
+    slug: "6-months",
     duration: "6 Months",
+    bestFor: "Final-year students and graduates getting ready for their first job.",
     title: "Industrial Training with Internship",
     text: "Full technology stack plus a live client-style project and placement drives.",
     points: ["Complete stack coverage", "Live project experience", "Internship letter & placement"],
     popular: true,
   },
   {
+    slug: "9-months",
     duration: "9 Months",
+    bestFor: "Learners who want depth in two specialisations and a mentor alongside them.",
     title: "Expert Track",
     text: "Our deepest programme — client-level projects, advanced modules and dedicated mentoring.",
     points: ["Two specialisations", "Client-level projects", "Dedicated 1:1 mentor"],
     popular: false,
   },
 ];
+
+export const internshipHref = (slug?: string) =>
+  slug ? `/internship-training/${slug}` : "/internship-training";
 
 export const steps = [
   {
@@ -1038,9 +1050,9 @@ export const nav: NavItem[] = [
   },
   {
     label: "Internship & Training",
-    href: "/#programmes",
+    href: internshipHref(),
     mega: "certification",
-    children: certificatePrograms.map((c) => ({ label: c.label, href: "/#programmes" })),
+    children: certificatePrograms.map((c) => ({ label: c.label, href: internshipHref() })),
   },
   {
     label: "After 12th",

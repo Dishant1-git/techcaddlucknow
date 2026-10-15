@@ -23,7 +23,7 @@ export const enquiryTopics = [
     icon: "briefcase",
     title: "Industrial training & internship",
     text: "45-day, 6-week and 6-month training for college students, with the documents your university asks for.",
-    action: { label: "View training programmes", href: "/#programmes" },
+    action: { label: "View training programmes", href: "/internship-training" },
   },
   {
     icon: "building",

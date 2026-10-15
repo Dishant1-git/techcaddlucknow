@@ -15,7 +15,7 @@ import {
   Terminal,
   type LucideIcon,
 } from "lucide-react";
-import { certificatePrograms } from "@/lib/site";
+import { certificatePrograms, internshipHref } from "@/lib/site";
 
 const icons: Record<string, LucideIcon> = {
   cloud: Cloud,
@@ -49,7 +49,7 @@ export function CertificationMega() {
             return (
               <NavLink
                 key={c.label}
-                href="/#programmes"
+                href={internshipHref()}
                 title={c.label}
                 className="group/tile flex items-center gap-3.5 rounded-2xl border border-slate-200 bg-white p-4 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-xl hover:shadow-brand/10"
               >

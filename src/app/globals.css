@@ -87,6 +87,16 @@
     background-position: 200% 50%;
   }
 }
+/* AI course pages: the blinking cursor in the hero's console card */
+@keyframes ai-caret {
+  50% {
+    opacity: 0;
+  }
+}
+.ai-caret {
+  animation: ai-caret 1s steps(1) infinite;
+}
+
 /* Capabilities: the hairline that fills before the next track takes over */
 @keyframes cap-progress {
   from {
@@ -325,6 +335,43 @@ header a.internship-side-badge.is-hidden {
 html {
   scroll-padding-top: 6.5rem;
 }
+
+/* Page palettes. Each kind of course page sets data-theme on its <main>, and
+   every colour utility, gradient and glow inside it follows. Regular course
+   pages keep the site's blue. */
+[data-theme="ai"] {
+  --color-hero-950: #0b0618;
+  --color-hero-900: #170a35;
+  --color-hero-800: #27105c;
+  --color-navy: #1d0b4a;
+  --color-brand: #7c3aed;
+  --color-brand-600: #6d28d9;
+  --color-sky: #a855f7;
+  --color-cyan: #22d3ee;
+  --color-sun: #f0abfc;
+}
+[data-theme="internship"] {
+  --color-hero-950: #1a1006;
+  --color-hero-900: #2b1a08;
+  --color-hero-800: #452a0c;
+  --color-navy: #3a2108;
+  --color-brand: #d97706;
+  --color-brand-600: #b45309;
+  --color-sky: #f59e0b;
+  --color-cyan: #fcd34d;
+  --color-sun: #fde68a;
+}
+[data-theme="after12th"] {
+  --color-hero-950: #04231c;
+  --color-hero-900: #063b2e;
+  --color-hero-800: #08563f;
+  --color-navy: #053b2e;
+  --color-brand: #059669;
+  --color-brand-600: #047857;
+  --color-sky: #10b981;
+  --color-cyan: #5eead4;
+  --color-sun: #fcd34d;
+}
 /* Lenis handles smooth scrolling when it is running */
 html:not(.lenis) {
   scroll-behavior: smooth;
@@ -356,26 +403,26 @@ body {
   }
   /* Soft colour glows — gradients rather than blur filters, which are costly to paint */
   .glow-dark {
-    background: radial-gradient(60rem 30rem at 50% 0%, rgba(28, 83, 209, 0.38), transparent 70%);
+    background: radial-gradient(60rem 30rem at 50% 0%, color-mix(in srgb, var(--color-brand) 38%, transparent), transparent 70%);
   }
   .glow-light {
     background:
-      radial-gradient(34rem 26rem at 0% 10%, rgba(47, 125, 255, 0.1), transparent 70%),
-      radial-gradient(34rem 26rem at 100% 90%, rgba(0, 212, 255, 0.1), transparent 70%);
+      radial-gradient(34rem 26rem at 0% 10%, color-mix(in srgb, var(--color-sky) 10%, transparent), transparent 70%),
+      radial-gradient(34rem 26rem at 100% 90%, color-mix(in srgb, var(--color-cyan) 10%, transparent), transparent 70%);
   }
   .orb {
     border-radius: 9999px;
     background: radial-gradient(closest-side, var(--orb, rgba(0, 212, 255, 0.35)), transparent);
   }
   .text-gradient {
-    background-image: linear-gradient(90deg, #00d4ff, #2f7dff);
+    background-image: linear-gradient(90deg, var(--color-cyan), var(--color-sky));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   /* Animated sheen for highlighted words */
   .text-shine {
-    background-image: linear-gradient(100deg, #00d4ff 0%, #2f7dff 35%, #ffffff 50%, #2f7dff 65%, #00d4ff 100%);
+    background-image: linear-gradient(100deg, var(--color-cyan) 0%, var(--color-sky) 35%, #ffffff 50%, var(--color-sky) 65%, var(--color-cyan) 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -422,7 +469,7 @@ body {
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, rgba(0, 212, 255, 0.7), rgba(255, 255, 255, 0.06) 35%, rgba(47, 125, 255, 0.5));
+    background: linear-gradient(140deg, color-mix(in srgb, var(--color-cyan) 70%, transparent), rgba(255, 255, 255, 0.06) 35%, color-mix(in srgb, var(--color-sky) 50%, transparent));
     mask:
       linear-gradient(#000 0 0) content-box exclude,
       linear-gradient(#000 0 0);
@@ -458,7 +505,7 @@ body {
   margin-bottom: -0.14em;
 }
 .text-gradient .split-word {
-  background-image: linear-gradient(90deg, #00d4ff, #2f7dff);
+  background-image: linear-gradient(90deg, var(--color-cyan), var(--color-sky));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -476,6 +523,7 @@ body {
   .rise,
   .orbit-spin,
   .cap-progress,
+  .ai-caret,
   .text-shine {
     animation: none;
   }

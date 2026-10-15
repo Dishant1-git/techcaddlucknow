@@ -48,7 +48,7 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
     <>
       <TopBar />
       <Header />
-      <main>
+      <main data-theme={course.theme}>
         <CourseHero course={course} />
         <CourseOverview course={course} />
         <CourseSyllabus course={course} />
