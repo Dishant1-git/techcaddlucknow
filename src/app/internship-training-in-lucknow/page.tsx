@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Reviews, WhyTechcadd } from "@/components/CourseGuide";
 import { Faq } from "@/components/Faq";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
@@ -12,6 +13,7 @@ import {
 import { Motion } from "@/components/Motion";
 import { PhotoStrip, photoSets } from "@/components/PhotoStrip";
 import { Cta } from "@/components/Sections";
+import { mixedReviews } from "@/lib/courses";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -35,6 +37,8 @@ export default function InternshipPage() {
           text="Live projects, mentor reviews and team work — real photos from techcadd labs."
           photos={photoSets.internship}
         />
+        <WhyTechcadd label="internship & industrial training" />
+        <Reviews items={mixedReviews()} />
         <Faq />
         <Cta />
       </main>

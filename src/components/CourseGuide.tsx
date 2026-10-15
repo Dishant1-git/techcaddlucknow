@@ -1,8 +1,8 @@
 // Sections for courses that have a content brief (src/lib/courseGuides.json).
 // Each renders nothing for courses without one.
-import { Check, CircleCheck, Lightbulb, ListChecks } from "lucide-react";
-import type { Course, GuideItem } from "@/lib/courses";
-import { site } from "@/lib/site";
+import { Check, CircleCheck, Info, Lightbulb, ListChecks, Quote, Star } from "lucide-react";
+import { mixedReviews, relatedGuide, type Course, type CourseGuide, type GuideItem, type ReviewItem } from "@/lib/courses";
+import { site, whyUs } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { DarkSection, Eyebrow, Heading, LightSection } from "./ui";
 
@@ -100,22 +100,32 @@ export function CourseWhyProgramme({ course }: { course: Course }) {
   );
 }
 
-/** What learners can do by the end, plus the brief's tool table when it has one. */
+/**
+ * The brief's "what you will learn" topics and outcomes, plus its tool table
+ * when it has one. (The syllabus section above shows the module plan.)
+ */
 export function CourseTakeaways({ course }: { course: Course }) {
   const learn = course.guide?.learn;
-  if (!learn || (!learn.outcomes.length && !learn.tools.length)) return null;
+  if (!learn) return null;
+  const cards = [...learn.modules, ...learn.outcomes];
+  if (!cards.length && !learn.tools.length) return null;
   return (
     <LightSection id="takeaways">
       <div className="mx-auto max-w-3xl text-center">
-        <Eyebrow>Outcomes</Eyebrow>
+        <Eyebrow>Skills & outcomes</Eyebrow>
         <Heading className="mt-5">
-          What you will be able <span className="text-gradient">to do</span>
+          Skills, tools and <span className="text-gradient">what you will be able to do</span>
         </Heading>
+        {learn.intro && (
+          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600">
+            {learn.intro}
+          </p>
+        )}
       </div>
 
-      {learn.outcomes.length > 0 && (
+      {cards.length > 0 && (
         <div data-stagger className="mt-14 grid gap-5 lg:grid-cols-2">
-          {learn.outcomes.map((o) => (
+          {cards.map((o) => (
             <article
               key={o.title}
               className="rounded-3xl border border-slate-100 bg-white p-7 shadow-xl shadow-hero-950/5 sm:p-8"
@@ -189,9 +199,25 @@ function UsCard({ item, index }: { item: GuideItem; index: number }) {
   );
 }
 
-export function CourseWhyUs({ course }: { course: Course }) {
-  const us = course.guide?.whyUs;
-  if (!us) return null;
+type WhyUsContent = { intro: string; items: GuideItem[]; close: GuideItem | null };
+
+// Pages without a brief of their own still say why techcadd. These avoid the
+// placement claims the briefs ask pages not to make.
+const fallbackWhyUs = (label: string): WhyUsContent => ({
+  intro: `What learning ${label} at ${site.name} ${site.city} looks like in practice.`,
+  items: [
+    ...whyUs.filter((w) => !/placement/i.test(w.title)).map((w) => ({ title: w.title, text: w.text })),
+    {
+      title: "Clear answers before you enrol",
+      text: "Ask for the syllabus, batch timings and fees in writing, and sit in a demo class at the centre before you decide.",
+    },
+  ],
+  close: null,
+});
+
+/** "Why techcadd" for any page: a course brief's points, or the site-wide ones. */
+export function WhyTechcadd({ label, us }: { label: string; us?: WhyUsContent | null }) {
+  const content = us ?? fallbackWhyUs(label);
   return (
     <section id="why-techcadd" className="scroll-mt-24 bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
@@ -199,28 +225,28 @@ export function CourseWhyUs({ course }: { course: Course }) {
           <div className="lg:sticky lg:top-32 lg:self-start">
             <Eyebrow>Why {site.name}</Eyebrow>
             <Heading className="mt-5">
-              Learning {course.label} <span className="text-gradient">with {site.name}</span>
+              Learning {label} <span className="text-gradient">with {site.name}</span>
             </Heading>
-            {us.intro && (
+            {content.intro && (
               <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600">
-                {us.intro}
+                {content.intro}
               </p>
             )}
-            {us.close && (
+            {content.close && (
               <div data-reveal className="mt-8 rounded-3xl bg-hero-950 p-7 text-white">
                 <span className="grid size-10 place-items-center rounded-xl bg-white/10 text-sun">
                   <Lightbulb className="size-5" />
                 </span>
-                <h3 className="mt-4 font-display text-lg font-bold">{us.close.title}</h3>
-                {us.close.text && (
-                  <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{us.close.text}</p>
+                <h3 className="mt-4 font-display text-lg font-bold">{content.close.title}</h3>
+                {content.close.text && (
+                  <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{content.close.text}</p>
                 )}
               </div>
             )}
           </div>
 
           <div data-stagger className="grid gap-5 sm:grid-cols-2">
-            {us.items.map((item, i) => (
+            {content.items.map((item, i) => (
               <UsCard key={item.title} item={item} index={i} />
             ))}
           </div>
@@ -228,4 +254,91 @@ export function CourseWhyUs({ course }: { course: Course }) {
       </div>
     </section>
   );
+}
+
+export function CourseWhyUs({ course }: { course: Course }) {
+  return <WhyTechcadd label={course.label} us={course.guide?.whyUs ?? relatedGuide(course.label)?.guide.whyUs} />;
+}
+
+/**
+ * Student reviews from a course brief. The briefs write them as illustrative
+ * samples, so they are labelled that way here and carry no review markup.
+ * `course` names the course they come from; mixed sets tag each card instead.
+ */
+export function Reviews({ items, course }: { items?: ReviewItem[] | null; course?: string }) {
+  if (!items?.length) return null;
+  return (
+    <section id="reviews" className="scroll-mt-24 bg-white px-5 py-20 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <Eyebrow>Student reviews</Eyebrow>
+          <Heading className="mt-5">
+            {course ? (
+              <>
+                What learners say about the <span className="text-gradient">{course} course</span>
+              </>
+            ) : (
+              <>
+                What learners say about <span className="text-gradient">{site.name} courses</span>
+              </>
+            )}
+          </Heading>
+          <p data-reveal className="mx-auto mt-6 inline-flex items-start gap-2 rounded-2xl bg-slate-50 px-4 py-3 text-left text-sm text-slate-600">
+            <Info className="mt-0.5 size-4 shrink-0 text-brand" />
+            Illustrative sample testimonials showing the kind of feedback learners share — not verified reviews.
+          </p>
+        </div>
+
+        <ul data-stagger className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3">
+          {items.map((r) => (
+            <li
+              key={r.name + r.quote.slice(0, 20)}
+              className="mb-5 break-inside-avoid rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-hero-950/5"
+            >
+              <div className="flex items-center justify-between gap-3">
+                {r.course ? (
+                  <span className="rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">{r.course}</span>
+                ) : (
+                  <Quote className="size-7 text-sky/40" />
+                )}
+                {r.rating && (
+                  <span aria-label={`${r.rating} out of 5`} className="flex gap-0.5 text-sun">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star key={i} className={`size-4 ${i < r.rating! ? "fill-current" : "text-slate-200"}`} />
+                    ))}
+                  </span>
+                )}
+              </div>
+              <blockquote className="mt-4 leading-relaxed text-slate-700">{r.quote}</blockquote>
+              <div className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-4">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand to-sky font-display text-sm font-bold text-white">
+                  {r.name
+                    .split(/\s+/)
+                    .map((w) => w[0])
+                    .join("")
+                    .slice(0, 2)}
+                </span>
+                <span>
+                  <span className="block font-display font-bold text-navy">{r.name}</span>
+                  {r.role && <span className="block text-sm text-slate-500">{r.role}</span>}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** A page's reviews: its own brief's, else the closest course's, else a mix. */
+export function ReviewsFor({ name, own }: { name: string; own?: CourseGuide["reviews"] }) {
+  if (own?.items.length) return <Reviews items={own.items} course={name} />;
+  const rel = relatedGuide(name);
+  if (rel?.guide.reviews?.items.length) return <Reviews items={rel.guide.reviews.items} course={rel.label} />;
+  return <Reviews items={mixedReviews()} />;
+}
+
+export function CourseReviews({ course }: { course: Course }) {
+  return <ReviewsFor name={course.label} own={course.guide?.reviews} />;
 }

@@ -11,6 +11,7 @@ import {
     RelatedCourses,
   Toolchain,
 } from "@/components/CourseDetail";
+import { CourseReviews, CourseWhyUs } from "@/components/CourseGuide";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { PhotoStrip, photoSets } from "@/components/PhotoStrip";
 import { Header, TopBar } from "@/components/Header";
@@ -56,7 +57,9 @@ export default async function ProgrammePage({ params }: PageProps<"/after-12th-c
         <Toolchain course={course} />
         <CourseAudience course={course} />
         <CourseProjects course={course} />
+        <CourseWhyUs course={course} />
         <CourseOutcomes course={course} />
+        <CourseReviews course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
         <PhotoStrip

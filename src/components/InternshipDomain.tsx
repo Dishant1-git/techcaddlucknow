@@ -20,6 +20,7 @@ import { certificatePrograms, internshipHref, site } from "@/lib/site";
 import { programIcons } from "./Internship";
 import { BookDemoButton } from "./Enquiry";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
+import { Hl } from "./Hl";
 
 type Props = { domain: DomainPage };
 
@@ -59,7 +60,7 @@ export function DomainHero({ domain: d }: Props) {
             <h1 className="rise mt-6 text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight [--d:.1s] sm:text-5xl lg:text-6xl">
               {d.programme.duration} {d.heading} in <span className="text-gradient">{site.city}</span>
             </h1>
-            <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg">{d.hero.text}</p>
+            <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg"><Hl>{d.hero.text}</Hl></p>
             <div className="rise mt-9 flex flex-wrap items-center gap-3 [--d:.3s]">
               <BookDemoButton
                 course={d.course}
@@ -79,7 +80,7 @@ export function DomainHero({ domain: d }: Props) {
             </div>
             <p className="rise mt-6 flex max-w-xl items-start gap-2 text-sm text-slate-400 [--d:.4s]">
               <Info className="mt-0.5 size-4 shrink-0" />
-              {sixMonths.hero.trust}
+              <Hl>{sixMonths.hero.trust}</Hl>
             </p>
           </div>
 
@@ -111,7 +112,7 @@ export function DomainOverview({ domain: d }: Props) {
           <Heading className="mt-5">{d.overview.title}</Heading>
           {d.overview.text.map((t) => (
             <p key={t} data-reveal className="mt-6 leading-relaxed text-slate-600 first-of-type:text-lg">
-              {t}
+              <Hl>{t}</Hl>
             </p>
           ))}
         </div>
@@ -125,7 +126,7 @@ export function DomainOverview({ domain: d }: Props) {
                 </span>
                 <span>
                   <span className="block font-display font-bold text-navy">{a.title}</span>
-                  <span className="mt-1 block text-[15px] leading-relaxed text-slate-600">{a.text}</span>
+                  <span className="mt-1 block text-[15px] leading-relaxed text-slate-600"><Hl>{a.text}</Hl></span>
                 </span>
               </article>
             ))}
@@ -143,7 +144,7 @@ export function DomainWhy({ domain: d }: Props) {
         <div>
           <Eyebrow dark>Why {d.programme.duration.toLowerCase()}</Eyebrow>
           <Heading dark className="mt-5">{d.why.title}</Heading>
-          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-400">{d.why.text}</p>
+          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-400"><Hl>{d.why.text}</Hl></p>
         </div>
         <ul data-stagger className="grid gap-3 sm:grid-cols-2">
           {d.why.items.map((it) => (
@@ -151,7 +152,7 @@ export function DomainWhy({ domain: d }: Props) {
               <Check className="mt-0.5 size-5 shrink-0 text-cyan" strokeWidth={3} />
               <span>
                 <span className="block font-display font-bold">{it.title}</span>
-                <span className="mt-1 block text-sm leading-relaxed text-slate-400">{it.text}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-slate-400"><Hl>{it.text}</Hl></span>
               </span>
             </li>
           ))}
@@ -165,7 +166,7 @@ export function DomainWhy({ domain: d }: Props) {
             <article key={s.title} data-spot className="border-glow relative rounded-3xl bg-white/[0.04] p-6">
               <span className="font-display text-sm font-extrabold text-cyan">{pad(i + 1)}</span>
               <h3 className="mt-3 font-display text-lg font-bold">{s.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-slate-400">{s.text}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-slate-400"><Hl>{s.text}</Hl></p>
             </article>
           ))}
         </div>
@@ -179,8 +180,8 @@ export function DomainTopics({ domain: d }: Props) {
     <section id="syllabus" className="bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="What you will learn"
-          title="Syllabus, with a checkpoint for every topic"
+          eyebrow="Syllabus"
+          title="What you will learn, topic by topic"
           text="Each topic ends with something you should be able to show. It makes the commitment measurable rather than vague — and gives you material for your report and portfolio."
         />
         <ol data-stagger className="mt-14 grid gap-4 md:grid-cols-2">
@@ -192,14 +193,14 @@ export function DomainTopics({ domain: d }: Props) {
                 </span>
                 <div>
                   <h3 className="font-display text-lg font-bold text-navy">{t.title}</h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-slate-600">{t.text}</p>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-slate-600"><Hl>{t.text}</Hl></p>
                 </div>
               </div>
               <p className="mt-5 flex items-start gap-2.5 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-navy">
                 <Target className="mt-0.5 size-4 shrink-0 text-brand" />
                 <span>
                   <span className="font-bold">Checkpoint: </span>
-                  {t.checkpoint}
+                  <Hl>{t.checkpoint}</Hl>
                 </span>
               </p>
             </li>
@@ -225,7 +226,7 @@ export function DomainRoadmap({ domain: d }: Props) {
               {m.label}
             </span>
             <h3 className="mt-4 font-display text-xl font-bold text-navy">{m.title}</h3>
-            <p className="mt-2 leading-relaxed text-slate-600">{m.text}</p>
+            <p className="mt-2 leading-relaxed text-slate-600"><Hl>{m.text}</Hl></p>
           </li>
         ))}
       </ol>
@@ -242,9 +243,9 @@ export function DomainProjects({ domain: d }: Props) {
           <Heading dark className="mt-5">
             {d.label} <span className="text-gradient">projects</span>
           </Heading>
-          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-400">{d.projects.intro}</p>
+          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-400"><Hl>{d.projects.intro}</Hl></p>
           <p data-reveal className="mt-4 text-sm text-slate-500">
-            Example project types. {d.projectNote} Your actual project is agreed with your mentor and must respect data privacy and
+            Example project types. <Hl>{d.projectNote}</Hl> Your actual project is agreed with your mentor and must respect data privacy and
             licensing.
           </p>
         </div>
@@ -252,7 +253,7 @@ export function DomainProjects({ domain: d }: Props) {
           {d.projects.items.map((p) => (
             <article key={p.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6">
               <h3 className="font-display text-lg font-bold">{p.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-slate-400">{p.text}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-slate-400"><Hl>{p.text}</Hl></p>
             </article>
           ))}
         </div>
@@ -276,14 +277,14 @@ export function DomainCareers({ domain: d }: Props) {
               </li>
             ))}
           </ul>
-          <p data-reveal className="mt-6 text-sm leading-relaxed text-slate-500">{d.careers.text}</p>
+          <p data-reveal className="mt-6 text-sm leading-relaxed text-slate-500"><Hl>{d.careers.text}</Hl></p>
 
           <h3 className="mt-12 font-display text-xl font-bold text-navy">Certificates and deliverables</h3>
           <div data-stagger className="mt-5 space-y-3">
             {sixMonths.deliverables.items.map((it) => (
               <article key={it.title} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
                 <h4 className="font-display font-bold text-navy">{it.title}</h4>
-                <p className="mt-1 text-[15px] leading-relaxed text-slate-600">{it.text}</p>
+                <p className="mt-1 text-[15px] leading-relaxed text-slate-600"><Hl>{it.text}</Hl></p>
               </article>
             ))}
           </div>
@@ -350,7 +351,7 @@ export function DomainFaq({ domain: d }: Props) {
                   <Plus className="size-4" />
                 </span>
               </summary>
-              <p className="px-5 pb-5 leading-relaxed text-slate-300">{f.a}</p>
+              <p className="px-5 pb-5 leading-relaxed text-slate-300"><Hl>{f.a}</Hl></p>
             </details>
           ))}
         </div>

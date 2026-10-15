@@ -11,6 +11,7 @@ import {
   RelatedCourses,
   Toolchain,
 } from "@/components/CourseDetail";
+import { CourseReviews, CourseWhyUs, Reviews, WhyTechcadd } from "@/components/CourseGuide";
 import { Faq } from "@/components/Faq";
 import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
@@ -37,7 +38,7 @@ import {
   SixMonthWhoAndWhy,
 } from "@/components/SixMonthInternship";
 import { Cta } from "@/components/Sections";
-import { getTraining, trainingSlugList } from "@/lib/courses";
+import { getTraining, mixedReviews, trainingSlugList } from "@/lib/courses";
 import { sixMonths } from "@/lib/internship6m";
 import { programmes, site } from "@/lib/site";
 
@@ -100,6 +101,8 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
           <SixMonthProcess />
           <SixMonthPaperwork />
           <SixMonthOutcomes />
+          <WhyTechcadd label="a six-month internship" />
+          <Reviews items={mixedReviews()} />
           <PhotoStrip
             eyebrow="Inside the lab"
             title={<>Six months of <span className="text-gradient">real work</span></>}
@@ -117,6 +120,8 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
           <DomainPicker duration={p.slug} label={p.duration} />
           <TrainingPath />
           <TrainingReceive />
+          <WhyTechcadd label={`${p.duration} training`} />
+          <Reviews items={mixedReviews()} />
           <PhotoStrip
             title={<>Where interns <span className="text-gradient">train</span></>}
             text="Live projects, mentor reviews and team work — real photos from techcadd labs."
@@ -134,7 +139,9 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
           <Toolchain course={course!} />
           <CourseAudience course={course!} />
           <CourseProjects course={course!} />
+          <CourseWhyUs course={course!} />
           <CourseOutcomes course={course!} />
+          <CourseReviews course={course!} />
           <CourseFaq course={course!} />
           <RelatedCourses course={course!} />
           <PhotoStrip

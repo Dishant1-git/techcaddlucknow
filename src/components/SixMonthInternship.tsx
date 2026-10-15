@@ -18,6 +18,7 @@ import { sixMonths as c } from "@/lib/internship6m";
 import { internshipHref, site } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
+import { Hl } from "./Hl";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -53,7 +54,7 @@ export function SixMonthHero() {
               <span className="text-gradient">{site.city}</span>
             </h1>
             <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg">
-              {c.hero.text}
+              <Hl>{c.hero.text}</Hl>
             </p>
             <div className="rise mt-9 flex flex-wrap items-center gap-3 [--d:.3s]">
               <a
@@ -71,7 +72,7 @@ export function SixMonthHero() {
             </div>
             <p className="rise mt-6 flex max-w-xl items-start gap-2 text-sm text-slate-400 [--d:.4s]">
               <Info className="mt-0.5 size-4 shrink-0" />
-              {c.hero.trust}
+              <Hl>{c.hero.trust}</Hl>
             </p>
           </div>
 
@@ -107,15 +108,15 @@ export function SixMonthOverview() {
         <div>
           <Eyebrow>Overview</Eyebrow>
           <Heading className="mt-5">{c.overview.title}</Heading>
-          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600">{c.hero.intro}</p>
-          <p data-reveal className="mt-4 leading-relaxed text-slate-600">{c.overview.intro}</p>
+          <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600"><Hl>{c.hero.intro}</Hl></p>
+          <p data-reveal className="mt-4 leading-relaxed text-slate-600"><Hl>{c.overview.intro}</Hl></p>
         </div>
         <div data-stagger className="grid gap-4 sm:grid-cols-2">
           {c.overview.items.map((it, i) => (
             <article key={it.title} className="rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-hero-950/5">
               <span className="font-display text-sm font-extrabold text-brand">{pad(i + 1)}</span>
               <h3 className="mt-3 font-display text-lg font-bold leading-snug text-navy">{it.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-slate-600">{it.text}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-slate-600"><Hl>{it.text}</Hl></p>
             </article>
           ))}
         </div>
@@ -135,7 +136,7 @@ export function SixMonthWhoAndWhy() {
               <GraduationCap className="size-5" />
             </span>
             <h3 className="mt-5 font-display text-lg font-bold">{it.title}</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-slate-400">{it.text}</p>
+            <p className="mt-2 text-[15px] leading-relaxed text-slate-400"><Hl>{it.text}</Hl></p>
           </article>
         ))}
       </div>
@@ -151,7 +152,7 @@ export function SixMonthWhoAndWhy() {
               <Check className="mt-0.5 size-5 shrink-0 text-cyan" strokeWidth={3} />
               <span>
                 <span className="block font-display font-bold">{it.title}</span>
-                <span className="mt-1 block text-sm leading-relaxed text-slate-400">{it.text}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-slate-400"><Hl>{it.text}</Hl></span>
               </span>
             </li>
           ))}
@@ -165,7 +166,7 @@ export function SixMonthRoadmap() {
   return (
     <section id="roadmap" className="bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
       <div className="mx-auto max-w-7xl">
-        <SectionHeading eyebrow="Syllabus & roadmap" title={c.roadmap.title} />
+        <SectionHeading eyebrow="What you will learn" title={c.roadmap.title} />
         <ol className="relative mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {c.roadmap.months.map((m, i) => (
             <li key={m.month} data-reveal className="relative rounded-3xl bg-white p-7 shadow-xl shadow-hero-950/5">
@@ -173,7 +174,7 @@ export function SixMonthRoadmap() {
                 {m.month}
               </span>
               <h3 className="mt-4 font-display text-xl font-bold text-navy">{m.title}</h3>
-              <p className="mt-2 leading-relaxed text-slate-600">{m.text}</p>
+              <p className="mt-2 leading-relaxed text-slate-600"><Hl>{m.text}</Hl></p>
               <span aria-hidden className="absolute right-6 top-4 font-display text-5xl font-extrabold leading-none text-slate-100">
                 {i + 1}
               </span>
@@ -200,13 +201,13 @@ export function SixMonthDifference() {
             }`}
           >
             <h3 className={`font-display text-2xl font-extrabold ${i === 1 ? "text-cyan" : "text-navy"}`}>{col.title}</h3>
-            <p className={`mt-3 leading-relaxed ${i === 1 ? "text-slate-300" : "text-slate-600"}`}>{col.text}</p>
+            <p className={`mt-3 leading-relaxed ${i === 1 ? "text-slate-300" : "text-slate-600"}`}><Hl>{col.text}</Hl></p>
           </article>
         ))}
       </div>
       <p data-reveal className="mx-auto mt-8 flex max-w-4xl gap-3 rounded-2xl bg-slate-50 p-5 text-[15px] leading-relaxed text-navy">
         <Info className="mt-0.5 size-5 shrink-0 text-brand" />
-        {c.difference.note}
+        <Hl>{c.difference.note}</Hl>
       </p>
     </LightSection>
   );
@@ -232,7 +233,7 @@ export function SixMonthProjects() {
           {c.projects.items.map((it) => (
             <article key={it.title} className="rounded-2xl border border-white/10 bg-white/[0.05] p-6">
               <h3 className="font-display text-lg font-bold">{it.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-slate-400">{it.text}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-slate-400"><Hl>{it.text}</Hl></p>
             </article>
           ))}
         </div>
@@ -253,7 +254,7 @@ export function SixMonthProcess({ title = c.process.title }: { title?: string })
               {i + 1}
             </span>
             <h3 className="mt-6 font-display text-xl font-bold text-navy">{s.title}</h3>
-            <p className="mx-auto mt-2 max-w-xs text-[15px] leading-relaxed text-slate-600">{s.text}</p>
+            <p className="mx-auto mt-2 max-w-xs text-[15px] leading-relaxed text-slate-600"><Hl>{s.text}</Hl></p>
           </li>
         ))}
       </ol>
@@ -279,7 +280,7 @@ export function SixMonthPaperwork() {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm leading-relaxed text-slate-600">{c.documents.note}</p>
+          <p className="mt-6 text-sm leading-relaxed text-slate-600"><Hl>{c.documents.note}</Hl></p>
         </article>
 
         {/* Planning, fees */}
@@ -292,11 +293,11 @@ export function SixMonthPaperwork() {
             {c.planning.schedule.map((s) => (
               <li key={s.title} className="rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3">
                 <span className="block font-semibold">{s.title}</span>
-                <span className="mt-0.5 block text-sm text-slate-400">{s.text}</span>
+                <span className="mt-0.5 block text-sm text-slate-400"><Hl>{s.text}</Hl></span>
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-sm leading-relaxed text-slate-300">{c.planning.feesIntro}</p>
+          <p className="mt-6 text-sm leading-relaxed text-slate-300"><Hl>{c.planning.feesIntro}</Hl></p>
           <ul className="mt-3 flex flex-wrap gap-2">
             {c.planning.feesAsk.map((f) => (
               <li key={f} className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold">{f}</li>
@@ -326,7 +327,7 @@ export function SixMonthOutcomes() {
               </li>
             ))}
           </ul>
-          <p data-reveal className="mt-6 text-sm leading-relaxed text-slate-500">{c.careers.note}</p>
+          <p data-reveal className="mt-6 text-sm leading-relaxed text-slate-500"><Hl>{c.careers.note}</Hl></p>
         </div>
         <div>
           <Eyebrow>Certificates & deliverables</Eyebrow>
@@ -335,7 +336,7 @@ export function SixMonthOutcomes() {
             {c.deliverables.items.map((d) => (
               <article key={d.title} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
                 <h3 className="font-display font-bold text-navy">{d.title}</h3>
-                <p className="mt-1 text-[15px] leading-relaxed text-slate-600">{d.text}</p>
+                <p className="mt-1 text-[15px] leading-relaxed text-slate-600"><Hl>{d.text}</Hl></p>
               </article>
             ))}
           </div>
@@ -355,7 +356,7 @@ export function SixMonthVisit({ title = c.visit.title }: { title?: string }) {
         <div className="flex-1">
           <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-hero-950/60">Internship location</p>
           <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">{title}</h2>
-          <p className="mt-3 max-w-2xl leading-relaxed text-hero-950/80">{c.visit.text}</p>
+          <p className="mt-3 max-w-2xl leading-relaxed text-hero-950/80"><Hl>{c.visit.text}</Hl></p>
           <a
             href={site.mapsHref}
             target="_blank"
@@ -389,7 +390,7 @@ export function SixMonthFaq() {
           <Heading dark className="mt-5">
             Six-month internships in <span className="text-gradient">{site.city}</span>
           </Heading>
-          <p data-reveal className="mt-6 text-lg text-slate-400">{c.cta}</p>
+          <p data-reveal className="mt-6 text-lg text-slate-400"><Hl>{c.cta}</Hl></p>
           <BookDemoButton className="mt-8 inline-flex items-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-bold text-hero-950 transition hover:brightness-105">
             Speak with an academic counsellor <ArrowRight className="size-4" />
           </BookDemoButton>
@@ -407,7 +408,7 @@ export function SixMonthFaq() {
                   <Plus className="size-4" />
                 </span>
               </summary>
-              <p className="px-5 pb-5 leading-relaxed text-slate-300">{f.a}</p>
+              <p className="px-5 pb-5 leading-relaxed text-slate-300"><Hl>{f.a}</Hl></p>
             </details>
           ))}
         </div>

@@ -3558,7 +3558,8 @@
           "Computer Science Fundamentals — OOP, operating systems, DBMS, computer networks, SQL concepts, software development life cycle (SDLC)",
           "Aptitude & Soft Skills — quantitative aptitude, logical reasoning, verbal ability, data interpretation, communication skills, HR interview preparation, group discussion, email & workplace etiquette",
           "Resume & Portfolio Development — ATS-friendly resume, GitHub profile optimisation, LinkedIn optimisation, portfolio website enhancement, personal branding, project presentation skills",
-          "Mock Interviews & Coding Assessments — live coding rounds, company-wise coding questions, technical and HR mock interviews, resume review, interview feedback"
+          "Mock Interviews & Coding Assessments — live coding rounds, company-wise coding questions, technical and HR mock interviews, resume review, interview feedback",
+          "Career Preparation — job search strategies, internship preparation, freelancing basics, open source contribution, networking on LinkedIn, salary negotiation, offer evaluation, placement drive preparation"
         ]
       }
     ],
@@ -3678,6 +3679,7 @@
           "Sharding, replication and billion-scale design; multi-tenancy and row-level security in vector stores.",
           "Document AI for tables, forms and scans; multimodal embeddings; retrieval cost modelling.",
           "Index rebuild and migration without downtime.",
+          "Tool stack: Qdrant · Milvus · Weaviate · pgvectorscale · Vespa · Elasticsearch · ColPali · Ray Data",
           "Real use: an enterprise knowledge substrate — twenty million documents indexed on the ingestion pipeline, permission-filtered per user and queryable in under 300 milliseconds at the 95th percentile.",
           "Deliverable: scalable retrieval platform with permission-aware filtering and a recall and latency benchmark across three index configurations."
         ]
@@ -3759,6 +3761,7 @@
           "Latency budgeting for a sub-800 millisecond conversational feel; telephony integration and call transfer to humans.",
           "Vision agents over documents, screenshots, charts and video; multimodal RAG; OCR-free document understanding.",
           "Accessibility and quality evaluation for speech.",
+          "Tool stack: verl · OpenRLHF · TRL (DPO / GRPO) · Unsloth · DeepSpeed · FSDP · vLLM rollout serving · LiveKit Agents · Pipecat · Deepgram · faster-whisper · ElevenLabs · Cartesia · Twilio · ColPali · Gemini and Claude vision",
           "Real use: verifiable-reward tool-use training lifting tool-call accuracy, plus a voice front line — an inbound phone agent that verifies identity, resolves routine requests and hands off to a human when needed.",
           "Deliverable: preference- or GRPO-trained checkpoint with benchmark gains, plus a production voice agent with under 900 millisecond turn latency, barge-in, warm human handoff and a 50-call evaluation report."
         ]

@@ -558,7 +558,7 @@ export function CourseSyllabus({ course }: { course: Course }) {
             <Heading className="mt-5">
               What you will
               <br />
-              <span className="text-gradient">actually build</span>
+              <span className="text-gradient">learn</span>
             </Heading>
             <p data-reveal className="mt-6 text-lg leading-relaxed text-slate-600">
               {course.syllabusIntro ||

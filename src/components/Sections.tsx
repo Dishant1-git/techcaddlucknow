@@ -653,7 +653,20 @@ export function Testimonials() {
 }
 
 /** Closing enquiry block; on a course page, pass the course to preselect it. */
-export function Cta({ course }: { course?: string }) {
+/**
+ * The enquiry block. A course page passes its brief's enquiry section, which
+ * replaces the generic heading and points with the course's own.
+ */
+export function Cta({
+  course,
+  enquiry,
+}: {
+  course?: string;
+  enquiry?: { title: string; text: string[]; points: string[] } | null;
+}) {
+  const points = enquiry?.points.length
+    ? enquiry.points
+    : ["Free career counselling", "No registration fee", "Placement support included"];
   return (
     <section id="contact" className="bg-slate-50 px-3 pb-6 pt-4 sm:px-5">
       <div className="relative isolate mx-auto max-w-[90rem] overflow-clip rounded-[2.5rem] bg-hero-950 px-5 py-16 text-white sm:px-10 lg:px-16 lg:py-24">
@@ -663,23 +676,34 @@ export function Cta({ course }: { course?: string }) {
 
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div>
-            <Eyebrow dark>Ready to get started?</Eyebrow>
-            <Heading dark className="mt-6 lg:text-[3.5rem]">
-              Start building
-              <br />
-              your <span className="text-gradient">career today.</span>
-            </Heading>
+            <Eyebrow dark>{enquiry ? "Enquire about this course" : "Ready to get started?"}</Eyebrow>
+            {enquiry ? (
+              <>
+                <Heading dark className="mt-6">
+                  {enquiry.title}
+                </Heading>
+                {enquiry.text.map((t) => (
+                  <p key={t} data-reveal className="mt-5 max-w-xl leading-relaxed text-slate-300">
+                    {t}
+                  </p>
+                ))}
+              </>
+            ) : (
+              <Heading dark className="mt-6 lg:text-[3.5rem]">
+                Start building
+                <br />
+                your <span className="text-gradient">career today.</span>
+              </Heading>
+            )}
             <ul data-stagger className="mt-8 space-y-3 text-slate-200">
-              {["Free career counselling", "No registration fee", "Placement support included"].map(
-                (b) => (
-                  <li key={b} className="flex items-center gap-3">
-                    <span className="grid size-6 place-items-center rounded-full bg-cyan text-hero-950">
-                      <Check className="size-3.5" strokeWidth={3} />
-                    </span>
-                    {b}
-                  </li>
-                ),
-              )}
+              {points.map((b) => (
+                <li key={b} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-cyan text-hero-950">
+                    <Check className="size-3.5" strokeWidth={3} />
+                  </span>
+                  {b}
+                </li>
+              ))}
             </ul>
             <NavLink
               href={site.phoneHref}

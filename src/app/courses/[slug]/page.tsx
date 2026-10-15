@@ -15,6 +15,7 @@ import {
   CourseAudienceNote,
   CourseTakeaways,
   CourseWhyProgramme,
+  CourseReviews,
   CourseWhyUs,
 } from "@/components/CourseGuide";
 import { Footer, WhatsAppButton } from "@/components/Footer";
@@ -70,6 +71,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
         <CourseProjects course={course} />
         <CourseWhyUs course={course} />
         <CourseOutcomes course={course} />
+        <CourseReviews course={course} />
         <CourseFaq course={course} />
         <RelatedCourses course={course} />
         <PhotoStrip
@@ -77,7 +79,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
           text="Mentor-led labs, small groups and workshops — real photos from techcadd batches."
           photos={course.theme === "ai" ? photoSets.ai : photoSets.labs}
         />
-        <Cta course={course.label} />
+        <Cta course={course.label} enquiry={course.guide?.enquiry} />
       </main>
       <Footer />
       <WhatsAppButton />
