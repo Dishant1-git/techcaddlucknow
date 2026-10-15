@@ -1058,7 +1058,7 @@ export const nav: NavItem[] = [
   },
   {
     label: "Internship & Training",
-    href: internshipHref(),
+    href: internshipHref("6-months"),
     mega: "certification",
     children: certificatePrograms.map((c) => ({ label: c.label, href: trainingHref(c) })),
   },

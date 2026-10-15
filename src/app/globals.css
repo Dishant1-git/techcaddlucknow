@@ -350,16 +350,16 @@ html {
   --color-cyan: #22d3ee;
   --color-sun: #f0abfc;
 }
-[data-theme="internship"] {
-  --color-hero-950: #1a1006;
-  --color-hero-900: #2b1a08;
-  --color-hero-800: #452a0c;
-  --color-navy: #3a2108;
-  --color-brand: #d97706;
-  --color-brand-600: #b45309;
-  --color-sky: #f59e0b;
-  --color-cyan: #fcd34d;
-  --color-sun: #fde68a;
+[data-theme="after12th"] {
+  --color-hero-950: #04231c;
+  --color-hero-900: #063b2e;
+  --color-hero-800: #08563f;
+  --color-navy: #053b2e;
+  --color-brand: #059669;
+  --color-brand-600: #047857;
+  --color-sky: #10b981;
+  --color-cyan: #5eead4;
+  --color-sun: #fcd34d;
 }
 /* Lenis handles smooth scrolling when it is running */
 html:not(.lenis) {

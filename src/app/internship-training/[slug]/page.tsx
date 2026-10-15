@@ -8,7 +8,7 @@ import {
   CourseOverview,
   CourseProjects,
   CourseSyllabus,
-    RelatedCourses,
+  RelatedCourses,
   Toolchain,
 } from "@/components/CourseDetail";
 import { Faq } from "@/components/Faq";
@@ -22,8 +22,23 @@ import {
   TrainingTracks,
 } from "@/components/Internship";
 import { Motion } from "@/components/Motion";
+import {
+  SixMonthDifference,
+  SixMonthDomains,
+  SixMonthFaq,
+  SixMonthHero,
+  SixMonthOutcomes,
+  SixMonthOverview,
+  SixMonthPaperwork,
+  SixMonthProcess,
+  SixMonthProjects,
+  SixMonthRoadmap,
+  SixMonthVisit,
+  SixMonthWhoAndWhy,
+} from "@/components/SixMonthInternship";
 import { Cta } from "@/components/Sections";
 import { getTraining, trainingSlugList } from "@/lib/courses";
+import { sixMonths } from "@/lib/internship6m";
 import { programmes, site } from "@/lib/site";
 
 // Two kinds of page share this route: the duration programmes (45 Days,
@@ -47,6 +62,7 @@ export async function generateMetadata({
 }: PageProps<"/internship-training/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const p = findProgramme(slug);
+  if (p?.slug === "6-months") return sixMonths.meta;
   if (p) {
     return {
       title: `${p.duration} ${p.title} in ${site.city} | ${site.name}`,
@@ -71,8 +87,26 @@ export default async function TrainingPage({ params }: PageProps<"/internship-tr
     <>
       <TopBar />
       <Header />
-      {p ? (
-        <main data-theme="internship">
+      {p?.slug === "6-months" ? (
+        // The six-month programme has its own long-form page (internship6m.ts).
+        <main>
+          <SixMonthHero />
+          <SixMonthOverview />
+          <SixMonthWhoAndWhy />
+          <SixMonthDomains />
+          <SixMonthRoadmap />
+          <SixMonthDifference />
+          <SixMonthProjects />
+          <SixMonthProcess />
+          <SixMonthPaperwork />
+          <SixMonthOutcomes />
+          <SixMonthVisit />
+          <SixMonthFaq />
+          <CompareDurations current={p.slug} />
+          <Cta />
+        </main>
+      ) : p ? (
+        <main>
           <InternshipHero programme={p} />
           <TrainingTracks duration={p.duration} />
           <TrainingPath />

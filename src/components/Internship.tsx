@@ -1,5 +1,5 @@
 // Sections for the Internship & Training pages (/internship-training and one
-// page per programme). They use the amber page palette (data-theme="internship").
+// page per programme).
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import {
@@ -67,7 +67,7 @@ const split = (duration: string) => {
 
 function Crumbs({ current }: { current?: string }) {
   return (
-    <nav aria-label="Breadcrumb" className="rise text-sm text-amber-100/70">
+    <nav aria-label="Breadcrumb" className="rise text-sm text-slate-400">
       <ol className="flex flex-wrap items-center gap-2">
         <li>
           <Link href="/" className="hover:text-white">
@@ -140,8 +140,8 @@ export function InternshipHero({ programme }: { programme?: Programme }) {
     <section id="top" className="relative isolate overflow-clip bg-hero-950 text-white">
       <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />
       <div className="glow-dark absolute inset-0 -z-10" />
-      <div className="orb absolute -right-40 -top-40 -z-10 size-[40rem] animate-aurora [--orb:rgba(245,158,11,0.32)]" />
-      <div className="orb absolute -bottom-52 -left-20 -z-10 size-[34rem] animate-aurora [--orb:rgba(252,211,77,0.16)] [animation-delay:-8s]" />
+      <div className="orb absolute -right-40 -top-40 -z-10 size-[40rem] animate-aurora [--orb:rgba(28,83,209,0.5)]" />
+      <div className="orb absolute -bottom-52 -left-20 -z-10 size-[34rem] animate-aurora [--orb:rgba(0,212,255,0.18)] [animation-delay:-8s]" />
 
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-28 lg:px-8 lg:pb-24 lg:pt-44">
         <Crumbs current={programme?.duration} />
@@ -162,7 +162,7 @@ export function InternshipHero({ programme }: { programme?: Programme }) {
                 </>
               )}
             </h1>
-            <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-amber-50/80 [--d:.2s] lg:text-lg">
+            <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg">
               {programme
                 ? `${programme.text} Best for: ${programme.bestFor.charAt(0).toLowerCase()}${programme.bestFor.slice(1)}`
                 : "Pick a duration, pick a technology, and finish with a working project, a certificate and — on the longer tracks — an internship letter."}
@@ -203,7 +203,7 @@ export function InternshipHero({ programme }: { programme?: Programme }) {
                         )}
                         <span className="font-display leading-none">
                           <span className="text-5xl font-extrabold tracking-tight text-cyan">{n}</span>{" "}
-                          <span className="text-sm font-bold text-amber-50/80">{unit}</span>
+                          <span className="text-sm font-bold text-slate-300">{unit}</span>
                         </span>
                         <span className="mt-3 block font-semibold leading-snug">{p.title}</span>
                         <ArrowUpRight className="mt-3 size-5 text-cyan transition-transform group-hover:rotate-45" />
@@ -246,13 +246,13 @@ export function CompareDurations({ current }: { current?: string }) {
                 className={`group flex h-full flex-col rounded-3xl p-7 transition duration-500 hover:-translate-y-1.5 ${
                   on
                     ? "bg-gradient-to-br from-hero-900 to-hero-950 text-white shadow-2xl shadow-sky/25 ring-2 ring-sky"
-                    : "border border-amber-100 bg-white shadow-xl shadow-amber-900/5 hover:border-sky/40"
+                    : "border border-slate-100 bg-white shadow-xl shadow-hero-950/5 hover:border-sky/40"
                 }`}
               >
                 <span className="flex items-start justify-between gap-3">
                   <span className="font-display leading-none">
                     <span className={`text-5xl font-extrabold tracking-tight ${on ? "text-cyan" : "text-brand"}`}>{n}</span>{" "}
-                    <span className={`text-sm font-bold ${on ? "text-amber-50/80" : "text-slate-500"}`}>{unit}</span>
+                    <span className={`text-sm font-bold ${on ? "text-slate-300" : "text-slate-500"}`}>{unit}</span>
                   </span>
                   {(on || p.popular) && (
                     <span
@@ -265,10 +265,10 @@ export function CompareDurations({ current }: { current?: string }) {
                   )}
                 </span>
                 <span className={`mt-5 font-display text-lg font-bold leading-snug ${on ? "" : "text-navy"}`}>{p.title}</span>
-                <span className={`mt-2 text-sm leading-relaxed ${on ? "text-amber-50/80" : "text-slate-600"}`}>{p.text}</span>
+                <span className={`mt-2 text-sm leading-relaxed ${on ? "text-slate-300" : "text-slate-600"}`}>{p.text}</span>
                 <ul className="mt-5 space-y-2">
                   {p.points.map((pt) => (
-                    <li key={pt} className={`flex items-center gap-2 text-sm ${on ? "text-amber-50" : "text-slate-700"}`}>
+                    <li key={pt} className={`flex items-center gap-2 text-sm ${on ? "text-slate-200" : "text-slate-700"}`}>
                       <Check className={`size-4 shrink-0 ${on ? "text-cyan" : "text-brand"}`} strokeWidth={3} />
                       {pt}
                     </li>
@@ -300,7 +300,7 @@ export function TrainingTracks({ duration }: { duration?: string }) {
             <span className="text-gradient">the technology you want</span>
           </Heading>
         </div>
-        <p data-reveal className="max-w-sm text-lg text-amber-50/75">
+        <p data-reveal className="max-w-sm text-lg text-slate-400">
           Pick one track for your training. A counsellor helps you choose if you are unsure.
         </p>
       </div>
@@ -376,7 +376,7 @@ const receiveIcons = [Star, Briefcase, FileText, Award, BadgeCheck, Layers];
 /** What every trainee leaves with, laid out like a certificate. */
 export function TrainingReceive() {
   return (
-    <section className="bg-amber-50/60 px-5 py-20 lg:px-8 lg:py-28">
+    <section className="bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
       <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <Eyebrow>What you leave with</Eyebrow>
@@ -390,7 +390,7 @@ export function TrainingReceive() {
         </div>
         <div
           data-reveal="scale"
-          className="relative rounded-[2rem] border-[10px] border-double border-sky/40 bg-white p-8 shadow-2xl shadow-amber-900/10 sm:p-10"
+          className="relative rounded-[2rem] border-[10px] border-double border-sky/40 bg-white p-8 shadow-2xl shadow-hero-950/10 sm:p-10"
         >
           <Award aria-hidden className="absolute -right-4 -top-4 size-16 rotate-12 text-sky" />
           <p className="text-center text-[11px] font-extrabold uppercase tracking-[0.3em] text-brand">
@@ -400,7 +400,7 @@ export function TrainingReceive() {
             {included.map((item, i) => {
               const Icon = receiveIcons[i % receiveIcons.length];
               return (
-                <li key={item} className="flex items-center gap-3 rounded-xl bg-amber-50 px-4 py-3 font-semibold text-navy">
+                <li key={item} className="flex items-center gap-3 rounded-xl bg-slate-50 px-4 py-3 font-semibold text-navy">
                   <Icon className="size-5 shrink-0 text-brand" />
                   {item}
                 </li>

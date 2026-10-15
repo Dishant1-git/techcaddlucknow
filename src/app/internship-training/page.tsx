@@ -23,7 +23,7 @@ export default function InternshipPage() {
     <>
       <TopBar />
       <Header />
-      <main data-theme="internship">
+      <main>
         <InternshipHero />
         <CompareDurations />
         <TrainingTracks />
