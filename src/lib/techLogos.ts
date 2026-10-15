@@ -49,9 +49,11 @@ import {
   siGoogleanalytics,
   siGooglebigquery,
   siGooglecloud,
+  siGooglecolab,
   siGooglegemini,
   siGoogleplay,
   siGooglesearchconsole,
+  siGooglesheets,
   siGoogletagmanager,
   siGradio,
   siGrafana,
@@ -69,6 +71,7 @@ import {
   siKotlin,
   siKubernetes,
   siLangchain,
+  siLanggraph,
   siLaravel,
   siLinux,
   siLooker,
@@ -85,10 +88,12 @@ import {
   siNextdotjs,
   siNginx,
   siNodedotjs,
+  siNpm,
   siNumpy,
   siOllama,
   siOpencv,
   siOpenjdk,
+  siOpenssl,
   siOwasp,
   siPandas,
   siPhp,
@@ -127,6 +132,8 @@ import {
   siUbuntu,
   siUv,
   siVercel,
+  siVirtualbox,
+  siVite,
   siVuedotjs,
   siWhatsapp,
   siWireshark,
@@ -329,6 +336,15 @@ export const techLogos: Record<string, Logo> = {
   "Canva Pro": extraLogos.Canva,
   "OpenAI API": extraLogos.OpenAI,
   Excel: extraLogos.Excel,
+  // Named in the After 12th programme briefs.
+  Bash: siGnubash,
+  npm: siNpm,
+  Vite: siVite,
+  VirtualBox: siVirtualbox,
+  OpenSSL: siOpenssl,
+  "Google Sheets": siGooglesheets,
+  "Google Colab": siGooglecolab,
+  LangGraph: siLanggraph,
 };
 
 // Keyed by the course names in site.ts (courseCatalogue). Courses without an
@@ -398,4 +414,25 @@ export const courseLogos: Record<string, Logo> = {
 export function isLight(hex: string) {
   const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
   return 0.299 * r + 0.587 * g + 0.114 * b > 170;
+}
+
+// Course briefs name tools loosely ("Amazon EC2", "Git and GitHub", "Spreadsheet
+// tools such as Microsoft Excel"), so they are matched leniently.
+const logoNames = Object.keys(techLogos).sort((a, b) => b.length - a.length);
+const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const wordMatch = new Map(
+  logoNames.map((name) => [name, new RegExp(`(^|[^\\w])${escape(name)}($|[^\\w])`, "i")]),
+);
+
+/** The logo for a tool named in free text, or null when none fits. */
+export function findLogo(name: string): Logo | null {
+  const exact = techLogos[name] ?? techLogos[name.replace(/\s*\(.*?\)\s*/g, " ").trim()];
+  if (exact) return exact;
+  if (/^(Amazon|AWS)\b/.test(name)) return techLogos["Amazon Web Services"] ?? null;
+  if (/^Git and GitHub$/i.test(name)) return techLogos["Git & GitHub"] ?? null;
+  if (/^HTML$/i.test(name)) return techLogos.HTML5 ?? null;
+  if (/^CSS$/i.test(name)) return techLogos.CSS3 ?? null;
+  // The longest known name inside the text wins: "SQL and PostgreSQL" → PostgreSQL.
+  const found = logoNames.find((n) => n.length > 2 && wordMatch.get(n)!.test(name));
+  return found ? techLogos[found] : null;
 }

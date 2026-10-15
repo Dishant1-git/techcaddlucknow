@@ -574,7 +574,13 @@ function MotionEffects() {
           if ((e.target as Element).closest("[data-clamp]")) ScrollTrigger.refresh();
         };
         document.addEventListener("change", onClamp);
-        cleanups.push(() => document.removeEventListener("change", onClamp));
+        // Components that resize themselves (e.g. switching tabs) say so.
+        const onLayout = () => ScrollTrigger.refresh();
+        document.addEventListener("layoutchange", onLayout);
+        cleanups.push(() => {
+          document.removeEventListener("change", onClamp);
+          document.removeEventListener("layoutchange", onLayout);
+        });
 
         // Pointer effects only make sense with a mouse.
         if (desktop && window.matchMedia("(hover: hover)").matches) {
