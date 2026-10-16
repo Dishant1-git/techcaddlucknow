@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties } from "react";
-import { Cpu } from "lucide-react";
+import Image from "next/image";
 import { site, techCategories, technologies } from "@/lib/site";
 import { isLight, type Logo } from "@/lib/logo";
 import { DarkSection, SectionHeading } from "./ui";
@@ -102,7 +102,13 @@ export function TechStack({ logos }: { logos: Record<string, Logo> }) {
           <span className="hex grid size-full place-items-center bg-gradient-to-br from-cyan to-brand p-[2px]">
             <span className="hex grid size-full place-items-center bg-hero-900 text-center">
               <span>
-                <Cpu className="mx-auto size-[0.5em] text-cyan" />
+                <Image
+                  src="/images/favicons/android-chrome-192x192.png"
+                  alt=""
+                  width={192}
+                  height={192}
+                  className="mx-auto size-[0.6em] rounded-full ring-2 ring-cyan/60"
+                />
                 <span className="mt-1 block font-display text-[0.3em] font-extrabold text-white">
                   {site.name}
                 </span>
