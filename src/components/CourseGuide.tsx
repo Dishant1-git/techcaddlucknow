@@ -597,14 +597,8 @@ const fallbackWhyUs = (label: string): WhyUsContent => ({
 });
 
 /** "Why techcadd" for any page: a course brief's points, or the site-wide ones. */
-<<<<<<< Updated upstream
 export function WhyTechcadd({ label, us }: { label: string; us?: WhyUsContent | null }) {
   const content = us ?? fallbackWhyUs(label);
-=======
-export function WhyTechcadd({ label, us: given }: { label: string; us?: WhyUsContent | null }) {
-  const us = given ?? fallbackWhyUs(label);
-  if (!us.items.length) return null;
->>>>>>> Stashed changes
   return (
     <section id="why-techcadd" className="scroll-mt-24 bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
@@ -644,15 +638,9 @@ export function WhyTechcadd({ label, us: given }: { label: string; us?: WhyUsCon
 }
 
 export function CourseWhyUs({ course }: { course: Course }) {
-<<<<<<< Updated upstream
   const us = course.guide?.whyUs;
   if (us?.items.length && isCompact(course)) return <WhyUsTimeline course={course} us={us} />;
   return <WhyTechcadd label={course.label} us={us?.items.length ? us : relatedGuide(course.label)?.guide.whyUs} />;
-=======
-  const us = course.guide?.whyUs ?? relatedGuide(course.label)?.guide.whyUs;
-  if (isCompact(course) && us?.items.length) return <WhyUsTimeline course={course} us={us} />;
-  return <WhyTechcadd label={course.label} us={us} />;
->>>>>>> Stashed changes
 }
 
 /**
