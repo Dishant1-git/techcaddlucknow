@@ -355,7 +355,11 @@ export function getProgramme(slug: string): Course | undefined {
   return withProgrammeGuide({ ...programme, unit: monthly ? "Month" : "Module", theme: "after12th" });
 }
 
-const programmeGuides = programmeGuideContent as Record<string, CourseGuide>;
+// These briefs carry no reviews or enquiry text; the pages fall back to the
+// closest course's reviews.
+const programmeGuides = Object.fromEntries(
+  Object.entries(programmeGuideContent).map(([slug, g]) => [slug, { reviews: null, enquiry: null, ...g } as CourseGuide]),
+);
 
 /**
  * Adds the programme's content brief (after12thGuides.json). Unlike the course

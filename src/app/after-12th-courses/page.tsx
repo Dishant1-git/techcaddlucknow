@@ -7,6 +7,7 @@ import { Motion } from "@/components/Motion";
 import { Cta } from "@/components/Sections";
 import { mixedReviews } from "@/lib/courses";
 import { after12thCatalogue, after12thHref, site } from "@/lib/site";
+import { courseLogos, pickLogos } from "@/lib/techLogos";
 
 export const metadata: Metadata = {
   title: `After 12th IT & AI Career Courses in ${site.city} | ${site.name}`,
@@ -51,6 +52,7 @@ export default function After12thPage() {
           title="After 12th IT & AI Career Courses"
           text="Build your tech career early with structured 3-, 6- and 9-month tracks and one-year certificates in AI, cloud, cyber security, software and digital growth skills."
           sections={sections}
+          logos={pickLogos(courseLogos, sections.flatMap((s) => s.courses.map((c: { label: string; logo?: string }) => c.logo ?? c.label)))}
           noun="programmes"
         />
         <WhyTechcadd label="a career course after 12th" />

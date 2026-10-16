@@ -1,13 +1,13 @@
 "use client";
 
 import { NavLink } from "./NavLink";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, ChevronDown, Search, X } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { site, stats } from "@/lib/site";
-import { courseLogos, isLight } from "@/lib/techLogos";
+import { isLight, type Logo } from "@/lib/logo";
 import { BookDemoButton } from "./Enquiry";
 import { Eyebrow } from "./ui";
 
@@ -72,8 +72,11 @@ function initials(label: string) {
   return (words.length > 1 ? words[0][0] + words[1][0] : label.slice(0, 2)).toUpperCase();
 }
 
+// The catalogue's logos, keyed like courseLogos.
+const Logos = createContext<Record<string, Logo>>({});
+
 function LogoTile({ item }: { item: Item }) {
-  const logo = courseLogos[item.logo ?? item.label];
+  const logo = useContext(Logos)[item.logo ?? item.label];
   const shape =
     "grid size-12 shrink-0 place-items-center rounded-2xl transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110";
   if (!logo) {
@@ -209,6 +212,7 @@ export function CourseCatalogue({
   text,
   sections,
   noun = "courses",
+  logos,
 }: {
   eyebrow: string;
   /** Hero heading, without the city. */
@@ -217,6 +221,8 @@ export function CourseCatalogue({
   sections: CatalogueSection[];
   /** What is being listed, e.g. "courses" or "programmes". */
   noun?: string;
+  /** The courses' logos, picked on the server (pickLogos). */
+  logos: Record<string, Logo>;
 }) {
   const [query, setQuery] = useState("");
   // "all", or the id of the one section being shown.
@@ -243,7 +249,7 @@ export function CourseCatalogue({
   // do not all show the same subject.
   const featured = sections
     .map((s, k) => {
-      const withLogo = s.courses.filter((c) => courseLogos[c.logo ?? c.label]);
+      const withLogo = s.courses.filter((c) => logos[c.logo ?? c.label]);
       const item = withLogo.find((c) => c.badge) ?? withLogo[k % (withLogo.length || 1)];
       return item && { item, group: s.title };
     })
@@ -302,7 +308,7 @@ export function CourseCatalogue({
   }, [sections]);
 
   return (
-    <>
+    <Logos value={logos}>
       <section id="top" className="relative isolate overflow-clip bg-hero-950 text-white">
         <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />
         <div className="glow-dark absolute inset-0 -z-10" />
@@ -525,6 +531,6 @@ export function CourseCatalogue({
           </p>
         </div>
       </section>
-    </>
+    </Logos>
   );
 }

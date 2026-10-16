@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import { ArrowUpRight, MousePointerClick } from "lucide-react";
 import { capabilities } from "@/lib/site";
-import { isLight, techLogos } from "@/lib/techLogos";
+import { isLight, type Logo } from "@/lib/logo";
 import { useEnquiry } from "./Enquiry";
 import { Eyebrow, Heading, LightSection } from "./ui";
 
@@ -26,18 +26,19 @@ function honeycomb<T>(items: T[]): T[][] {
 
 function ToolHex({
   name,
+  logo,
   use,
   delay,
   onShow,
   onHide,
 }: {
   name: string;
+  logo?: Logo;
   use: string;
   delay: number;
   onShow: () => void;
   onHide: () => void;
 }) {
-  const logo = techLogos[name];
   // On hover the tile turns white and the logo takes its brand colour; pale
   // brand colours keep a dark tile so they stay visible.
   const pale = logo ? isLight(logo.hex) : false;
@@ -106,7 +107,8 @@ function ToolHex({
   );
 }
 
-export function Capabilities() {
+/** `logos`: the tools' logos, picked on the server (pickLogos). */
+export function Capabilities({ logos }: { logos: Record<string, Logo> }) {
   const [active, setActive] = useState(0);
   // The tracks cycle on their own until the visitor picks one.
   const [auto, setAuto] = useState(true);
@@ -256,6 +258,7 @@ export function Capabilities() {
                       <ToolHex
                         key={name}
                         name={name}
+                        logo={logos[name]}
                         use={use}
                         delay={0.05 + index * 0.06}
                         onShow={() => setShown(index)}

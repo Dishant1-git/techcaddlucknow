@@ -146,8 +146,9 @@ import {
   siZapier,
 } from "simple-icons";
 import { extraLogos } from "./extraLogos";
+import { isLight, type Logo } from "./logo";
 
-type Logo = { path: string; hex: string };
+export { isLight, type Logo };
 
 // Keyed by the technology names in site.ts. Technologies without an entry
 // (no logo in the icon set) fall back to a lettered badge.
@@ -410,10 +411,11 @@ export const courseLogos: Record<string, Logo> = {
   "WordPress & Elementor Pro": siElementor,
 };
 
-// Light brand colours (JavaScript yellow, etc.) need a dark badge to stay visible.
-export function isLight(hex: string) {
-  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
-  return 0.299 * r + 0.587 * g + 0.114 * b > 170;
+/** Just the path and colour of the named logos, to pass to a Client Component. */
+export function pickLogos(from: Record<string, Logo>, names: string[]): Record<string, Logo> {
+  return Object.fromEntries(
+    names.flatMap((n) => (from[n] ? [[n, { path: from[n].path, hex: from[n].hex }]] : [])),
+  );
 }
 
 // Course briefs name tools loosely ("Amazon EC2", "Git and GitHub", "Spreadsheet

@@ -23,6 +23,8 @@ import {
 } from "@/components/Sections";
 import { Stats } from "@/components/Stats";
 import { TechStack } from "@/components/TechStack";
+import { capabilities, technologies } from "@/lib/site";
+import { pickLogos, techLogos } from "@/lib/techLogos";
 
 export default function Home() {
   return (
@@ -44,8 +46,8 @@ export default function Home() {
         <WhyUs />
         <CampusLife />
         <Testimonials />
-        <TechStack />
-        <Capabilities />
+        <TechStack logos={pickLogos(techLogos, technologies.map((t) => t.name))} />
+        <Capabilities logos={pickLogos(techLogos, capabilities.flatMap((c) => c.tools.map(([name]) => name)))} />
         <Faq />
         <HomeCta />
       </main>

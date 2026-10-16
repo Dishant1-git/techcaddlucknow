@@ -3,7 +3,7 @@
 import { useState, type CSSProperties } from "react";
 import { Cpu } from "lucide-react";
 import { site, techCategories, technologies } from "@/lib/site";
-import { isLight, techLogos } from "@/lib/techLogos";
+import { isLight, type Logo } from "@/lib/logo";
 import { DarkSection, SectionHeading } from "./ui";
 
 type Category = (typeof techCategories)[number];
@@ -25,8 +25,7 @@ const orbits = (() => {
   });
 })();
 
-function Badge({ name }: { name: string }) {
-  const logo = techLogos[name];
+function Badge({ name, logo }: { name: string; logo?: Logo }) {
   if (!logo) {
     return (
       <span className="grid size-full place-items-center rounded-full bg-gradient-to-br from-cyan to-brand font-display text-[0.7em] font-extrabold text-white">
@@ -46,7 +45,8 @@ function Badge({ name }: { name: string }) {
   );
 }
 
-export function TechStack() {
+/** `logos`: the technologies' logos, picked on the server (pickLogos). */
+export function TechStack({ logos }: { logos: Record<string, Logo> }) {
   const [active, setActive] = useState<Category>("All");
   const count = (c: Category) =>
     c === "All" ? technologies.length : technologies.filter((t) => t.cat === c).length;
@@ -150,7 +150,7 @@ export function TechStack() {
                               : "ring-cyan"
                         }`}
                       >
-                        <Badge name={t.name} />
+                        <Badge name={t.name} logo={logos[t.name]} />
                         <span
                           role="tooltip"
                           className="pointer-events-none absolute bottom-full left-1/2 mb-3 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-xl border border-white/15 bg-hero-900/95 px-3.5 py-2 text-left opacity-0 shadow-xl shadow-black/50 backdrop-blur transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"

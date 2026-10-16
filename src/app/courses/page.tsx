@@ -5,6 +5,7 @@ import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
 import { Cta } from "@/components/Sections";
 import { courseCatalogue, courseHref, site } from "@/lib/site";
+import { courseLogos, pickLogos } from "@/lib/techLogos";
 
 export const metadata: Metadata = {
   title: `Best IT, AI & Software Courses in ${site.city} | ${site.name}`,
@@ -27,6 +28,7 @@ export default function CoursesPage() {
           title="Best IT, AI & Software Courses"
           text="From AI and data to full-stack and cloud, each track is built like real industry work: mentor-led labs, live projects, interview-focused outcomes and placement support."
           sections={sections}
+          logos={pickLogos(courseLogos, sections.flatMap((s) => s.courses.map((c: { label: string; logo?: string }) => c.logo ?? c.label)))}
         />
         <Cta />
       </main>
