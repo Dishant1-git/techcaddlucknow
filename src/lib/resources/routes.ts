@@ -18,6 +18,8 @@ export const resourceRoutes = {
   faq: "/frequently-asked-questions-techcadd-lucknow",
   partnerships: "/techcadd-lucknow-college-partnerships",
   placements: "/techcadd-lucknow-placements",
+  gallery: "/techcadd-lucknow-classroom-gallery-images",
+  pages: "/pages",
 } as const;
 
 export const blogPostHref = (slug: string) => `${resourceRoutes.blog}/${slug}`;
@@ -49,7 +51,9 @@ export function mapHref(href: string | undefined | null): string {
     [/45-days|6-weeks/, "/internship-training-in-lucknow/45-days"],
     [/industrial-training|internship/, "/internship-training-in-lucknow"],
     [/contact/, "/contact"],
-    [/about|gallery/, "/about"],
+    [/gallery/, resourceRoutes.gallery],
+    [/^\/pages/, resourceRoutes.pages],
+    [/about/, "/about"],
     [/after-12th/, "/after-12th-courses"],
   ];
   return rules.find(([re]) => re.test(path))?.[1] ?? "/courses";

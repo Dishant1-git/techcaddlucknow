@@ -1,4 +1,5 @@
 // All site copy and contact details live here so they can be edited in one place.
+import { resourceRoutes } from "./resources/routes";
 
 const address =
   "533/1, Kursi Road, Main, Kapoorthala Chauraha, opp. Central Bank Of India, Lucknow, Uttar Pradesh 226024";
@@ -967,37 +968,37 @@ export const after12thMenu: MenuColumn[] = after12thCatalogue.slice(0, 3).map((c
   courses: cat.courses.map((c) => ({ label: c.label, href: after12thHref(c.slug) })),
 }));
 
-// Columns in the Resources mega menu. Only Student Reviews exists on the page so
-// far; the other entries fall back to the contact section.
-// TODO: point each entry at its own page once those pages are built.
+// Columns in the Resources mega menu; every entry has its own page (see
+// src/lib/resources/routes.ts).
 export const resourcesMenu: MenuColumn[] = [
   {
     title: "Tools & Calculators",
     text: "Free instant diagnostics, estimators and interview prep.",
     courses: [
-      { label: "Free Tools Hub", badge: "New" },
-      { label: "AI Interview Prep", badge: "Hot" },
-      { label: "CGPA to % Calculator" },
-      { label: "AI Cold Email Generator", badge: "New" },
-      { label: "Find My Career Track" },
-      { label: "Training Matcher" },
-      { label: "Salary Estimator" },
-      { label: "Free Study Materials", badge: "Hot" },
-      { label: "Tech Interview Q&A" },
+      { label: "Free Tools Hub", badge: "New", href: resourceRoutes.tools },
+      { label: "AI Interview Prep", badge: "Hot", href: resourceRoutes.interviewPrep },
+      { label: "CGPA to % Calculator", href: resourceRoutes.cgpa },
+      { label: "AI Cold Email Generator", badge: "New", href: resourceRoutes.coldEmail },
+      { label: "Find My Career Track", href: resourceRoutes.careerTrack },
+      { label: "Training Matcher", href: resourceRoutes.trainingMatcher },
+      { label: "Salary Estimator", href: resourceRoutes.salary },
+      { label: "Free Study Materials", badge: "Hot", href: resourceRoutes.studyMaterial },
+      { label: "Tech Interview Q&A", href: resourceRoutes.interviewQa },
     ],
   },
   {
     title: "Learning & Portals",
     text: "Free study notes, capstones, reviews and verification.",
     courses: [
-      { label: "Student Projects" },
-      { label: "Verify Certificate" },
-      { label: "Blogs" },
-      { label: "Events & Seminars" },
-      { label: "Campus Gallery", href: "/about#gallery" },
-      { label: "Student Reviews", href: "/#reviews" },
-      { label: "College Partnerships" },
-      { label: "All Pages Directory" },
+      { label: "Student Projects", href: resourceRoutes.projects },
+      { label: "Verify Certificate", href: resourceRoutes.verifyCertificate },
+      { label: "Blogs", href: resourceRoutes.blog },
+      { label: "Events & Seminars", href: resourceRoutes.events },
+      { label: "Campus Gallery", href: resourceRoutes.gallery },
+      { label: "Student Reviews", href: resourceRoutes.reviews },
+      { label: "FAQ", href: resourceRoutes.faq },
+      { label: "College Partnerships", href: resourceRoutes.partnerships },
+      { label: "All Pages Directory", href: resourceRoutes.pages },
     ],
   },
 ];
@@ -1057,9 +1058,12 @@ export const nav: NavItem[] = [
   },
   {
     label: "Resources",
-    href: "/#reviews",
+    href: resourceRoutes.pages,
     mega: "resources",
-    children: resourcesMenu.map((c) => ({ label: c.title, href: "/#contact" })),
+    // The phone menu lists every entry, since it has no mega menu.
+    children: resourcesMenu.flatMap((c) =>
+      c.courses.map((r) => ({ label: r.label, href: r.href ?? resourceRoutes.pages })),
+    ),
   },
   { label: "Branches", href: "/contact#branches", children: branches },
   { label: "Contact", href: "/contact" },
