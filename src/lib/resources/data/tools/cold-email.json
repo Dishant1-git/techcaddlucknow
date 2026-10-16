@@ -1,0 +1,424 @@
+{
+ "url": "https://techcaddmohali.com/tools/ai-cold-email-generator",
+ "title": "AI Cold Email & LinkedIn DM Generator for Tech Jobs & Internships | techcadd Lucknow",
+ "metaDescription": "Free AI cold email and LinkedIn message generator for developers, engineering students, and tech freshers. Create high-response cold emails, follow-ups, and 300-character LinkedIn connection notes tailored for internships and off-campus placements.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools",
+  "Cold Email Generator"
+ ],
+ "hero": {
+  "eyebrow": "Free AI Outreach Tool · Tailored for Developers & Students",
+  "h1": [
+   "AI Cold Email &",
+   "LinkedIn DM generator."
+  ],
+  "text": "Stop sending boring messages that get ignored. Generate personalized, high-response cold emails, follow-ups, and 300-character LinkedIn notes that get you tech interviews.",
+  "badges": [
+   "100% Free — Instant AI Generation",
+   "Strict 300-Char LinkedIn Note Constraint",
+   "Includes Proven Day-4 Follow-Up Templates",
+   "Tested Across 800+ techcadd Hiring Partners"
+  ]
+ },
+ "formPanel": {
+  "heading": "1. Outreach Setup & Audience",
+  "text": "Select your target profile to generate a high-response outreach message."
+ },
+ "inputs": [
+  {
+   "name": "track",
+   "label": "Your Target Tech Track",
+   "type": "select",
+   "options": [
+    "Full Stack Developer (MERN / Next.js)",
+    "Python & AI / ML Engineer",
+    "Data Analyst / Data Scientist",
+    "Cloud & DevOps Engineer",
+    "Cyber Security Analyst"
+   ],
+   "default": "mern",
+   "onChange": "resets skills & project fields to the track's defaultSkills/defaultProject"
+  },
+  {
+   "name": "goal",
+   "label": "Outreach Goal",
+   "type": "button-group",
+   "options": [
+    {
+     "id": "internship",
+     "label": "6 Months Training / Internship"
+    },
+    {
+     "id": "fresher_job",
+     "label": "Fresher Developer Job (0-1 Yrs)"
+    },
+    {
+     "id": "referral",
+     "label": "Referral Request for Open Role"
+    },
+    {
+     "id": "feedback",
+     "label": "Project Review & Quick Coffee Chat"
+    }
+   ],
+   "default": "internship"
+  },
+  {
+   "name": "recipientType",
+   "label": "Who Are You Messaging?",
+   "type": "button-group",
+   "options": [
+    {
+     "id": "founder",
+     "label": "Startup Founder / CEO",
+     "icon": "briefcase"
+    },
+    {
+     "id": "hr",
+     "label": "Corporate HR / Talent Recruiter",
+     "icon": "users"
+    },
+    {
+     "id": "tech_lead",
+     "label": "Engineering Manager / Tech Lead",
+     "icon": "code"
+    },
+    {
+     "id": "alumni",
+     "label": "Senior Engineer / Alum (Referral)",
+     "icon": "target"
+    }
+   ],
+   "default": "founder",
+   "note": "Selectable but NOT used in any template (cosmetic only)."
+  },
+  {
+   "name": "recipientName",
+   "label": "Recipient Name",
+   "type": "text",
+   "placeholder": "e.g. Priya",
+   "default": "Priya"
+  },
+  {
+   "name": "company",
+   "label": "Target Company",
+   "type": "text",
+   "placeholder": "e.g. Zomato / Google",
+   "default": "Acme Technologies"
+  },
+  {
+   "name": "yourName",
+   "label": "Your Name",
+   "type": "text",
+   "default": "Aman Sharma"
+  },
+  {
+   "name": "degree",
+   "label": "Degree / College",
+   "type": "text",
+   "default": "B.Tech CSE, PTU"
+  },
+  {
+   "name": "skills",
+   "label": "Top Technical Skills",
+   "type": "text",
+   "default": "(track defaultSkills)"
+  },
+  {
+   "name": "project",
+   "label": "Key Capstone / Project Highlight",
+   "type": "text",
+   "default": "(track defaultProject)"
+  },
+  {
+   "name": "github",
+   "label": "GitHub / Portfolio Link",
+   "type": "text",
+   "default": "github.com/amansharma-dev"
+  },
+  {
+   "name": "variation",
+   "type": "button",
+   "label": "Regenerate Variation",
+   "indicator": "Style {n} of 2",
+   "logic": "toggles 0/1; only changes the internship email subject (style 1 vs style 2)"
+  }
+ ],
+ "logic": "NOT AI — purely client-side string templates, regenerated live on every keystroke. trackShort = track.label.split('(')[0].trim() (e.g. 'Full Stack Developer'). Fallbacks: email uses recipient||'Hiring Team' and company||'your engineering team'; LinkedIn note uses recipient||'there' and company||'your team'; DM uses recipient||'there' and company||'your company'. Goal 'fresher_job' and 'feedback' both use the default (else) branch. firstTwoSkills = skills.split(',').slice(0,2).join(','). LinkedIn note shows 'Character Count: {len} / 300 characters' (red if >300, green otherwise) and a status 'Over 300 Chars Limit' / 'Safe to Send ✓'. Copy buttons write to clipboard and show 'Copied!'/'Copied All!' for 2.5s. Copy Full Email copies 'Subject: {subject}\\n\\n{body}'.",
+ "outputTabs": [
+  {
+   "id": "email",
+   "label": "Cold Email & Follow-up",
+   "icon": "mail",
+   "cards": [
+    {
+     "eyebrow": "Primary Cold Email",
+     "heading": "Optimized for 45%+ Open Rate",
+     "buttons": [
+      "Copy Full Email",
+      "Copy Subject"
+     ],
+     "labels": [
+      "Subject Line:",
+      "Email Body:"
+     ]
+    },
+    {
+     "eyebrow": "Day 4 Follow-Up Email",
+     "heading": "Doubles Response Probability",
+     "buttons": [
+      "Copy Follow-Up"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "linkedin_note",
+   "label": "LinkedIn Note (300 Chars)",
+   "icon": "messageSquare",
+   "cards": [
+    {
+     "eyebrow": "LinkedIn Connection Request",
+     "heading": "Hard 300-Character Constraint Checked",
+     "buttons": [
+      "Copy Note"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "linkedin_dm",
+   "label": "LinkedIn DM / InMail",
+   "icon": "send",
+   "cards": [
+    {
+     "eyebrow": "LinkedIn Direct Message / InMail",
+     "heading": "For 1st-Degree Connections",
+     "buttons": [
+      "Copy DM"
+     ]
+    }
+   ]
+  }
+ ],
+ "data": {
+  "tracks": [
+   {
+    "id": "mern",
+    "label": "Full Stack Developer (MERN / Next.js)",
+    "defaultSkills": "React 19, Next.js, Node.js, Express, MongoDB, TypeScript",
+    "defaultProject": "Production E-Commerce Platform with Stripe payments & SSR"
+   },
+   {
+    "id": "ai_python",
+    "label": "Python & AI / ML Engineer",
+    "defaultSkills": "Python, FastAPI, PyTorch, LangChain, RAG Pipelines, Vector DBs",
+    "defaultProject": "Multi-Agent AI Document Assistant with RAG & LangChain"
+   },
+   {
+    "id": "data_analyst",
+    "label": "Data Analyst / Data Scientist",
+    "defaultSkills": "Python, SQL, Power BI, Pandas, Scikit-Learn, Tableau",
+    "defaultProject": "Customer Churn Prediction Dashboard with 92% model accuracy"
+   },
+   {
+    "id": "devops_cloud",
+    "label": "Cloud & DevOps Engineer",
+    "defaultSkills": "Docker, Kubernetes, AWS, GitHub Actions, Terraform, Linux",
+    "defaultProject": "Automated Microservices CI/CD Pipeline on AWS ECS with zero downtime"
+   },
+   {
+    "id": "cyber",
+    "label": "Cyber Security Analyst",
+    "defaultSkills": "Network Security, Wireshark, Penetration Testing, OWASP Top 10, Linux",
+    "defaultProject": "Enterprise Web Vulnerability Assessment & Hardening Audit Report"
+   }
+  ],
+  "templates": {
+   "email": {
+    "internship": {
+     "subject_style1": "Application: 6 Months Industrial Trainee ({trackShort}) — {yourName}",
+     "subject_style2": "Quick question regarding {companyOrYourEngineeringTeam}'s engineering internship — {yourName}",
+     "body": "Hi {recipientOrHiringTeam},\n\nI’ve been following {companyOrYourEngineeringTeam}’s engineering work, especially your focus on building performant web products.\n\nI am a final-year student ({degree}) trained at techcadd Lucknow, specializing in {skills}. Rather than just coursework, I’ve built practical production projects, including a {project} ({github}).\n\nI’m looking for a 6-month industrial internship starting this semester. Could I contribute to your team by shipping bug fixes, writing modular components, and assisting your senior engineers?\n\nI’ve attached my resume and live GitHub repository. Would you be open to a 10-minute introductory call next Tuesday?\n\nBest regards,\n{yourName}\n{github}\n+91 98XXX XXXXX",
+     "followUp": "Hi {recipientOrHiringTeam},\n\nI know you're busy scaling {companyOrYourEngineeringTeam}, so I wanted to gently follow up on my note from earlier this week regarding an engineering internship.\n\nSince then, I’ve open-sourced a new update for my {project} addressing API latency and edge-case handling ({github}).\n\nI’d love 10 minutes to share how I can assist your team right away. If the timing isn't right, no worries at all!\n\nBest,\n{yourName}"
+    },
+    "referral": {
+     "subject": "Referral request for {trackShort} role at {companyOrYourEngineeringTeam} — {yourName}",
+     "body": "Hi {recipientOrHiringTeam},\n\nHope you're having a great week! I came across your profile on LinkedIn and was really inspired by your journey at {companyOrYourEngineeringTeam}.\n\nI am applying for the Junior {trackShort} opening (Job ID: #1042). I have hands-on experience in {skills} and recently completed an end-to-end {project}.\n\nGiven your expertise with the team, would you be open to reviewing my code repository ({github}) and considering me for an internal referral?\n\nI've made sure to keep my resume concise and tailored. Thank you for your time and guidance!\n\nWarm regards,\n{yourName}\nLinkedIn: in/{yourNameLowerNoSpaces}",
+     "followUp": "Hi {recipientOrHiringTeam},\n\nFollowing up briefly in case this got buried in your inbox. If you have 3 minutes to review my resume or GitHub ({github}), I'd be incredibly grateful.\n\nRegardless, keep up the amazing work at {companyOrYourEngineeringTeam}!\n\nBest,\n{yourName}"
+    },
+    "fresher_job_and_feedback(default branch)": {
+     "subject": "Junior {trackShort} candidate — {yourName} (Projects & Code inside)",
+     "body": "Hi {recipientOrHiringTeam},\n\nI'm reaching out because I love what {companyOrYourEngineeringTeam} is building and would love to contribute as a {trackShort}.\n\nOver the past 6 months at techcadd Lucknow, I've spent 600+ hours coding with {skills}. My flagship project is a {project}, featuring responsive design, clean architecture, and live deployment at {github}.\n\nI’m ready to hit the ground running without needing months of hand-holding. Are you available for a brief 10-minute chat this week to discuss how I can add value to your roadmap?\n\nCheers,\n{yourName}\nGitHub: {github}",
+     "followUp": "Hi {recipientOrHiringTeam},\n\nQuick follow-up on my note below. I understand you receive dozens of emails daily, so I’ll keep it brief: I'm ready to take a technical test or build a small take-home assignment to prove my abilities.\n\nLet me know if you have 5 minutes this Thursday!\n\nBest,\n{yourName}"
+    }
+   },
+   "linkedinNote": {
+    "internship": "Hi {recipientOrThere}, love {companyOrYourTeam}'s tech work! I'm a {degree} grad trained in {firstTwoSkills}. Built a live {projectFirstWord} project ({github}). Seeking 6M internship—would love to connect!",
+    "referral": "Hi {recipientOrThere}, inspired by your work at {companyOrYourTeam}! I'm applying for the {trackShort} role with strong skills in {firstTwoSkills}. Would love to connect and seek your guidance/referral.",
+    "default": "Hi {recipientOrThere}, admire {companyOrYourTeam}'s engineering! I'm a {trackShort} skilled in {firstTwoSkills}. Built live production projects at {github}. Would love to connect!"
+   },
+   "linkedinDm": "Hi {recipientOrThere},\n\nThanks for connecting! I've been following {companyOrYourCompany}'s tech updates and really admire your engineering culture.\n\nI'm a {trackShort} specializing in {skills}. Recently, I engineered a {project}, resolving key performance and architectural challenges (Live code: {github}).\n\nI'm actively exploring {goal==internship ? \"a 6-month industrial internship\" : \"entry-level developer opportunities\"} and would love to know if your team is open to motivated freshers who can write clean, production-ready code.\n\nWould you be open to a 5-minute call or reviewing my resume?\n\nBest,\n{yourName}"
+  },
+  "templatesRaw_js": [
+   "Application: 6 Months Industrial Trainee (${C.label.split(\"(\")[0].trim()}) — ${S}",
+   "Quick question regarding ${c}'s engineering internship — ${S}",
+   "Hi ${u},\n\nI’ve been following ${c}’s engineering work, especially your focus on building performant web products.\n\nI am a final-year student (${P}) trained at techcadd Lucknow, specializing in ${z}. Rather than just coursework, I’ve built practical production projects, including a ${E} (${L}).\n\nI’m looking for a 6-month industrial internship starting this semester. Could I contribute to your team by shipping bug fixes, writing modular components, and assisting your senior engineers?\n\nI’ve attached my resume and live GitHub repository. Would you be open to a 10-minute introductory call next Tuesday?\n\nBest regards,\n${S}\n${L}\n+91 98XXX XXXXX",
+   "Hi ${u},\n\nI know you're busy scaling ${c}, so I wanted to gently follow up on my note from earlier this week regarding an engineering internship.\n\nSince then, I’ve open-sourced a new update for my ${E} addressing API latency and edge-case handling (${L}).\n\nI’d love 10 minutes to share how I can assist your team right away. If the timing isn't right, no worries at all!\n\nBest,\n${S}",
+   "Referral request for ${C.label.split(\"(\")[0].trim()} role at ${c} — ${S}",
+   "Hi ${u},\n\nHope you're having a great week! I came across your profile on LinkedIn and was really inspired by your journey at ${c}.\n\nI am applying for the Junior ${C.label.split(\"(\")[0].trim()} opening (Job ID: #1042). I have hands-on experience in ${z} and recently completed an end-to-end ${E}.\n\nGiven your expertise with the team, would you be open to reviewing my code repository (${L}) and considering me for an internal referral?\n\nI've made sure to keep my resume concise and tailored. Thank you for your time and guidance!\n\nWarm regards,\n${S}\nLinkedIn: in/${S.toLowerCase().replace(/\\s+/g,\"\")}",
+   "Hi ${u},\n\nFollowing up briefly in case this got buried in your inbox. If you have 3 minutes to review my resume or GitHub (${L}), I'd be incredibly grateful.\n\nRegardless, keep up the amazing work at ${c}!\n\nBest,\n${S}",
+   "Junior ${C.label.split(\"(\")[0].trim()} candidate — ${S} (Projects & Code inside)",
+   "Hi ${u},\n\nI'm reaching out because I love what ${c} is building and would love to contribute as a ${C.label.split(\"(\")[0].trim()}.\n\nOver the past 6 months at techcadd Lucknow, I've spent 600+ hours coding with ${z}. My flagship project is a ${E}, featuring responsive design, clean architecture, and live deployment at ${L}.\n\nI’m ready to hit the ground running without needing months of hand-holding. Are you available for a brief 10-minute chat this week to discuss how I can add value to your roadmap?\n\nCheers,\n${S}\nGitHub: ${L}",
+   "Hi ${u},\n\nQuick follow-up on my note below. I understand you receive dozens of emails daily, so I’ll keep it brief: I'm ready to take a technical test or build a small take-home assignment to prove my abilities.\n\nLet me know if you have 5 minutes this Thursday!\n\nBest,\n${S}",
+   "Hi ${m}, love ${x}'s tech work! I'm a ${P} grad trained in ${z.split(\",\").slice(0,2).join(\",\")}. Built a live ${E.split(\" \")[0]} project (${L}). Seeking 6M internship—would love to connect!",
+   "Hi ${m}, inspired by your work at ${x}! I'm applying for the ${C.label.split(\"(\")[0].trim()} role with strong skills in ${z.split(\",\").slice(0,2).join(\",\")}. Would love to connect and seek your guidance/referral.",
+   "Hi ${m}, admire ${x}'s engineering! I'm a ${C.label.split(\"(\")[0].trim()} skilled in ${z.split(\",\").slice(0,2).join(\",\")}. Built live production projects at ${L}. Would love to connect!",
+   "Hi ${p},\n\nThanks for connecting! I've been following ${h}'s tech updates and really admire your engineering culture.\n\nI'm a ${C.label.split(\"(\")[0].trim()} specializing in ${z}. Recently, I engineered a ${E}, resolving key performance and architectural challenges (Live code: ${L}).\n\nI'm actively exploring ${\"internship\"===j?\"a 6-month industrial internship\":\"entry-level developer opportunities\"} and would love to know if your team is open to motivated freshers who can write clean, production-ready code.\n\nWould you be open to a 5-minute call or reviewing my resume?\n\nBest,\n${S}"
+  ],
+  "tipsBox": {
+   "heading": "techcadd Placement Cell Rules for High Reply Rates",
+   "tips": [
+    {
+     "label": "Best Time:",
+     "text": "Send between 9:30 AM – 11:30 AM on Tuesday to Thursday for 3x replies."
+    },
+    {
+     "label": "Proof Over Claims:",
+     "text": "Always link a deployed URL or GitHub repo rather than generic PDF attachments."
+    },
+    {
+     "label": "Keep It Under 120 Words:",
+     "text": "Busy founders and VP engineers read emails on phones in under 15 seconds."
+    },
+    {
+     "label": "Always Follow Up:",
+     "text": "65% of replies happen on the 2nd follow-up message sent 4 days later."
+    }
+   ],
+   "footer": {
+    "text": "Need mock interview practice before speaking to recruiters?",
+    "cta": "Practice with AI Simulator",
+    "href": "/tools/ai-interview-prep"
+   }
+  }
+ },
+ "sections": [
+  {
+   "eyebrow": "Proven Outreach Anatomy",
+   "heading": "The 4-Part Structure of a High-Conversion Developer Cold Email",
+   "text": "Engineered to be read in under 15 seconds on mobile devices by busy engineering managers and founders.",
+   "items": [
+    {
+     "title": "1. The Relevance Hook",
+     "text": "Never start with 'I hope this finds you well.' Start with genuine recognition of what their engineering team or company just shipped."
+    },
+    {
+     "title": "2. Tangible Code Proof",
+     "text": "Claims mean nothing without proof. Mention your live deployed capstone and GitHub link right in the second paragraph."
+    },
+    {
+     "title": "3. Clear Immediate Value",
+     "text": "Explain what tasks you can take off their plate immediately (shipping frontend components, resolving backlog bugs, writing automated unit tests)."
+    },
+    {
+     "title": "4. Zero-Friction CTA",
+     "text": "Don't ask for a 30-minute interview. Ask for a casual 10-minute introductory call or invite them to glance at your repository."
+    }
+   ]
+  },
+  {
+   "eyebrow": "Frequently Asked Questions",
+   "heading": "Mastering Cold Outreach for Tech Placements",
+   "text": "Real insights from techcadd Lucknow's placement department on how our students crack off-campus interviews."
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "AI Mock Interview Prep",
+     "text": "Practice real-time technical and behavioral interview questions with AI voice simulations, scoring metrics, and personalized feedback.",
+     "cta": "Prepare with AI",
+     "href": "/tools/ai-interview-prep"
+    },
+    {
+     "title": "CGPA to Percentage Calculator",
+     "text": "Instant university formula converter supporting PTU, Panjab University, CBSE, and Chitkara with placement eligibility check.",
+     "cta": "Calculate my percentage",
+     "href": "/tools/cgpa-to-percentage-calculator"
+    },
+    {
+     "title": "Placements & career support",
+     "text": "Resume building, mock interviews, aptitude and DSA practice, and hiring drives with 450+ partner companies.",
+     "cta": "See how placement works",
+     "href": "/techcadd-lucknow-placements"
+    }
+   ]
+  }
+ ],
+ "faqs": [
+  {
+   "q": "Why do cold emails work better than standard job portal applications?",
+   "a": "Standard job boards (Naukri, Indeed, LinkedIn Jobs) receive 500+ applicants within 2 hours for a single opening, creating intense competition where resumes get lost in ATS filters. Cold emailing an engineering manager or founder directly puts your live project proof directly in their primary inbox with zero competition."
+  },
+  {
+   "q": "What is the secret to high reply rates on LinkedIn connection notes?",
+   "a": "Keep it strictly under 300 characters, personalize the recipient's name, mention 1-2 core skills, and provide a direct link to your code or project proof. Do not pitch immediately in the connection note; establish mutual technical respect first."
+  },
+  {
+   "q": "Why is the follow-up email so important?",
+   "a": "Industry data and techcadd placement cell records show that over 65% of positive responses happen on the second follow-up email sent 3-4 days later. Recruiters and founders are busy; a polite, value-adding follow-up demonstrates persistence and professionalism."
+  },
+  {
+   "q": "Can I use these templates for 6 Months Industrial Training applications?",
+   "a": "Yes! The generator includes specialized templates designed specifically for final-year B.Tech, BCA, MCA, and Polytechnic students applying for approved 6 Months Industrial Training internships."
+  },
+  {
+   "q": "How does techcadd Lucknow support students in reaching recruiters?",
+   "a": "In addition to teaching full-stack coding and live project engineering, techcadd Lucknow's dedicated placement cell directly connects students with our network of 800+ hiring partners, arranges offline campus drives, and reviews portfolio outreach materials."
+  }
+ ],
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas). Templates extracted verbatim from the client JS; templatesRaw_js keeps the original JS template literals (variables: S=yourName, P=degree, A=company, H=recipient, z=skills, E=project, L=github, C=track, j=goal)."
+}

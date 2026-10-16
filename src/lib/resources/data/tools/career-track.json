@@ -1,0 +1,401 @@
+{
+ "url": "https://techcaddmohali.com/tools/career-track",
+ "title": "Find My Career Track — Free IT & CAD Career Quiz | techcadd Lucknow",
+ "metaDescription": "Four quick questions to find your optimal IT or CAD track: Full Stack, AI & Data, Cybersecurity & Cloud, Digital Marketing, or CAD. Get matched courses and a free 90-day action roadmap.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools",
+  "Career Track"
+ ],
+ "hero": {
+  "eyebrow": "Free tool · 4 questions · PDF roadmap",
+  "h1": [
+   "Find my IT / CAD",
+   "career track."
+  ],
+  "text": "Four questions, then a 90-day plan you can actually follow: the course that fits, the job titles to apply for, and what to build first. Download it as a PDF. No form, no email, no catch.",
+  "badges": [
+   "100% free — always",
+   "Results shown instantly",
+   "No spam, ever"
+  ]
+ },
+ "inputs": [
+  {
+   "type": "quiz",
+   "steps": [
+    "Interest",
+    "Background",
+    "Reward",
+    "Goal"
+   ],
+   "progress": "stepper 1-4 (completed steps show a check)",
+   "questionHeader": "Question {n} of 4",
+   "optionLetters": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ],
+   "behaviour": "Click an option -> highlights for 240ms then auto-advances; 'Back' button shown when n>1 (goes back one question)."
+  }
+ ],
+ "logic": "Each option maps to one category. After 4 answers, count answers per category; winner = category with the highest count, ties broken by the order of the categories list [ai-data, development, cyber-cloud, digital-marketing, cad-design, programming] (first with the max count wins; strict > comparison). Recommended course = courseByCategory[winner].",
+ "result": {
+  "container": "#career-roadmap (print CSS hides everything else so 'Download as PDF' = window.print())",
+  "eyebrow": "Your best-fit track",
+  "heading": "{category.title} (with category icon)",
+  "text": "{category.blurb}",
+  "courseCard": {
+   "eyebrow": "Recommended course",
+   "title": "{course.title}",
+   "text": "{course.blurb}",
+   "chips": [
+    "{course.duration ?? 'Flexible sessions'} (clock icon)",
+    "{course.roles[0]} · {course.roles[1]} (briefcase icon)"
+   ]
+  },
+  "roadmap": {
+   "eyebrow": "Your 90-day roadmap",
+   "steps": [
+    {
+     "title": "Free counselling call",
+     "body": "Confirm {course.title} is the right fit and lock a session that matches your schedule."
+    },
+    {
+     "title": "Start {course.title}",
+     "body": "{course.duration} of live, project-based classes with a working trainer. (fallback: 'Live, project-based classes with a working trainer.')"
+    },
+    {
+     "title": "Portfolio piece + placement support",
+     "body": "Finish with a project you can show in interviews and introductions to our hiring partners."
+    }
+   ]
+  },
+  "buttons": [
+   {
+    "label": "Talk to a counsellor",
+    "href": "/contact"
+   },
+   {
+    "label": "See matching courses",
+    "href": "/courses?category={category.key}"
+   },
+   {
+    "label": "Download as PDF",
+    "action": "window.print()"
+   },
+   {
+    "label": "Retake the quiz",
+    "action": "reset answers, go to Q1"
+   }
+  ],
+  "footerLinks": [
+   "Need this for university-mandated training? Match your semester to a live project track. (/tools/training-matcher)",
+   "Curious what {category.title} roles actually pay? Check the Salary Estimator. (/tools/salary-estimator)"
+  ]
+ },
+ "data": {
+  "questions": [
+   {
+    "label": "Interest",
+    "question": "Which of these would you happily do for a whole afternoon?",
+    "sub": "Pick the one you would not have to force yourself through.",
+    "options": [
+     {
+      "title": "Build a working app or website",
+      "desc": "Writing code, watching a screen come alive, fixing what breaks.",
+      "category": "development"
+     },
+     {
+      "title": "Draw and model a real object",
+      "desc": "Dimensions, sections, assemblies — a part that could be manufactured.",
+      "category": "cad-design"
+     },
+     {
+      "title": "Grow a page's traffic and enquiries",
+      "desc": "Keywords, ad copy, analytics, and the numbers moving week on week.",
+      "category": "digital-marketing"
+     },
+     {
+      "title": "Set up servers and keep them running",
+      "desc": "Linux, deployments, backups, and being the one who fixes it at 2am.",
+      "category": "cyber-cloud"
+     }
+    ]
+   },
+   {
+    "label": "Background",
+    "question": "Which subject pulled you in at school or college?",
+    "sub": "Whatever came easiest, not what you think sounds impressive.",
+    "options": [
+     {
+      "title": "Maths, statistics or physics",
+      "desc": "You'd rather find the pattern than memorise the formula.",
+      "category": "ai-data"
+     },
+     {
+      "title": "Computer science or coding classes",
+      "desc": "Loops and logic made more sense to you than most subjects.",
+      "category": "programming"
+     },
+     {
+      "title": "Art or technical drawing",
+      "desc": "You think in shapes, layouts and how things fit together.",
+      "category": "cad-design"
+     },
+     {
+      "title": "Business, economics or communication",
+      "desc": "You notice what makes people click, buy or reply.",
+      "category": "digital-marketing"
+     }
+    ]
+   },
+   {
+    "label": "Reward",
+    "question": "What would make a work day feel like a win?",
+    "sub": "Pick the outcome you would actually feel proud of.",
+    "options": [
+     {
+      "title": "Cracking a bug nobody else could find",
+      "desc": "The satisfaction of a stack trace finally making sense.",
+      "category": "programming"
+     },
+     {
+      "title": "Spotting the pattern in a messy dataset",
+      "desc": "Turning a spreadsheet nobody wanted to touch into an answer.",
+      "category": "ai-data"
+     },
+     {
+      "title": "Catching a threat before it becomes a breach",
+      "desc": "Being the reason nothing went wrong today.",
+      "category": "cyber-cloud"
+     },
+     {
+      "title": "A campaign report with the numbers trending up",
+      "desc": "Proof that what you built actually worked.",
+      "category": "digital-marketing"
+     }
+    ]
+   },
+   {
+    "label": "Goal",
+    "question": "What's the plan for the next 6–12 months?",
+    "sub": "Where you want to be standing this time next year.",
+    "options": [
+     {
+      "title": "Ship real software and land a developer role",
+      "desc": "Portfolio projects, a GitHub that looks lived-in, interview-ready code.",
+      "category": "development"
+     },
+     {
+      "title": "Get fluent in AI and data tools",
+      "desc": "Move from curious about AI to actually building with it.",
+      "category": "ai-data"
+     },
+     {
+      "title": "Move into cloud, networking or security",
+      "desc": "Certifications and hands-on labs, not just theory.",
+      "category": "cyber-cloud"
+     },
+     {
+      "title": "Get hands-on with CAD for a design role",
+      "desc": "Drawings and models that meet a real production standard.",
+      "category": "cad-design"
+     }
+    ]
+   }
+  ],
+  "categories": [
+   {
+    "key": "ai-data",
+    "title": "Artificial Intelligence & Data",
+    "blurb": "Generative AI, machine learning, analytics and the tooling that ships models to production.",
+    "icon": "sparkles"
+   },
+   {
+    "key": "development",
+    "title": "Full-Stack Development",
+    "blurb": "MERN, MEAN and PHP stacks — build, test and deploy real applications end to end.",
+    "icon": "code"
+   },
+   {
+    "key": "cyber-cloud",
+    "title": "Cyber Security & Cloud",
+    "blurb": "Ethical hacking, network defence, Linux and cloud infrastructure on AWS and Azure.",
+    "icon": "shield"
+   },
+   {
+    "key": "digital-marketing",
+    "title": "Digital Marketing",
+    "blurb": "SEO, paid ads, social, analytics and AI-assisted campaigns that actually convert.",
+    "icon": "megaphone"
+   },
+   {
+    "key": "cad-design",
+    "title": "CAD / CAM & Design",
+    "blurb": "AutoCAD, SolidWorks, Revit and 3ds Max for mechanical, civil and architectural work.",
+    "icon": "cube"
+   },
+   {
+    "key": "programming",
+    "title": "Core Programming",
+    "blurb": "C, C++, Java, Python and DSA — the fundamentals every interview is built on.",
+    "icon": "terminal"
+   }
+  ],
+  "courseByCategory": {
+   "development": {
+    "slug": "mern-full-stack",
+    "title": "MERN Full Stack Development",
+    "blurb": "MongoDB, Express, React and Node — one language, end to end, with authentication and cloud deployment.",
+    "duration": "4 – 6 Months",
+    "roles": [
+     "MERN Stack Developer",
+     "Frontend Developer (React)",
+     "Backend Developer (Node.js)",
+     "Full Stack Developer",
+     "API Developer"
+    ]
+   },
+   "cad-design": {
+    "slug": "autocad",
+    "title": "AutoCAD",
+    "blurb": "2D drafting and 3D modelling for mechanical, civil and architectural drawings.",
+    "duration": "1 – 3 Months",
+    "roles": [
+     "CAD Drafter",
+     "Junior Design Engineer",
+     "Architectural Assistant",
+     "Interior Design Assistant",
+     "Freelance CAD Designer"
+    ]
+   },
+   "digital-marketing": {
+    "slug": "digital-marketing",
+    "title": "Digital Marketing",
+    "blurb": "SEO, Google Ads, Meta Ads, social, content, email, analytics and AI-powered marketing tools — the full ecosystem, taught hands-on.",
+    "duration": "4 Months",
+    "roles": [
+     "Digital Marketing Executive",
+     "SEO Executive",
+     "Social Media Executive",
+     "Google Ads / PPC Specialist",
+     "Content Marketing Executive",
+     "Digital Marketing Analyst"
+    ]
+   },
+   "cyber-cloud": {
+    "slug": "cyber-security",
+    "title": "Cyber Security",
+    "blurb": "Ethical hacking, network security, penetration testing and threat analysis — taught hands-on in Lucknow.",
+    "duration": "6 Months",
+    "roles": [
+     "SOC Analyst",
+     "Junior Penetration Tester",
+     "Security Analyst",
+     "IT Security Support Specialist",
+     "Vulnerability Assessment Associate",
+     "Security Consultant"
+    ]
+   },
+   "ai-data": {
+    "slug": "artificial-intelligence",
+    "title": "Artificial Intelligence",
+    "blurb": "Python, machine learning, deep learning and NLP together — the complete AI foundation, not one narrow slice.",
+    "duration": "3 – 9 Months",
+    "roles": [
+     "AI Engineer",
+     "ML Engineer",
+     "Data Scientist",
+     "AI Product Analyst"
+    ]
+   },
+   "programming": {
+    "slug": "python-programming",
+    "title": "Python Programming",
+    "blurb": "Fundamentals to OOP, data structures, NumPy, Pandas and Django — from your first line of code to real applications.",
+    "duration": "6 Months",
+    "roles": [
+     "Python Developer",
+     "Junior Data Analyst",
+     "Automation Engineer",
+     "Backend Developer (Django)",
+     "QA / Testing Engineer"
+    ]
+   },
+   "office-skills (unreachable from quiz)": {
+    "slug": "basic-computer-office-skills"
+   }
+  }
+ },
+ "sections": [
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "All courses",
+     "text": "Sixteen job-oriented tracks — AI, full stack, data, cyber security, cloud, digital marketing and CAD, each with live projects and placement support.",
+     "cta": "Browse the catalogue",
+     "href": "/courses"
+    },
+    {
+     "title": "AI Mock Interview Prep",
+     "text": "Practice real-time technical and behavioral interview questions with AI voice simulations, scoring metrics, and personalized feedback.",
+     "cta": "Prepare with AI",
+     "href": "/tools/ai-interview-prep"
+    },
+    {
+     "title": "Salary estimator",
+     "text": "Fresher and two-year salary ranges by role across Uttar Pradesh, Delhi NCR and remote work — and where graduates actually get hired.",
+     "cta": "Check the ranges",
+     "href": "/tools/salary-estimator"
+    }
+   ]
+  }
+ ],
+ "faqs": [],
+ "faqNote": "No FAQ section on this page.",
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas). Quiz/result logic from page JS chunk; categories & course data from the shared courses module."
+}

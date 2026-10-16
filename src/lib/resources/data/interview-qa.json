@@ -1,0 +1,318 @@
+{
+ "url": "https://techcaddmohali.com/tech-interview-questions-and-answers",
+ "title": "Top Tech Interview Questions & Answers — Lucknow IT Placement Guide | techcadd | techcadd Lucknow",
+ "metaDescription": "Master your upcoming technical interview with top curated interview questions and expert answers in Full Stack, Python, Data Science, AI, Cyber Security, and HR rounds. Based on actual hiring drives across Lucknow IT companies.",
+ "breadcrumb": [
+  "Home",
+  "Resources",
+  "Interview Questions"
+ ],
+ "hero": {
+  "eyebrow": "Placement Cell Technical Guide",
+  "heading": "Top Tech Interview Questions & Answers for IT Placements",
+  "text": "Vetted by senior engineering leads and recruiters from 450+ hiring partners across Lucknow IT City and Lucknow IT Park. Curated across MERN, Python, AI, Data Science, Cyber Security, and HR rounds."
+ },
+ "subPages": "None exist: the page links to no per-technology sub-pages; all Q&As are on this single page.",
+ "sections": [
+  {
+   "heading": "Hero badges",
+   "items": [
+    {
+     "title": "450+ Hiring Partners"
+    },
+    {
+     "title": "Real Interview Drives"
+    },
+    {
+     "title": "Full Stack"
+    },
+    {
+     "title": "AI & GenAI"
+    },
+    {
+     "title": "Data Science"
+    },
+    {
+     "title": "HR Rounds"
+    },
+    {
+     "title": "Recruiter Insights"
+    }
+   ]
+  },
+  {
+   "heading": "Four rules to clear technical rounds in Lucknow IT drives",
+   "eyebrow": "Recruiter Insights",
+   "text": "Guidance from techcadd Corporate Relations Cell based on candidate feedback from 12,450+ interviews.",
+   "items": [
+    {
+     "title": "1. Build an Inspectable GitHub",
+     "text": "Commit daily with semantic commit messages. Ensure every repository has a comprehensive README with architecture diagrams and live demo URLs."
+    },
+    {
+     "title": "2. Master Core Fundamentals",
+     "text": "Recruiters look for foundational problem-solving abilities: data structures, async flows, database indexing, and network fundamentals."
+    },
+    {
+     "title": "3. Prepare for Live Coding",
+     "text": "Practice solving technical algorithms on a shared screen or whiteboard while verbalizing your thought process and edge-case handling."
+    },
+    {
+     "title": "4. Highlight Live Project Experience",
+     "text": "Speak about live client projects completed during your 6-month industrial training at techcadd rather than simple classroom tutorials."
+    }
+   ]
+  },
+  {
+   "heading": "MERN Stack & Web Engineering",
+   "eyebrow": "Domain 01",
+   "items": [
+    {
+     "title": "What is the difference between React Server Components (RSC) and Client Components?",
+     "meta": "Q1"
+    },
+    {
+     "title": "How does the Node.js Event Loop manage asynchronous I/O?",
+     "meta": "Q2"
+    },
+    {
+     "title": "How do you optimize MongoDB query performance for high-traffic applications?",
+     "meta": "Q3"
+    },
+    {
+     "title": "What is the difference between JWT authentication and Session-based authentication?",
+     "meta": "Q4"
+    }
+   ]
+  },
+  {
+   "heading": "Python, AI & Data Science",
+   "eyebrow": "Domain 02",
+   "items": [
+    {
+     "title": "What is Retrieval-Augmented Generation (RAG) and why is it preferred over fine-tuning?",
+     "meta": "Q1"
+    },
+    {
+     "title": "How do you detect and handle overfitting in Machine Learning models?",
+     "meta": "Q2"
+    },
+    {
+     "title": "What is the difference between supervised, unsupervised, and reinforcement learning?",
+     "meta": "Q3"
+    },
+    {
+     "title": "Explain the difference between SQL Window Functions and GROUP BY aggregation.",
+     "meta": "Q4"
+    }
+   ]
+  },
+  {
+   "heading": "Cyber Security & Cloud Infrastructure",
+   "eyebrow": "Domain 03",
+   "items": [
+    {
+     "title": "How do you effectively prevent SQL Injection (SQLi) vulnerabilities in web applications?",
+     "meta": "Q1"
+    },
+    {
+     "title": "What is the difference between Symmetric and Asymmetric Encryption?",
+     "meta": "Q2"
+    },
+    {
+     "title": "What are Docker containers and how do they differ from Virtual Machines (VMs)?",
+     "meta": "Q3"
+    },
+    {
+     "title": "Explain the concept of AWS VPC and Security Groups vs Network ACLs.",
+     "meta": "Q4"
+    }
+   ]
+  },
+  {
+   "heading": "HR & Technical Behavioral Rounds",
+   "eyebrow": "Domain 04",
+   "items": [
+    {
+     "title": "How do you explain your technical capstone project in a 3-minute recruiter pitch?",
+     "meta": "Q1"
+    },
+    {
+     "title": "What do you do when you encounter a critical bug or production blocker you cannot solve?",
+     "meta": "Q2"
+    },
+    {
+     "title": "Why do you want to start your tech career with IT companies in Lucknow?",
+     "meta": "Q3"
+    }
+   ]
+  },
+  {
+   "heading": "Ready to Test Your Answers in a Live AI Simulation?",
+   "eyebrow": "AI-Powered Mock Interview Simulator",
+   "text": "Don't just read questions — generate a fresh set for your track and level with our free AI interview prep tool, each with a model answer and what the interviewer is really looking for.",
+   "items": [
+    {
+     "title": "Practice with AI Interview Prep",
+     "href": "/tools/ai-interview-prep"
+    }
+   ]
+  },
+  {
+   "heading": "Want 1:1 Mock Technical Interviews & Resume Overhauls?",
+   "eyebrow": "100% Placement Support",
+   "text": "Every student in techcadd 6-month and 9-month tracks goes through structured technical mock rounds until recruiter feedback is flawless.",
+   "items": [
+    {
+     "title": "Explore Placement Assistance",
+     "href": "/techcadd-lucknow-placements"
+    },
+    {
+     "title": "Book Free Career Counselling",
+     "href": "/contact"
+    }
+   ]
+  },
+  {
+   "heading": "Where to go next",
+   "eyebrow": "Keep exploring",
+   "items": [
+    {
+     "title": "AI Mock Interview Prep",
+     "text": "Practice real-time technical and behavioral interview questions with AI voice simulations, scoring metrics, and personalized feedback.",
+     "cta": "Prepare with AI",
+     "href": "/tools/ai-interview-prep"
+    },
+    {
+     "title": "Free study material & cheat sheets",
+     "text": "Curated coding cheat sheets, Python notes, AI guides, and university syllabus blueprints.",
+     "cta": "Download free resources",
+     "href": "/free-study-material-and-resources"
+    },
+    {
+     "title": "Student projects & capstones",
+     "text": "Inspect genuine production capstones, autonomous AI agents, and full stack applications engineered by techcadd students.",
+     "cta": "Explore student projects",
+     "href": "/student-projects-portfolio"
+    }
+   ]
+  },
+  {
+   "heading": "Start building your career today.",
+   "eyebrow": "Ready to get started?",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "items": [
+    {
+     "title": "Book Demo",
+     "meta": "button (mobile number form)"
+    },
+    {
+     "title": "Call now",
+     "text": "{{phone}}",
+     "href": "tel:{{phone}}"
+    },
+    {
+     "title": "Free career counselling"
+    },
+    {
+     "title": "No registration fee"
+    },
+    {
+     "title": "Placement support included"
+    }
+   ]
+  }
+ ],
+ "qa": [
+  {
+   "category": "MERN Stack & Web Engineering",
+   "num": "Q1",
+   "q": "What is the difference between React Server Components (RSC) and Client Components?",
+   "a": "React Server Components execute strictly on the server during the build or request time, shipping zero client-side JavaScript bundle for their logic. They can directly query databases, read backend filesystems, and protect sensitive API keys. Client Components ('use client') run on the browser, manage interactive state (useState, useReducer), and bind browser event listeners (onClick, onChange)."
+  },
+  {
+   "category": "MERN Stack & Web Engineering",
+   "num": "Q2",
+   "q": "How does the Node.js Event Loop manage asynchronous I/O?",
+   "a": "Node.js uses an event-driven, single-threaded architecture powered by libuv. The event loop traverses phases: Timers (setTimeout, setInterval), Pending Callbacks, Poll (retrieving new I/O events and executing their callbacks), Check (setImmediate), and Close Callbacks. Microtasks (process.nextTick and resolved Promise callbacks) execute immediately after each phase before moving to the next."
+  },
+  {
+   "category": "MERN Stack & Web Engineering",
+   "num": "Q3",
+   "q": "How do you optimize MongoDB query performance for high-traffic applications?",
+   "a": "Key strategies include: 1) Creating appropriate Single-Field or Compound Indexes matching query predicates. 2) Utilizing the explain('executionStats') method to verify index usage and eliminate collection scans (COLLSCAN). 3) Employing projection to return only essential fields instead of entire documents. 4) Leveraging aggregation pipelines with indexed $match stages placed early. 5) Using connection pooling and caching frequent reads via Redis."
+  },
+  {
+   "category": "MERN Stack & Web Engineering",
+   "num": "Q4",
+   "q": "What is the difference between JWT authentication and Session-based authentication?",
+   "a": "Session-based authentication is stateful: the server stores user session data in memory or a database (like Redis) and sends a session ID cookie to the browser. JWT (JSON Web Token) is stateless: the token itself contains digitally signed cryptographic claims (payload) encoded in Base64Url. The server verifies the signature with a secret/private key without querying a session store, making JWT highly scalable across microservices."
+  },
+  {
+   "category": "Python, AI & Data Science",
+   "num": "Q1",
+   "q": "What is Retrieval-Augmented Generation (RAG) and why is it preferred over fine-tuning?",
+   "a": "RAG connects a Large Language Model (LLM) to an external vector database containing proprietary knowledge. When a query is made, relevant context documents are semantically retrieved via embeddings and injected into the LLM prompt. RAG eliminates model hallucination, requires no costly GPU training, allows real-time knowledge updates, and provides traceable source citations, unlike fine-tuning which alters model weights without guaranteeing factual recall."
+  },
+  {
+   "category": "Python, AI & Data Science",
+   "num": "Q2",
+   "q": "How do you detect and handle overfitting in Machine Learning models?",
+   "a": "Overfitting occurs when a model learns training data noise, yielding high training accuracy but poor validation performance. It is detected by comparing training loss against validation loss curves. Solutions include: 1) Regularization (L1 Lasso, L2 Ridge, Dropout in neural nets). 2) Pruning decision trees or reducing model complexity. 3) K-Fold Cross-Validation. 4) Early stopping during iterative gradient descent. 5) Increasing training dataset volume through data augmentation."
+  },
+  {
+   "category": "Python, AI & Data Science",
+   "num": "Q3",
+   "q": "What is the difference between supervised, unsupervised, and reinforcement learning?",
+   "a": "Supervised Learning trains on labeled datasets to map inputs to known outputs (e.g., Regression, Classification). Unsupervised Learning discovers hidden patterns, groupings, or clusters from unlabeled data without predefined ground truths (e.g., K-Means, PCA). Reinforcement Learning involves an autonomous agent interacting with an environment, learning an optimal policy through trial-and-error rewards and penalties (e.g., Q-learning, PPO in robotics/gaming)."
+  },
+  {
+   "category": "Python, AI & Data Science",
+   "num": "Q4",
+   "q": "Explain the difference between SQL Window Functions and GROUP BY aggregation.",
+   "a": "A GROUP BY clause collapses multiple rows into a single summary row per group (e.g., SUM(salary) per department). Window functions (such as ROW_NUMBER(), RANK(), DENSE_RANK(), and SUM() OVER (PARTITION BY ...)) calculate aggregated or relative metrics across a defined set of rows while preserving each individual row in the output table."
+  },
+  {
+   "category": "Cyber Security & Cloud Infrastructure",
+   "num": "Q1",
+   "q": "How do you effectively prevent SQL Injection (SQLi) vulnerabilities in web applications?",
+   "a": "The primary mitigation is using Parameterized Queries (Prepared Statements) or Object-Relational Mappers (ORMs) where user input is treated strictly as data parameters rather than executable SQL syntax. Additional defenses include implementing stored procedures, enforcing principle of least privilege on database users, validating and allowlisting input types, and deploying a Web Application Firewall (WAF)."
+  },
+  {
+   "category": "Cyber Security & Cloud Infrastructure",
+   "num": "Q2",
+   "q": "What is the difference between Symmetric and Asymmetric Encryption?",
+   "a": "Symmetric encryption uses a single shared secret key for both encryption and decryption (e.g., AES-256, ChaCha20); it is computationally fast and ideal for encrypting large volumes of data. Asymmetric encryption uses a mathematically linked key pair: a public key for encryption and a private key for decryption (e.g., RSA, ECC); it is used for secure key exchanges (TLS/HTTPS handshakes) and digital signatures."
+  },
+  {
+   "category": "Cyber Security & Cloud Infrastructure",
+   "num": "Q3",
+   "q": "What are Docker containers and how do they differ from Virtual Machines (VMs)?",
+   "a": "Virtual Machines virtualize physical hardware through a hypervisor, requiring a full guest operating system (kernel, binaries, libraries) for each VM, consuming substantial memory and CPU. Docker containers virtualize at the OS level, sharing the host machine's Linux kernel while running isolated user-space processes. This makes containers lightweight, spinning up in milliseconds with minimal resource overhead."
+  },
+  {
+   "category": "Cyber Security & Cloud Infrastructure",
+   "num": "Q4",
+   "q": "Explain the concept of AWS VPC and Security Groups vs Network ACLs.",
+   "a": "An Amazon Virtual Private Cloud (VPC) is a logically isolated virtual network in the AWS cloud. Security Groups operate at the individual EC2 instance level, are stateful (inbound allowed traffic automatically permits return outbound traffic), and support allow rules only. Network Access Control Lists (NACLs) operate at the subnet level, are stateless (inbound and outbound rules evaluated separately), and support both allow and deny rules."
+  },
+  {
+   "category": "HR & Technical Behavioral Rounds",
+   "num": "Q1",
+   "q": "How do you explain your technical capstone project in a 3-minute recruiter pitch?",
+   "a": "Structure your answer with the STAR framework (Situation, Task, Action, Result): 1) State the business problem your project solves. 2) Detail your technical stack and architecture decisions (e.g., why Next.js over vanilla React). 3) Highlight the biggest technical obstacle you overcame (e.g., database concurrency, latency optimization). 4) Share verifiable outcomes: live deployment URL, test coverage, or benchmark performance metrics."
+  },
+  {
+   "category": "HR & Technical Behavioral Rounds",
+   "num": "Q2",
+   "q": "What do you do when you encounter a critical bug or production blocker you cannot solve?",
+   "a": "Explain a systematic debugging methodology: 1) Reproduce the bug in an isolated test environment. 2) Inspect error stack traces, server logs, and network payloads using browser DevTools or APM tools. 3) Formulate hypotheses and test them iteratively with minimal reproducing code. 4) Research authoritative documentation, official GitHub issues, and RFC specifications. 5) When needed, ask team peers concisely with clear problem context, attempted solutions, and minimal reproduction steps."
+  },
+  {
+   "category": "HR & Technical Behavioral Rounds",
+   "num": "Q3",
+   "q": "Why do you want to start your tech career with IT companies in Lucknow?",
+   "a": "Lucknow (Gomti Nagar, Shaheed Path and the Amausi industrial belt) is one of North India's fastest-growing enterprise and startup software ecosystems, home to 450+ product companies, global IT consultancies, and innovative engineering firms. Starting here provides intensive hands-on ownership on real production systems, close mentorship under senior engineers, and accelerated technical career growth."
+  }
+ ]
+}

@@ -1,0 +1,288 @@
+{
+ "url": "https://techcaddmohali.com/student-projects-portfolio",
+ "title": "Student Projects & Capstone Portfolio — Live Production Apps | techcadd Lucknow",
+ "metaDescription": "Explore live production projects, capstone applications, and software architectures engineered by techcadd Lucknow students in AI, MERN full stack, data science, cyber security, and CAD. Real code, live deployments, and university viva defense ready.",
+ "breadcrumb": [
+  "Home",
+  "Resources",
+  "Student Projects"
+ ],
+ "hero": {
+  "eyebrow": "Proof of Work & Capstones",
+  "heading": "Student Projects & Capstone Portfolio",
+  "text": "We measure training quality by the code our students deploy. Inspect production web applications, autonomous AI agents, security audits, and mechanical CAD assemblies engineered during our industrial training tracks.",
+  "badges": [
+   "100% Live Deployments",
+   "Verifiable GitHub Repos",
+   "University Approved",
+   "450+ Hiring Partners"
+  ]
+ },
+ "stats": [
+  {
+   "value": "100%",
+   "label": "Live Deployments"
+  },
+  {
+   "value": "450+",
+   "label": "Hiring Partners"
+  }
+ ],
+ "filters": [
+  "Artificial Intelligence & GenAI",
+  "MERN & Full Stack Web Development",
+  "Data Science & Machine Learning",
+  "Cyber Security & Ethical Hacking",
+  "AutoCAD & Mechanical Design",
+  "MERN Stack Development"
+ ],
+ "sections": [
+  {
+   "heading": "Pillars",
+   "note": "Four feature cards (h4), no section heading",
+   "items": [
+    {
+     "title": "Genuine Codebases",
+     "text": "No copy-pasted tutorial templates. Students design schemas and APIs from scratch."
+    },
+    {
+     "title": "Version Controlled",
+     "text": "Collaborative Git branches, pull requests, and CI/CD pipelines mirror corporate sprints."
+    },
+    {
+     "title": "Viva Documentation",
+     "text": "Complete college project reports, architecture diagrams, and mock defense readiness."
+    },
+    {
+     "title": "Employer Inspectable",
+     "text": "Live URLs on student resumes allow recruiters to test the application before interviews."
+    }
+   ]
+  },
+  {
+   "eyebrow": "Featured Capstone Deployments",
+   "heading": "Inspect What techcadd Students Build",
+   "text": "Explore project scope, software architecture, technical stack, and verified outcomes.",
+   "items": [
+    {
+     "number": "01",
+     "category": "Artificial Intelligence & GenAI",
+     "title": "Autonomous Enterprise Customer Support Agent",
+     "meta": "B.Tech CSE Final Year (6 Months Track)",
+     "text": "A multi-agent customer intelligence system that parses complex queries, queries a vectorized knowledge base (RAG), and autonomously executes refunds or ticket escalations through REST APIs.",
+     "techStackLabel": "Technical Architecture",
+     "metricLabel": "Key Performance Metric:",
+     "metric": "Sub-second response time, 94% semantic query accuracy over 10,000 corporate documents.",
+     "deliverablesLabel": "Verified Project Deliverables",
+     "cta": "Build this in your training",
+     "badge": "ISO 9001:2015 Certified",
+     "tags": [
+      "Python",
+      "LangChain",
+      "CrewAI",
+      "FastAPI",
+      "Pinecone",
+      "Next.js"
+     ],
+     "deliverables": [
+      "Full GitHub Repository",
+      "RAG Pipeline Documentation",
+      "Live Cloud Deployment",
+      "Viva Presentation Deck"
+     ]
+    },
+    {
+     "number": "02",
+     "category": "MERN & Full Stack Web Development",
+     "title": "Multi-Tenant SaaS B2B Invoicing & Analytics Platform",
+     "meta": "MCA Cohort (6 Months Industrial Training)",
+     "text": "Complete SaaS invoicing ecosystem featuring workspace isolation, automated GST-compliant invoice generation, Stripe billing subscriptions, and real-time revenue analytics dashboards.",
+     "techStackLabel": "Technical Architecture",
+     "metricLabel": "Key Performance Metric:",
+     "metric": "Supports 50+ concurrent corporate tenants with sub-100ms API response latency.",
+     "deliverablesLabel": "Verified Project Deliverables",
+     "cta": "Build this in your training",
+     "badge": "ISO 9001:2015 Certified",
+     "tags": [
+      "Next.js 15",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Tailwind CSS",
+      "Stripe API"
+     ],
+     "deliverables": [
+      "Microservices Architecture",
+      "Docker Compose Config",
+      "Unit & Integration Tests",
+      "College Project Report"
+     ]
+    },
+    {
+     "number": "03",
+     "category": "Data Science & Machine Learning",
+     "title": "Predictive Retail Sales & Inventory Optimization Engine",
+     "meta": "B.Tech IT (6 Months Track)",
+     "text": "A machine learning pipeline forecasting inventory stockout risks and seasonal sales trends across 25 retail branches, integrated with interactive Power BI executive dashboards.",
+     "techStackLabel": "Technical Architecture",
+     "metricLabel": "Key Performance Metric:",
+     "metric": "Reduced inventory forecasting error (RMSE) by 28% compared to historical baseline.",
+     "deliverablesLabel": "Verified Project Deliverables",
+     "cta": "Build this in your training",
+     "badge": "ISO 9001:2015 Certified",
+     "tags": [
+      "Python",
+      "Pandas",
+      "Scikit-Learn",
+      "XGBoost",
+      "Power BI",
+      "PostgreSQL"
+     ],
+     "deliverables": [
+      "Data Cleaning Pipeline",
+      "Model Validation Notebooks",
+      "Power BI Dashboard (.pbix)",
+      "Executive Synopsis"
+     ]
+    },
+    {
+     "number": "04",
+     "category": "Cyber Security & Ethical Hacking",
+     "title": "Vulnerability Assessment & Automated SOC Alert Pipeline",
+     "meta": "Diploma to Degree (6 Months Industrial Training)",
+     "text": "Simulated enterprise network penetration audit identifying OWASP Top 10 vulnerabilities, unauthorized privilege escalation vectors, and integrating automated Wazuh SIEM rule alerts.",
+     "techStackLabel": "Technical Architecture",
+     "metricLabel": "Key Performance Metric:",
+     "metric": "Remediated 14 critical CVE vulnerabilities with documented zero-trust network policies.",
+     "deliverablesLabel": "Verified Project Deliverables",
+     "cta": "Build this in your training",
+     "badge": "ISO 9001:2015 Certified",
+     "tags": [
+      "Kali Linux",
+      "Python",
+      "Metasploit",
+      "Burp Suite Pro",
+      "Wireshark",
+      "Wazuh SIEM"
+     ],
+     "deliverables": [
+      "VAPT Audit Report",
+      "Remediation Playbook",
+      "Network Topology Map",
+      "Live Viva Defense Video"
+     ]
+    },
+    {
+     "number": "05",
+     "category": "AutoCAD & Mechanical Design",
+     "title": "Electric Vehicle Transmission Geartrain Parametric Model",
+     "meta": "B.Tech Mechanical (6 Months Track)",
+     "text": "High-precision 3D parametric assembly of a single-speed EV reduction gearbox, complete with stress simulation, thermal analysis, and ISO-standard production drafting sheets.",
+     "techStackLabel": "Technical Architecture",
+     "metricLabel": "Key Performance Metric:",
+     "metric": "Exceeded structural safety factor standards under 300 Nm torque loading.",
+     "deliverablesLabel": "Verified Project Deliverables",
+     "cta": "Build this in your training",
+     "badge": "ISO 9001:2015 Certified",
+     "tags": [
+      "SolidWorks 2026",
+      "AutoCAD Mechanical",
+      "ANSYS FEA",
+      "GD&T Standards"
+     ],
+     "deliverables": [
+      "Parametric 3D CAD Files",
+      "FEA Stress Analysis Report",
+      "Bill of Materials (BOM)",
+      "Fabrication Blueprints"
+     ]
+    },
+    {
+     "number": "06",
+     "category": "MERN Stack Development",
+     "title": "Full-Stack EdTech Learning Management System (LMS)",
+     "meta": "BCA Final Semester (45 Days Sprint)",
+     "text": "Responsive video course portal with student lecture progress tracking, automated quiz assessments, video streaming CDN integration, and instant Razorpay fee checkouts.",
+     "techStackLabel": "Technical Architecture",
+     "metricLabel": "Key Performance Metric:",
+     "metric": "Successfully handled 500+ active student video streaming sessions in stress testing.",
+     "deliverablesLabel": "Verified Project Deliverables",
+     "cta": "Build this in your training",
+     "badge": "ISO 9001:2015 Certified",
+     "tags": [
+      "React 19",
+      "Node.js",
+      "Express",
+      "MongoDB Atlas",
+      "Cloudinary Video",
+      "Razorpay API"
+     ],
+     "deliverables": [
+      "Full Stack Source Code",
+      "API Documentation (Swagger)",
+      "Live Vercel Link",
+      "College Viva Synopsis"
+     ]
+    }
+   ]
+  },
+  {
+   "eyebrow": "Build Your Capstone",
+   "heading": "Ready to Engineer a Resume-Defining Project?",
+   "text": "Join our 45-day, 6-week or 6-month industrial training programs in Lucknow and build live production software that gets you hired.",
+   "items": [
+    {
+     "title": "Industrial Training Lucknow"
+    },
+    {
+     "title": "Industrial Training Lucknow"
+    }
+   ]
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "items": [
+    {
+     "title": "Industrial training",
+     "text": "45 days, 6 weeks, 6 months and 9 months, aligned to university requirements and closed with an internship letter.",
+     "meta": "See the tracks",
+     "link": "/industrial-training-in-lucknow"
+    },
+    {
+     "title": "Tech interview questions & answers",
+     "text": "Top 100+ technical interview questions and answers for MERN, Python, Data Science, AI, and HR rounds in Lucknow.",
+     "meta": "Review interview questions",
+     "link": "/tech-interview-questions-and-answers"
+    },
+    {
+     "title": "Free study material & cheat sheets",
+     "text": "Curated coding cheat sheets, Python notes, AI guides, and university syllabus blueprints.",
+     "meta": "Download free resources",
+     "link": "/free-study-material-and-resources"
+    }
+   ]
+  },
+  {
+   "heading": "Start building your career today.",
+   "eyebrow": "Ready to get started?",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "items": [
+    {
+     "title": "Book Demo",
+     "text": "Your mobile number"
+    },
+    {
+     "title": "Call now",
+     "meta": "{{phone}}"
+    }
+   ],
+   "tags": [
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ ]
+}

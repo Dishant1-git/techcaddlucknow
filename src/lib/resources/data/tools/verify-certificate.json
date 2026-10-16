@@ -1,0 +1,153 @@
+{
+ "url": "https://techcaddmohali.com/verify-certificate",
+ "title": "Online Certificate Verification & Credential Authenticity | techcadd Lucknow",
+ "metaDescription": "Official credential verification portal for techcadd Lucknow. Employers, HR recruiters, background verification agencies (BGV) and universities can verify ISO 9001:2015 training certificates and corporate internship letters by candidate roll number.",
+ "breadcrumb": [
+  "Home",
+  "Resources",
+  "Verify Certificate"
+ ],
+ "hero": {
+  "eyebrow": "Official Credential Registry",
+  "h1": "Online Certificate Verification & Credential Authenticity",
+  "text": "For corporate HR departments, background verification agencies (BGV), government bodies, and university registrars. Verify the authenticity of ISO 9001:2015 certificates and corporate internship letters issued by techcadd Lucknow.",
+  "badges": [
+   "ISO 9001:2015 Verified",
+   "AICTE Aligned",
+   "Fast HR Turnaround"
+  ]
+ },
+ "formCard": {
+  "eyebrow": "Direct Registry Lookup",
+  "heading": "Verify Student Credential",
+  "text": "Enter the candidate roll number exactly as printed on the certificate or internship letter."
+ },
+ "inputs": [
+  {
+   "id": "rollNumber",
+   "name": "rollNumber",
+   "label": "Candidate Roll / Registration Number",
+   "type": "text",
+   "placeholder": "e.g. TCM-2026-4821",
+   "required": true,
+   "button": "Verify"
+  }
+ ],
+ "logic": "NO real lookup: there is no API call or database. On submit, if the trimmed value is non-empty, it always shows a success box; editing the input hides it again. Success box: check icon + 'Registry Record Found: Roll ID {INPUT.toUpperCase()}' and text 'Candidate registration is confirmed on the official techcadd training database. For authorized corporate background verification (BGV) sign-off documents on official letterhead, please email info@techcadd.com or call our corporate desk at {{phone}}.' The email link is mailto:info@techcadd.com?subject=BGV%20Verification%20Request%20-%20{encodeURIComponent(input)}. Any rebuild should consider a real registry lookup (or at least not claim a record was found).",
+ "result": {
+  "successTitle": "Registry Record Found: Roll ID {ROLL}",
+  "successText": "Candidate registration is confirmed on the official techcadd training database. For authorized corporate background verification (BGV) sign-off documents on official letterhead, please email info@techcadd.com or call our corporate desk at {{phone}}."
+ },
+ "data": {
+  "bgvNote": "For Corporate BGV Requests: You can also email scanned copies of the candidate credential directly to info@techcadd.com with the candidate consent letter for written verification on official letterhead."
+ },
+ "sections": [
+  {
+   "eyebrow": "Verification Procedure",
+   "heading": "How the Credential Validation Works",
+   "text": "Standardized verification process designed to ensure speed, accuracy, and legal compliance for enterprise hiring teams.",
+   "steps": [
+    {
+     "n": "01",
+     "title": "Locate Candidate Roll Number",
+     "text": "Check the top-right corner of the official techcadd certificate or industrial internship experience letter for the unique alphanumeric registration code (e.g., TCM-2026-XXXX)."
+    },
+    {
+     "n": "02",
+     "title": "Submit Verification Request",
+     "text": "Enter the candidate roll number below or email our Corporate Relations & Verification Desk with candidate authorization consent."
+    },
+    {
+     "n": "03",
+     "title": "Immediate Record Validation",
+     "text": "Our secure registry validates candidate name, course discipline, training tenure, live capstone project details, and letter issue date."
+    },
+    {
+     "n": "04",
+     "title": "Official HR Confirmation",
+     "text": "Corporate BGV agencies receive an official digital sign-off report within 24 to 48 business hours with registrar verification stamp."
+    }
+   ]
+  },
+  {
+   "eyebrow": "Anti-Fraud & Authenticity",
+   "heading": "Security Features on Every techcadd Credential",
+   "text": "We maintain strict physical and digital security protocols on all training certificates and internship letters.",
+   "items": [
+    {
+     "title": "Unique Alphanumeric Roll Number",
+     "text": "Each credential features an untamperable registry serial mapped to the student's biometric attendance and project submission archive."
+    },
+    {
+     "title": "ISO 9001:2015 Accreditation Hologram",
+     "text": "Certified quality management standard ensuring standardized assessment, syllabus compliance, and authorized corporate issuance."
+    },
+    {
+     "title": "Verifiable Internship Letter",
+     "text": "Documents live production engineering project tenure, mentor sign-off, software stack proficiency, and code contributions."
+    },
+    {
+     "title": "Centralized Registry Database",
+     "text": "Backed by persistent digital logs accessible to enterprise recruitment teams across India and international immigration authorities."
+    }
+   ]
+  },
+  {
+   "eyebrow": "Dedicated HR Desk",
+   "heading": "Need Priority Verification for Urgent Onboarding?",
+   "text": "Our verification officer is available Monday to Saturday, 8 AM to 8 PM, to process corporate background checks.",
+   "buttons": [
+    "Call {{phone}}",
+    "Email info@techcadd.com"
+   ]
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "Accreditations & awards",
+     "text": "ISO-certified training, documented internship letters, university-compliant programmes and the recognitions behind them.",
+     "cta": "See the paperwork"
+    },
+    {
+     "title": "Placements & career support",
+     "text": "Resume building, mock interviews, aptitude and DSA practice, and hiring drives with 450+ partner companies.",
+     "cta": "See how placement works",
+     "href": "/techcadd-lucknow-placements"
+    },
+    {
+     "title": "Visit or book a demo",
+     "text": "The Kursi Road campus, session timings, fees and EMI options — or a free demo class before you commit to anything.",
+     "cta": "Get directions"
+    }
+   ]
+  }
+ ],
+ "faqs": [],
+ "faqNote": "No FAQ section on this page.",
+ "globalCtas": {
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "Breadcrumb is Home > Resources > Verify Certificate. No Quick callback bar on this page; bottom CTA present."
+}

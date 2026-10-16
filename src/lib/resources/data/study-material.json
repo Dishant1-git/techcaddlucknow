@@ -1,0 +1,591 @@
+{
+ "url": "https://techcaddmohali.com/free-study-material-and-resources",
+ "title": "Free IT Study Material, Cheat Sheets & Roadmaps | techcadd Lucknow",
+ "metaDescription": "Free curated IT study materials, coding cheat sheets, Python notes, full stack roadmaps, AI guides, cyber security cheat sheets and CAD practice references designed by senior tech trainers at techcadd Lucknow.",
+ "breadcrumb": [
+  "Home",
+  "Resources",
+  "Study Material"
+ ],
+ "hero": {
+  "eyebrow": "Open Learning & Technical References",
+  "heading": "Free IT Study Material, Developer Roadmaps & Cheat Sheets",
+  "text": "Free IT Study Material, Developer Roadmaps & Cheat Sheets"
+ },
+ "sections": [
+  {
+   "heading": "Quick links",
+   "items": [
+    {
+     "title": "Curated by senior engineering mentors at techcadd Lucknow. Complete with syntax cheat sheets, architectural diagrams, syllabus blueprints, and viva preparation notes — 100% free with no paywall.",
+     "href": ""
+    },
+    {
+     "title": "MERN Stack",
+     "href": "#full-stack"
+    },
+    {
+     "title": "AI & GenAI",
+     "href": "#ai-data"
+    },
+    {
+     "title": "Cyber Security",
+     "href": "#cyber-cloud"
+    },
+    {
+     "title": "Cloud & DevOps",
+     "href": "#cyber-cloud"
+    },
+    {
+     "title": "CAD & BIM",
+     "href": "#cad-bim"
+    },
+    {
+     "title": "Free Tools Hub →",
+     "href": "/tools"
+    }
+   ]
+  },
+  {
+   "heading": "Value points",
+   "items": [
+    {
+     "title": "Interview Q&A →",
+     "text": "100% University Aligned"
+    },
+    {
+     "title": "Strictly follows AICTE, PTU, Panjab University, and HSBTE course syllabus guidelines.",
+     "text": "Written by Practicing Engineers"
+    },
+    {
+     "title": "Authored by active tech leads with genuine real-world production experience.",
+     "text": "Viva & Project Ready"
+    },
+    {
+     "title": "Ideal for college viva presentations, capstone defenses, and technical interview reviews.",
+     "text": "Free Forever Access"
+    }
+   ]
+  },
+  {
+   "heading": "Download, Bookmark & Study Anytime",
+   "eyebrow": "Curated Technical Guides",
+   "text": "Organised by discipline — click 'Cheat Sheet' to read key syntax and viva notes, or click 'Full Course' to explore the complete syllabus and curriculum.",
+   "filters": [
+    "All Resources (16)",
+    "Full Stack (4)",
+    "Artificial Intelligence (4)",
+    "Cyber Security (4)",
+    "Mechanical (4)"
+   ],
+   "note": "No downloadable files exist: each card's 'Cheat Sheet' button opens an in-page panel (content captured in cheatSheet from the site's JS bundle); 'Full Course' links to the course page.",
+   "categories": [
+    {
+     "heading": "Full Stack & Web Engineering",
+     "slug": "full-stack",
+     "text": "Production-tested cheat sheets and architectural roadmaps for modern web stacks.",
+     "items": [
+      {
+       "id": "react-19-hooks",
+       "title": "React 19 & Hooks Quick Reference",
+       "type": "Developer Cheat Sheet",
+       "tag": "Updated 2026",
+       "text": "Concise reference covering useActionState, useOptimistic, Server Actions, useEffect pitfalls, and custom hooks.",
+       "highlights": [
+        "State Management",
+        "Server Actions",
+        "Hooks Rules"
+       ],
+       "href": "/mern-full-stack-course-in-lucknow",
+       "courseName": "MERN Full Stack Course",
+       "cheatSheet": {
+        "summary": "React 19 revolutionizes full stack workflows by introducing first-class support for async Server Actions, automatic form handling with useActionState, and zero-lag optimistic UI updates.",
+        "codeTitle": "React 19 useActionState & Server Action Pattern",
+        "code": "// React 19 Action State Pattern\nimport { useActionState } from \"react\";\n\n// Server action or async mutation\nasync function updateProfile(previousState, formData) {\n  const name = formData.get(\"name\");\n  const res = await fetch(\"/api/user\", {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({ name }),\n  });\n  return await res.json();\n}\n\nexport default function UserProfile() {\n  const [state, formAction, isPending] = useActionState(updateProfile, null);\n\n  return (\n    <form action={formAction} className=\"space-y-4\">\n      <input name=\"name\" placeholder=\"Full name\" required disabled={isPending} />\n      <button type=\"submit\" disabled={isPending}>\n        {isPending ? \"Updating profile...\" : \"Save Profile\"}\n      </button>\n      {state?.error && <p className=\"text-red-500\">{state.error}</p>}\n    </form>\n  );\n}",
+        "keyTakeaways": [
+         "Never call hooks inside conditionals, loops, or nested functions — keep them top-level.",
+         "useActionState replaces manual isSubmitting, error, and data state flags with native React form handling.",
+         "useOptimistic enables instant UI state feedback before the server round-trip completes."
+        ]
+       }
+      },
+      {
+       "id": "nextjs-app-router",
+       "title": "Next.js App Router Architecture Guide",
+       "type": "Architecture Blueprint",
+       "tag": "Enterprise",
+       "text": "Best practices for route handlers, nested layouts, parallel routes, dynamic metadata, and SSR/SSG caching strategies.",
+       "highlights": [
+        "Parallel Routes",
+        "Turbopack",
+        "SEO Best Practices"
+       ],
+       "href": "/web-development-course-in-lucknow",
+       "courseName": "Web Development Course",
+       "cheatSheet": {
+        "summary": "Next.js App Router enforces server-first architecture. Pages and layouts execute on the Node.js server by default, drastically trimming client JavaScript bundle sizes.",
+        "codeTitle": "Next.js Route Handler with High-Performance Caching",
+        "code": "// app/api/courses/route.ts - Next.js Route Handler\nimport { NextResponse } from \"next/server\";\n\nexport async function GET(request: Request) {\n  const { searchParams } = new URL(request.url);\n  const track = searchParams.get(\"track\") || \"all\";\n\n  // Revalidate or cached response\n  return NextResponse.json(\n    { success: true, timestamp: Date.now(), track },\n    {\n      headers: {\n        \"Cache-Control\": \"public, s-maxage=3600, stale-while-revalidate=59\",\n      },\n    }\n  );\n}",
+        "keyTakeaways": [
+         "Server Components cannot use browser hooks (useState, useEffect, onClick) — declare 'use client' at the file top when interactivity is required.",
+         "Utilize generateMetadata to inject dynamic page titles and OpenGraph tags for search engines.",
+         "Perform database queries directly inside Server Components to avoid redundant internal REST APIs."
+        ]
+       }
+      },
+      {
+       "id": "express-api-security",
+       "title": "RESTful API & Express.js Security Checklist",
+       "type": "Production Checklist",
+       "tag": "Security",
+       "text": "Hardening Node.js endpoints: CORS setup, rate limiting, JWT rotation, bcrypt password hashing, and input sanitization.",
+       "highlights": [
+        "JWT Token Flow",
+        "Rate Limiting",
+        "Helmet & CORS"
+       ],
+       "href": "/full-stack-development-course-in-lucknow",
+       "courseName": "Full Stack Development Course",
+       "cheatSheet": {
+        "summary": "Production Node.js APIs must defend against automated bot scraping, denial of service (DoS), credential stuffing, and injection attacks.",
+        "codeTitle": "Production Express Security Middlewares Setup",
+        "code": "// Secure Express.js Configuration\nconst express = require(\"express\");\nconst helmet = require(\"helmet\");\nconst rateLimit = require(\"express-rate-limit\");\nconst cors = require(\"cors\");\n\nconst app = express();\napp.use(helmet()); // Sets 11 secure HTTP headers\napp.use(cors({ origin: \"https://yourdomain.com\", credentials: true }));\napp.use(express.json({ limit: \"10kb\" })); // Blocks large JSON payload attacks\n\nconst limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });\napp.use(\"/api/\", limiter);",
+        "keyTakeaways": [
+         "Store JWT refresh tokens in httpOnly, Secure, SameSite=Strict cookies to prevent cross-site scripting (XSS) theft.",
+         "Always hash user passwords using bcrypt (minimum 12 salt rounds) or Argon2.",
+         "Validate and sanitize every incoming payload using Joi or Zod schemas before running database logic."
+        ]
+       }
+      },
+      {
+       "id": "js-es6-syntax",
+       "title": "JavaScript ES6+ Modern Syntaxes Cheat Sheet",
+       "type": "Fundamentals Sheet",
+       "tag": "Core JS",
+       "text": "Destructuring, spread/rest, Promises, async/await, Array methods (map, filter, reduce), and Event Loop mechanics.",
+       "highlights": [
+        "Async/Await",
+        "Closure & Scope",
+        "Prototypes"
+       ],
+       "href": "/web-designing-course-in-lucknow",
+       "courseName": "Web Designing Course",
+       "cheatSheet": {
+        "summary": "ES6+ is the backbone of all modern frontend and backend frameworks. Mastering asynchronous pipelines and immutable transformations is essential for developer interviews.",
+        "codeTitle": "Modern ES6+ Syntax & Array Transformation Patterns",
+        "code": "// Modern ES6+ Quick Reference\nconst user = { id: 101, profile: { name: \"Aman\", role: \"Dev\" } };\nconst { profile: { name, role = \"Guest\" } } = user;\n\n// Array Pipeline (Pure & Immutable)\nconst salaries = [35000, 50000, 75000, 90000];\nconst totalDevPay = salaries\n  .filter((amt) => amt >= 50000)\n  .map((amt) => amt * 1.1) // 10% appraisal\n  .reduce((acc, curr) => acc + curr, 0);\n\n// Native Deep Cloning\nconst deepClonedUser = structuredClone(user);",
+        "keyTakeaways": [
+         "The JavaScript Event Loop gives higher priority to the Microtask queue (Promises) over the Macrotask queue (setTimeout).",
+         "A closure retains lexical scope access to outer variables even after the outer function has returned.",
+         "Use const by default and let only when reassigning; avoid legacy var."
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "heading": "Artificial Intelligence & Data Science",
+     "slug": "ai-data",
+     "text": "Guides and syntax cheat sheets from Python basics to autonomous Agentic AI and LangChain.",
+     "items": [
+      {
+       "id": "python-data-science",
+       "title": "Python for Data Science Quick Syntax Sheet",
+       "type": "Language Reference",
+       "tag": "High Demand",
+       "text": "Pandas DataFrame indexing, NumPy array vectorization, Matplotlib plotting, and data cleaning routines.",
+       "highlights": [
+        "Vectorization",
+        "Pandas Merges",
+        "List Comprehensions"
+       ],
+       "href": "/python-programming-course-in-lucknow",
+       "courseName": "Python Programming Course",
+       "cheatSheet": {
+        "summary": "Data Science workflows rely heavily on vectorized NumPy arrays and Pandas dataframes for fast in-memory tabular manipulation.",
+        "codeTitle": "Pandas Data Cleaning & Aggregation Snippet",
+        "code": "# Essential Data Science Routine\nimport numpy as np\nimport pandas as pd\n\n# Load & clean dataset\ndf = pd.read_csv(\"placement_records.csv\")\ndf[\"salary\"] = pd.to_numeric(df[\"salary\"], errors=\"coerce\")\ndf.dropna(subset=[\"salary\"], inplace=True)\n\n# Grouping & Aggregations\nsummary = df.groupby(\"domain\").agg(\n    avg_package=(\"salary\", \"mean\"),\n    total_placed=(\"id\", \"count\")\n).reset_index()\n\nprint(summary.sort_values(by=\"avg_package\", ascending=False).head())",
+        "keyTakeaways": [
+         "Never iterate over Pandas rows with iterrows(); vectorized NumPy operations run up to 100x faster.",
+         "Use df.loc[] for label-based indexing and df.iloc[] for zero-based integer positioning.",
+         "Impute missing values logically using .fillna() or interpolation instead of blindly dropping rows."
+        ]
+       }
+      },
+      {
+       "id": "prompt-engineering-llm",
+       "title": "Prompt Engineering & LLM Interaction Guide",
+       "type": "GenAI Handbook",
+       "tag": "GenAI",
+       "text": "Zero-shot, few-shot, Chain-of-Thought (CoT), System Prompts, and output format structuring for GPT-4o & Claude 3.5.",
+       "highlights": [
+        "Chain-of-Thought",
+        "Structured JSON",
+        "Context Windows"
+       ],
+       "href": "/prompt-engineering-course-in-lucknow",
+       "courseName": "Prompt Engineering Course",
+       "cheatSheet": {
+        "summary": "Prompt Engineering transforms raw foundational models into deterministic, enterprise-grade AI applications by enforcing output schema and reasoning constraints.",
+        "codeTitle": "Structured JSON Prompt Template with Delimiters",
+        "code": "### ROLE\nYou are a Principal Tech Interviewer at techcadd.\n\n### TASK\nEvaluate the candidate's answer for technical accuracy and clarity.\n\n### CONSTRAINTS\nOutput strictly valid JSON matching this schema:\n{\n  \"rating\": number (1-10),\n  \"strengths\": string[],\n  \"improvement_areas\": string[],\n  \"ideal_answer_summary\": string\n}\n\n### CANDIDATE ANSWER\n\"\"\"[Insert Candidate Response Here]\"\"\"\n\n### INSTRUCTION\nAnalyze step by step before emitting the final JSON object.",
+        "keyTakeaways": [
+         "Use clear delimiter tags (e.g. ### or XML tags) to prevent prompt injection and separate context from instructions.",
+         "Providing 2-3 examples (Few-Shot Prompting) increases model adherence to complex output formats by over 40%.",
+         "Instructing models to 'think step by step' forces Chain-of-Thought (CoT) reasoning, drastically cutting math and logic errors."
+        ]
+       }
+      },
+      {
+       "id": "rag-agentic-ai",
+       "title": "RAG & Agentic AI Architecture Diagram",
+       "type": "Workflow Blueprint",
+       "tag": "Agentic AI",
+       "text": "Vector embeddings, ChromaDB/Pinecone indexing, similarity search algorithms, LangChain agent loops, and CrewAI setups.",
+       "highlights": [
+        "Vector Search",
+        "LangChain Chains",
+        "Autonomous Tools"
+       ],
+       "href": "/rag-course-in-lucknow",
+       "courseName": "RAG Course",
+       "cheatSheet": {
+        "summary": "Retrieval-Augmented Generation (RAG) grounds LLMs in real-time, private documents without costly re-training, eliminating hallucinations.",
+        "codeTitle": "LangChain Vector Retrieval Pipeline",
+        "code": "# Minimal LangChain RAG Pipeline\nfrom langchain_community.vectorstores import Chroma\nfrom langchain_openai import OpenAIEmbeddings, ChatOpenAI\nfrom langchain.chains import create_retrieval_chain\nfrom langchain.chains.combine_documents import create_stuff_documents_chain\n\nembeddings = OpenAIEmbeddings(model=\"text-embedding-3-small\")\nvectorstore = Chroma.from_texts(\n    [\"techcadd provides comprehensive practical AI training in Lucknow.\"],\n    embeddings\n)\nretriever = vectorstore.as_retriever(search_kwargs={\"k\": 2})\n\nllm = ChatOpenAI(model=\"gpt-4o\", temperature=0)\n# Documents retrieved -> injected into system prompt -> answered by LLM",
+        "keyTakeaways": [
+         "Chunk size rule of thumb: 500-1000 tokens with a 10-15% overlap ensures semantic continuity across chunks.",
+         "Hybrid search combines BM25 keyword matching with dense vector cosine similarity for maximum retrieval precision.",
+         "Use cross-encoder rerankers (like Cohere Rerank) to score top 20 candidate chunks before feeding to the LLM."
+        ]
+       }
+      },
+      {
+       "id": "sql-database-modeling",
+       "title": "SQL Queries & Database Modeling Guide",
+       "type": "Database Reference",
+       "tag": "Data Analytics",
+       "text": "Window functions, complex CTEs, subqueries, indexing best practices, and Power BI relational schema modeling.",
+       "highlights": [
+        "Window Functions",
+        "Index Optimization",
+        "Star Schema"
+       ],
+       "href": "/data-analytics-course-in-lucknow",
+       "courseName": "Data Analytics Course",
+       "cheatSheet": {
+        "summary": "Advanced SQL forms the bedrock of data engineering and business intelligence. Window functions allow aggregated metrics across records without collapsing rows.",
+        "codeTitle": "SQL Common Table Expression (CTE) & Window Function",
+        "code": "-- Top 3 Salaries per Department using CTE & Window Functions\nWITH RankedStaff AS (\n  SELECT \n    emp_id, \n    emp_name, \n    department, \n    salary,\n    DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) as rank_in_dept\n  FROM employees\n)\nSELECT department, emp_name, salary, rank_in_dept\nFROM RankedStaff\nWHERE rank_in_dept <= 3;",
+        "keyTakeaways": [
+         "DENSE_RANK() does not skip rank numbers on ties (1, 2, 2, 3), whereas RANK() skips (1, 2, 2, 4).",
+         "CTEs (WITH clause) provide cleaner, more readable execution plans compared to deeply nested subqueries.",
+         "In data warehousing for Power BI or Tableau, organize dimensions around central fact tables (Star Schema) for fast analytical slicing."
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "heading": "Cyber Security & Cloud Computing",
+     "slug": "cyber-cloud",
+     "text": "Defensive and offensive security command references and cloud DevOps templates.",
+     "items": [
+      {
+       "id": "linux-cli-sysadmin",
+       "title": "Linux CLI for Ethical Hackers & Sysadmins",
+       "type": "Command Reference",
+       "tag": "Essential",
+       "text": "Bash scripting, file permissions (chmod, chown), network sockets (netstat, ss), SSH tunneling, and process monitoring.",
+       "highlights": [
+        "Bash Automation",
+        "SSH Keys",
+        "System Services"
+       ],
+       "href": "/linux-course-in-lucknow",
+       "courseName": "Linux Administration Course",
+       "cheatSheet": {
+        "summary": "Mastery of the Linux terminal is essential for cloud infrastructure engineering, penetration testing, server hardening, and automation.",
+        "codeTitle": "Essential Linux Networking & Permission Commands",
+        "code": "# Network & Security Diagnostic Commands\nss -tulpn | grep LISTEN          # Check listening ports and PIDs\nfind / -perm -u=s -type f 2>/dev/null # Find SUID binaries for privilege checks\nchmod 600 ~/.ssh/id_rsa          # Restrict private key permissions\njournalctl -u nginx -n 50 --no-pager # Inspect service logs\n\n# Rapid subnet ping sweep\nfor ip in $(seq 1 254); do ping -c 1 192.168.1.$ip | grep \"64 bytes\" & done",
+        "keyTakeaways": [
+         "File permissions: chmod 755 allows owner rwx and group/others rx. chmod 600 restricts access to owner read/write only.",
+         "Use kill -15 (SIGTERM) for graceful service shutdown; use kill -9 (SIGKILL) only when an unresponsive process must be stopped immediately.",
+         "Always monitor /var/log/auth.log or /var/log/secure for unauthorized SSH brute force access attempts."
+        ]
+       }
+      },
+      {
+       "id": "owasp-top-10",
+       "title": "OWASP Top 10 Web Vulnerability Matrix",
+       "type": "Security Matrix",
+       "tag": "Penetration Testing",
+       "text": "Detecting and preventing SQL Injection, XSS, SSRF, Broken Access Control, and Insecure Deserialization.",
+       "highlights": [
+        "SQLi Prevention",
+        "XSS Defenses",
+        "Burp Suite Setup"
+       ],
+       "href": "/cyber-security-course-in-lucknow",
+       "courseName": "Cyber Security Course",
+       "cheatSheet": {
+        "summary": "The Open Web Application Security Project (OWASP) Top 10 lists the most critical web application security risks and remediation methods.",
+        "codeTitle": "Preventing Cross-Site Scripting (XSS) & SQL Injection",
+        "code": "// Defense Against Common Web Vulnerabilities\n// 1. Never assign raw user inputs to innerHTML\n// Bad: element.innerHTML = userInput;\n// Good: element.textContent = userInput;\n\n// 2. Strict Content Security Policy (CSP) Header\n// Content-Security-Policy: default-src 'self'; script-src 'self' https://trustedcdn.com;\n\n// 3. Parameterized Query (100% immune to SQLi)\n// const [rows] = await db.execute('SELECT * FROM users WHERE email = ?', [email]);",
+        "keyTakeaways": [
+         "Broken Access Control is currently the #1 OWASP vulnerability — always verify user ownership on the server side.",
+         "Parameterized queries treat user input strictly as data parameters rather than executable SQL syntax.",
+         "Set HttpOnly, Secure, and SameSite=Strict flags on all authentication cookies to eliminate token theft via XSS."
+        ]
+       }
+      },
+      {
+       "id": "docker-containerization",
+       "title": "Docker & Containerization Command Guide",
+       "type": "DevOps Reference",
+       "tag": "Cloud Native",
+       "text": "Dockerfile directives, multi-stage builds, Docker Compose orchestration, volume mounts, and network bridges.",
+       "highlights": [
+        "Multi-stage Builds",
+        "Docker Compose",
+        "Volume Persistence"
+       ],
+       "href": "/docker-kubernetes-course-in-lucknow",
+       "courseName": "Docker & Kubernetes Course",
+       "cheatSheet": {
+        "summary": "Docker standardizes application environments across development and production, packaging code, runtimes, system tools, and libraries into lightweight containers.",
+        "codeTitle": "Optimized Multi-Stage Production Dockerfile",
+        "code": "# Multi-Stage Production Dockerfile for Node.js\nFROM node:20-alpine AS builder\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nRUN npm run build\n\nFROM node:20-alpine AS runner\nWORKDIR /app\nENV NODE_ENV=production\nCOPY --from=builder /app/package*.json ./\nCOPY --from=builder /app/.next ./.next\nCOPY --from=builder /app/public ./public\nRUN npm ci --omit=dev\nUSER node\nCMD [\"npm\", \"start\"]",
+        "keyTakeaways": [
+         "Multi-stage builds eliminate heavy build tools and compilers from the final production image, slashing file sizes by up to 90%.",
+         "Never run production containers as root; specify an unprivileged user (e.g. USER node) in the Dockerfile.",
+         "Order Dockerfile commands with infrequently changing layers (package.json, npm install) first to maximize caching."
+        ]
+       }
+      },
+      {
+       "id": "aws-cloud-infrastructure",
+       "title": "AWS Core Infrastructure & IAM Cheat Sheet",
+       "type": "Cloud Architecture",
+       "tag": "AWS Certified",
+       "text": "VPC subnets, Security Groups, IAM least-privilege roles, EC2 auto-scaling, and S3 lifecycle policies.",
+       "highlights": [
+        "Least Privilege",
+        "VPC Peering",
+        "CloudWatch Logs"
+       ],
+       "href": "/aws-cloud-course-in-lucknow",
+       "courseName": "AWS Cloud Course",
+       "cheatSheet": {
+        "summary": "Amazon Web Services (AWS) powers modern enterprise cloud applications. Security, isolation, and cost optimization depend on proper IAM policy and VPC design.",
+        "codeTitle": "Least-Privilege IAM Policy for S3 Access",
+        "code": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Sid\": \"AllowS3ReadSpecificBucket\",\n      \"Effect\": \"Allow\",\n      \"Action\": [\"s3:GetObject\", \"s3:ListBucket\"],\n      \"Resource\": [\n        \"arn:aws:s3:::techcadd-lucknow-assets\",\n        \"arn:aws:s3:::techcadd-lucknow-assets/*\"\n      ]\n    }\n  ]\n}",
+        "keyTakeaways": [
+         "Enforce the Principle of Least Privilege: grant only the exact permissions needed; avoid 'Action': '*' in production.",
+         "Security Groups are stateful (inbound traffic automatically allows return outbound traffic); NACLs are stateless.",
+         "Keep databases and private backends inside Private Subnets, routing outbound traffic through a NAT Gateway in the Public Subnet."
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "heading": "Mechanical & Civil CAD Drafting",
+     "slug": "cad-bim",
+     "text": "ISO drafting standards, SolidWorks modeling checklists, and AutoCAD shortcut commands.",
+     "items": [
+      {
+       "id": "autocad-shortcuts",
+       "title": "AutoCAD 2D & 3D Command Shortcuts Matrix",
+       "type": "Keyboard Reference",
+       "tag": "CAD Standard",
+       "text": "100+ keyboard shortcuts for drafting efficiency: layers, dimensions, isometric planes, blocks, and viewports.",
+       "highlights": [
+        "Isometric Drafting",
+        "Layer States",
+        "Dynamic Blocks"
+       ],
+       "href": "/autocad-course-in-lucknow",
+       "courseName": "AutoCAD Course",
+       "cheatSheet": {
+        "summary": "AutoCAD remains the global industry standard for 2D technical drawings and engineering drafting. Shortcut keys are essential for drafting speed and precision.",
+        "codeTitle": "High-Frequency AutoCAD Speed Commands",
+        "code": "=== Essential AutoCAD Speed Keys ===\nL    -> Line            | PL   -> Polyline      | C   -> Circle\nREC  -> Rectangle       | TR   -> Trim          | EX  -> Extend\nO    -> Offset          | CO   -> Copy          | MI  -> Mirror\nRO   -> Rotate          | F    -> Fillet        | CHA -> Chamfer\nDLI  -> Dim Linear      | DAL  -> Dim Aligned   | LA  -> Layer Mgr\nB    -> Create Block    | I    -> Insert Block  | F8  -> ORTHO Toggle\nF3   -> OSNAP Toggle    | F10  -> Polar Snap    | F11 -> Object Track",
+        "keyTakeaways": [
+         "Always assign entities to designated layers (WALLS, DOORS, DIMENSIONS, HATCH) with standard lineweights and colors.",
+         "Use Polylines (PL) for closed geometric contours so areas can be calculated and 3D extruded directly.",
+         "Keep Object Snap (F3) and Ortho (F8) enabled to guarantee accurate intersections without microscopic visual errors."
+        ]
+       }
+      },
+      {
+       "id": "solidworks-modeling",
+       "title": "SolidWorks Parametric Modeling Checklist",
+       "type": "Design Standard",
+       "tag": "Mechanical",
+       "text": "Design intent rules, sketch constraint best practices, mate conditions in assemblies, and bill of materials (BOM) export.",
+       "highlights": [
+        "Fully Defined Sketches",
+        "Motion Study",
+        "GD&T Standards"
+       ],
+       "href": "/solidworks-course-in-lucknow",
+       "courseName": "SolidWorks Course",
+       "cheatSheet": {
+        "summary": "Parametric 3D solid modeling captures design intent through geometric constraints, relationships, and parametric dimensions.",
+        "codeTitle": "SolidWorks 7-Step Modeling Checklist",
+        "code": "=== SolidWorks Engineering Checklist ===\n1. Select optimal datum plane (Top/Front/Right) matching manufacturing orientation.\n2. Anchor initial sketch directly to the Origin (0,0,0) for absolute reference.\n3. Fully Define all sketches (Black lines only - never leave underdefined Blue lines).\n4. Apply geometric constraints (Tangent, Concentric, Symmetric) before adding dimensions.\n5. Create primary base solid feature first, followed by cuts, and apply fillets/chamfers last.\n6. Fix only the ground component in assemblies; constrain other parts using Standard Mates.\n7. Run Interference Detection before releasing 2D production drawings for fabrication.",
+        "keyTakeaways": [
+         "Blue sketch lines represent under-defined geometry that will shift unpredictably when parent dimensions are modified.",
+         "Model symmetrical components using the Midplane extrude setting to maintain geometric symmetry for assembly mates.",
+         "Add cosmetic fillets and rounds at the bottom of the FeatureManager tree to prevent broken sketch reference errors."
+        ]
+       }
+      },
+      {
+       "id": "revit-bim-workflow",
+       "title": "Revit BIM Architecture Workflow Guide",
+       "type": "BIM Blueprint",
+       "tag": "Civil & Arch",
+       "text": "Building Information Modeling levels, family creation, structural framing, wall schedules, and clash detection.",
+       "highlights": [
+        "Levels & Grids",
+        "Clash Detection",
+        "Quantity Takeoff"
+       ],
+       "href": "/revit-course-in-lucknow",
+       "courseName": "Revit Architecture Course",
+       "cheatSheet": {
+        "summary": "Building Information Modeling (BIM) in Revit creates parametric digital representations of physical buildings containing live material quantities, structural properties, and cost data.",
+        "codeTitle": "Revit BIM Project Execution Sequence",
+        "code": "=== Revit BIM Architectural Workflow ===\nPhase 1: Configure Project Units (UN) -> Set True North and Project North.\nPhase 2: Establish Building Levels in Elevation View (Foundation, GF, FF, Roof).\nPhase 3: Set Structural Grid Lines (GR) for column and beam structural centers.\nPhase 4: Draw Exterior Compound Walls with authentic material strata (Brick, Cavity, Insulation, Plaster).\nPhase 5: Insert hosted Door & Window families (automatically cuts wall openings).\nPhase 6: Create Floor Slabs with boundary profiles locked to structural wall cores.\nPhase 7: Generate automated Material Takeoff Schedules & Bill of Quantities (BOQ).",
+        "keyTakeaways": [
+         "Revit building elements are intelligent objects: modifying a door width in a 2D floor plan updates 3D elevations and schedules automatically.",
+         "Set up Worksets and a Central Model when multiple project architects and MEP consultants work on the same model file.",
+         "Run automated Interference Checks between Architectural, Structural, and MEP models to resolve service clashes before construction starts."
+        ]
+       }
+      },
+      {
+       "id": "3ds-max-vray",
+       "title": "3ds Max & V-Ray Photorealistic Rendering Guide",
+       "type": "Visual Standard",
+       "tag": "3D Visualization",
+       "text": "Polygonal modeling, PBR material creation, daylight lighting systems, camera composition, and V-Ray frame buffer settings.",
+       "highlights": [
+        "PBR Texturing",
+        "V-Ray Sun",
+        "Frame Buffer"
+       ],
+       "href": "/3ds-max-course-in-lucknow",
+       "courseName": "3ds Max & V-Ray Course",
+       "cheatSheet": {
+        "summary": "Architectural visualization relies on physically based rendering (PBR) to simulate natural daylight, artificial interior illumination, and accurate material reflection.",
+        "codeTitle": "V-Ray Photorealistic Setup Pipeline",
+        "code": "=== V-Ray Photorealistic Rendering Pipeline ===\n1. Set System Unit Scale to Millimeters (mandatory for optical light inverse-square falloff).\n2. Configure V-Ray Physical Camera (Focal Length: 35-50mm, f-number: 8.0, Shutter: 1/125s).\n3. Setup V-Ray Sun & Sky with authentic atmospheric turbidity and realistic intensity (0.05-0.10).\n4. Assign PBR materials using Diffuse, Roughness, Normal, and IOR Refraction maps.\n5. Set Global Illumination (GI) to Brute Force (Primary) and Light Cache (Secondary).\n6. Enable V-Ray Denoiser in Render Elements to cut render calculation times by over 50%.",
+        "keyTakeaways": [
+         "Accurate lighting depends on true scale: if a room is modeled off-scale, light decay and optical exposure will look artificial.",
+         "Control image brightness using the camera's physical exposure settings rather than unnaturally boosting light source multipliers.",
+         "Render passes in 16-bit or 32-bit EXR format to allow non-destructive post-production adjustments in Photoshop."
+        ]
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "heading": "Turn Theory into Production-Ready Engineering",
+   "eyebrow": "Hands-On Transition",
+   "text": "Notes and cheat sheets build knowledge. Real live projects under practicing engineers build careers.",
+   "items": [
+    {
+     "title": "6 Months Industrial Training",
+     "text": "University-mandated final-semester training with verified corporate internship experience letter and live capstones.",
+     "cta": "Explore curriculum & tool",
+     "href": "/industrial-training-6-months-in-lucknow"
+    },
+    {
+     "title": "AI & GenAI Masterclass",
+     "text": "Learn to build LangChain RAG pipelines, CrewAI agents, and fine-tune foundation models on cloud GPUs.",
+     "cta": "Explore curriculum & tool",
+     "href": "/artificial-intelligence-course-in-lucknow"
+    },
+    {
+     "title": "MERN Full Stack Diploma",
+     "text": "End-to-end full stack development: React 19, Next.js 15, Node.js microservices, and automated CI/CD pipelines.",
+     "cta": "Explore curriculum & tool",
+     "href": "/mern-full-stack-course-in-lucknow"
+    },
+    {
+     "title": "AI Interview Prep Studio",
+     "text": "Practice real behavioral and technical interview questions with live feedback and scoring.",
+     "cta": "Explore curriculum & tool",
+     "href": "/tools/ai-interview-prep"
+    },
+    {
+     "title": "CGPA to Percentage Calculator",
+     "text": "Accurate formulas for PTU, PU Lucknow, CBSE, and autonomous universities for placement drives.",
+     "cta": "Explore curriculum & tool",
+     "href": "/tools/cgpa-to-percentage-calculator"
+    },
+    {
+     "title": "AI Cold Email & LinkedIn Note Generator",
+     "text": "Generate 300-character LinkedIn notes and personalized outreach messages to Lucknow recruiters.",
+     "cta": "Explore curriculum & tool",
+     "href": "/tools/ai-cold-email-generator"
+    }
+   ]
+  },
+  {
+   "heading": "Where to go next",
+   "eyebrow": "Keep exploring",
+   "items": [
+    {
+     "title": "Industrial training",
+     "text": "45 days, 6 weeks, 6 months and 9 months, aligned to university requirements and closed with an internship letter.",
+     "cta": "See the tracks",
+     "href": "/industrial-training-in-lucknow"
+    },
+    {
+     "title": "Tech interview questions & answers",
+     "text": "Top 100+ technical interview questions and answers for MERN, Python, Data Science, AI, and HR rounds in Lucknow.",
+     "cta": "Review interview questions",
+     "href": "/tech-interview-questions-and-answers"
+    },
+    {
+     "title": "Student projects & capstones",
+     "text": "Inspect genuine production capstones, autonomous AI agents, and full stack applications engineered by techcadd students.",
+     "cta": "Explore student projects",
+     "href": "/student-projects-portfolio"
+    }
+   ]
+  },
+  {
+   "heading": "Start building your career today.",
+   "eyebrow": "Ready to get started?",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "items": [
+    {
+     "title": "Book Demo",
+     "meta": "button (mobile number form)"
+    },
+    {
+     "title": "Call now",
+     "text": "{{phone}}",
+     "href": "tel:{{phone}}"
+    },
+    {
+     "title": "Free career counselling"
+    },
+    {
+     "title": "No registration fee"
+    },
+    {
+     "title": "Placement support included"
+    }
+   ]
+  }
+ ],
+ "qa": []
+}

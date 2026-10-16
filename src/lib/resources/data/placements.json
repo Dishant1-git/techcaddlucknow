@@ -1,0 +1,810 @@
+{
+ "url": "https://techcaddmohali.com/techcadd-lucknow-placements",
+ "title": "techcadd Lucknow Placements — 100% Placement Assistance & 450+ Hiring Partners | techcadd Lucknow",
+ "metaDescription": "Explore placement drives, hiring statistics and top tech companies hiring from techcadd Lucknow. Comprehensive mock interviews, resume rebuilding and live placement assistance.",
+ "breadcrumb": [
+  "Home",
+  "Placements"
+ ],
+ "hero": {
+  "eyebrow": "450+ hiring partners in Lucknow",
+  "heading": "Placement support that does not end at the certificate",
+  "text": "Our placement cell works with every student until they are placed — rebuilding profiles, running mock interviews, and putting candidates in front of companies hiring across Lucknow and nearby cities."
+ },
+ "stats": [
+  {
+   "value": "98%",
+   "label": "Placement success"
+  },
+  {
+   "value": "450+",
+   "label": "Hiring partners"
+  },
+  {
+   "value": "12,450+",
+   "label": "Alumni network"
+  },
+  {
+   "value": "Year-round",
+   "label": "Hiring drives"
+  }
+ ],
+ "sections": [
+  {
+   "eyebrow": "What the placement cell does",
+   "heading": "Four things, done repeatedly, for every student",
+   "text": "No lottery, no 'shortlisted candidates only'. Every enrolled student goes through the same pipeline.",
+   "items": [
+    {
+     "title": "Profile rebuild",
+     "text": "Resume, LinkedIn and GitHub rewritten around your project work — reviewed by the trainer who supervised it."
+    },
+    {
+     "title": "Mock interviews",
+     "text": "Technical and HR rounds with written feedback. Repeated until the feedback stops changing."
+    },
+    {
+     "title": "Aptitude & DSA drills",
+     "text": "Weekly practice sets and timed contests matched to the companies currently hiring from us."
+    },
+    {
+     "title": "Hiring drives",
+     "text": "Continuous drives with partner companies across Lucknow, plus referrals into alumni networks."
+    }
+   ]
+  },
+  {
+   "eyebrow": "Session readiness",
+   "heading": "Where a typical session stands at the finish line",
+   "text": "Measured across our 6-month and 9-month tracks for the last four completed sessions at the Lucknow centre.",
+   "items": [
+    {
+     "title": "Resume & portfolio ready",
+     "meta": "100%"
+    },
+    {
+     "title": "Live project completed",
+     "meta": "96%"
+    },
+    {
+     "title": "Mock interviews cleared",
+     "meta": "91%"
+    },
+    {
+     "title": "Placed or interning",
+     "meta": "98%"
+    }
+   ]
+  },
+  {
+   "eyebrow": "Where our students go",
+   "heading": "Sectors hiring from techcadd Lucknow",
+   "text": "Our partner network spans the Lucknow IT corridor and extends to product companies in Bengaluru, Pune and Gurugram.",
+   "tags": [
+    "IT services",
+    "Product startups",
+    "Digital agencies",
+    "Fintech",
+    "EdTech",
+    "Manufacturing & CAD",
+    "Cyber security firms",
+    "Cloud consultancies",
+    "E-commerce",
+    "Analytics teams",
+    "BPO / KPO tech",
+    "Freelance & contract"
+   ],
+   "disclaimer": "Placement assistance means active support — profile preparation, interview practice and introductions to hiring partners. It is not a guarantee of employment; outcomes depend on your performance in the programme and in interviews."
+  },
+  {
+   "eyebrow": "Placement record showcase",
+   "heading": "Where our learners are building careers",
+   "text": "Explore 42 + verified roles and hiring packages across Lucknow, Delhi NCR, Bengaluru, and Remote engineering teams.",
+   "stats": [
+    {
+     "value": "42+",
+     "label": "Showcase Placements"
+    },
+    {
+     "value": "₹9.2 LPA",
+     "label": "Highest Package"
+    },
+    {
+     "value": "₹5.5 LPA",
+     "label": "Average Package"
+    },
+    {
+     "value": "450+",
+     "label": "Hiring Partners"
+    }
+   ],
+   "filters": [
+    {
+     "label": "All",
+     "count": 42
+    },
+    {
+     "label": "Mohali & Chandigarh",
+     "count": 13
+    },
+    {
+     "label": "Delhi NCR",
+     "count": 11
+    },
+    {
+     "label": "Bengaluru",
+     "count": 10
+    },
+    {
+     "label": "Remote & Hybrid",
+     "count": 8
+    }
+   ],
+   "regionCountsInData": {
+    "Mohali & Chandigarh": 13,
+    "Delhi NCR": 11,
+    "Bengaluru": 10,
+    "Remote & Hybrid": 8
+   },
+   "note": "Page shows 12 of 42 initially with \"Load More Placements (30 remaining)\"; all 42 records taken from the page JS bundle. Card: initials avatar, package, name, course, \"Placed with\", company, role, region.",
+   "items": [
+    {
+     "name": "Aarav Sharma",
+     "title": "Aarav Sharma",
+     "course": "Full Stack Development",
+     "tags": [
+      "Full Stack Development"
+     ],
+     "company": "Infosys",
+     "role": "Junior Software Developer",
+     "package": "₹4.2 LPA",
+     "meta": "₹4.2 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Mehak Verma",
+     "title": "Mehak Verma",
+     "course": "Data Science",
+     "tags": [
+      "Data Science"
+     ],
+     "company": "Cognizant",
+     "role": "Data Analyst",
+     "package": "₹4.8 LPA",
+     "meta": "₹4.8 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Karan Singh",
+     "title": "Karan Singh",
+     "course": "Digital Marketing",
+     "tags": [
+      "Digital Marketing"
+     ],
+     "company": "Dentsu",
+     "role": "Performance Marketing Executive",
+     "package": "₹3.6 LPA",
+     "meta": "₹3.6 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Simran Kaur",
+     "title": "Simran Kaur",
+     "course": "Cyber Security",
+     "tags": [
+      "Cyber Security"
+     ],
+     "company": "HCLTech",
+     "role": "Security Operations Associate",
+     "package": "₹4.5 LPA",
+     "meta": "₹4.5 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Gurpreet Singh",
+     "title": "Gurpreet Singh",
+     "course": "MERN Full Stack",
+     "tags": [
+      "MERN Full Stack"
+     ],
+     "company": "NetSmartz Mohali",
+     "role": "React & Node.js Developer",
+     "package": "₹4.4 LPA",
+     "meta": "₹4.4 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Jasleen Kaur",
+     "title": "Jasleen Kaur",
+     "course": "AI & Generative AI",
+     "tags": [
+      "AI & Generative AI"
+     ],
+     "company": "Quark Software Mohali",
+     "role": "Associate AI Engineer",
+     "package": "₹5.2 LPA",
+     "meta": "₹5.2 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Maninder Singh",
+     "title": "Maninder Singh",
+     "course": "Cloud Computing & DevOps",
+     "tags": [
+      "Cloud Computing & DevOps"
+     ],
+     "company": "Sourcefuse Mohali",
+     "role": "Cloud Support Engineer",
+     "package": "₹4.8 LPA",
+     "meta": "₹4.8 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Tanvi Sharma",
+     "title": "Tanvi Sharma",
+     "course": "Python & Data Analytics",
+     "tags": [
+      "Python & Data Analytics"
+     ],
+     "company": "Tech Mahindra Chandigarh",
+     "role": "BI & Analytics Analyst",
+     "package": "₹4.5 LPA",
+     "meta": "₹4.5 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Prabhjot Singh",
+     "title": "Prabhjot Singh",
+     "course": "AutoCAD & SolidWorks",
+     "tags": [
+      "AutoCAD & SolidWorks"
+     ],
+     "company": "Tata Motors Ancillary",
+     "role": "CAD Design Engineer",
+     "package": "₹3.8 LPA",
+     "meta": "₹3.8 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Harleen Dhillon",
+     "title": "Harleen Dhillon",
+     "course": "UI/UX & Web Design",
+     "tags": [
+      "UI/UX & Web Design"
+     ],
+     "company": "Apptunix Mohali",
+     "role": "Product UI Designer",
+     "package": "₹4.2 LPA",
+     "meta": "₹4.2 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Rajat Malhotra",
+     "title": "Rajat Malhotra",
+     "course": "Cyber Security & SOC",
+     "tags": [
+      "Cyber Security & SOC"
+     ],
+     "company": "Seqrite / Quick Heal",
+     "role": "SOC Analyst L1",
+     "package": "₹4.6 LPA",
+     "meta": "₹4.6 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Arshdeep Kaur",
+     "title": "Arshdeep Kaur",
+     "course": "Digital Marketing & SEO",
+     "tags": [
+      "Digital Marketing & SEO"
+     ],
+     "company": "Clicky Soft Chandigarh",
+     "role": "SEO Campaign Executive",
+     "package": "₹4.0 LPA",
+     "meta": "₹4.0 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Sahil Kumar",
+     "title": "Sahil Kumar",
+     "course": "Python Web Development",
+     "tags": [
+      "Python Web Development"
+     ],
+     "company": "Sebiz Infotech Mohali",
+     "role": "Django Backend Developer",
+     "package": "₹4.3 LPA",
+     "meta": "₹4.3 LPA",
+     "region": "Mohali & Chandigarh"
+    },
+    {
+     "name": "Rohan Gupta",
+     "title": "Rohan Gupta",
+     "course": "MERN Full Stack",
+     "tags": [
+      "MERN Full Stack"
+     ],
+     "company": "TCS",
+     "role": "Associate Software Engineer",
+     "package": "₹5.2 LPA",
+     "meta": "₹5.2 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Ishita Malhotra",
+     "title": "Ishita Malhotra",
+     "course": "AI & Machine Learning",
+     "tags": [
+      "AI & Machine Learning"
+     ],
+     "company": "Accenture",
+     "role": "AI Associate",
+     "package": "₹6.4 LPA",
+     "meta": "₹6.4 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Harshdeep Singh",
+     "title": "Harshdeep Singh",
+     "course": "Cloud Computing",
+     "tags": [
+      "Cloud Computing"
+     ],
+     "company": "Wipro",
+     "role": "Cloud Support Associate",
+     "package": "₹4.1 LPA",
+     "meta": "₹4.1 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Navya Kapoor",
+     "title": "Navya Kapoor",
+     "course": "UI/UX & Graphic Design",
+     "tags": [
+      "UI/UX & Graphic Design"
+     ],
+     "company": "Publicis Groupe",
+     "role": "Visual Designer",
+     "package": "₹4.0 LPA",
+     "meta": "₹4.0 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Amanpreet Kaur",
+     "title": "Amanpreet Kaur",
+     "course": "Data Science & ML",
+     "tags": [
+      "Data Science & ML"
+     ],
+     "company": "Paytm Noida",
+     "role": "Junior Data Scientist",
+     "package": "₹6.8 LPA",
+     "meta": "₹6.8 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Vikramaditya Verma",
+     "title": "Vikramaditya Verma",
+     "course": "Full Stack Development",
+     "tags": [
+      "Full Stack Development"
+     ],
+     "company": "Nagarro Gurugram",
+     "role": "Associate Software Engineer",
+     "package": "₹5.5 LPA",
+     "meta": "₹5.5 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Aniket Chaudhary",
+     "title": "Aniket Chaudhary",
+     "course": "AWS Cloud & DevOps",
+     "tags": [
+      "AWS Cloud & DevOps"
+     ],
+     "company": "Zomato Gurugram",
+     "role": "Cloud Infrastructure Engineer",
+     "package": "₹7.2 LPA",
+     "meta": "₹7.2 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Sneha Sen",
+     "title": "Sneha Sen",
+     "course": "Cyber Security & Compliance",
+     "tags": [
+      "Cyber Security & Compliance"
+     ],
+     "company": "KPMG Gurugram",
+     "role": "Cyber Risk Analyst",
+     "package": "₹6.2 LPA",
+     "meta": "₹6.2 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Deepanshu Bhatia",
+     "title": "Deepanshu Bhatia",
+     "course": "Prompt Engineering & GenAI",
+     "tags": [
+      "Prompt Engineering & GenAI"
+     ],
+     "company": "To The New Noida",
+     "role": "Generative AI Developer",
+     "package": "₹5.8 LPA",
+     "meta": "₹5.8 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Ridhi Bansal",
+     "title": "Ridhi Bansal",
+     "course": "Power BI & Business Analytics",
+     "tags": [
+      "Power BI & Business Analytics"
+     ],
+     "company": "Genpact Noida",
+     "role": "Analytics Consultant",
+     "package": "₹5.0 LPA",
+     "meta": "₹5.0 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Sahil Batra",
+     "title": "Sahil Batra",
+     "course": "Revit Architecture & CAD",
+     "tags": [
+      "Revit Architecture & CAD"
+     ],
+     "company": "L&T Construction Delhi",
+     "role": "BIM Modeler",
+     "package": "₹4.5 LPA",
+     "meta": "₹4.5 LPA",
+     "region": "Delhi NCR"
+    },
+    {
+     "name": "Aditya Rao",
+     "title": "Aditya Rao",
+     "course": "Full Stack Development",
+     "tags": [
+      "Full Stack Development"
+     ],
+     "company": "Mphasis",
+     "role": "Software Engineer",
+     "package": "₹6.0 LPA",
+     "meta": "₹6.0 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Priya Nair",
+     "title": "Priya Nair",
+     "course": "Data Analytics",
+     "tags": [
+      "Data Analytics"
+     ],
+     "company": "Deloitte",
+     "role": "Analytics Associate",
+     "package": "₹5.8 LPA",
+     "meta": "₹5.8 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Vivek Joshi",
+     "title": "Vivek Joshi",
+     "course": "Python & AI",
+     "tags": [
+      "Python & AI"
+     ],
+     "company": "IBM",
+     "role": "Technical Support Associate",
+     "package": "₹5.5 LPA",
+     "meta": "₹5.5 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Ananya Iyer",
+     "title": "Ananya Iyer",
+     "course": "Digital Marketing",
+     "tags": [
+      "Digital Marketing"
+     ],
+     "company": "Myntra",
+     "role": "Growth Marketing Executive",
+     "package": "₹5.0 LPA",
+     "meta": "₹5.0 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Rahul Nambiar",
+     "title": "Rahul Nambiar",
+     "course": "Next.js & Frontend",
+     "tags": [
+      "Next.js & Frontend"
+     ],
+     "company": "Razorpay Bengaluru",
+     "role": "Frontend Engineer",
+     "package": "₹8.5 LPA",
+     "meta": "₹8.5 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Divya Hegde",
+     "title": "Divya Hegde",
+     "course": "AI & LLM Systems",
+     "tags": [
+      "AI & LLM Systems"
+     ],
+     "company": "Capgemini Bengaluru",
+     "role": "AI Platform Engineer",
+     "package": "₹7.0 LPA",
+     "meta": "₹7.0 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Akhil Kulkarni",
+     "title": "Akhil Kulkarni",
+     "course": "Cloud Infrastructure & Azure",
+     "tags": [
+      "Cloud Infrastructure & Azure"
+     ],
+     "company": "Infosys Bengaluru",
+     "role": "Cloud Platform Associate",
+     "package": "₹6.5 LPA",
+     "meta": "₹6.5 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Pooja Menon",
+     "title": "Pooja Menon",
+     "course": "Cybersecurity Defense",
+     "tags": [
+      "Cybersecurity Defense"
+     ],
+     "company": "Cisco Systems Bengaluru",
+     "role": "Associate Security Analyst",
+     "package": "₹7.8 LPA",
+     "meta": "₹7.8 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Karthik Sundaram",
+     "title": "Karthik Sundaram",
+     "course": "Big Data & Python",
+     "tags": [
+      "Big Data & Python"
+     ],
+     "company": "Mindtree Bengaluru",
+     "role": "Data Pipeline Associate",
+     "package": "₹6.2 LPA",
+     "meta": "₹6.2 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Swati Deshmukh",
+     "title": "Swati Deshmukh",
+     "course": "UI/UX Product Design",
+     "tags": [
+      "UI/UX Product Design"
+     ],
+     "company": "Swiggy Bengaluru",
+     "role": "Associate Product Designer",
+     "package": "₹6.8 LPA",
+     "meta": "₹6.8 LPA",
+     "region": "Bengaluru"
+    },
+    {
+     "name": "Siddharth Mehta",
+     "title": "Siddharth Mehta",
+     "course": "Full Stack Web Development",
+     "tags": [
+      "Full Stack Web Development"
+     ],
+     "company": "Turing (Remote)",
+     "role": "React & Node.js Developer",
+     "package": "₹9.2 LPA",
+     "meta": "₹9.2 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Meera Pillai",
+     "title": "Meera Pillai",
+     "course": "Generative AI & LLM Systems",
+     "tags": [
+      "Generative AI & LLM Systems"
+     ],
+     "company": "Outlier AI (Remote)",
+     "role": "AI Specialist",
+     "package": "₹8.0 LPA",
+     "meta": "₹8.0 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Nikhil Aggarwal",
+     "title": "Nikhil Aggarwal",
+     "course": "Data Analytics & SQL",
+     "tags": [
+      "Data Analytics & SQL"
+     ],
+     "company": "UK FinTech Client (Remote)",
+     "role": "BI & Reporting Specialist",
+     "package": "₹6.5 LPA",
+     "meta": "₹6.5 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Ravinder Singh",
+     "title": "Ravinder Singh",
+     "course": "Cloud DevOps & Terraform",
+     "tags": [
+      "Cloud DevOps & Terraform"
+     ],
+     "company": "CloudCraft (Remote)",
+     "role": "Site Reliability Associate",
+     "package": "₹7.5 LPA",
+     "meta": "₹7.5 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Natasha Sood",
+     "title": "Natasha Sood",
+     "course": "Growth Marketing & SEO",
+     "tags": [
+      "Growth Marketing & SEO"
+     ],
+     "company": "SaaS Agency (Hybrid)",
+     "role": "SEO & Content Lead",
+     "package": "₹5.5 LPA",
+     "meta": "₹5.5 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Lovepreet Singh",
+     "title": "Lovepreet Singh",
+     "course": "Ethical Hacking & Pentesting",
+     "tags": [
+      "Ethical Hacking & Pentesting"
+     ],
+     "company": "BugCrowd / Synack",
+     "role": "Security Researcher",
+     "package": "₹7.0 LPA",
+     "meta": "₹7.0 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Deepak Chawla",
+     "title": "Deepak Chawla",
+     "course": "MERN Stack Development",
+     "tags": [
+      "MERN Stack Development"
+     ],
+     "company": "Cvent India (Hybrid)",
+     "role": "Full Stack Software Engineer",
+     "package": "₹6.2 LPA",
+     "meta": "₹6.2 LPA",
+     "region": "Remote & Hybrid"
+    },
+    {
+     "name": "Ankita Rawat",
+     "title": "Ankita Rawat",
+     "course": "Python Data Science",
+     "tags": [
+      "Python Data Science"
+     ],
+     "company": "Mu Sigma (Hybrid)",
+     "role": "Decision Scientist",
+     "package": "₹6.0 LPA",
+     "meta": "₹6.0 LPA",
+     "region": "Remote & Hybrid"
+    }
+   ],
+   "footer": {
+    "heading": "Want to See the Capstone Projects That Landed These Offers?",
+    "eyebrow": "Genuine Work Evidence",
+    "text": "Every placed student built live production software, complete with GitHub repositories, architecture diagrams, and cloud deployments during their training.",
+    "links": [
+     "Inspect Student Capstone Portfolios",
+     "Explore Job-Ready Courses"
+    ],
+    "disclaimer": "Sample student names are showcased for privacy. Company names represent verified hiring partners and placement destinations across our employer network; individual offers, roles and packages depend on candidate interview performance and university credentials."
+   }
+  },
+  {
+   "eyebrow": "Student stories",
+   "heading": "4.9 out of 5, across 556+ reviews",
+   "text": "The sessions change every few months. What students say about the trainers and the project work does not.",
+   "note": "Marquee carousel; each quote repeated several times in markup — deduplicated. Badge: Google Reviews techcadd Lucknow 4.9",
+   "items": [
+    {
+     "text": "I joined the 6-month MERN track straight after B.Tech with almost no practical experience. The live project work is what changed things — I had real code to talk about in interviews instead of just a syllabus.",
+     "name": "Rohit Sharma",
+     "role": "Full Stack Developer",
+     "company": "Placed at an IT firm in Mohali",
+     "meta": "Google",
+     "rating": 5
+    },
+    {
+     "text": "The trainers actually work in the field, so every session had context from real projects. The Power BI and SQL modules were exactly what my interview rounds tested.",
+     "name": "Simran Kaur",
+     "role": "Data Analyst",
+     "company": "Placed in Chandigarh IT Park",
+     "meta": "Google",
+     "rating": 5
+    },
+    {
+     "text": "The Generative AI course was current in a way online tutorials are not. Building a full RAG pipeline and deploying it gave me something genuinely impressive for my portfolio.",
+     "name": "Arjun Mehta",
+     "role": "AI Engineer",
+     "company": "Product startup, Bengaluru",
+     "meta": "Google",
+     "rating": 5
+    },
+    {
+     "text": "Running real ad budgets during the course was the difference. I walked into my first job already knowing how to read a campaign report and fix what was underperforming.",
+     "name": "Neha Gupta",
+     "role": "Digital Marketing Executive",
+     "company": "Agency, Mohali",
+     "meta": "Google",
+     "rating": 5
+    },
+    {
+     "text": "The cyber security lab setup let me break things safely and learn how attacks really work. Placement cell arranged three interviews within a month of finishing.",
+     "name": "Karan Singh",
+     "role": "Security Analyst",
+     "company": "Placed via campus drive",
+     "meta": "Google",
+     "rating": 5
+    },
+    {
+     "text": "AutoCAD and SolidWorks were taught with actual production drawings, not textbook exercises. My employer noticed that my drawing sets followed proper standards from day one.",
+     "name": "Priya Verma",
+     "role": "Mechanical Design Engineer",
+     "company": "Manufacturing firm, Punjab",
+     "meta": "Google",
+     "rating": 5
+    }
+   ]
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "items": [
+    {
+     "title": "Student reviews",
+     "text": "Google reviews from techcadd students on the trainers, the live projects and the placement support, across every track.",
+     "meta": "Read the reviews",
+     "link": "/techcadd-lucknow-student-reviews"
+    },
+    {
+     "title": "Salary estimator",
+     "text": "Fresher and two-year salary ranges by role across Uttar Pradesh, Delhi NCR and remote work — and where graduates actually get hired.",
+     "meta": "Check the ranges",
+     "link": "/tools/salary-estimator"
+    },
+    {
+     "title": "Best IT training Lucknow",
+     "text": "Why techcadd is the top-rated IT training center in Lucknow — 1:1 sessions, live projects, 15+ years and 98% placement success.",
+     "meta": "See why we are #1",
+     "link": "/best-it-training-institute-lucknow"
+    }
+   ]
+  },
+  {
+   "heading": "Start building your career today.",
+   "eyebrow": "Ready to get started?",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "items": [
+    {
+     "title": "Book Demo",
+     "text": "Your mobile number"
+    },
+    {
+     "title": "Call now",
+     "meta": "{{phone}}"
+    }
+   ],
+   "tags": [
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ ]
+}

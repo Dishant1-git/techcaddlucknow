@@ -1,0 +1,211 @@
+{
+ "url": "https://techcaddmohali.com/tools",
+ "title": "Free IT & Career Tools — Salary Estimator, Career Quiz & Training Matcher | techcadd Lucknow",
+ "metaDescription": "Free career tools and IT calculators by techcadd Lucknow: Calculate fresher and experienced tech salaries, find your ideal software career track with our 4-question quiz, match 6 weeks / 6 months industrial training tracks, and access technical cheat sheets.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools"
+ ],
+ "hero": {
+  "eyebrow": "100% Free · No Registration Required",
+  "h1": "Interactive IT Career Tools & Calculators",
+  "text": "Make confident career choices with our interactive diagnostics, market salary calculators, university training track matchers, AI interview simulators, and curated technical study hubs.",
+  "badges": [
+   "100% Free Forever",
+   "Instant Real-Time Results",
+   "AI Interview Simulator",
+   "No Sign-up or Spam"
+  ]
+ },
+ "inputs": [],
+ "logic": "Static hub page; no interactive logic. Cards link to each tool.",
+ "sections": [
+  {
+   "eyebrow": "Interactive Utilities",
+   "heading": "Choose a Free Career Tool to Begin",
+   "text": "Designed for college students, fresh graduates, and working professionals planning their next transition.",
+   "cards": [
+    {
+     "badge": "Popular",
+     "eyebrow": "Interactive Calculator",
+     "title": "Salary & Career Growth Estimator",
+     "href": "/tools/salary-estimator",
+     "text": "Compare fresher (0-1 yr) and 2-year packages for Full Stack, Python AI, Data Science, Cyber Security, Cloud Computing, and CAD across Lucknow, Delhi NCR, and remote roles.",
+     "bullets": [
+      "Instant compensation breakdown",
+      "Top hiring companies by role",
+      "Lucknow vs. NCR vs. Remote delta"
+     ],
+     "cta": "Launch Tool"
+    },
+    {
+     "badge": "Recommended",
+     "eyebrow": "Diagnostic Assessment",
+     "title": "Find My Career Track Quiz",
+     "href": "/tools/career-track",
+     "text": "Answer 4 quick diagnostic questions to find the ideal career track tailored to your interests, logic skills, and engineering branch, complete with a free personalized 90-day learning roadmap.",
+     "bullets": [
+      "4-question adaptive quiz",
+      "90-day actionable action plan",
+      "Downloadable PDF roadmap"
+     ],
+     "cta": "Launch Tool"
+    },
+    {
+     "badge": "For Students",
+     "eyebrow": "Curriculum Alignment",
+     "title": "6 Weeks & 6 Months Training Matcher",
+     "href": "/tools/training-matcher",
+     "text": "Select your university (PTU, PU, Chitkara, CU, CU HP), engineering branch, and semester to discover your officially approved industrial training track, seat availability, and syllabus.",
+     "bullets": [
+      "University curriculum verification",
+      "Live seat status checking",
+      "Approved synopsis & project topics"
+     ],
+     "cta": "Launch Tool"
+    },
+    {
+     "badge": "Hot & Free",
+     "eyebrow": "AI Simulator & Feedback",
+     "title": "AI-Powered Mock Interview Prep",
+     "href": "/tools/ai-interview-prep",
+     "text": "Practice full-length technical, coding, and behavioral interview simulations with real-time AI evaluation, code-based questions from your GitHub, and ATS resume audits.",
+     "bullets": [
+      "AI questions generated from YOUR code",
+      "Instant ATS resume audit & fix tips",
+      "Real-time voice & technical simulations"
+     ],
+     "cta": "Launch Tool"
+    },
+    {
+     "badge": "Student Essential",
+     "eyebrow": "University Conversion",
+     "title": "CGPA to Percentage Calculator",
+     "href": "/tools/cgpa-to-percentage-calculator",
+     "text": "Convert 10-point CGPA or semester SGPAs using official PTU (IKGPTU), Panjab University, CBSE, AICTE, and Chitkara formulas with placement eligibility checks.",
+     "bullets": [
+      "Official PTU & PU conversion formulas",
+      "Semester-wise SGPA calculator",
+      "Campus placement eligibility check"
+     ],
+     "cta": "Launch Tool"
+    },
+    {
+     "badge": "AI Powered",
+     "eyebrow": "AI Job Outreach",
+     "title": "AI Cold Email & LinkedIn DM Generator",
+     "href": "/tools/ai-cold-email-generator",
+     "text": "Generate high-response cold emails, follow-up templates, and 300-character LinkedIn connection notes tailored for tech internships, fresher roles, and referral requests.",
+     "bullets": [
+      "Cold email with subject line & follow-up",
+      "300-character LinkedIn note generator",
+      "Tested for 3x recruiter reply rates"
+     ],
+     "cta": "Launch Tool"
+    }
+   ]
+  },
+  {
+   "eyebrow": "Learning Hubs & Verification",
+   "heading": "Free Study Guides & Student Portals",
+   "text": "Authoritative repositories of learning material, interview prep, student portfolios, and certificate validation.",
+   "cards": [
+    {
+     "badge": "Free Download",
+     "title": "Free Study Materials & Cheat Sheets",
+     "href": "/free-study-material-and-resources",
+     "text": "Download high-yield technical quick references for React 19, Next.js, Python, RAG architectures, Docker, Linux, and CAD shortcut blueprints.",
+     "cta": "Explore resource"
+    },
+    {
+     "badge": "Comprehensive",
+     "title": "Tech Interview Q&A Hub (100+ Topics)",
+     "href": "/tech-interview-questions-and-answers",
+     "text": "Frequently asked technical and HR interview questions for freshers & junior developers across MERN, Python, Data Science, Cyber Security, and Cloud.",
+     "cta": "Explore resource"
+    },
+    {
+     "badge": "Live Projects",
+     "title": "Student Capstone Portfolio Showcase",
+     "href": "/student-projects-portfolio",
+     "text": "Inspect production-ready capstone applications built by techcadd students, featuring system architectures, live demo links, and GitHub repositories.",
+     "cta": "Explore resource"
+    },
+    {
+     "badge": "Official Registry",
+     "title": "Online Certificate Verification Portal",
+     "href": "/verify-certificate",
+     "text": "Instant background check and credential validation portal for corporate recruiters, HR personnel, and universities to verify ISO 9001:2015 certificates.",
+     "cta": "Explore resource"
+    }
+   ]
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "Find my career track",
+     "text": "Four questions, then a matching course and a 90-day roadmap — development, AI, cyber, marketing, CAD or core programming.",
+     "cta": "Take the quiz",
+     "href": "/tools/career-track"
+    },
+    {
+     "title": "AI Mock Interview Prep",
+     "text": "Practice real-time technical and behavioral interview questions with AI voice simulations, scoring metrics, and personalized feedback.",
+     "cta": "Prepare with AI",
+     "href": "/tools/ai-interview-prep"
+    },
+    {
+     "title": "CGPA to Percentage Calculator",
+     "text": "Instant university formula converter supporting PTU, Panjab University, CBSE, and Chitkara with placement eligibility check.",
+     "cta": "Calculate my percentage",
+     "href": "/tools/cgpa-to-percentage-calculator"
+    }
+   ]
+  }
+ ],
+ "faqs": [],
+ "faqNote": "No FAQ section on the hub page.",
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "Breadcrumb: Home > Free Tools > <page>. All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas). Learning-hub card hrefs inferred from site nav paths (study materials, interview Q&A, student projects, verify certificate)."
+}

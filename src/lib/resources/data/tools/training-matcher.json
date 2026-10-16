@@ -1,0 +1,422 @@
+{
+ "url": "https://techcaddmohali.com/tools/training-matcher",
+ "title": "Industrial Training Matcher — 6 Weeks & 6 Months Training in Lucknow | techcadd | techcadd Lucknow",
+ "metaDescription": "Select your university (PTU, PU, Chitkara, CU, CU HP), engineering branch and semester to instantly match with approved 6 weeks or 6 months live industrial training tracks with project synopsis and report support.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools",
+  "Training Matcher"
+ ],
+ "hero": {
+  "eyebrow": "Free tool · Instant match",
+  "h1": [
+   "6 Weeks & 6 Months",
+   "training matcher."
+  ],
+  "text": "Set your university, branch and semester — see your matched live project track and duration instantly, with seat availability and syllabus one click away.",
+  "badges": [
+   "100% University Curriculum Aligned & Approved"
+  ]
+ },
+ "introCard": {
+  "heading": "6 Weeks & 6 Months Training Matcher",
+  "text": "Select your university, engineering branch and semester to instantly discover your approved live project track, verify seat availability, and download the official syllabus.",
+  "badges": [
+   "Approved Certificates",
+   "Synopsis & Report Support",
+   "100% Practical Live Work",
+   "4.9/5.0 (556+ Google Reviews)"
+  ]
+ },
+ "inputs": [
+  {
+   "name": "university",
+   "label": "1. Select your university / board",
+   "type": "button-grid (single select, check icon on selected)",
+   "options": [
+    "IKG Uttar Pradesh Technical University (PTU)",
+    "Guru Nanak Dev University (GNDU)",
+    "Uttar Pradeshi University, Patiala",
+    "PSBTE (Diploma)",
+    "Lucknow University",
+    "Lovely Professional University (LPU)",
+    "DAV University, Jalandhar",
+    "CT University, Ludhiana",
+    "RIMT University, Mandi Gobindgarh",
+    "SGGS / SLIET / NIT",
+    "Kurukshetra University",
+    "HP University / HP Technical",
+    "Other University or Board"
+   ],
+   "default": "IKG Uttar Pradesh Technical University (PTU)"
+  },
+  {
+   "name": "branch",
+   "label": "2. Select your engineering branch / stream",
+   "type": "button-grid with icons",
+   "options": [
+    {
+     "label": "CSE / IT / Computer Applications",
+     "icon": "code"
+    },
+    {
+     "label": "BCA / BCA-AI / B.Sc IT",
+     "icon": "terminal"
+    },
+    {
+     "label": "MCA / M.Sc IT / M.Tech CS",
+     "icon": "layers"
+    },
+    {
+     "label": "Mechanical & Automobile Engg.",
+     "icon": "cube"
+    },
+    {
+     "label": "Civil & Architectural Engg.",
+     "icon": "building"
+    },
+    {
+     "label": "ECE / EE / Electronics",
+     "icon": "bolt"
+    },
+    {
+     "label": "AI & Data Science / ML",
+     "icon": "sparkles"
+    },
+    {
+     "label": "MBA / BBA / Commerce",
+     "icon": "briefcase"
+    }
+   ],
+   "default": "CSE / IT / Computer Applications"
+  },
+  {
+   "name": "semester",
+   "label": "3. Choose current semester",
+   "type": "button-group",
+   "options": [
+    "Sem 1",
+    "Sem 2",
+    "Sem 3",
+    "Sem 4",
+    "Sem 5",
+    "Sem 6",
+    "Sem 7",
+    "Sem 8"
+   ],
+   "default": 5,
+   "display": "Semester {n}"
+  }
+ ],
+ "logic": "Only the semester changes the result: year = min(4, ceil(semester/2)); show yearTracks[year] (tag, 'Semester {n} match', title, blurb, 'Session status' / 'Only {seats} Seats Left' — seats is a hard-coded number, not live). University and branch only change label text: 'Matched live project tracks for {branch}' and 'Curriculum verified for {university}.' The same 6 project tracks are always listed regardless of selection. 'Download Syllabus & Seats' and 'Request Free Callback' open a lead modal (no file download).",
+ "data": {
+  "yearTracks": {
+   "1": {
+    "semesters": "1-2",
+    "tag": "FIRST YEAR TRACK",
+    "title": "2-Week Foundation Workshop",
+    "blurb": "An early, low-pressure introduction to programming and tools. Most universities do not mandate training this early — this is optional groundwork.",
+    "seats": 9
+   },
+   "2": {
+    "semesters": "3-4",
+    "tag": "SECOND YEAR TRACK",
+    "title": "6 Weeks / 45 Days Summer Training",
+    "blurb": "Meets your university's second-year industrial training requirement with a guided project and a verified certificate.",
+    "seats": 5
+   },
+   "3": {
+    "semesters": "5-6",
+    "tag": "PRE-FINAL YEAR TRACK",
+    "title": "6 Weeks / 2 Months Minor Project Training",
+    "blurb": "Builds a production-grade live project to strengthen your resume before campus recruitment and fulfil university pre-final year training credits.",
+    "seats": 4
+   },
+   "4": {
+    "semesters": "7-8",
+    "tag": "FINAL YEAR TRACK",
+    "title": "6 Months Industrial Training with Internship",
+    "blurb": "A full technology stack, a client-style live project and an internship letter — built for placement season.",
+    "seats": 6
+   }
+  },
+  "projectTracks": [
+   {
+    "tag": "MOST POPULAR",
+    "title": "MERN Stack Live Project",
+    "weeks": "6 Weeks",
+    "blurb": "Full-stack application development from scratch with authentication, REST APIs, database architecture, and cloud deployment.",
+    "stack": [
+     "React",
+     "Node.js",
+     "Express",
+     "MongoDB",
+     "Tailwind CSS",
+     "Vercel / Render"
+    ],
+    "includes": [
+     "1 Production-Grade Web App",
+     "Complete GitHub Repository",
+     "PTU/GNDU Approved Project Report & Synopsis"
+    ]
+   },
+   {
+    "tag": "HIGH DEMAND",
+    "title": "Python, AI & Machine Learning Track",
+    "weeks": "6 Weeks",
+    "blurb": "Core Python algorithms, data analysis, and real-world predictive ML models with REST API building.",
+    "stack": [
+     "Python 3",
+     "Pandas",
+     "NumPy",
+     "Scikit-Learn",
+     "FastAPI",
+     "Streamlit"
+    ],
+    "includes": [
+     "1 Live Predictive AI Project",
+     "Model Evaluation Documentation",
+     "University Training Certificate"
+    ]
+   },
+   {
+    "tag": "CORE CORPORATE",
+    "title": "Java Full Stack Enterprise Development",
+    "weeks": "6 Weeks",
+    "blurb": "Enterprise backend architecture using Spring Boot, Hibernate, microservices concepts, and SQL database optimization.",
+    "stack": [
+     "Core Java",
+     "Spring Boot",
+     "Hibernate",
+     "MySQL",
+     "REST APIs",
+     "Postman"
+    ],
+    "includes": [
+     "1 Enterprise CRUD Application",
+     "Database Schema Docs",
+     "Viva & Interview Prep Kit"
+    ]
+   },
+   {
+    "tag": "TRENDING",
+    "title": "Cloud Computing & DevOps",
+    "weeks": "6 Weeks",
+    "blurb": "Deploy and manage applications on AWS and Azure with Docker containers, CI/CD pipelines, and infrastructure automation.",
+    "stack": [
+     "AWS EC2/S3",
+     "Azure",
+     "Docker",
+     "Kubernetes",
+     "Jenkins",
+     "Terraform",
+     "Linux"
+    ],
+    "includes": [
+     "1 Deployed Cloud Application",
+     "CI/CD Pipeline Documentation",
+     "Training Certificate"
+    ]
+   },
+   {
+    "tag": "HIGH DEMAND",
+    "title": "Cybersecurity & Ethical Hacking",
+    "weeks": "6 Weeks",
+    "blurb": "Penetration testing, vulnerability assessment, network security, and web application security on a live lab.",
+    "stack": [
+     "Kali Linux",
+     "Wireshark",
+     "Nmap",
+     "Burp Suite",
+     "Metasploit",
+     "OWASP ZAP"
+    ],
+    "includes": [
+     "Security Audit Report",
+     "Vulnerability Assessment Documentation",
+     "Approved Project Report"
+    ]
+   },
+   {
+    "tag": "WEB DEVELOPMENT",
+    "title": "PHP / Laravel Full Stack",
+    "weeks": "6 Weeks",
+    "blurb": "Server-side web development with PHP and Laravel, database design, REST APIs, and WordPress customisation.",
+    "stack": [
+     "PHP 8",
+     "Laravel",
+     "MySQL",
+     "REST APIs",
+     "WordPress",
+     "Composer",
+     "cPanel"
+    ],
+    "includes": [
+     "1 Dynamic Web Application",
+     "Database Design Document",
+     "Training Certificate"
+    ]
+   }
+  ],
+  "projectCardLabels": [
+   "Tech stack & tools",
+   "Includes",
+   "Download Syllabus & Seats"
+  ],
+  "compliance": {
+   "heading": "University Compliance & Project Deliverables",
+   "text": "Every training track is structured to comply with PTU, GNDU, Uttar Pradeshi University, MRSPTU and PSBTE evaluation requirements.",
+   "items": [
+    {
+     "title": "College Synopsis & Approval Letter",
+     "body": "Formal project synopsis drafted within the first two weeks for department guide sign-off and HOD approval."
+    },
+    {
+     "title": "Daily Training Diary & Logbook",
+     "body": "Standardised documentation of daily learning modules, lab milestones, and weekly progress summaries."
+    },
+    {
+     "title": "Final University Project Report",
+     "body": "Hard-copy and soft-copy report formatted to university guidelines with architecture diagrams, code, and references."
+    },
+    {
+     "title": "Live Deployment & Viva Prep",
+     "body": "Live web application deployment or a certified CAD portfolio review, with mock viva sessions for external examiners."
+    }
+   ],
+   "collegesHeading": "Students from these colleges regularly train with us",
+   "colleges": [
+    "GNDEC Ludhiana",
+    "SVIET Banur",
+    "BBSBEC Fatehgarh Sahib",
+    "CGC Landran",
+    "CGC Jhanjeri",
+    "DAVIET Jalandhar",
+    "Rayat Bahra",
+    "CT Group",
+    "GIMET Amritsar",
+    "RIMT University",
+    "Guizar Group",
+    "PCTE Ludhiana",
+    "BCET Gurdaspur",
+    "GZSCCET Bathinda",
+    "DIET Gomti Nagar",
+    "BIT Bhaddal",
+    "ACET Nawanshahr",
+    "ACET Amritsar",
+    "Govt. Polytechnic Jalandhar",
+    "Govt. Polytechnic Amritsar",
+    "SBBSIET Padhiana",
+    "LLRIET Moga",
+    "CTIEMT Jalandhar"
+   ]
+  },
+  "counsellorCard": {
+   "rating": "4.9 rating (556+ Google verified reviews)",
+   "heading": "Need custom session timing or a college letter?",
+   "text": "Our academic counsellors guide you through PTU/GNDU training synopsis submission, session timings, and fast-track seat confirmation.",
+   "buttons": [
+    "Call {{phone}}",
+    "Request Free Callback"
+   ]
+  },
+  "leadModal": {
+   "titles": {
+    "fromProjectCard": "Download syllabus & check seats",
+    "fromCounsellorCard": "Request a free callback"
+   },
+   "subtitle": "{course} (project title or 'General enquiry')",
+   "fields": [
+    {
+     "name": "name",
+     "placeholder": "Your name",
+     "required": true
+    },
+    {
+     "name": "phone",
+     "placeholder": "Phone / WhatsApp",
+     "inputMode": "tel",
+     "required": true
+    }
+   ],
+   "submit": "Send my syllabus & seat status",
+   "privacy": "We use your details only to contact you about this request.",
+   "validation": "name non-empty and phone /^[0-9+\\s-]{10,15}$/ else 'Please enter your name and a valid phone number.'",
+   "post": "POST /api/enquiry {name, phone, course, message:'Training Matcher: {title}', source:'Training Matcher tool'}",
+   "success": {
+    "heading": "Request received",
+    "text": "A counsellor will call you within one working day with seat availability and the syllabus for {course}.",
+    "button": "Done"
+   }
+  },
+  "footerLine": "Choosing a track for the first time? Take the Career Track quiz to find your field before matching a session. (/tools/career-track)"
+ },
+ "sections": [
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "Industrial training",
+     "text": "45 days, 6 weeks, 6 months and 9 months, aligned to university requirements and closed with an internship letter.",
+     "cta": "See the tracks"
+    },
+    {
+     "title": "Find my career track",
+     "text": "Four questions, then a matching course and a 90-day roadmap — development, AI, cyber, marketing, CAD or core programming.",
+     "cta": "Take the quiz",
+     "href": "/tools/career-track"
+    },
+    {
+     "title": "College partnerships",
+     "text": "Workshops, mandated industrial training, faculty development and joint placement drives, run on your department's timetable.",
+     "cta": "Partner with us",
+     "href": "/techcadd-lucknow-college-partnerships"
+    }
+   ]
+  }
+ ],
+ "faqs": [],
+ "faqNote": "No FAQ section on this page.",
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas)."
+}

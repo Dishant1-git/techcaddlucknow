@@ -1,0 +1,600 @@
+{
+ "url": "https://techcaddmohali.com/tools/salary-estimator",
+ "title": "IT & Tech Salary Estimator — Uttar Pradesh, Lucknow, NCR & Remote | techcadd Lucknow",
+ "metaDescription": "Free instant tech salary estimator. Compare fresher and 2-year packages for Full Stack, Python AI, Data Science, Cyber Security, Cloud, and CAD across Lucknow, Delhi NCR, and remote roles.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools",
+  "Salary Estimator"
+ ],
+ "hero": {
+  "eyebrow": "Free tool · No form required",
+  "h1": [
+   "Salary & career",
+   "growth estimator."
+  ],
+  "text": "Pick a role to see fresher and 2-year salary ranges across Uttar Pradesh/Lucknow, Delhi NCR and remote work — and exactly where our graduates get hired.",
+  "badges": [
+   "100% free — always",
+   "Results shown instantly",
+   "No spam, ever"
+  ]
+ },
+ "inputs": [
+  {
+   "name": "role",
+   "type": "button-grid with icons",
+   "options": [
+    "Full-Stack Developer",
+    "SEO Specialist",
+    "Data Analyst",
+    "CAD Designer",
+    "Python Developer",
+    "Java Developer",
+    "Digital Marketing Executive",
+    "AI / ML Engineer",
+    "Cloud / DevOps Engineer",
+    "Cybersecurity Analyst",
+    "Android Developer",
+    "UI/UX & Web Designer"
+   ],
+   "default": "Full-Stack Developer"
+  },
+  {
+   "name": "location",
+   "type": "button-group",
+   "options": [
+    "Uttar Pradesh / Lucknow",
+    "Delhi NCR",
+    "Remote / Freelance"
+   ],
+   "default": "Uttar Pradesh / Lucknow"
+  }
+ ],
+ "logic": "range = base[role][level] × multiplier[location][level], each bound rounded to 1 decimal (Math.round(10x)/10); label '₹{low}–{high} LPA' (integers without decimals, otherwise 1 decimal). Progress bar width = min(100, round(((low+high)/2)/15*100))%. Two rows: 'Fresher' and 'After 2 Years'. Caption: 'Indicative ranges for entry-level {role} roles in {location}, compiled from public job-market listings. Actual offers vary by employer, skillset and interview performance.' Then 'Where {role} graduates get hired' with the hiredAt list and a course link button. Then consultation card 'Free consultation call' / 'Talk through {a|an} {role} career' / 'Google Verified' / '4.9 · 556+ reviews' (link to Google reviews) / buttons 'Call Now — {{phone}}' and 'Request a Free Callback' (opens same lead modal as Training Matcher, title 'Talk through {article} {role} career', course={role}) / 'Always free. No fee for the call, no obligation to enrol.' Footer: 'Not sure which role fits you? Take the Career Track quiz.'",
+ "data": {
+  "locationMultipliers": {
+   "Punjab / Tricity": {
+    "fresher": 1,
+    "after2": 1
+   },
+   "Delhi NCR": {
+    "fresher": 1.25,
+    "after2": 1.25
+   },
+   "Remote / Freelance": {
+    "fresher": 1.05,
+    "after2": 1.35
+   }
+  },
+  "roles": [
+   {
+    "title": "Full-Stack Developer",
+    "article": "a",
+    "icon": "code",
+    "blurb": "Builds and ships complete web applications, front to back.",
+    "hiredAt": [
+     "Product & SaaS startups (Lucknow IT Park, Lucknow)",
+     "IT services & staffing companies across Lucknow and NCR",
+     "Remote-first teams and freelance marketplaces",
+     "MNC captive development centres"
+    ],
+    "courseSlugOrHref": "mern-full-stack",
+    "courseLabel": "Explore MERN Stack",
+    "baseLPA": {
+     "fresher": [
+      2.4,
+      4.5
+     ],
+     "after2Years": [
+      5,
+      9
+     ]
+    }
+   },
+   {
+    "title": "SEO Specialist",
+    "article": "an",
+    "icon": "search",
+    "blurb": "Ranks websites organically and drives qualified traffic through content and technical SEO.",
+    "hiredAt": [
+     "Digital marketing agencies across Lucknow and NCR",
+     "E-commerce & D2C brands",
+     "SaaS and IT companies' in-house marketing teams",
+     "Freelance & consulting for local businesses"
+    ],
+    "courseSlugOrHref": "digital-marketing",
+    "courseLabel": "Explore Digital Marketing",
+    "baseLPA": {
+     "fresher": [
+      2.2,
+      3.6
+     ],
+     "after2Years": [
+      4,
+      7
+     ]
+    }
+   },
+   {
+    "title": "Data Analyst",
+    "article": "a",
+    "icon": "chart",
+    "blurb": "Turns raw business data into dashboards and decisions using SQL, Excel and BI tools.",
+    "hiredAt": [
+     "IT & analytics captive units (Lucknow)",
+     "BPO / KPO and shared-services centres",
+     "E-commerce and fintech companies",
+     "Remote analytics teams for global clients"
+    ],
+    "courseSlugOrHref": "data-analytics",
+    "courseLabel": "Explore Data Analytics",
+    "baseLPA": {
+     "fresher": [
+      2.6,
+      4.2
+     ],
+     "after2Years": [
+      5,
+      8.5
+     ]
+    }
+   },
+   {
+    "title": "CAD Designer",
+    "article": "a",
+    "icon": "cube",
+    "blurb": "Produces 2D drafts and 3D models for mechanical, civil and architectural projects.",
+    "hiredAt": [
+     "Manufacturing & auto-ancillary units in Uttar Pradesh",
+     "Architecture & interior design studios",
+     "Civil & infrastructure consultancies",
+     "Freelance drafting for design firms"
+    ],
+    "courseSlugOrHref": "autocad",
+    "courseLabel": "Explore AutoCAD",
+    "baseLPA": {
+     "fresher": [
+      2,
+      3.5
+     ],
+     "after2Years": [
+      4,
+      6.5
+     ]
+    }
+   },
+   {
+    "title": "Python Developer",
+    "article": "a",
+    "icon": "terminal",
+    "blurb": "Writes backend services, automation scripts and data pipelines in Python.",
+    "hiredAt": [
+     "Product & SaaS startups",
+     "IT services companies across Lucknow and NCR",
+     "Fintech & automation teams",
+     "Remote backend roles for global clients"
+    ],
+    "courseSlugOrHref": "python-programming",
+    "courseLabel": "Explore Python",
+    "baseLPA": {
+     "fresher": [
+      2.5,
+      4.2
+     ],
+     "after2Years": [
+      5,
+      8.5
+     ]
+    }
+   },
+   {
+    "title": "Java Developer",
+    "article": "a",
+    "icon": "layers",
+    "blurb": "Builds enterprise backend systems and APIs with Java and Spring Boot.",
+    "hiredAt": [
+     "Enterprise IT & product companies",
+     "Banking & fintech captive units",
+     "IT services companies across Lucknow and NCR",
+     "MNC captive development centres"
+    ],
+    "courseSlugOrHref": "java-programming",
+    "courseLabel": "Explore Java",
+    "baseLPA": {
+     "fresher": [
+      2.6,
+      4.4
+     ],
+     "after2Years": [
+      5.5,
+      9
+     ]
+    }
+   },
+   {
+    "title": "Digital Marketing Executive",
+    "article": "a",
+    "icon": "megaphone",
+    "blurb": "Runs paid, social and content campaigns end to end and reports on performance.",
+    "hiredAt": [
+     "Digital marketing & ad agencies",
+     "D2C and e-commerce brands",
+     "IT companies' in-house growth teams",
+     "Freelance & client-side consulting"
+    ],
+    "courseSlugOrHref": "digital-marketing",
+    "courseLabel": "Explore Digital Marketing",
+    "baseLPA": {
+     "fresher": [
+      2.2,
+      3.6
+     ],
+     "after2Years": [
+      4.5,
+      7.5
+     ]
+    }
+   },
+   {
+    "title": "AI / ML Engineer",
+    "article": "an",
+    "icon": "sparkles",
+    "blurb": "Trains, evaluates and deploys machine learning models into production systems.",
+    "hiredAt": [
+     "AI-first product startups",
+     "IT services companies' AI practices",
+     "Fintech & healthtech companies",
+     "Remote ML roles for global clients"
+    ],
+    "courseSlugOrHref": "machine-learning",
+    "courseLabel": "Explore Machine Learning",
+    "baseLPA": {
+     "fresher": [
+      3.5,
+      6
+     ],
+     "after2Years": [
+      7,
+      13
+     ]
+    }
+   },
+   {
+    "title": "Cloud / DevOps Engineer",
+    "article": "a",
+    "icon": "cloud",
+    "blurb": "Deploys, automates and scales infrastructure on AWS and Azure with CI/CD.",
+    "hiredAt": [
+     "SaaS & product companies",
+     "IT services & MNC captive units",
+     "Fintech & e-commerce platforms",
+     "Remote DevOps roles for global teams"
+    ],
+    "courseSlugOrHref": "cloud-computing",
+    "courseLabel": "Explore Cloud & DevOps",
+    "baseLPA": {
+     "fresher": [
+      3,
+      5
+     ],
+     "after2Years": [
+      6.5,
+      11
+     ]
+    }
+   },
+   {
+    "title": "Cybersecurity Analyst",
+    "article": "a",
+    "icon": "shield",
+    "blurb": "Monitors, investigates and responds to security threats across networks and systems.",
+    "hiredAt": [
+     "SOC teams at IT services companies",
+     "Banking & fintech security desks",
+     "MNC captive security operations",
+     "Freelance security audits & consulting"
+    ],
+    "courseSlugOrHref": "cyber-security",
+    "courseLabel": "Explore Cyber Security",
+    "baseLPA": {
+     "fresher": [
+      2.8,
+      4.8
+     ],
+     "after2Years": [
+      5.5,
+      10
+     ]
+    }
+   },
+   {
+    "title": "Android Developer",
+    "article": "an",
+    "icon": "monitor",
+    "blurb": "Builds and ships native and cross-platform Android applications.",
+    "hiredAt": [
+     "Product & app startups",
+     "IT services companies across Lucknow and NCR",
+     "Consumer app & gaming studios",
+     "Freelance app development"
+    ],
+    "courseSlugOrHref": "/courses?category=development",
+    "courseLabel": "Explore Development Courses",
+    "baseLPA": {
+     "fresher": [
+      2.4,
+      4
+     ],
+     "after2Years": [
+      5,
+      8.5
+     ]
+    }
+   },
+   {
+    "title": "UI/UX & Web Designer",
+    "article": "a",
+    "icon": "target",
+    "blurb": "Designs interfaces and user flows for web and mobile products.",
+    "hiredAt": [
+     "Product & SaaS startups",
+     "Design & branding studios",
+     "IT services companies' design teams",
+     "Freelance & client-side design work"
+    ],
+    "courseSlugOrHref": "web-designing",
+    "courseLabel": "Explore Web Designing",
+    "baseLPA": {
+     "fresher": [
+      2.2,
+      3.8
+     ],
+     "after2Years": [
+      4.5,
+      8
+     ]
+    }
+   }
+  ],
+  "computedRanges": {
+   "Full-Stack Developer": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.4–4.5 LPA",
+     "after2Years": "₹5–9 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3–5.6 LPA",
+     "after2Years": "₹6.3–11.3 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.5–4.7 LPA",
+     "after2Years": "₹6.8–12.2 LPA"
+    }
+   },
+   "SEO Specialist": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.2–3.6 LPA",
+     "after2Years": "₹4–7 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹2.8–4.5 LPA",
+     "after2Years": "₹5–8.8 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.3–3.8 LPA",
+     "after2Years": "₹5.4–9.5 LPA"
+    }
+   },
+   "Data Analyst": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.6–4.2 LPA",
+     "after2Years": "₹5–8.5 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3.3–5.3 LPA",
+     "after2Years": "₹6.3–10.6 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.7–4.4 LPA",
+     "after2Years": "₹6.8–11.5 LPA"
+    }
+   },
+   "CAD Designer": {
+    "Punjab / Tricity": {
+     "fresher": "₹2–3.5 LPA",
+     "after2Years": "₹4–6.5 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹2.5–4.4 LPA",
+     "after2Years": "₹5–8.1 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.1–3.7 LPA",
+     "after2Years": "₹5.4–8.8 LPA"
+    }
+   },
+   "Python Developer": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.5–4.2 LPA",
+     "after2Years": "₹5–8.5 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3.1–5.3 LPA",
+     "after2Years": "₹6.3–10.6 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.6–4.4 LPA",
+     "after2Years": "₹6.8–11.5 LPA"
+    }
+   },
+   "Java Developer": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.6–4.4 LPA",
+     "after2Years": "₹5.5–9 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3.3–5.5 LPA",
+     "after2Years": "₹6.9–11.3 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.7–4.6 LPA",
+     "after2Years": "₹7.4–12.2 LPA"
+    }
+   },
+   "Digital Marketing Executive": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.2–3.6 LPA",
+     "after2Years": "₹4.5–7.5 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹2.8–4.5 LPA",
+     "after2Years": "₹5.6–9.4 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.3–3.8 LPA",
+     "after2Years": "₹6.1–10.1 LPA"
+    }
+   },
+   "AI / ML Engineer": {
+    "Punjab / Tricity": {
+     "fresher": "₹3.5–6 LPA",
+     "after2Years": "₹7–13 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹4.4–7.5 LPA",
+     "after2Years": "₹8.8–16.3 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹3.7–6.3 LPA",
+     "after2Years": "₹9.5–17.6 LPA"
+    }
+   },
+   "Cloud / DevOps Engineer": {
+    "Punjab / Tricity": {
+     "fresher": "₹3–5 LPA",
+     "after2Years": "₹6.5–11 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3.8–6.3 LPA",
+     "after2Years": "₹8.1–13.8 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹3.2–5.3 LPA",
+     "after2Years": "₹8.8–14.9 LPA"
+    }
+   },
+   "Cybersecurity Analyst": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.8–4.8 LPA",
+     "after2Years": "₹5.5–10 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3.5–6 LPA",
+     "after2Years": "₹6.9–12.5 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.9–5 LPA",
+     "after2Years": "₹7.4–13.5 LPA"
+    }
+   },
+   "Android Developer": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.4–4 LPA",
+     "after2Years": "₹5–8.5 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹3–5 LPA",
+     "after2Years": "₹6.3–10.6 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.5–4.2 LPA",
+     "after2Years": "₹6.8–11.5 LPA"
+    }
+   },
+   "UI/UX & Web Designer": {
+    "Punjab / Tricity": {
+     "fresher": "₹2.2–3.8 LPA",
+     "after2Years": "₹4.5–8 LPA"
+    },
+    "Delhi NCR": {
+     "fresher": "₹2.8–4.8 LPA",
+     "after2Years": "₹5.6–10 LPA"
+    },
+    "Remote / Freelance": {
+     "fresher": "₹2.3–4 LPA",
+     "after2Years": "₹6.1–10.8 LPA"
+    }
+   }
+  }
+ },
+ "sections": [
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "Placements & career support",
+     "text": "Resume building, mock interviews, aptitude and DSA practice, and hiring drives with 450+ partner companies.",
+     "cta": "See how placement works",
+     "href": "/techcadd-lucknow-placements"
+    },
+    {
+     "title": "Find my career track",
+     "text": "Four questions, then a matching course and a 90-day roadmap — development, AI, cyber, marketing, CAD or core programming.",
+     "cta": "Take the quiz",
+     "href": "/tools/career-track"
+    },
+    {
+     "title": "All courses",
+     "text": "Sixteen job-oriented tracks — AI, full stack, data, cyber security, cloud, digital marketing and CAD, each with live projects and placement support.",
+     "cta": "Browse the catalogue",
+     "href": "/courses"
+    }
+   ]
+  }
+ ],
+ "faqs": [],
+ "faqNote": "No FAQ section on this page.",
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas). Course links use getCourseUrl(slug) (course detail page for that slug) except Android which links /courses?category=development. computedRanges is derived here from the JS formula for convenience."
+}

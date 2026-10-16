@@ -1,0 +1,334 @@
+{
+ "url": "https://techcaddmohali.com/tools/ai-interview-prep",
+ "title": "AI Mock Interview Prep & Code Simulator — Free Practice | techcadd Lucknow",
+ "metaDescription": "Master tech interviews with AI. Practice real-time questions generated directly from your GitHub code and resume, optimize for ATS screening, simulate live technical rounds, and land top developer jobs. 100% free practice.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools",
+  "AI Interview Prep"
+ ],
+ "hero": {
+  "eyebrow": "Free AI Tool · Code-Based Questions · Real-Time Simulation",
+  "h1": [
+   "Stop failing tech interviews.",
+   "Master them with AI."
+  ],
+  "text": "Tired of generic interview prep that doesn't match your actual projects? Get AI-generated questions from YOUR code, fix your ATS-failing resume, and land the high-paying tech career you deserve.",
+  "badges": [
+   "Trusted by 10,000+ Developers",
+   "4.9/5 Rating (2,000+ Reviews)",
+   "98% Placement Success Rate",
+   "2-Minute Setup — Free to Start"
+  ]
+ },
+ "inputs": [],
+ "logic": "NO on-site AI or interactive logic. The page is a marketing/landing page for the external app https://interview-prep.app/ . The 'Live AI Simulator' block is a static screenshot image (/images/tools/interview-prep-hero.png, 1860x1005, alt 'Stop Failing Tech Interviews - Master Them With AI - InterviewPrep App Interface') with overlay chips, plus buttons that open https://interview-prep.app/ in a new tab. No prompt, API call, question bank or scoring logic exists in the page's JS bundle (its only page-specific chunk is the shared callback form). To rebuild: keep it as a landing page linking out, or build your own simulator (no source logic to copy).",
+ "data": {
+  "simulatorBlock": {
+   "eyebrow": "Live AI Simulator",
+   "heading": "InterviewPrep.app Interactive Platform",
+   "buttons": [
+    {
+     "label": "Start Free AI Practice",
+     "href": "https://interview-prep.app/",
+     "newTab": true
+    },
+    {
+     "label": "Browse 100+ Q&As",
+     "href": "/tech-interview-questions-and-answers"
+    }
+   ],
+   "image": "/images/tools/interview-prep-hero.png",
+   "overlayChips": [
+    "98% Placement Success",
+    "4.9/5 from 2,000+ Reviews",
+    "2 Min Instant Setup"
+   ],
+   "openInNewTabLabel": "Open Simulator in New Tab"
+  },
+  "externalLinks": [
+   "https://interview-prep.app/"
+  ],
+  "otherLinks": [
+   "/techcadd-lucknow-placements (View Placement Records)",
+   "/tools (Explore All Free Tools)"
+  ]
+ },
+ "sections": [
+  {
+   "eyebrow": "Why Traditional Prep Fails",
+   "heading": "The 3 Biggest Tech Interview Bottlenecks — Solved by AI",
+   "text": "Most developers fail interviews not because they can't code, but because they can't explain their projects or their resumes never get seen.",
+   "cardLabels": [
+    "The Problem",
+    "How AI Solves It"
+   ],
+   "cards": [
+    {
+     "tag": "ATS Screen Filter",
+     "title": "Resume Getting Rejected?",
+     "problem": "Over 75% of developer resumes are automatically filtered out by Applicant Tracking Systems (ATS) before a human recruiter or engineering manager ever reads them.",
+     "solution": "The AI audits your resume against target tech job descriptions, identifies missing keywords, refines impact metrics, and ensures your resume easily scores 95%+ in ATS evaluations.",
+     "cta": "Fix this with AI simulation"
+    },
+    {
+     "tag": "Code Grill Defense",
+     "title": "Can't Explain Your Projects?",
+     "problem": "Interviewers grill you on architectural tradeoffs, database indexes, API bottlenecks, and edge cases in your projects. Reciting memorized answers immediately raises red flags.",
+     "solution": "Upload your code or GitHub repository. The AI reads your actual codebase and generates specific, challenging technical questions tailored to your implementation decisions.",
+     "cta": "Fix this with AI simulation"
+    },
+    {
+     "tag": "Pressure Simulation",
+     "title": "Blanking In Technical Rounds?",
+     "problem": "Freezing up or stumbling over live coding, system design, or unexpected deep-dive questions under the scrutiny of senior interviewers.",
+     "solution": "Practice realistic voice and text mock simulations that mirror FAANG and top product company hiring rounds, providing adaptive hints, rubrics, and instant confidence-building feedback.",
+     "cta": "Fix this with AI simulation"
+    }
+   ]
+  },
+  {
+   "eyebrow": "Step-By-Step Workflow",
+   "heading": "How to Practice and Crack Your Technical Interview",
+   "text": "A systematic, project-driven preparation routine used by top graduates across Lucknow & NCR.",
+   "steps": [
+    {
+     "n": "01",
+     "title": "Connect Code or Upload Resume",
+     "text": "Paste your GitHub repository link, upload your project files, or provide your current developer resume. No tedious setup required."
+    },
+    {
+     "n": "02",
+     "title": "AI Stack & Architecture Scan",
+     "text": "The intelligent engine analyzes your frameworks (React, Next.js, Node, Python, Django, Docker, PyTorch) and identifies potential talking points and architectural vulnerabilities."
+    },
+    {
+     "n": "03",
+     "title": "Live Interactive Simulation",
+     "text": "Engage in voice or text technical rounds. The AI acts as a senior staff engineer, asking follow-up questions, edge cases, and code optimization challenges."
+    },
+    {
+     "n": "04",
+     "title": "Instant Scorecard & Action Plan",
+     "text": "Receive actionable scoring across technical correctness, communication clarity, problem-solving structure, and concrete suggestions to refine your code."
+    }
+   ],
+   "cta": "Start Free AI Practice Now"
+  },
+  {
+   "eyebrow": "Comprehensive Question Banks",
+   "heading": "Specialized AI Evaluation Tracks",
+   "text": "From freshers preparing for industrial internships to full-stack leads architecting scalable microservices.",
+   "tracks": [
+    {
+     "title": "Full Stack & Web Engineering",
+     "text": "Component lifecycle, state management patterns, SSR vs CSR, caching strategies, and REST API optimization.",
+     "tags": [
+      "React 19",
+      "Next.js",
+      "Node.js",
+      "TypeScript",
+      "Express",
+      "REST/GraphQL"
+     ]
+    },
+    {
+     "title": "Python, AI & Data Science",
+     "text": "Vector databases, prompt engineering pipelines, agentic workflows, model evaluation, and ETL data engineering.",
+     "tags": [
+      "Python",
+      "FastAPI",
+      "Pandas",
+      "PyTorch",
+      "RAG",
+      "LangChain",
+      "LLMs"
+     ]
+    },
+    {
+     "title": "Java & Enterprise Backend",
+     "text": "Multi-threading, garbage collection tuning, distributed transactions, Kafka streaming, and database normalization.",
+     "tags": [
+      "Java 21",
+      "Spring Boot",
+      "Microservices",
+      "Hibernate",
+      "PostgreSQL"
+     ]
+    },
+    {
+     "title": "DevOps & Cloud Architecture",
+     "text": "Container orchestration, blue-green deployments, infrastructure as code, security hardening, and autoscaling.",
+     "tags": [
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "CI/CD",
+      "Terraform",
+      "Linux"
+     ]
+    },
+    {
+     "title": "Data Structures & Algorithms",
+     "text": "Time and space complexity tradeoffs, algorithmic pattern matching, and optimal problem-solving breakdowns.",
+     "tags": [
+      "Arrays & HashMaps",
+      "Trees & Graphs",
+      "Dynamic Programming",
+      "Big-O"
+     ]
+    },
+    {
+     "title": "Behavioral & Leadership Rounds",
+     "text": "Structuring real workplace scenarios, explaining engineering conflicts, and articulating business value clearly.",
+     "tags": [
+      "STAR Method",
+      "Culture Fit",
+      "Conflict Resolution",
+      "Salary Pitch"
+     ]
+    }
+   ]
+  },
+  {
+   "eyebrow": "techcadd Lucknow Advantage",
+   "heading": "Combining 1:1 Expert Mentorship With 24/7 AI Mock Simulations",
+   "paragraphs": [
+    "At techcadd Lucknow, our 6 Months Industrial Training, Diploma programs, and placement preparation integrate both offline human coaching and cutting-edge AI simulation.",
+    "You build real-world client applications with senior tech trainers in our labs, refine your architecture, and run iterative mock interviews on InterviewPrep.app to eliminate nervousness and master technical explanations."
+   ],
+   "bullets": [
+    "800+ Verified Hiring Partners across Lucknow & NCR",
+    "100% Placement Support with Dedicated Placement Cell Drives",
+    "Resume polishing with guaranteed ATS 90+ score criteria",
+    "1:1 Personal Mentor Mock Reviews before actual company interviews"
+   ],
+   "buttons": [
+    "Launch InterviewPrep App",
+    "View Placement Records"
+   ],
+   "ratingCard": {
+    "rating": "4.9/5 Institute Rating",
+    "text": "Based on 2,000+ verified student Google reviews"
+   },
+   "testimonials": [
+    {
+     "role": "MERN Stack Placement",
+     "package": "8.4 LPA",
+     "quote": "Practicing questions generated directly from my GitHub capstone helped me answer every single follow-up question confidently."
+    },
+    {
+     "role": "Python & AI Engineer",
+     "package": "9.2 LPA",
+     "quote": "The ATS resume fix alone got me 3x more recruiter interview invites on LinkedIn within 10 days."
+    }
+   ],
+   "costCard": {
+    "title": "Zero Cost to Start",
+    "text": "Start testing your interview readiness today without any credit card.",
+    "cta": "Open AI Tool Now"
+   }
+  },
+  {
+   "eyebrow": "Got Questions?",
+   "heading": "Frequently Asked Questions About AI Interview Prep",
+   "text": "Everything you need to know about code-based AI interview simulations, ATS scanning, and how to get started."
+  },
+  {
+   "eyebrow": "Instant Practice · No Credit Card Required",
+   "heading": "Ready to Stop Failing Interviews & Start Getting Offers?",
+   "text": "Join 10,000+ developers who transformed their technical interview performance. Practice questions from your own code and get hired faster.",
+   "buttons": [
+    "Start Free AI Practice Now",
+    "Explore All Free Tools"
+   ]
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "AI Cold Email & LinkedIn DM Generator",
+     "text": "Generate personalized high-conversion cold emails, follow-up messages, and 300-character LinkedIn connection notes for tech jobs.",
+     "cta": "Generate outreach message",
+     "href": "/tools/ai-cold-email-generator"
+    },
+    {
+     "title": "Tech interview questions & answers",
+     "text": "Top 100+ technical interview questions and answers for MERN, Python, Data Science, AI, and HR rounds in Lucknow.",
+     "cta": "Review interview questions",
+     "href": "/tech-interview-questions-and-answers"
+    },
+    {
+     "title": "Salary estimator",
+     "text": "Fresher and two-year salary ranges by role across Uttar Pradesh, Delhi NCR and remote work — and where graduates actually get hired.",
+     "cta": "Check the ranges",
+     "href": "/tools/salary-estimator"
+    }
+   ]
+  }
+ ],
+ "faqs": [
+  {
+   "q": "How does the AI generate questions specifically from my code?",
+   "a": "Unlike generic question lists, the InterviewPrep AI parser analyzes your GitHub repositories and source files. It examines your schema definitions, API endpoints, state management, dependencies, and component structure to simulate the exact technical grillings that senior interviewers perform during portfolio reviews."
+  },
+  {
+   "q": "Is there any charge or credit card required to start?",
+   "a": "No credit card is required to begin practicing. You can immediately launch the AI interview simulator, test your resume for ATS compliance, and participate in baseline mock rounds for free at interview-prep.app."
+  },
+  {
+   "q": "Can this tool help me pass automated ATS resume screenings?",
+   "a": "Yes. The AI incorporates ATS-benchmarked algorithms that scan your resume against live industry job descriptions. It identifies missing tech keywords, poorly quantified accomplishments, and formatting pitfalls that often cause resumes to be discarded before human review."
+  },
+  {
+   "q": "How does this platform complement techcadd Lucknow's offline classroom training?",
+   "a": "At techcadd Lucknow, students work on live client projects and receive in-person mentorship. Integrating InterviewPrep AI allows learners to practice continuous mock interviews anytime at home, sharpening their impromptu communication and technical articulation between classroom review sessions."
+  },
+  {
+   "q": "Which roles and domains are supported?",
+   "a": "The tool supports Full Stack Developers (MERN, MEAN, Java, Python), Frontend Engineers, Backend Architects, Data Scientists, Machine Learning Engineers, Cloud/DevOps Practitioners, and Cyber Security specialists from fresher level to senior engineering roles."
+  }
+ ],
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "Breadcrumb: Home > Free Tools > <page>. All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas). FAQ also emitted as FAQPage JSON-LD."
+}

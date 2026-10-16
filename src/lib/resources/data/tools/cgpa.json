@@ -1,0 +1,484 @@
+{
+ "url": "https://techcaddmohali.com/tools/cgpa-to-percentage-calculator",
+ "title": "CGPA to Percentage Calculator — PTU, PU, Chitkara, CU & AICTE Formulas | techcadd Lucknow",
+ "metaDescription": "Free instant CGPA to percentage calculator for engineering, BCA, MCA & diploma students. Convert 10-point CGPA using official PTU (IKGPTU), Panjab University (PU), CBSE, AICTE, and Chitkara formulas with placement eligibility check.",
+ "breadcrumb": [
+  "Home",
+  "Free Tools",
+  "CGPA to % Calculator"
+ ],
+ "hero": {
+  "eyebrow": "Free Student Tool · Instant Conversion · Official Formulas",
+  "h1": [
+   "CGPA to percentage",
+   "calculator & eligibility."
+  ],
+  "text": "Convert your 10-point CGPA or semester SGPAs to official percentage instantly. Supports PTU (IKGPTU), Panjab University, CBSE, AICTE, Chitkara, and CU standards.",
+  "badges": [
+   "100% Free — Instant Calculation",
+   "Official PTU, PU, AICTE & CBSE Formulas",
+   "Semester-Wise SGPA to Overall CGPA",
+   "Placement Drive Eligibility Checker"
+  ]
+ },
+ "inputs": [
+  {
+   "name": "mode",
+   "type": "tab-toggle",
+   "options": [
+    {
+     "value": "cgpa",
+     "label": "Overall CGPA to %",
+     "icon": "calculator"
+    },
+    {
+     "value": "semesters",
+     "label": "Semester-Wise SGPA to CGPA & %",
+     "icon": "layers"
+    }
+   ],
+   "default": "cgpa"
+  },
+  {
+   "name": "university",
+   "label": "Select Your University / Board Formula",
+   "type": "select",
+   "options": [
+    "I.K. Gujral Uttar Pradesh Technical University (IKGPTU / PTU)",
+    "Panjab University (PU Lucknow - Standard 10-Point)",
+    "Panjab University UIET / Engineering Formula",
+    "CBSE & AICTE National Standard Formula",
+    "Chitkara University (Uttar Pradesh & HP)",
+    "Lucknow University (Gharuan)",
+    "Uttar Pradeshi University Patiala (PUP)",
+    "Custom Multiplier / Formula"
+   ],
+   "optionValues": [
+    "ptu",
+    "pu_general",
+    "pu_uiet",
+    "cbse_aicte",
+    "chitkara",
+    "cu",
+    "punjabi_uni",
+    "custom"
+   ],
+   "default": "ptu",
+   "showsBelow": "'Formula:' + formula string, then the formula note"
+  },
+  {
+   "name": "customMultiplier",
+   "label": "Enter Custom Multiplier (e.g., 9.5 or 10 or 8.9)",
+   "type": "number",
+   "step": 0.01,
+   "min": 1,
+   "max": 20,
+   "default": 9.5,
+   "visibleWhen": "university == custom",
+   "sideText": "Percentage = CGPA × {value}",
+   "onInvalid": "falls back to 9.5"
+  },
+  {
+   "name": "cgpa",
+   "label": "Enter Your Cumulative Grade Point Average (CGPA):",
+   "type": "range + number (synced)",
+   "range": {
+    "min": 0,
+    "max": 10,
+    "step": 0.05
+   },
+   "number": {
+    "min": 0,
+    "max": 10,
+    "step": 0.01,
+    "acceptsOnly": "0..10"
+   },
+   "default": 8.2,
+   "valueDisplay": "cgpa.toFixed(2)",
+   "scaleLabels": [
+    "0.0 (Min)",
+    "5.0 (Average)",
+    "7.5 (Distinction)",
+    "10.0 (Max)"
+   ],
+   "visibleWhen": "mode == cgpa"
+  },
+  {
+   "name": "semesterCount",
+   "label": "Number of Completed Semesters:",
+   "type": "button-group",
+   "options": [
+    "2 Sem",
+    "4 Sem",
+    "6 Sem",
+    "8 Sem"
+   ],
+   "values": [
+    2,
+    4,
+    6,
+    8
+   ],
+   "default": 8,
+   "visibleWhen": "mode == semesters"
+  },
+  {
+   "name": "sgpa[i]",
+   "label": "Sem 0{i} SGPA",
+   "type": "number",
+   "min": 0,
+   "max": 10,
+   "step": 0.01,
+   "placeholder": "e.g. 8.2",
+   "count": "semesterCount",
+   "defaults": [
+    "7.8",
+    "8.0",
+    "8.2",
+    "8.4",
+    "8.5",
+    "8.6",
+    "8.8",
+    "8.9"
+   ],
+   "visibleWhen": "mode == semesters",
+   "footer": "Calculated Cumulative CGPA: {cgpa.toFixed(2)} / 10.0"
+  }
+ ],
+ "logic": "cgpa = (mode=='semesters') ? round2(mean of first semesterCount SGPAs that parse as numbers with 0 < x <= 10; 0 if none) : slider value.\npercentage = min(100, round2( custom ? cgpa*(customMultiplier||9.5) : type=='subtract_offset' ? max(0,(cgpa-offset)*multiplier) : cgpa*multiplier )).\nDivision label: pct>=75 'First Division with Distinction' (emerald, icon award); >=60 'First Division' (blue, check); >=50 'Second Division' (amber, clock); >=40 'Third Division / Pass' (slate, help); else 'Needs Improvement' (rose, alertCircle).\nResult card: 'Calculated Equivalent Percentage' / '{pct.toFixed(2)}%' / 'from {cgpa.toFixed(2)} CGPA' + division pill + 'Copy Result' button (copies `CGPA: {cgpa} | Percentage: {pct}% ({shortName}) | Division: {label}`; button shows 'Copied to Clipboard!' for 2.5s).\n'Calculation Breakdown:' shows '({cgpa} - {offset}) × {multiplier} = {pct}%' for UIET else '{cgpa} × {multiplier or custom} = {pct}%'.\nEligibility list (each row shows 'Requirement: {minCgpa} · {note}' and a pill 'Eligible for Drives ✓' (green) or 'Borderline / Skills Critical' (amber)): Tier-1 eligible if cgpa>=7; Mass recruiters eligible if pct>=60 OR cgpa>=6.5; Startups always eligible.",
+ "data": {
+  "formulas": [
+   {
+    "id": "ptu",
+    "name": "I.K. Gujral Uttar Pradesh Technical University (IKGPTU / PTU)",
+    "shortName": "PTU / IKGPTU",
+    "formula": "Percentage = CGPA × 9.5",
+    "type": "multiplier",
+    "multiplier": 9.5,
+    "note": "Official AICTE & IKGPTU formula for B.Tech, BCA, MCA and diploma programs."
+   },
+   {
+    "id": "pu_general",
+    "name": "Panjab University (PU Lucknow - Standard 10-Point)",
+    "shortName": "PU Lucknow (Standard)",
+    "formula": "Percentage = CGPA × 10",
+    "type": "multiplier",
+    "multiplier": 10,
+    "note": "Standard 10-point scale conversion adopted across PU departments."
+   },
+   {
+    "id": "pu_uiet",
+    "name": "Panjab University UIET / Engineering Formula",
+    "shortName": "PU UIET Formula",
+    "formula": "Percentage = (CGPA - 0.75) × 10",
+    "type": "subtract_offset",
+    "multiplier": 10,
+    "offset": 0.75,
+    "note": "Used for specific technical engineering degree conversions at PU Lucknow."
+   },
+   {
+    "id": "cbse_aicte",
+    "name": "CBSE & AICTE National Standard Formula",
+    "shortName": "CBSE / AICTE",
+    "formula": "Percentage = CGPA × 9.5",
+    "type": "multiplier",
+    "multiplier": 9.5,
+    "note": "Official national standard conversion recommended by AICTE and CBSE."
+   },
+   {
+    "id": "chitkara",
+    "name": "Chitkara University (Uttar Pradesh & HP)",
+    "shortName": "Chitkara University",
+    "formula": "Percentage = CGPA × 10",
+    "type": "multiplier",
+    "multiplier": 10,
+    "note": "Official 10-point conversion scale used for placement records and transcripts."
+   },
+   {
+    "id": "cu",
+    "name": "Lucknow University (Gharuan)",
+    "shortName": "Lucknow University (CU)",
+    "formula": "Percentage = CGPA × 10",
+    "type": "multiplier",
+    "multiplier": 10,
+    "note": "Official transcript conversion scale for engineering and management programs."
+   },
+   {
+    "id": "punjabi_uni",
+    "name": "Uttar Pradeshi University Patiala (PUP)",
+    "shortName": "Uttar Pradeshi University (PUP)",
+    "formula": "Percentage = CGPA × 9.5",
+    "type": "multiplier",
+    "multiplier": 9.5,
+    "note": "Standard 9.5 multiplication factor for technical and degree evaluations."
+   },
+   {
+    "id": "custom",
+    "name": "Custom Multiplier / Formula",
+    "shortName": "Custom Scale",
+    "formula": "Percentage = CGPA × Custom Multiplier",
+    "type": "multiplier",
+    "multiplier": 9.5,
+    "note": "Manually specify your institute's custom conversion factor."
+   }
+  ],
+  "eligibility": {
+   "heading": "Campus Placement & Corporate Eligibility Status",
+   "text": "Check how your percentage aligns with typical placement screening criteria across Uttar Pradesh, Lucknow, and MNC hiring drives.",
+   "rows": [
+    {
+     "companyType": "Tier-1 Product MNCs (Google, Microsoft, Adobe)",
+     "minCgpa": "7.0+ CGPA (66.5%+)",
+     "rule": "cgpa >= 7",
+     "note": "Heavy weightage on DSA, system design & live projects"
+    },
+    {
+     "companyType": "Mass IT Recruiters (TCS, Infosys, Wipro, Capgemini)",
+     "minCgpa": "60% or 6.5 CGPA with no active backlogs",
+     "rule": "pct >= 60 || cgpa >= 6.5",
+     "note": "Aptitude + core CS fundamentals screening"
+    },
+    {
+     "companyType": "High-Growth Startups & Product Firms (800+ techcadd Partners)",
+     "minCgpa": "Skill-First (Portfolio & Hands-on Coding)",
+     "rule": "always true",
+     "note": "Hires directly based on 6 Months Industrial Training & live capstones"
+    }
+   ],
+   "callout": {
+    "title": "Low CGPA or Below 60%? Don't Panic!",
+    "text": "Over 80% of modern software firms and techcadd's 800+ hiring partners hire candidates based on hands-on project proof and GitHub code rather than academic marks.",
+    "cta": "Explore 6 Months Training",
+    "href": "/industrial-training-6-months-in-lucknow"
+   }
+  },
+  "officialFormulasTable": {
+   "eyebrow": "Official University Guidelines",
+   "heading": "University & Board CGPA Conversion Formulas",
+   "text": "Refer to official AICTE, university senate notifications, and standard evaluation guidelines across Uttar Pradesh and Lucknow institutions.",
+   "columns": [
+    "University / Board",
+    "Official Formula",
+    "Example (8.0 CGPA)",
+    "Regulation Status"
+   ],
+   "rows": [
+    [
+     "I.K. Gujral Uttar Pradesh Technical University (PTU / IKGPTU)",
+     "Percentage = CGPA × 9.5",
+     "8.0 CGPA × 9.5 = 76.00%",
+     "Official AICTE / IKGPTU Standard"
+    ],
+    [
+     "Panjab University (PU Lucknow - Standard)",
+     "Percentage = CGPA × 10",
+     "8.0 CGPA × 10 = 80.00%",
+     "10-Point Transcript Scale"
+    ],
+    [
+     "Panjab University (UIET Engineering)",
+     "Percentage = (CGPA - 0.75) × 10",
+     "(8.0 - 0.75) × 10 = 72.50%",
+     "Specific Engineering Regulation"
+    ],
+    [
+     "CBSE & AICTE National Benchmark",
+     "Percentage = CGPA × 9.5",
+     "8.4 CGPA × 9.5 = 79.80%",
+     "National Standard Guideline"
+    ],
+    [
+     "Chitkara University (Uttar Pradesh & HP)",
+     "Percentage = CGPA × 10",
+     "8.2 CGPA × 10 = 82.00%",
+     "Standard Absolute Scale"
+    ],
+    [
+     "Lucknow University (CU Gharuan)",
+     "Percentage = CGPA × 10",
+     "8.5 CGPA × 10 = 85.00%",
+     "Official Transcript Scale"
+    ]
+   ]
+  },
+  "lookupTable": {
+   "eyebrow": "Quick Lookup Table",
+   "heading": "CGPA to Percentage Ready Reference Chart",
+   "text": "Side-by-side comparison across PTU (9.5x), Standard 10x, and UIET formulas with degree classification.",
+   "columns": [
+    "CGPA (10 Scale)",
+    "PTU / AICTE (× 9.5)",
+    "PU / Chitkara (× 10)",
+    "UIET PU Formula",
+    "Division Awarded"
+   ],
+   "rows": [
+    [
+     "10.0",
+     "95.00%",
+     "100.00%",
+     "92.50%",
+     "First with Distinction"
+    ],
+    [
+     "9.5",
+     "90.25%",
+     "95.00%",
+     "87.50%",
+     "First with Distinction"
+    ],
+    [
+     "9.0",
+     "85.50%",
+     "90.00%",
+     "82.50%",
+     "First with Distinction"
+    ],
+    [
+     "8.5",
+     "80.75%",
+     "85.00%",
+     "77.50%",
+     "First with Distinction"
+    ],
+    [
+     "8.0",
+     "76.00%",
+     "80.00%",
+     "72.50%",
+     "First with Distinction"
+    ],
+    [
+     "7.5",
+     "71.25%",
+     "75.00%",
+     "67.50%",
+     "First Division"
+    ],
+    [
+     "7.0",
+     "66.50%",
+     "70.00%",
+     "62.50%",
+     "First Division"
+    ],
+    [
+     "6.5",
+     "61.75%",
+     "65.00%",
+     "57.50%",
+     "First Division"
+    ],
+    [
+     "6.0",
+     "57.00%",
+     "60.00%",
+     "52.50%",
+     "Second Division"
+    ],
+    [
+     "5.5",
+     "52.25%",
+     "55.00%",
+     "47.50%",
+     "Second Division"
+    ]
+   ],
+   "note": "Static table; the 'Division Awarded' column is static text and does not exactly follow the live calculator thresholds."
+  }
+ },
+ "sections": [
+  {
+   "eyebrow": "Frequently Asked Questions",
+   "heading": "Everything You Need to Know About CGPA Conversion",
+   "text": "Clear answers on official guidelines, transcript submission for placements, and resolving backlog impacts."
+  },
+  {
+   "eyebrow": "Keep exploring",
+   "heading": "Where to go next",
+   "cards": [
+    {
+     "title": "Training matcher",
+     "text": "Pick your university, branch and semester to find the approved industrial training track and check live seat availability.",
+     "cta": "Match my semester",
+     "href": "/tools/training-matcher"
+    },
+    {
+     "title": "AI Cold Email & LinkedIn DM Generator",
+     "text": "Generate personalized high-conversion cold emails, follow-up messages, and 300-character LinkedIn connection notes for tech jobs.",
+     "cta": "Generate outreach message",
+     "href": "/tools/ai-cold-email-generator"
+    },
+    {
+     "title": "Placements & career support",
+     "text": "Resume building, mock interviews, aptitude and DSA practice, and hiring drives with 450+ partner companies.",
+     "cta": "See how placement works",
+     "href": "/techcadd-lucknow-placements"
+    }
+   ]
+  }
+ ],
+ "faqs": [
+  {
+   "q": "Why is 9.5 used as the multiplier for CGPA to Percentage?",
+   "a": "The multiplier 9.5 was statistically established by CBSE and AICTE after analyzing the performance of thousands of students across India. While the maximum CGPA is 10, the top scorers rarely score 100% in all subjects (averaging around 95%). Hence, multiplying by 9.5 provides the most statistically accurate equivalent percentage."
+  },
+  {
+   "q": "What is the official formula for IKGPTU (Uttar Pradesh Technical University)?",
+   "a": "IKGPTU officially follows the AICTE guideline: Percentage = CGPA × 9.5. For example, if your B.Tech or BCA cumulative grade is 7.8, your official PTU percentage is 7.8 × 9.5 = 74.10%."
+  },
+  {
+   "q": "How do I calculate overall CGPA from semester SGPAs?",
+   "a": "To calculate overall CGPA, take the sum of your Semester Grade Point Averages (SGPAs) across all completed semesters and divide by the total number of semesters (or calculate weighted credit points if course credits vary per semester). Our calculator includes a built-in semester calculator for this."
+  },
+  {
+   "q": "What if my percentage is below 60%? Can I still get an IT job?",
+   "a": "Yes! While some mass recruiters maintain a 60% cutoff, modern tech startups, product firms, and techcadd's 800+ hiring partners prioritize GitHub code repositories, practical problem-solving, and live project experience. Completing our 6 Months Industrial Training program bridges any academic gap with industry-grade portfolio projects."
+  },
+  {
+   "q": "How does Panjab University (PU Lucknow) convert CGPA to percentage?",
+   "a": "Panjab University departments generally follow the standard 10-point conversion (Percentage = CGPA × 10). However, specific engineering divisions such as UIET have historically recognized the formula Percentage = (CGPA - 0.75) × 10. Our calculator supports both options."
+  }
+ ],
+ "globalCtas": {
+  "quickCallback": {
+   "eyebrow": "Quick callback",
+   "heading": "Would you rather we called you?",
+   "text": "Leave a number and a counsellor calls back within one working day — or reach us now on {{phone}}.",
+   "input": {
+    "id": "callback-phone",
+    "type": "tel",
+    "label": "Your mobile number",
+    "placeholder": "Your mobile number",
+    "required": true
+   },
+   "button": "Request a call",
+   "validation": "/^[0-9+\\s-]{10,15}$/ else 'Enter a valid phone number.'",
+   "submit": "POST /api/enquiry {name:'Callback request', phone, source:'Quick callback bar — <pathname>'}",
+   "success": "Got it — we will call you within one working day.",
+   "error": "Something went wrong. Please call or WhatsApp us instead."
+  },
+  "bottomCta": {
+   "eyebrow": "Ready to get started?",
+   "heading": "Start building your career today.",
+   "text": "Talk to a counsellor today. One call is usually enough to know which track fits your degree, your schedule and the job you want.",
+   "input": {
+    "id": "cta-phone",
+    "type": "tel",
+    "placeholder": "Your mobile number"
+   },
+   "button": "Book Demo",
+   "validationError": "Enter a valid mobile number.",
+   "submit": "POST /api/enquiry {phone, source:'Home CTA — callback request'}",
+   "success": "Thanks — a counsellor will call you shortly.",
+   "extras": [
+    "Call now",
+    "{{phone}}",
+    "Free career counselling",
+    "No registration fee",
+    "Placement support included"
+   ]
+  }
+ },
+ "notes": "All pages end with the shared 'Keep exploring / Where to go next' cards, the Quick callback bar and the bottom 'Ready to get started?' CTA (see globalCtas). Logic taken from the page's client JS chunk. FAQ also emitted as FAQPage JSON-LD."
+}
