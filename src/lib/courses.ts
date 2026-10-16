@@ -355,10 +355,16 @@ export function getProgramme(slug: string): Course | undefined {
   return withProgrammeGuide({ ...programme, unit: monthly ? "Month" : "Module", theme: "after12th" });
 }
 
+<<<<<<< Updated upstream
 // These briefs carry no reviews or enquiry text; the pages fall back to the
 // closest course's reviews.
 const programmeGuides = Object.fromEntries(
   Object.entries(programmeGuideContent).map(([slug, g]) => [slug, { reviews: null, enquiry: null, ...g } as CourseGuide]),
+=======
+// The programme briefs have no reviews or enquiry section of their own.
+const programmeGuides: Record<string, CourseGuide> = Object.fromEntries(
+  Object.entries(programmeGuideContent).map(([slug, g]) => [slug, { reviews: null, enquiry: null, ...g }]),
+>>>>>>> Stashed changes
 );
 
 /**
