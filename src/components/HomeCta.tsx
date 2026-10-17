@@ -25,7 +25,7 @@ export function HomeCta() {
       return;
     }
     setError("");
-    open(undefined, phone);
+    open(undefined, phone, "home-cta");
   };
 
   return (

@@ -24,11 +24,17 @@ import {
   Star,
   X,
 } from "lucide-react";
-import { after12thCatalogue, courseCatalogue, coursesMenu, googleReviews, site } from "@/lib/site";
+import { googleReviews, site } from "@/lib/site";
+import { enquiryCourses as allCourses, isValidName, isValidPhone, type EnquirySource } from "@/lib/enquiry";
 import { GoogleG } from "./ui";
 
-/** Opens the enquiry popup, optionally with a course and mobile number filled in. */
-const EnquiryContext = createContext<{ open: (course?: string, phone?: string) => void }>({
+/**
+ * Opens the enquiry popup, optionally with a course and mobile number filled
+ * in. `source` records which form the lead came from (defaults to "book-demo").
+ */
+const EnquiryContext = createContext<{
+  open: (course?: string, phone?: string, source?: EnquirySource) => void;
+}>({
   open: () => {},
 });
 
@@ -43,16 +49,11 @@ const popularTracks = [
   { label: "Cyber Security", icon: Shield },
 ];
 
-const allCourses = Array.from(
-  new Set(
-    [...coursesMenu, ...courseCatalogue, ...after12thCatalogue].flatMap((col) => col.courses.map((c) => c.label)),
-  ),
-);
-
 export function EnquiryProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [course, setCourse] = useState("");
   const [phone, setPhone] = useState("");
+  const [source, setSource] = useState<EnquirySource>("book-demo");
 
   // Show the popup once per browser session, like the reference site.
   useEffect(() => {
@@ -82,9 +83,10 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
   return (
     <EnquiryContext.Provider
       value={{
-        open: (c, p) => {
+        open: (c, p, s) => {
           if (c) setCourse(c);
           if (p) setPhone(p);
+          setSource(s ?? "book-demo");
           setIsOpen(true);
         },
       }}
@@ -196,6 +198,7 @@ export function EnquiryProvider({ children }: { children: ReactNode }) {
                   course={course}
                   onCourseChange={setCourse}
                   defaultPhone={phone}
+                  source={source}
                   className="mt-4"
                 />
               </div>
@@ -217,6 +220,7 @@ export function EnquiryForm({
   onCourseChange,
   defaultCourse,
   defaultPhone,
+  source,
   className = "",
 }: {
   /** Pass both to control the selected course from outside (the popup's track chips). */
@@ -226,6 +230,8 @@ export function EnquiryForm({
   defaultCourse?: string;
   /** Mobile number already typed elsewhere, such as the home page call to action. */
   defaultPhone?: string;
+  /** Which form this is; saved with the lead. */
+  source: EnquirySource;
   className?: string;
 }) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
@@ -253,8 +259,10 @@ export function EnquiryForm({
     const data = Object.fromEntries(new FormData(e.currentTarget));
     delete data.answer;
     if (!course) return setError("Please select a course.");
-    if (!String(data.name).trim()) return setError("Please enter your name.");
-    if (!/^[6-9]\d{9}$/.test(String(data.phone))) {
+    const name = String(data.name ?? "").trim().replace(/\s+/g, " ");
+    if (!name) return setError("Please enter your name.");
+    if (!isValidName(name)) return setError("Please enter your name using letters only.");
+    if (!isValidPhone(String(data.phone))) {
       return setError("Enter a valid 10-digit mobile number.");
     }
     if (!sum || Number(answer) !== sum.a + sum.b) {
@@ -267,8 +275,12 @@ export function EnquiryForm({
       const res = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, name, source, page: window.location.pathname }),
       });
+      if (res.status === 429) {
+        setStatus("error");
+        return setError("You have sent several enquiries already. Please call us instead.");
+      }
       if (!res.ok) throw new Error();
       setStatus("done");
     } catch {
@@ -295,6 +307,14 @@ export function EnquiryForm({
 
   return (
     <form onSubmit={onSubmit} className={`space-y-2.5 ${className}`} noValidate>
+      {/* Spam trap: hidden from people, filled in by bots, ignored by the server. */}
+      <input
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute -left-[9999px] size-px opacity-0"
+      />
       <div className="relative">
         <select
           name="course"
@@ -317,6 +337,7 @@ export function EnquiryForm({
         name="name"
         required
         autoComplete="name"
+        maxLength={80}
         placeholder="Full Name*"
         aria-label="Full name"
         className={field}

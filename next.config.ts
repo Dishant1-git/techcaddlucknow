@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
+  // The MySQL driver runs as a plain Node.js package, not bundled.
+  serverExternalPackages: ["mysql2"],
   // The Internship & Training section moved from /internship-training.
   async redirects() {
     return [

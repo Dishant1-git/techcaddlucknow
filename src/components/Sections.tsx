@@ -726,7 +726,7 @@ export function Cta({
               Leave your number and a counsellor will call you back.
             </p>
             {/* Keyed so moving to another course page resets the selection. */}
-            <EnquiryForm key={course} defaultCourse={course} className="mt-6" />
+            <EnquiryForm key={course} defaultCourse={course} source="course-page" className="mt-6" />
           </div>
         </div>
       </div>
