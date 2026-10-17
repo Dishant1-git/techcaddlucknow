@@ -7,6 +7,7 @@ import {
   Ecosystem,
   Journey,
   LearningPath,
+  LeadershipTeam,
   Recognition,
   SkillDomains,
   WhoWeAre,
@@ -44,6 +45,7 @@ export default function AboutPage() {
       <Approach />
       <Recognition />
       <Journey />
+      <LeadershipTeam />
       <CampusGallery />
       <Belief />
     </PageShell>

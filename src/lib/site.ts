@@ -961,6 +961,45 @@ export const after12thCatalogue: (Omit<CatalogueCategory, "courses"> & {
 
 export const after12thHref = (slug: string) => `/after-12th-courses/${slug}`;
 
+// Full-screen panels in the home page's training programmes section: the two
+// training durations, then the 3, 6 and 9 month certificate programmes from
+// the After 12th catalogue (each links to its section there).
+export type ProgrammePanel = {
+  duration: string;
+  title: string;
+  text: string;
+  points: string[];
+  popular?: boolean;
+  /** Where "Programme details" goes; without it the button opens the enquiry popup. */
+  href?: string;
+  /** Internship & Training programme slug; its domain pages are linked from the panel. */
+  slug?: string;
+  /** Detail pages linked from the panel. */
+  tracks?: { label: string; href: string }[];
+};
+
+const certificatePanel = (months: 3 | 6 | 9, points: string[]): ProgrammePanel => {
+  const cat = after12thCatalogue.find((c) => c.id === `after-12th-${months}-month-program`);
+  return {
+    duration: `${months} Months`,
+    title: `${months}-Month Certificate Programmes`,
+    text: `${cat?.text ?? ""}. ${cat?.courses.length ?? 0} tracks to choose from — MERN, full stack, AI, cloud, cyber security, data and digital marketing.`,
+    points,
+    href: cat ? `/after-12th-courses#${cat.id}` : "/after-12th-courses",
+    tracks: (cat?.courses ?? []).map((c) => ({
+      label: c.label.replace(/ (Diploma )?(Certificate )?Program(me)?\b/, ""),
+      href: after12thHref(c.slug),
+    })),
+  };
+};
+
+export const programmePanels: ProgrammePanel[] = [
+  ...programmes.map((p) => ({ ...p, href: internshipHref(p.slug) })),
+  certificatePanel(3, ["One subject, one term", "One live project", "Certificate on completion"]),
+  certificatePanel(6, ["Half a year of training", "Finishes with a portfolio", "Certificate on completion"]),
+  certificatePanel(9, ["The longest track", "Placement preparation", "Diploma-level depth"]),
+];
+
 // Columns in the After 12th mega menu: the three "After 12th" tracks above.
 export const after12thMenu: MenuColumn[] = after12thCatalogue.slice(0, 3).map((cat) => ({
   title: cat.title,
@@ -1037,6 +1076,7 @@ export const nav: NavItem[] = [
     mega: "about",
     children: aboutMenu.map((m) => ({ label: m.link, href: m.href })),
   },
+  { label: "Founder", href: "/about/founder" },
   { label: "AI", href: "/#ai", highlight: true, mega: "ai" },
   {
     label: "Courses",

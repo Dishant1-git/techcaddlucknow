@@ -280,6 +280,26 @@ export const founder = {
   about: "/images/gallery/founder-google.webp",
 };
 
+// "Core Pillars & Leadership" on the About page, after techcaddmohali.com/about/founder.
+// The team runs the whole techcadd network, so it is the same for every branch.
+// Photos are transparent cut-outs in public/images/team.
+export const leadershipTeam = {
+  intro: `Working alongside Founder Mr. Gourav Gupta, these are the co-founders, technical directors and branch heads who form the backbone of ${site.name}. From institutional governance and industry-grade curriculum architecture to expanding campuses from Punjab to ${site.city}, this core leadership team drives the vision, standards and continuous development of ${site.name}.`,
+  members: [
+    { name: "Shilpa Gupta", role: `Co-founder, ${site.name}`, area: "Operations & Governance", photo: "shilpa-mam", w: 609 },
+    { name: "Asmita Sehgal", role: "Sr. Manager", area: "Academic Operations", photo: "asmita-mam", w: 663 },
+    { name: "Sandeep", role: "Co-founder, IAM", area: "Cloud Systems & IAM", photo: "sandeep-sir", w: 557 },
+    { name: "Amit Sharma", role: "IT Technical Head", area: "Information Technology", photo: "amit-sir", w: 601 },
+    { name: "Harrachneet Kaur", role: "Sr. Relationship Manager", area: "Institutional Partnerships", photo: "richi-mam", w: 456 },
+    { name: "Alam", role: `${site.name} Amritsar Franchise Owner`, area: `${site.name} Amritsar`, photo: "alam-sir", w: 571 },
+    { name: "Tanisha", role: "Finance & Accounts Head", area: "Finance & Operations", photo: "tanisha-mam", w: 615 },
+    { name: "Daljeet", role: `${site.name} Ludhiana Franchise Owner`, area: `${site.name} Ludhiana`, photo: "daljeet-sir", w: 454 },
+    { name: "Anita", role: "Branch Head Jalandhar, IAM", area: `${site.name} Jalandhar`, photo: "anita-mam", w: 484 },
+    { name: "Shiv", role: "Sr. AI Engineer", area: "Artificial Intelligence", photo: "shiv-sir", w: 598 },
+    { name: "Aman", role: "Data Scientist", area: "Data Science & Analytics", photo: "aman-sir", w: 600 },
+  ].map((m) => ({ ...m, photo: `/images/team/${m.photo}.png`, h: 1000 })),
+};
+
 // TODO: confirm these figures; the student count and centre count are taken
 // from the stats and branch list in site.ts so the pages agree with each other.
 export const founderStats = [
@@ -520,14 +540,18 @@ export const founderTestimonials: {
   },
 ];
 
-// TODO: these are the head office's reels; replace with the Lucknow account's when it has some.
+// The head office's reels, in the order techcaddjalandhar.com/about/founder shows them.
+// TODO: replace with the Lucknow account's reels when it has some.
 export const instagramProfile = "https://www.instagram.com/techcadd__jalandhar";
 export const reels = [
-  "DQMjtZ5k-0h",
-  "DR7A8aDk_UI",
   "DRXM4TqE0cJ",
   "DRuqlw_k7rE",
+  "DR7A8aDk_UI",
   "DSNg9j5k3AY",
   "DSxbHVbk0D8",
   "DVSgB2ME4e0",
-].map((id) => `https://www.instagram.com/reel/${id}/`);
+  "DQMjtZ5k-0h",
+].map((id) => ({
+  url: `https://www.instagram.com/reel/${id}/`,
+  embed: `https://www.instagram.com/reel/${id}/embed`,
+}));

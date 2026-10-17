@@ -62,6 +62,18 @@
     transform: rotate(360deg);
   }
 }
+/* Founder journey: the pinned year rises in when the chapter changes */
+@keyframes journey-year {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*="journey-year"] {
+    animation: none !important;
+  }
+}
 /* Technology orbit: rings turn slowly and keep turning on hover */
 .orbit-spin {
   animation: orbit var(--dur, 90s) linear infinite;

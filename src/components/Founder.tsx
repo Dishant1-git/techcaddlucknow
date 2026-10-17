@@ -1,6 +1,6 @@
 import { NavLink } from "./NavLink";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight, Check, Play, Quote } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Quote } from "lucide-react";
 import {
   chapters,
   founder,
@@ -11,6 +11,8 @@ import {
   stagePhotos,
 } from "@/lib/about";
 import { site } from "@/lib/site";
+import { FounderJourney } from "./FounderJourney";
+import { ReelStrip } from "./ReelStrip";
 import { FounderTestimonials } from "./FounderTestimonials";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
 
@@ -227,8 +229,9 @@ export function Roles() {
 
 export function Story() {
   return (
-    <LightSection id="journey">
+    <DarkSection id="journey">
       <SectionHeading
+        dark
         eyebrow={`The journey behind ${site.name}`}
         title={
           <>
@@ -238,161 +241,35 @@ export function Story() {
         }
         text="Scroll through the story, one chapter at a time."
       />
-
-      <div className="mt-16 grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-16">
-        {/* Chapter rail: stays in view while the chapters scroll past */}
-        <aside className="min-w-0 lg:sticky lg:top-32 lg:self-start">
-          <nav aria-label="Chapters">
-            <ol className="no-scrollbar -mx-5 flex gap-2 overflow-x-auto px-5 lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:border-l lg:border-slate-200 lg:px-0">
-              {chapters.map((c) => (
-                <li key={c.id} className="shrink-0">
-                  <NavLink
-                    href={`#chapter-${c.id}`}
-                    className="group flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-600 transition-colors hover:border-brand hover:text-brand lg:-ml-px lg:rounded-none lg:border-0 lg:border-l-2 lg:border-transparent lg:bg-transparent lg:py-3 lg:pl-5 lg:font-display lg:text-lg lg:hover:border-brand"
-                  >
-                    {c.marker}
-                    <ArrowRight className="hidden size-4 -translate-x-2 opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100 lg:block" />
-                  </NavLink>
-                </li>
-              ))}
-            </ol>
-          </nav>
-          <p className="mt-8 hidden font-display text-xl font-bold leading-snug text-navy lg:block">
-            Where you begin does not define{" "}
-            <span className="text-gradient">where you can go.</span>
-          </p>
-        </aside>
-
-        <div className="min-w-0 space-y-8">
-          {chapters.map((c, i) => (
-            <article
-              key={c.id}
-              id={`chapter-${c.id}`}
-              data-reveal
-              className="overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-xl shadow-hero-950/5"
-            >
-              <div className="relative aspect-[16/9] bg-slate-200 sm:aspect-[21/9]">
-                <Image
-                  src={c.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 55rem, 100vw"
-                  className="object-cover object-[50%_25%]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-hero-950/85 via-hero-950/20 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 text-white sm:p-8">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em]">
-                    <span className="text-cyan">{c.label}</span>
-                    <span className="mx-2 opacity-50">·</span>
-                    {founder.name}
-                  </p>
-                  <p className="font-display text-4xl font-extrabold leading-none tracking-tight sm:text-6xl">
-                    {i === 0 ? "Start" : c.marker}
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-10">
-                {i === 0 && (
-                  <p className="mb-3 text-sm font-semibold text-brand">
-                    Before {site.name} · Driving an auto through engineering
-                  </p>
-                )}
-                <h3 className="font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
-                  {c.title}
-                </h3>
-                <div className="mt-5 space-y-4 leading-relaxed text-slate-600">
-                  {c.paragraphs.map((p) => (
-                    <p key={p}>{p}</p>
-                  ))}
-                </div>
-
-                {c.list && (
-                  <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2">
-                    {c.list.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-[15px] font-medium text-slate-700"
-                      >
-                        <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand text-white">
-                          <Check className="size-3" strokeWidth={3} />
-                        </span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                {c.principles && (
-                  <ol className="mt-6 space-y-3">
-                    {c.principles.map((p, n) => (
-                      <li
-                        key={p.title}
-                        className="flex gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-5"
-                      >
-                        <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-navy font-display text-sm font-bold text-white">
-                          {n + 1}
-                        </span>
-                        <div>
-                          <p className="font-display font-bold text-navy">{p.title}</p>
-                          <p className="mt-1 text-[15px] leading-relaxed text-slate-600">
-                            {p.text}
-                          </p>
-                        </div>
-                      </li>
-                    ))}
-                  </ol>
-                )}
-
-                {c.quote && (
-                  <blockquote className="relative isolate mt-6 overflow-hidden rounded-2xl bg-gradient-to-br from-brand to-hero-900 p-7 text-white">
-                    <div className="bg-grid-dark absolute inset-0 -z-10" />
-                    <Quote className="size-7 fill-white/15 text-cyan" />
-                    <p className="mt-3 font-display text-xl font-bold leading-snug">
-                      “{c.quote}”
-                    </p>
-                  </blockquote>
-                )}
-
-                {c.after && (
-                  <div className="mt-6 space-y-4 leading-relaxed text-slate-600">
-                    {c.after.map((p) => (
-                      <p key={p}>{p}</p>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </LightSection>
+      <FounderJourney chapters={chapters} name={founder.name} />
+    </DarkSection>
   );
 }
 
 export function Leadership() {
   return (
-    <DarkSection className="text-center">
+    <LightSection className="text-center">
       <h2
         data-split
-        className="mx-auto max-w-4xl font-display text-[1.75rem] font-extrabold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl"
+        className="mx-auto max-w-4xl font-display text-[1.75rem] font-extrabold leading-[1.08] tracking-tight text-navy sm:text-4xl lg:text-5xl"
       >
         A Leader Who Inspires <span className="text-gradient">Beyond the Workplace</span>
       </h2>
-      <p data-reveal className="mx-auto mt-8 max-w-3xl leading-relaxed text-slate-300">
+      <p data-reveal className="mx-auto mt-8 max-w-3xl leading-relaxed text-slate-600">
         From his early struggles while completing engineering education to building{" "}
         {site.name} through hands-on effort, {founder.name}&apos;s journey continues
         to inspire the people associated with him.
       </p>
-      <p data-reveal className="mx-auto mt-4 max-w-3xl leading-relaxed text-slate-300">
+      <p data-reveal className="mx-auto mt-4 max-w-3xl leading-relaxed text-slate-600">
         These words of appreciation reflect the values he strives to bring to his
         professional relationships: trust, mentorship, perseverance, innovation and
         the belief that every individual has the potential to achieve more.
       </p>
       <blockquote
         data-reveal="scale"
-        className="border-glow relative mx-auto mt-12 max-w-4xl rounded-[2rem] bg-white/[0.05] px-6 py-10 sm:px-12 sm:py-14"
+        className="relative isolate mx-auto mt-12 max-w-4xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand via-brand-600 to-hero-900 px-6 py-10 text-white shadow-2xl shadow-brand/25 sm:px-12 sm:py-14"
       >
+        <div className="bg-grid-dark absolute inset-0 -z-10" />
         <Quote className="mx-auto size-9 fill-cyan/15 text-cyan" />
         <p
           data-scrub-text
@@ -402,7 +279,7 @@ export function Leadership() {
           building people who believe they can achieve extraordinary things.”
         </p>
       </blockquote>
-    </DarkSection>
+    </LightSection>
   );
 }
 
@@ -443,8 +320,8 @@ export function Reels() {
             Life at {site.name}, <span className="text-gradient">reel by reel</span>
           </Heading>
           <p data-reveal className="mt-6 text-lg text-slate-300">
-            Classroom sessions, student projects and placement days — drag to browse,
-            tap a reel to play it.
+            Classroom sessions, student projects and placement days — swipe or use the
+            arrows to browse, and tap a reel to play it.
           </p>
         </div>
         <NavLink
@@ -456,37 +333,7 @@ export function Reels() {
         </NavLink>
       </div>
 
-      <ul
-        data-stagger
-        className="no-scrollbar -mx-5 mt-12 flex snap-x gap-5 overflow-x-auto px-5 pb-2 lg:-mx-8 lg:px-8"
-      >
-        {reels.map((url, i) => (
-          <li key={url} className="shrink-0 snap-start">
-            <NavLink
-              href={url}
-              {...external}
-              aria-label={`Play reel ${i + 1} of ${reels.length} on Instagram`}
-              className="group relative isolate flex aspect-[9/16] w-52 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-hero-800 via-brand to-hero-900 p-5 transition duration-500 hover:-translate-y-1.5 hover:border-cyan/60"
-            >
-              <div className="bg-grid-dark absolute inset-0 -z-10" />
-              <div
-                className="orb absolute -bottom-16 -right-16 -z-10 size-56 [--orb:rgba(0,212,255,0.35)]"
-                style={{ opacity: 0.4 + (i % 3) * 0.3 }}
-              />
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan">
-                Reel {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="mx-auto grid size-16 place-items-center rounded-full bg-white/15 backdrop-blur transition duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-brand">
-                <Play className="size-6 translate-x-0.5 fill-current" />
-              </span>
-              <span className="flex items-center justify-between text-sm font-semibold">
-                Watch on Instagram
-                <ArrowUpRight className="size-4" />
-              </span>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      <ReelStrip reels={reels} />
     </DarkSection>
   );
 }

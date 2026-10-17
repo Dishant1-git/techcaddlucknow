@@ -5,6 +5,10 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { founderTestimonials } from "@/lib/about";
 
+/** Time on each testimonial before the row moves on, and the pause after a touch. */
+const INTERVAL = 6000;
+const TOUCH_PAUSE = 10_000;
+
 const initials = (name: string) =>
   name
     .split(" ")
@@ -44,12 +48,50 @@ export function FounderTestimonials() {
     if (el && card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: "smooth" });
   };
 
+  // Auto-advance, looping back to the first card. It waits while the pointer is
+  // over the cards, for a while after a swipe or arrow press, while the row is
+  // off screen, and never runs when reduced motion is requested.
+  const hold = useRef({ hover: false, visible: false, touchedAt: 0 });
+  const touch = () => {
+    hold.current.touchedAt = Date.now();
+  };
+
+  useEffect(() => {
+    const el = track.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const seen = new IntersectionObserver(([entry]) => {
+      hold.current.visible = entry.isIntersecting;
+    });
+    seen.observe(el);
+    const timer = window.setInterval(() => {
+      const h = hold.current;
+      const touched = Date.now() - h.touchedAt < TOUCH_PAUSE;
+      if (!h.visible || h.hover || touched || document.hidden) return;
+      // One card along, or back to the start once the last card is in view.
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      const card = el.firstElementChild as HTMLElement | null;
+      if (atEnd) el.scrollTo({ left: 0, behavior: "smooth" });
+      else if (card) el.scrollBy({ left: card.offsetWidth + 24, behavior: "smooth" });
+    }, INTERVAL);
+    return () => {
+      seen.disconnect();
+      window.clearInterval(timer);
+    };
+  }, []);
+
   const t = founderTestimonials[active];
 
   return (
     <div>
       <div
         ref={track}
+        onPointerEnter={(e) => {
+          if (e.pointerType === "mouse") hold.current.hover = true;
+        }}
+        onPointerLeave={() => {
+          hold.current.hover = false;
+        }}
+        onTouchStart={touch}
         className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-4 lg:px-[max(2rem,calc((100vw-80rem)/2+2rem))]"
       >
         {founderTestimonials.map((item) => (
@@ -99,7 +141,10 @@ export function FounderTestimonials() {
           <button
             type="button"
             aria-label="Previous testimonial"
-            onClick={() => go(active - 1)}
+            onClick={() => {
+              touch();
+              go(active - 1);
+            }}
             className="grid size-11 place-items-center rounded-full border border-slate-200 bg-white text-navy transition hover:border-brand hover:text-brand"
           >
             <ChevronLeft className="size-5" />
@@ -107,7 +152,10 @@ export function FounderTestimonials() {
           <button
             type="button"
             aria-label="Next testimonial"
-            onClick={() => go(active + 1)}
+            onClick={() => {
+              touch();
+              go(active + 1);
+            }}
             className="grid size-11 place-items-center rounded-full bg-navy text-white transition hover:bg-brand"
           >
             <ChevronRight className="size-5" />

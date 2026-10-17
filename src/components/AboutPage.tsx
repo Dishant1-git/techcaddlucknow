@@ -15,6 +15,7 @@ import {
   Layers,
   MapPin,
   Monitor,
+  Phone,
   Rocket,
   Sparkles,
   Sprout,
@@ -24,6 +25,7 @@ import {
 import {
   approach,
   differences,
+  leadershipTeam,
   learners,
   learningSteps,
   milestones,
@@ -35,6 +37,7 @@ import {
 import { site } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { Gallery } from "./Gallery";
+import { TeamPanels } from "./TeamPanels";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
 
 const differenceIcons = {
@@ -581,6 +584,57 @@ export function Journey() {
         </ol>
       </div>
     </section>
+  );
+}
+
+/** "Core Pillars & Leadership": the network's leadership team, then a campus-visit prompt. */
+export function LeadershipTeam() {
+  return (
+    <DarkSection id="team">
+      <SectionHeading
+        dark
+        eyebrow="Core Pillars & Leadership"
+        title={
+          <>
+            The core pillars & leadership team who built and develop{" "}
+            <span className="text-gradient">{site.name}</span>
+          </>
+        }
+        text={leadershipTeam.intro}
+      />
+      <div data-reveal className="mt-14">
+        <TeamPanels members={leadershipTeam.members} />
+      </div>
+
+      <div
+        data-reveal
+        data-spot
+        className="border-glow relative mt-16 flex flex-col items-start gap-6 rounded-[2rem] bg-white/[0.05] p-8 sm:p-10 lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div className="max-w-2xl">
+          <Eyebrow dark>Visit our {site.city} campus</Eyebrow>
+          <h3 className="mt-4 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
+            Connect with our team and experience <span className="text-gradient">{site.name}</span>
+          </h3>
+          <p className="mt-3 leading-relaxed text-slate-300">
+            Schedule a campus tour at {site.shortAddress}. Sit with our counsellors and trainers,
+            look through our industry-aligned curricula, and map out your training path.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <BookDemoButton className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-sky px-6 py-3 font-bold text-hero-950 transition hover:brightness-110">
+            Book a free 1:1 demo
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          </BookDemoButton>
+          <NavLink
+            href={site.phoneHref}
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 font-semibold transition hover:border-white/40"
+          >
+            <Phone className="size-4" /> {site.phone}
+          </NavLink>
+        </div>
+      </div>
+    </DarkSection>
   );
 }
 

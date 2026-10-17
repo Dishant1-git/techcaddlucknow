@@ -395,3 +395,39 @@ export function RelatedPosts({ posts }: { posts: Post[] }) {
     </section>
   );
 }
+
+/** Home page teaser: the newest articles and a link to the blog. */
+export function HomeBlog({ posts }: { posts: Post[] }) {
+  if (!posts.length) return null;
+  return (
+    <section id="blog" className="scroll-mt-24 bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading
+          eyebrow="From the blog"
+          title={
+            <>
+              Notes from the classroom <span className="text-gradient">and the codebase</span>
+            </>
+          }
+          text="Course guides, hiring trends and career advice, written by the trainers and placement team who see what employers actually ask for."
+        />
+        <ul data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((p) => (
+            <li key={p.slug}>
+              <PostCard post={p} />
+            </li>
+          ))}
+        </ul>
+        <div className="mt-10 text-center">
+          <NavLink
+            href={resourceRoutes.blog}
+            className="group inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3.5 font-bold text-white transition hover:bg-brand"
+          >
+            Read all articles
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          </NavLink>
+        </div>
+      </div>
+    </section>
+  );
+}

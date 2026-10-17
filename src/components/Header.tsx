@@ -91,7 +91,7 @@ export function Header() {
       </NavLink>
       <div className="mx-auto max-w-7xl px-2 lg:px-4">
         <div
-          className={`relative flex items-center justify-between gap-2 px-3 py-2.5 transition-all duration-300 lg:px-4 ${
+          className={`relative flex items-center justify-between gap-2 px-3 py-2.5 transition-all duration-300 lg:px-4 xl:gap-4 ${
             solid
               ? "rounded-[2rem] bg-white/90 text-navy shadow-xl shadow-hero-950/10 backdrop-blur-xl"
               : "text-white"
@@ -105,7 +105,7 @@ export function Header() {
                 <div key={item.label} className="group">
                   <NavLink
                     href={item.href}
-                    className="ai-nav-glow relative mx-1 inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-1.5 text-[15px] font-semibold text-white"
+                    className="ai-nav-glow relative mx-1 inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-[15px] font-semibold text-white 2xl:px-4"
                   >
                     {item.label}
                     <Sparkles className="size-3.5" />
@@ -119,10 +119,10 @@ export function Header() {
                 <div key={item.label} className={`group ${item.mega ? "" : "relative"}`}>
                   <NavLink
                     href={item.href}
-                    className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2 py-2 text-[13px] font-medium 2xl:text-sm opacity-90 transition hover:opacity-100 ${
+                    className={`inline-flex items-center gap-1 whitespace-nowrap rounded-full opacity-90 transition hover:opacity-100 ${
                       item.label === "Internship & Training"
-                        ? "training-nav-glow relative px-3.5 py-2.5 text-[15px] font-bold"
-                        : ""
+                        ? "training-nav-glow relative px-3 py-2.5 text-[15px] font-bold 2xl:px-3.5"
+                        : "px-1.5 py-2 text-[13px] font-medium 2xl:px-2 2xl:text-sm"
                     }`}
                   >
                     {item.label === "Internship & Training" && (
@@ -133,7 +133,15 @@ export function Header() {
                         <span aria-hidden="true" className="ai-nav-star ai-nav-star-three training-nav-star">·</span>
                       </>
                     )}
-                    {item.label}
+                    {item.label === "Internship & Training" ? (
+                      // Short label where the bar is tightest, so every item fits.
+                      <>
+                        <span className="2xl:hidden">Internship</span>
+                        <span className="hidden 2xl:inline">{item.label}</span>
+                      </>
+                    ) : (
+                      item.label
+                    )}
                     {item.children && (
                       <ChevronDown className="size-3.5 transition group-hover:rotate-180" />
                     )}

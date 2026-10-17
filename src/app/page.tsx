@@ -6,6 +6,7 @@ import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
 import { HomeCta } from "@/components/HomeCta";
 import { Motion } from "@/components/Motion";
+import { HomeBlog } from "@/components/resources/BlogPage";
 import {
   Doors,
   HeroZoom,
@@ -23,6 +24,7 @@ import {
 } from "@/components/Sections";
 import { Stats } from "@/components/Stats";
 import { TechStack } from "@/components/TechStack";
+import { posts } from "@/lib/resources/blog";
 import { capabilities, technologies } from "@/lib/site";
 import { pickLogos, techLogos } from "@/lib/techLogos";
 
@@ -48,6 +50,7 @@ export default function Home() {
         <Testimonials />
         <TechStack logos={pickLogos(techLogos, technologies.map((t) => t.name))} />
         <Capabilities logos={pickLogos(techLogos, capabilities.flatMap((c) => c.tools.map(([name]) => name)))} />
+        <HomeBlog posts={posts.slice(0, 3)} />
         <Faq />
         <HomeCta />
       </main>

@@ -1,7 +1,8 @@
 import { NavLink } from "./NavLink";
 import type { CSSProperties } from "react";
 import { ArrowDown, ArrowRight, Check, Code } from "lucide-react";
-import { programmes, site } from "@/lib/site";
+import { domainHref, internshipDomains } from "@/lib/internshipDomains";
+import { programmePanels, site } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { Eyebrow } from "./ui";
 
@@ -13,6 +14,9 @@ import { Eyebrow } from "./ui";
 const delay = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
 
 const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Track links shown on a programme panel before "+N more" (three on phones). */
+const TRACKS_SHOWN = 6;
 
 function ScrollCue({ className = "" }: { className?: string }) {
   return (
@@ -215,15 +219,26 @@ export function ProgrammePanels() {
     <section
       id="programmes"
       data-panels
-      style={{ "--panels": programmes.length } as CSSProperties}
+      style={{ "--panels": programmePanels.length } as CSSProperties}
       className="relative motion-safe:h-[calc(var(--panels)*100vh+50vh)]"
     >
       <div className="top-0 overflow-hidden motion-safe:sticky motion-safe:h-svh motion-safe:min-h-[36rem]">
-        {programmes.map((p, i) => {
+        {programmePanels.map((p, i) => {
           const look = panelLooks[i % panelLooks.length];
+          // Training programmes link to their domain pages; certificate programmes to each track.
+          const tracks =
+            p.tracks ??
+            (p.slug ? internshipDomains.map((d) => ({ label: d.label, href: domainHref(p.slug!, d.slug) })) : []);
+          const ctaClass = `group mt-8 inline-flex items-center gap-3 rounded-full px-7 py-3.5 font-bold transition-transform hover:scale-105 ${look.cta}`;
+          const cta = (
+            <>
+              Programme details
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            </>
+          );
           return (
             <article
-              key={p.duration}
+              key={p.title}
               data-panel
               className={`flex items-center overflow-hidden px-5 py-20 motion-safe:absolute motion-safe:inset-0 motion-safe:py-0 lg:px-24 ${look.bg}`}
             >
@@ -239,7 +254,7 @@ export function ProgrammePanels() {
                 </span>
                 <div className="relative">
                   <p className="text-xs font-bold uppercase tracking-[0.24em]">
-                    Training programmes · {pad(i + 1)} / {pad(programmes.length)}
+                    Training programmes · {pad(i + 1)} / {pad(programmePanels.length)}
                     {p.popular && (
                       <span className="ml-3 rounded-full bg-hero-950 px-3 py-1 text-[10px] tracking-wider text-sun">
                         Most popular
@@ -265,12 +280,39 @@ export function ProgrammePanels() {
                       </li>
                     ))}
                   </ul>
-                  <BookDemoButton
-                    className={`group mt-8 inline-flex items-center gap-3 rounded-full px-7 py-3.5 font-bold transition-transform hover:scale-105 ${look.cta}`}
-                  >
-                    Programme details
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                  </BookDemoButton>
+                  {tracks.length > 0 && (
+                    <nav aria-label={`${p.duration} ${p.title} tracks`} className="mt-5">
+                      <ul className="flex flex-wrap gap-2">
+                        {tracks.slice(0, TRACKS_SHOWN).map((t, n) => (
+                          <li key={t.href} className={n >= 3 ? "max-sm:hidden" : ""}>
+                            <NavLink
+                              href={t.href}
+                              className={`inline-block rounded-full border px-3 py-1 text-xs font-semibold transition hover:bg-white/15 ${look.chip}`}
+                            >
+                              {t.label}
+                            </NavLink>
+                          </li>
+                        ))}
+                        {tracks.length > TRACKS_SHOWN && p.href && (
+                          <li>
+                            <NavLink
+                              href={p.href}
+                              className="inline-block px-1 py-1 text-xs font-bold underline-offset-4 hover:underline"
+                            >
+                              +{tracks.length - TRACKS_SHOWN} more
+                            </NavLink>
+                          </li>
+                        )}
+                      </ul>
+                    </nav>
+                  )}
+                  {p.href ? (
+                    <NavLink href={p.href} className={ctaClass}>
+                      {cta}
+                    </NavLink>
+                  ) : (
+                    <BookDemoButton className={ctaClass}>{cta}</BookDemoButton>
+                  )}
                 </div>
               </div>
             </article>
