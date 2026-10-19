@@ -13,7 +13,7 @@ export const site = {
   // Fits the thin contact bar above the header; the full address is in the footer.
   shortAddress: "Kursi Road, Kapoorthala Chauraha, Lucknow",
   mapsHref: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`techcadd ${address}`)}`,
-  hours: "Mon – Sun, 8 AM – 8 PM",
+  hours: "Mon – Sat, 9 AM – 6 PM",
   phone: "+91 91961 80052",
   phoneHref: "tel:+919196180052",
   whatsappHref: "https://wa.me/919196180052",
