@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Gallery } from "@/components/Gallery";
 import { PageHero, PageShell } from "@/components/PageShell";
-import { CallbackStrip, NextSteps, type NextLink } from "@/components/resources/Kit";
+import { NextSteps, type NextLink } from "@/components/resources/Kit";
+import { CallbackStrip } from "@/components/resources/CallbackStrip";
 import { LightSection, SectionHeading } from "@/components/ui";
-import { gallery } from "@/lib/gallery";
+import { CategoriesBar } from "@/components/resources/ResourceCategories";
+import { getGallery } from "@/lib/cms/content";
 import { resourceRoutes } from "@/lib/resources/routes";
 import { site } from "@/lib/site";
 
@@ -35,7 +37,9 @@ const next: NextLink[] = [
   },
 ];
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  // Photos from CMS albums (filterable by album title), then the bundled ones.
+  const { photos: gallery, tags, albums } = await getGallery();
   return (
     <PageShell>
       <PageHero
@@ -48,6 +52,7 @@ export default function GalleryPage() {
         }
         text={`${gallery.length} photographs from ${site.name}'s classrooms, labs, workshops and ceremonies. Filter by album and tap any photo to see it full size.`}
       />
+      <CategoriesBar current="gallery" />
       <LightSection>
         <SectionHeading
           eyebrow={`Life at ${site.name}`}
@@ -58,8 +63,22 @@ export default function GalleryPage() {
           }
           text="Classrooms, labs, workshops, robotics demos and ceremonies."
         />
+        {albums.length > 0 && (
+          // CMS albums, each addressable as #<slug> (the CMS links to them that way).
+          <ul className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {albums.map((a) => (
+              <li key={a.slug} id={a.slug} className="scroll-mt-28 rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-hero-950/5">
+                <p className="font-display text-lg font-bold text-navy">{a.title}</p>
+                {a.description && <p className="mt-2 text-sm leading-relaxed text-slate-600">{a.description}</p>}
+                <p className="mt-3 text-xs font-bold uppercase tracking-[0.14em] text-brand">
+                  {a.count} {a.count === 1 ? "photo" : "photos"}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
         <div className="mt-12">
-          <Gallery />
+          <Gallery photos={gallery} tags={tags} />
         </div>
       </LightSection>
       <NextSteps items={next} />

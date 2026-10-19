@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { PageHero, PageShell } from "@/components/PageShell";
 import { FeaturedPost, PostGrid } from "@/components/resources/BlogPage";
 import { HeroIntro } from "@/components/resources/Kit";
-import { CallbackStrip, HeroBadges } from "@/components/resources/Kit";
-import { posts } from "@/lib/resources/blog";
+import { HeroBadges } from "@/components/resources/Kit";
+import { CallbackStrip } from "@/components/resources/CallbackStrip";
+import { getPosts } from "@/lib/cms/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
   description: `Course guides, skills roadmaps and career advice from the ${site.name} ${site.city} trainers and placement team — MERN, SQL, data science, AutoCAD, UI/UX and digital marketing.`,
 };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // CMS posts first, then the bundled articles.
+  const posts = await getPosts();
   const [featured, ...rest] = posts;
   const topics = [...new Set(posts.map((p) => p.category))];
   return (
@@ -30,7 +33,7 @@ export default function BlogPage() {
         </HeroIntro>
       </PageHero>
       {featured && <FeaturedPost post={featured} />}
-      <PostGrid posts={rest} />
+      <PostGrid posts={rest} featured={posts.slice(1, 5)} />
       <CallbackStrip />
     </PageShell>
   );

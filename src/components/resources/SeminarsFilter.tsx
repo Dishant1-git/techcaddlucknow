@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { CalendarDays, MapPin, Mic } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPin, Mic } from "lucide-react";
+import { NavLink } from "../NavLink";
 import type { EventStatus, EventType, SeminarEvent } from "@/lib/resources/seminars";
 import { Clamp } from "../ui";
 import { Chips } from "./Interactive";
@@ -78,7 +79,11 @@ export function SeminarsFilter({ events }: { events: SeminarEvent[] }) {
 function EventCard({ event: e }: { event: SeminarEvent }) {
   const workshop = e.type === "Workshop";
   return (
-    <article className="flex h-full flex-col rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-hero-950/5 transition duration-500 hover:-translate-y-1 hover:border-brand/30">
+    <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-hero-950/5 transition duration-500 hover:-translate-y-1 hover:border-brand/30">
+      {e.image && (
+        // eslint-disable-next-line @next/next/no-img-element -- uploaded to the CMS, served from there
+        <img src={e.image} alt="" className="-mx-6 -mt-6 mb-5 aspect-[16/9] w-[calc(100%+3rem)] max-w-none object-cover" />
+      )}
       <div className="flex flex-wrap items-center gap-2">
         <span
           className={`rounded-full px-3 py-1 text-xs font-bold ${
@@ -100,7 +105,15 @@ function EventCard({ event: e }: { event: SeminarEvent }) {
         <CalendarDays className="size-4 shrink-0" />
         <time>{e.date}</time>
       </p>
-      <h3 className="mt-2 font-display text-lg font-bold leading-snug text-navy">{e.title}</h3>
+      <h3 className="mt-2 font-display text-lg font-bold leading-snug text-navy">
+        {e.href ? (
+          <NavLink href={e.href} className="hover:text-brand">
+            {e.title}
+          </NavLink>
+        ) : (
+          e.title
+        )}
+      </h3>
 
       <dl className="mt-4 space-y-2 text-sm text-slate-600">
         <div className="flex gap-2">
@@ -122,6 +135,12 @@ function EventCard({ event: e }: { event: SeminarEvent }) {
           <p>{e.text}</p>
         </Clamp>
       </div>
+      {e.href && (
+        <NavLink href={e.href} className="group mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand">
+          Event details
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+        </NavLink>
+      )}
     </article>
   );
 }

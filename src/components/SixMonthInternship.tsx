@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 // The 6 Months Internship & Industrial Training page, laid out from its content
 // brief (src/lib/internship6m.ts).
 import Link from "next/link";
@@ -346,7 +347,8 @@ export function SixMonthOutcomes() {
   );
 }
 
-export function SixMonthVisit({ title = c.visit.title }: { title?: string }) {
+export async function SixMonthVisit({ title = c.visit.title }: { title?: string }) {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section className="bg-white px-5 pb-20 lg:px-8 lg:pb-28">
       <div

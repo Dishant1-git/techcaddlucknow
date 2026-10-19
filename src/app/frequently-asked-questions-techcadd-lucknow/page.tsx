@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { PageHero, PageShell } from "@/components/PageShell";
 import { FaqCounsellor, FaqLibrary } from "@/components/resources/FaqPage";
-import { CallbackStrip, HeroActions, NextSteps } from "@/components/resources/Kit";
+import { HeroActions, NextSteps } from "@/components/resources/Kit";
+import { CallbackStrip } from "@/components/resources/CallbackStrip";
 import { HeroIntro } from "@/components/resources/Kit";
+import { CategoriesBar } from "@/components/resources/ResourceCategories";
+import { getFaqs } from "@/lib/cms/content";
 import { faqHero } from "@/lib/resources/faq";
 import { resourceRoutes } from "@/lib/resources/routes";
 import { site } from "@/lib/site";
@@ -35,7 +38,9 @@ const next = [
   },
 ];
 
-export default function FaqPage() {
+export default async function FaqPage() {
+  // CMS questions first, grouped under their CMS category; then the bundled ones.
+  const { items, categories } = await getFaqs();
   return (
     <PageShell>
       <PageHero eyebrow={faqHero.eyebrow} title={null} crumbs={[{ label: "FAQs" }]}>
@@ -51,7 +56,8 @@ export default function FaqPage() {
           <HeroActions secondary={{ label: "Search the questions", href: "#questions" }} />
         </HeroIntro>
       </PageHero>
-      <FaqLibrary />
+      <CategoriesBar current="faq" />
+      <FaqLibrary faqs={items} categories={categories} />
       <FaqCounsellor />
       <CallbackStrip />
       <NextSteps items={next} />

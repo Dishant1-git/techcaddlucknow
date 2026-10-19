@@ -22,6 +22,10 @@ export type Review = {
   rating: number;
   course: string;
   link?: string;
+  /** Month precision, as the CMS stores it ("March 2026"). */
+  reviewedOn?: string;
+  /** Where it was left; bundled reviews are all from Google. */
+  source?: "google" | "website" | "walk-in";
 };
 
 // Left out on purpose:

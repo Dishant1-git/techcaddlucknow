@@ -1,4 +1,6 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "./NavLink";
+import { StarRating } from "./StarRating";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -10,6 +12,7 @@ import {
   GraduationCap,
   Megaphone,
   MoveRight,
+  Play,
   Phone,
   Rocket,
   Shield,
@@ -546,26 +549,68 @@ export function WhyUs() {
   );
 }
 
-function ReviewCard({ t }: { t: (typeof testimonials)[number] }) {
+type Story = {
+  name: string;
+  role: string;
+  text: string;
+  photo?: string;
+  rating?: number;
+  course?: string;
+  googleReviewUrl?: string;
+  videoUrl?: string;
+};
+
+function ReviewCard({ t }: { t: Story }) {
   return (
     <figure className="w-[22rem] shrink-0 rounded-3xl border border-slate-100 bg-white p-7 shadow-xl shadow-hero-950/5 transition duration-500 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-2xl">
       <div className="flex items-center justify-between">
-        <div className="flex gap-1 text-sun">
-          {Array.from({ length: 5 }, (_, i) => (
-            <Star key={i} className="size-4 fill-current" />
-          ))}
-        </div>
-        <span className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white py-1 pl-1.5 pr-2.5 text-[11px] font-bold text-slate-700">
-          <GoogleG className="size-4" />
-          Verified
-          <BadgeCheck className="size-3.5 fill-sky text-white" />
-        </span>
+        <StarRating rating={t.rating ?? 5} />
+        {t.googleReviewUrl ? (
+          <a
+            href={t.googleReviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white py-1 pl-1.5 pr-2.5 text-[11px] font-bold text-slate-700 hover:border-brand/40 hover:text-brand"
+          >
+            <GoogleG className="size-4" />
+            Read on Google
+            <ArrowUpRight className="size-3.5" />
+          </a>
+        ) : (
+          <span className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white py-1 pl-1.5 pr-2.5 text-[11px] font-bold text-slate-700">
+            <GoogleG className="size-4" />
+            Verified
+            <BadgeCheck className="size-3.5 fill-sky text-white" />
+          </span>
+        )}
       </div>
+      {t.course && (
+        <span className="mt-4 inline-block rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">{t.course}</span>
+      )}
       <blockquote className="mt-4 text-[15px] leading-relaxed text-slate-700">{t.text}</blockquote>
+      {t.videoUrl && (
+        // A link rather than an embed: the carousel repeats every card four times.
+        <a
+          href={t.videoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-hero-950 py-1.5 pl-1.5 pr-4 text-xs font-bold text-white transition hover:bg-brand"
+        >
+          <span className="grid size-6 place-items-center rounded-full bg-white/15">
+            <Play className="size-3 fill-current" />
+          </span>
+          Watch video testimonial
+        </a>
+      )}
       <figcaption className="mt-6 flex items-center gap-3 border-t border-slate-100 pt-5">
-        <span className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-sky to-brand text-white">
-          <GraduationCap className="size-5" />
-        </span>
+        {t.photo ? (
+          // eslint-disable-next-line @next/next/no-img-element -- uploaded to the CMS, served from there
+          <img src={t.photo} alt="" className="size-11 rounded-full object-cover" />
+        ) : (
+          <span className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-sky to-brand text-white">
+            <GraduationCap className="size-5" />
+          </span>
+        )}
         <span>
           <span className="block font-bold text-navy">{t.name}</span>
           <span className="block text-xs text-slate-500">{t.role}</span>
@@ -575,8 +620,10 @@ function ReviewCard({ t }: { t: (typeof testimonials)[number] }) {
   );
 }
 
-export function Testimonials() {
-  const rows = [testimonials.slice(0, 3), testimonials.slice(3)];
+/** Student stories; the homepage passes the CMS's testimonials (lib/cms/content.ts). */
+export function Testimonials({ items = testimonials }: { items?: Story[] }) {
+  // Two marquee rows; a short list fills one row rather than leaving the second empty.
+  const rows = items.length > 3 ? [items.slice(0, Math.ceil(items.length / 2)), items.slice(Math.ceil(items.length / 2))] : [items];
   return (
     <section id="reviews" className="relative overflow-clip bg-slate-50 py-20 lg:py-32">
       <div className="px-5">
@@ -657,13 +704,14 @@ export function Testimonials() {
  * The enquiry block. A course page passes its brief's enquiry section, which
  * replaces the generic heading and points with the course's own.
  */
-export function Cta({
+export async function Cta({
   course,
   enquiry,
 }: {
   course?: string;
   enquiry?: { title: string; text: string[]; points: string[] } | null;
 }) {
+  const site = await getSite(); // CMS Settings, over the built-in details
   const points = enquiry?.points.length
     ? enquiry.points
     : ["Free career counselling", "No registration fee", "Placement support included"];

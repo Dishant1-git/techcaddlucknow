@@ -1,4 +1,5 @@
 // Tech blog (/tech-blog-of-lucknow and /tech-blog-of-lucknow/[slug]), reshaped from blog.json.
+import type { CmsSeo } from "../cms/types";
 import data from "./data/blog.json";
 import { courseHref } from "../site";
 import { blogPostHref, mapHref } from "./routes";
@@ -35,6 +36,16 @@ export type Post = Omit<RawPost, "body" | "category"> & {
   cover: string;
   body: Block[];
   toc: { id: string; text: string }[];
+  /** CMS posts: a cover uploaded to the CMS, used instead of `cover`. */
+  coverUrl?: string;
+  /** The uploaded cover's own alt text. */
+  coverAlt?: string;
+  /** CMS posts: the article as editor HTML, rendered instead of `body`. */
+  html?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  /** CMS posts: their SEO fields, for the page metadata. */
+  seo?: CmsSeo;
 };
 
 // Leftovers from the Mohali → Lucknow pass, and the brand name written as on the rest of the site.

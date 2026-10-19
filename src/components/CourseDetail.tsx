@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "./NavLink";
 import Link from "next/link";
 import type { CSSProperties } from "react";
@@ -16,6 +17,8 @@ import {
   Sparkles,
 } from "lucide-react";
 import type { Course } from "@/lib/courses";
+import type { CmsCta } from "@/lib/cms/types";
+import { MediaImage, VideoEmbed } from "./cms/Blocks";
 import { included, site, stats } from "@/lib/site";
 import { toolCatalogue, toolGroupOrder } from "@/lib/toolCatalogue";
 import { isLight, techLogos } from "@/lib/techLogos";
@@ -385,12 +388,48 @@ function SampleCertificate({ course }: { course: Course }) {
 }
 
 /**
+ * A hero button as the editor configured it: the enquiry popup, the contact
+ * page, a page on this site or another site.
+ */
+function HeroCta({ cta, course, primary }: { cta: CmsCta; course: Course; primary: boolean }) {
+  const look = primary
+    ? "group inline-flex items-center gap-3 rounded-full bg-white py-2 pl-7 pr-2 text-sm font-bold text-navy transition-colors duration-300 hover:bg-sky/15 hover:text-white"
+    : "rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-semibold transition hover:border-white/40";
+  const arrow = primary && (
+    <span className="grid size-8 place-items-center rounded-full bg-brand text-white transition-transform duration-300 group-hover:translate-x-0.5">
+      <ArrowRight className="size-4" />
+    </span>
+  );
+  if (cta.type === "enquiry" || (cta.type !== "contact" && !cta.url)) {
+    return (
+      <BookDemoButton course={course.label} className={look}>
+        {cta.text}
+        {arrow}
+      </BookDemoButton>
+    );
+  }
+  const href = cta.type === "contact" ? "/contact" : cta.url!;
+  const external = cta.type === "external";
+  return (
+    <NavLink href={href} {...(external && { target: "_blank", rel: "noopener noreferrer" })} className={look}>
+      {cta.text}
+      {arrow}
+    </NavLink>
+  );
+}
+
+/**
  * The course page hero. AI courses show a console beside the pitch, and the
  * Internship & Training pages (`certificate`) a sample certificate.
  */
 export function CourseHero({ course, certificate = false }: { course: Course; certificate?: boolean }) {
   if (course.theme === "after12th") return <After12thHero course={course} />;
   const ai = course.theme === "ai";
+  const cms = course.cms;
+  // The editor's hero image sits where AI pages show their console.
+  const image = !ai && !certificate ? cms?.thumbnail : undefined;
+  const points = cms?.highlights.length ? cms.highlights : cms?.heroBenefits.length ? cms.heroBenefits.map((b) => b.title) : heroPoints;
+  const badge = course.badgeText ?? course.badge;
   return (
     <section id="top" className="relative isolate overflow-clip bg-hero-950 text-white">
       <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />
@@ -419,24 +458,44 @@ export function CourseHero({ course, certificate = false }: { course: Course; ce
           </ol>
         </nav>
 
-        <div className={ai || certificate ? "mt-8 grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]" : "mt-8"}>
+        <div className={ai || certificate || image ? "mt-8 grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]" : "mt-8"}>
           <div className="min-w-0">
             <div className="rise flex flex-wrap items-center gap-3 [--d:.05s]">
-              <Eyebrow dark>{course.category.label}</Eyebrow>
-              {course.badge && (
+              <Eyebrow dark>{cms?.eyebrow ?? course.category.label}</Eyebrow>
+              {badge && (
                 <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-hero-950">
-                  {course.badge}
+                  {badge}
                 </span>
               )}
             </div>
             <h1 className="rise mt-6 max-w-4xl text-balance font-display text-4xl font-extrabold leading-[1.05] tracking-tight [--d:.1s] sm:text-5xl lg:text-6xl">
-              {course.title} in <span className="text-gradient">{site.city}</span>
+              {cms?.h1 ?? (
+                <>
+                  {course.title} in <span className="text-gradient">{site.city}</span>
+                </>
+              )}
             </h1>
             <p className="rise mt-6 max-w-2xl text-base leading-relaxed text-slate-300 [--d:.2s] lg:text-lg">
               {course.summary}
             </p>
+            {cms?.tagline && cms.tagline !== course.summary && (
+              <p className="rise mt-3 max-w-2xl font-semibold text-cyan [--d:.22s]">{cms.tagline}</p>
+            )}
+            {cms?.demand && (
+              <p className="rise mt-3 max-w-2xl text-sm text-slate-300 [--d:.24s]">
+                <span className="font-bold text-white">Who hires for it: </span>
+                {cms.demand}
+              </p>
+            )}
 
             <div className="rise mt-9 flex flex-wrap items-center gap-3 [--d:.3s]">
+              {cms?.ctaPrimary || cms?.ctaSecondary ? (
+                <>
+                  {cms.ctaPrimary && <HeroCta cta={cms.ctaPrimary} course={course} primary />}
+                  {cms.ctaSecondary && <HeroCta cta={cms.ctaSecondary} course={course} primary={false} />}
+                </>
+              ) : (
+                <>
               <BookDemoButton
                 course={course.label}
                 className="group inline-flex items-center gap-3 rounded-full bg-white py-2 pl-7 pr-2 text-sm font-bold text-navy transition-colors duration-300 hover:bg-sky/15 hover:text-white"
@@ -452,10 +511,12 @@ export function CourseHero({ course, certificate = false }: { course: Course; ce
               >
                 View syllabus
               </NavLink>
+                </>
+              )}
             </div>
 
             <ul className="rise mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300 [--d:.4s]">
-              {heroPoints.map((p) => (
+              {points.map((p) => (
                 <li key={p} className="flex items-center gap-2">
                   <span className="grid size-5 place-items-center rounded-full bg-cyan text-hero-950">
                     <Check className="size-3" strokeWidth={3} />
@@ -467,6 +528,11 @@ export function CourseHero({ course, certificate = false }: { course: Course; ce
           </div>
           {ai && <AiConsole course={course} />}
           {certificate && !ai && <SampleCertificate course={course} />}
+          {image && (
+            <div className="rise [--d:.35s]">
+              <MediaImage media={image} className="aspect-[4/3] border border-white/10" />
+            </div>
+          )}
         </div>
 
         {course.facts.length > 0 && (
@@ -500,18 +566,30 @@ export function CourseOverview({ course }: { course: Course }) {
               <p key={p}>{p}</p>
             ))}
           </div>
+          {course.cms?.descriptionHtml && (
+            <div data-reveal className="cms-prose mt-6" dangerouslySetInnerHTML={{ __html: course.cms.descriptionHtml }} />
+          )}
+          {course.cms?.videoUrl && (
+            <div data-reveal className="mt-10">
+              {course.cms.videoTitle && <p className="mb-4 font-display text-lg font-bold text-navy">{course.cms.videoTitle}</p>}
+              <VideoEmbed url={course.cms.videoUrl} title={course.cms.videoTitle ?? `${course.label} video`} />
+            </div>
+          )}
         </div>
 
         <aside data-reveal="scale" className="lg:pt-16">
           <div className="rounded-[2rem] border border-slate-100 bg-white p-7 shadow-xl shadow-hero-950/5 sm:p-8">
             <p className="font-display text-xl font-bold text-navy">What you get</p>
             <ul className="mt-5 space-y-3.5 text-slate-700">
-              {included.map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span className="grid size-6 shrink-0 place-items-center rounded-full bg-brand/10 text-brand">
+              {(course.cms?.benefits.length ? course.cms.benefits : included.map((title) => ({ title, body: undefined }))).map((item) => (
+                <li key={item.title} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-brand/10 text-brand">
                     <Check className="size-3.5" strokeWidth={3} />
                   </span>
-                  {item}
+                  <span>
+                    <span className={item.body ? "block font-semibold text-navy" : undefined}>{item.title}</span>
+                    {item.body && <span className="mt-0.5 block text-sm text-slate-600">{item.body}</span>}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -591,6 +669,7 @@ export function CourseSyllabus({ course }: { course: Course }) {
             </div>
           </div>
 
+          <div className="min-w-0">
           <ol className="space-y-4 lg:motion-safe:relative lg:motion-safe:mt-6 lg:motion-safe:h-[calc(100svh-9rem)] lg:motion-safe:max-h-[46rem] lg:motion-safe:space-y-0">
             {course.modules.map((m, i) => {
               const split = splitPeriod(m.title);
@@ -619,6 +698,12 @@ export function CourseSyllabus({ course }: { course: Course }) {
               );
             })}
           </ol>
+          {course.cms?.syllabusNote && (
+            <p className="mt-6 rounded-2xl border border-brand/15 bg-brand/[0.04] px-5 py-4 text-sm leading-relaxed text-slate-700">
+              {course.cms.syllabusNote}
+            </p>
+          )}
+          </div>
         </div>
       </div>
     </section>
@@ -675,8 +760,14 @@ function SyllabusBody({ module: m }: { module: Course["modules"][number] }) {
   );
 }
 
-function ToolChip({ name }: { name: string }) {
+function ToolChip({ name, category, url }: { name: string; category?: string; url?: string }) {
   const logo = techLogos[name];
+  const label = (
+    <span className="min-w-0">
+      <span className="block">{name}</span>
+      {category && <span className="block text-xs font-medium text-slate-400">{category}</span>}
+    </span>
+  );
   return (
     <li className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3 font-semibold backdrop-blur">
       {logo ? (
@@ -690,7 +781,14 @@ function ToolChip({ name }: { name: string }) {
       ) : (
         <span className="size-2 shrink-0 rounded-full bg-cyan" />
       )}
-      {name}
+      {url ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:text-cyan">
+          {label}
+          <ArrowUpRight className="size-3.5 shrink-0" />
+        </a>
+      ) : (
+        label
+      )}
     </li>
   );
 }
@@ -710,9 +808,11 @@ export function CourseTools({ course }: { course: Course }) {
         </p>
       </div>
       <ul data-stagger className="mx-auto mt-12 flex max-w-4xl flex-wrap justify-center gap-3">
-        {course.tools.map((t) => (
-          <ToolChip key={t} name={t} />
-        ))}
+        {course.tools.map((t) => {
+          // The editor's tool rows carry a category and a link.
+          const item = course.cms?.toolItems.find((x) => x.name === t);
+          return <ToolChip key={t} name={t} category={item?.category} url={item?.url} />;
+        })}
       </ul>
     </DarkSection>
   );
@@ -842,8 +942,13 @@ const audiences = [
 // diagonally into the grid, in order, as the page scrolls.
 export function CourseAudience({ course, deal = false }: { course: Course; deal?: boolean }) {
   // Courses with a content brief carry their own list.
-  const items = course.guide?.audience.items.length ? course.guide.audience.items : audiences;
+  const items = course.cms?.audience.length
+    ? course.cms.audience
+    : course.guide?.audience.items.length
+      ? course.guide.audience.items
+      : audiences;
   const intro =
+    course.cms?.audienceIntro ||
     course.guide?.audience.intro ||
     `The ${course.label} batch is deliberately mixed. What matters more than your background is turning up and finishing what each module asks you to build.`;
   // The dealt version wraps (last row centred) and cuts long text to a few lines.
@@ -958,6 +1063,21 @@ export function CourseProjects({ course }: { course: Course }) {
             </span>
             <h3 className="mt-4 font-display text-xl font-bold">{p.title}</h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-300">{p.text}</p>
+            {(p.demoUrl || p.repoUrl || p.videoUrl) && (
+              <p className="mt-5 flex flex-wrap gap-4 text-sm font-bold">
+                {[
+                  ["Live demo", p.demoUrl],
+                  ["Source code", p.repoUrl],
+                  ["Watch video", p.videoUrl],
+                ].map(([label, href]) =>
+                  href ? (
+                    <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan hover:text-white">
+                      {label} <ArrowUpRight className="size-3.5" />
+                    </a>
+                  ) : null,
+                )}
+              </p>
+            )}
             {p.tags.length > 0 && (
               <ul className="mt-5 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
@@ -1014,7 +1134,59 @@ export function CourseOutcomes({ course }: { course: Course }) {
           ))}
         </div>
 
-        {course.role && (
+        {course.cms && (course.cms.careerRoles.length > 0 || course.cms.careers.length > 0 || course.cms.salary) && (
+          <div data-reveal className="mt-5 rounded-[2rem] bg-hero-950 p-8 text-white sm:p-10">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan">Roles this prepares you for</p>
+              {course.cms.salary && (
+                <p className="font-display font-bold">
+                  Salary band: <span className="text-cyan">{course.cms.salary}</span>
+                </p>
+              )}
+            </div>
+            {course.cms.careerRoles.length > 0 && (
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
+                {course.cms.careerRoles.map((r, i) => (
+                  <article key={`${i}-${r.role}`} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6">
+                    <h3 className="font-display text-xl font-bold">{r.role}</h3>
+                    {r.body && <p className="mt-2 text-sm leading-relaxed text-slate-300">{r.body}</p>}
+                    <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+                      {[
+                        ["Starting", r.salaryStart],
+                        ["Senior", r.salarySenior],
+                        ["Market", r.market],
+                      ].map(([label, value]) =>
+                        value ? (
+                          <div key={label}>
+                            <dt className="text-xs uppercase tracking-wide text-slate-400">{label}</dt>
+                            <dd className="font-semibold text-white">{value}</dd>
+                          </div>
+                        ) : null,
+                      )}
+                    </dl>
+                    {r.salaryNote && <p className="mt-3 text-xs text-slate-400">{r.salaryNote}</p>}
+                  </article>
+                ))}
+              </div>
+            )}
+            {course.cms.careers.length > 0 && (
+              <div className="mt-6">
+                <p className="flex items-center gap-2 font-display font-bold">
+                  <Briefcase className="size-4 text-cyan" /> Job titles
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {course.cms.careers.map((c) => (
+                    <li key={c} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm">
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
+        {course.role && !course.cms?.careerRoles.length && (
           <div
             data-reveal
             className="relative isolate mt-5 grid gap-8 overflow-hidden rounded-[2rem] bg-hero-950 p-8 text-white sm:p-10 lg:grid-cols-2"
@@ -1054,7 +1226,8 @@ export function CourseOutcomes({ course }: { course: Course }) {
   );
 }
 
-export function CourseFaq({ course }: { course: Course }) {
+export async function CourseFaq({ course }: { course: Course }) {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <LightSection id="faq">
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">

@@ -1,10 +1,10 @@
 "use client";
+import { useSite } from "../../SiteContext";
 
 import { NavLink } from "../../NavLink";
 import { useId, useState, type FormEvent } from "react";
 import { BadgeCheck, Mail, SearchX, ShieldCheck } from "lucide-react";
 import { bgvMailto, CERT_PLACEHOLDER } from "@/lib/resources/tools/verifyCertificate";
-import { site } from "@/lib/site";
 import { Dots, ErrorNote } from "./ToolClient";
 import { inputClass, labelClass, primaryButton } from "./styles";
 
@@ -21,6 +21,7 @@ const formatDate = (iso: string) => {
 };
 
 export function VerifyForm() {
+  const site = useSite(); // CMS Settings, over the built-in details
   const id = useId();
   const [value, setValue] = useState("");
   const [pending, setPending] = useState(false);

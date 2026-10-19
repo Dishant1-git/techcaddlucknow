@@ -2,8 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
-import { gallery, galleryTags, type Photo } from "@/lib/gallery";
+import { ChevronLeft, ChevronRight, Expand, ExternalLink, X } from "lucide-react";
+import { gallery as bundledGallery, galleryTags as bundledTags, type Photo } from "@/lib/gallery";
 
 /** Full-screen viewer with previous / next, arrow keys and Escape. */
 function Lightbox({
@@ -70,6 +70,7 @@ function Lightbox({
           alt={p.alt}
           fill
           sizes="100vw"
+          unoptimized={p.remote}
           className="rise object-contain [--d:0s]"
           onClick={(e) => e.stopPropagation()}
         />
@@ -111,9 +112,16 @@ function Lightbox({
   );
 }
 
-/** Masonry grid of every photo, filterable by tag, opening into a lightbox. */
-export function Gallery() {
-  const [tag, setTag] = useState<(typeof galleryTags)[number]>("All");
+/**
+ * Masonry grid of every photo, filterable by tag, opening into a lightbox. The
+ * gallery page passes CMS albums as well (lib/cms/content.ts); without props it
+ * shows the bundled photos.
+ */
+export function Gallery({
+  photos: gallery = bundledGallery,
+  tags: galleryTags = bundledTags,
+}: { photos?: Photo[]; tags?: readonly string[] } = {}) {
+  const [tag, setTag] = useState<string>("All");
   const [limit, setLimit] = useState(15);
   const [open, setOpen] = useState<number | null>(null);
   const photos = tag === "All" ? gallery : gallery.filter((p) => p.tag === tag);
@@ -154,11 +162,16 @@ export function Gallery() {
       {/* Even tiles, cropped to 4:3 so tall shots do not dominate; the lightbox shows each
           photo whole. Keyed by tag so the tiles replay their entrance on a filter change. */}
       <ul key={tag} className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
-        {shown.map((p, i) => (
-          <li key={p.src}>
-            <button
-              type="button"
-              onClick={() => setOpen(i)}
+        {shown.map((p, i) => {
+          // A photo an editor linked opens its link; the rest open the lightbox.
+          const Tile = p.link ? "a" : "button";
+          const action = p.link
+            ? { href: p.link, ...(/^https?:/.test(p.link) && { target: "_blank", rel: "noopener noreferrer" }) }
+            : { type: "button" as const, onClick: () => setOpen(i) };
+          return (
+          <li key={`${i}-${p.src}`}>
+            <Tile
+              {...action}
               style={{ "--d": `${(i % 8) * 0.05}s` } as React.CSSProperties}
               className="rise group relative block aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-200 text-left"
             >
@@ -166,6 +179,7 @@ export function Gallery() {
                 src={p.src}
                 alt={p.alt}
                 fill
+                unoptimized={p.remote}
                 sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                 className="object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-105"
               />
@@ -178,11 +192,12 @@ export function Gallery() {
                 </span>
               </span>
               <span className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-white/90 text-navy opacity-0 transition duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-                <Expand className="size-4" />
+                {p.link ? <ExternalLink className="size-4" /> : <Expand className="size-4" />}
               </span>
-            </button>
+            </Tile>
           </li>
-        ))}
+          );
+        })}
       </ul>
 
       {photos.length > shown.length && (

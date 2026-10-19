@@ -102,10 +102,10 @@ function ColumnsMega({
   );
 }
 
-export function CoursesMega() {
+export function CoursesMega({ columns = coursesMenu }: { columns?: MenuColumn[] }) {
   return (
     <ColumnsMega
-      columns={coursesMenu}
+      columns={columns}
       href="/courses"
       gridClass="grid-cols-4"
       cta="Browse all courses"
@@ -133,10 +133,10 @@ export function After12thMega() {
   );
 }
 
-export function ResourcesMega() {
+export function ResourcesMega({ columns = resourcesMenu }: { columns?: MenuColumn[] }) {
   return (
     <ColumnsMega
-      columns={resourcesMenu}
+      columns={columns}
       href="/#contact"
       gridClass="grid-cols-[1fr_1fr_1.3fr]"
       cta="Ask us a question"

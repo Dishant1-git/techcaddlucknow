@@ -1,9 +1,12 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "./NavLink";
 import { MessageCircle } from "lucide-react";
+import { getNavPages } from "@/lib/cms/content";
+import { resourceRoutes } from "@/lib/resources/routes";
 import { courseTracks, internshipHref, programmes, site } from "@/lib/site";
-import { Logo } from "./ui";
+import { Logo, SocialLinks } from "./ui";
 
-const columns = [
+const baseColumns = [
   {
     title: "Courses",
     links: courseTracks.map((t) => ({ label: t.title, href: "/courses" })),
@@ -27,13 +30,22 @@ const columns = [
     links: [
       { label: "AI courses", href: "/#ai" },
       { label: "Technologies", href: "/#tech" },
-      { label: "Student reviews", href: "/#reviews" },
-      { label: "FAQ", href: "/#faq" },
+      { label: "Blog", href: resourceRoutes.blog },
+      { label: "Events", href: resourceRoutes.events },
+      { label: "Gallery", href: resourceRoutes.gallery },
+      { label: "Student reviews", href: resourceRoutes.reviews },
+      { label: "FAQ", href: resourceRoutes.faq },
     ],
   },
 ];
 
-export function Footer() {
+export async function Footer() {
+  // Contact details, logo, social links and footer links an editor set in the CMS.
+  const [settings, navPages] = await Promise.all([getSite(), getNavPages()]);
+  const footerPages = navPages.filter((p) => p.placement === "footer").map((p) => ({ label: p.label, href: `/${p.slug}` }));
+  const columns = footerPages.length
+    ? baseColumns.map((c) => (c.title === "Company" ? { ...c, links: [...c.links, ...footerPages] } : c))
+    : baseColumns;
   return (
     <footer className="relative isolate overflow-hidden border-t border-slate-200 bg-slate-50 text-slate-700">
       {/* The logo as a faint watermark behind the bottom of the footer. It is
@@ -47,28 +59,33 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 pb-6 pt-14 lg:px-8">
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.3fr_repeat(4,1fr)]">
           <div className="col-span-2 lg:col-span-1">
-            <Logo className="text-navy" />
+            <Logo className="text-navy" src={settings.logo?.src} alt={settings.logo?.alt} />
             <p className="mt-5 max-w-xs text-sm leading-relaxed">
-              An IT training centre in {site.city} — AI, software and
-              career-ready skills, taught by people who still build.
+              {settings.tagline ?? (
+                <>
+                  An IT training centre in {site.city} — AI, software and career-ready skills, taught by people who
+                  still build.
+                </>
+              )}
             </p>
             <NavLink
-              href={`mailto:${site.email}`}
+              href={`mailto:${settings.email}`}
               className="mt-6 inline-block rounded-full bg-navy px-6 py-3 text-sm font-bold text-white transition hover:bg-brand"
             >
-              {site.email}
+              {settings.email}
             </NavLink>
-            <NavLink href={site.phoneHref} className="mt-4 block text-sm hover:text-brand">
-              {site.phone}
+            <NavLink href={settings.phoneHref} className="mt-4 block text-sm hover:text-brand">
+              {settings.phone}
             </NavLink>
             <NavLink
-              href={site.mapsHref}
+              href={settings.mapsHref}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 block max-w-xs text-sm leading-relaxed hover:text-brand"
             >
-              {site.address}
+              {settings.address}
             </NavLink>
+            <SocialLinks links={settings.social} className="mt-5 text-navy" />
           </div>
 
           {columns.map((col) => (
@@ -88,7 +105,7 @@ export function Footer() {
         </div>
 
         <p className="mt-12 border-t border-slate-200 pt-6 text-sm">
-          © {site.copyrightYear} {site.name} Computer Education. Built in{" "}
+          © {site.copyrightYear} {settings.name} Computer Education. Built in{" "}
           <span className="font-semibold text-brand">{site.city}</span>.
         </p>
       </div>
@@ -96,7 +113,8 @@ export function Footer() {
   );
 }
 
-export function WhatsAppButton() {
+export async function WhatsAppButton() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <NavLink
       href={site.whatsappHref}

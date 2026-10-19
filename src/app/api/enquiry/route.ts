@@ -1,5 +1,7 @@
 import { DbConfigError } from "@/lib/db";
 import { saveEnquiry } from "@/lib/enquiryDb";
+import { cmsPost } from "@/lib/cms/client";
+import { enquirySources } from "@/lib/enquiry";
 import { enquiryCourses, isEnquirySource, isValidName, isValidPage, isValidPhone } from "@/lib/enquiry";
 
 const BODY_MAX = 4_000;
@@ -90,25 +92,50 @@ export async function POST(request: Request) {
     return reply({ ok: false, error: "Invalid enquiry" }, 400);
   }
 
-  try {
-    await saveEnquiry({
+  const userAgent = request.headers.get("user-agent")?.slice(0, 255) ?? null;
+
+  // Two destinations, tried together: the site's own enquiries table, and the
+  // CMS's Enquiries module where the team follows leads up. Either one
+  // recording the lead is a success for the visitor.
+  const [local, cms] = await Promise.all([
+    saveEnquiry({
       source,
       name,
       phone,
       course,
       page: isValidPage(page) ? page : null,
       ip: ip || null,
-      userAgent: request.headers.get("user-agent")?.slice(0, 255) ?? null,
-    });
-  } catch (error) {
-    // Log only the error code: the full error can echo the submitted values.
-    if (error instanceof DbConfigError) {
-      console.error("Enquiry: database not configured:", error.message);
-    } else {
-      console.error("Enquiry: insert failed:", (error as { code?: string })?.code ?? "unknown error");
-    }
-    return reply({ ok: false, error: "Could not save your enquiry" }, 503);
-  }
+      userAgent,
+    }).then(
+      () => true,
+      (error: unknown) => {
+        // Log only the error code: the full error can echo the submitted values.
+        if (error instanceof DbConfigError) {
+          console.error("Enquiry: database not configured:", error.message);
+        } else {
+          console.error("Enquiry: insert failed:", (error as { code?: string })?.code ?? "unknown error");
+        }
+        return false;
+      },
+    ),
+    cmsPost("/enquiries", {
+      studentName: name,
+      phone,
+      courseName: course,
+      source: "website",
+      formType: source,
+      message: `Submitted from the "${enquirySources[source]}" form.`,
+      sourceUrl: isValidPage(page) ? page : undefined,
+      ip: ip || undefined,
+      userAgent: userAgent ?? undefined,
+    }),
+  ]);
 
+  // 429 from the CMS means it already has this lead from today, which is fine.
+  const cmsOk = cms === 201 || cms === 429;
+  if (!cms) console.error("Enquiry: CMS unreachable");
+  else if (!cmsOk) console.error("Enquiry: CMS refused the enquiry with status", cms);
+
+  if (!local && !cmsOk) return reply({ ok: false, error: "Could not save your enquiry" }, 503);
   return reply({ ok: true });
 }

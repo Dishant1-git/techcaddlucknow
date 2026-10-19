@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "./NavLink";
 import Image from "next/image";
 import {
@@ -19,7 +20,7 @@ import {
   School,
   ShieldCheck,
 } from "lucide-react";
-import { contactFaqs, contactSteps, enquiryTopics, mapQuery } from "@/lib/contact";
+import { contactFaqs, contactSteps, enquiryTopics } from "@/lib/contact";
 import { branches, site, stats } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "./ui";
@@ -35,7 +36,6 @@ const topicIcons = {
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const isExternal = (href: string) => /^(https?:|mailto:|tel:)/.test(href);
-const mapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
 
 const reasons = [
   {
@@ -121,7 +121,11 @@ export function ContactIntro() {
 }
 
 /** Routes each kind of enquiry to the right place. */
-export function EnquiryTopics() {
+export async function EnquiryTopics() {
+  // The topics' mail and WhatsApp links use the CMS Settings contact details.
+  const settings = await getSite();
+  const withContacts = (href: string) =>
+    href.replace(`mailto:${site.email}`, `mailto:${settings.email}`).replace(site.whatsappHref, settings.whatsappHref);
   return (
     <section className="overflow-clip bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-32">
@@ -137,7 +141,8 @@ export function EnquiryTopics() {
         <div data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {enquiryTopics.map((t) => {
             const Icon = topicIcons[t.icon];
-            const external = t.action.href.startsWith("http");
+            const href = withContacts(t.action.href);
+            const external = href.startsWith("http");
             return (
               <article
                 key={t.title}
@@ -149,7 +154,7 @@ export function EnquiryTopics() {
                 <h3 className="mt-6 font-display text-lg font-bold text-navy">{t.title}</h3>
                 <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-600">{t.text}</p>
                 <NavLink
-                  href={t.action.href}
+                  href={href}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand"
                 >
@@ -202,7 +207,8 @@ export function ContactSteps() {
 }
 
 /** Address, opening hours and a map of the Lucknow centre. */
-export function VisitCampus() {
+export async function VisitCampus() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <LightSection id="visit" className="scroll-mt-24">
       <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
@@ -235,7 +241,7 @@ export function VisitCampus() {
             ))}
           </dl>
           <NavLink
-            href={mapsSearch}
+            href={site.mapsHref}
             target="_blank"
             rel="noopener noreferrer"
             data-magnetic
@@ -251,7 +257,7 @@ export function VisitCampus() {
         >
           <iframe
             title={`Map to ${site.name} ${site.city}`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=15&output=embed`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(`${site.name} ${site.address}`)}&z=15&output=embed`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="block aspect-[4/3] w-full border-0 lg:aspect-[5/4]"
@@ -324,7 +330,8 @@ export function Branches() {
 }
 
 /** Questions people ask before they call. */
-export function ContactFaq() {
+export async function ContactFaq() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <LightSection>
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">

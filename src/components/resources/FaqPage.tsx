@@ -1,14 +1,15 @@
+import { getSite } from "@/lib/cms/site";
 // Sections of the frequently asked questions page.
 import { ArrowRight, Mail, MessageCircle, Phone } from "lucide-react";
-import { faqCategories, faqItems } from "@/lib/resources/faq";
+import type { FaqItem } from "@/lib/resources/faq";
 import { site } from "@/lib/site";
 import { NavLink } from "../NavLink";
 import { LightSection, SectionHeading } from "../ui";
 import { FaqExplorer } from "./FaqExplorer";
 
-export function FaqLibrary() {
+export function FaqLibrary({ faqs, categories }: { faqs: FaqItem[]; categories: string[] }) {
   // Only the fields the list needs are handed to the client component.
-  const items = faqItems.map(({ q, a, category }) => ({ q, a, category }));
+  const items = faqs.map(({ q, a, category }) => ({ q, a, category }));
   return (
     <LightSection id="questions">
       <SectionHeading
@@ -21,14 +22,15 @@ export function FaqLibrary() {
         text={`Admissions, sessions, fees, placement and certification at ${site.name} ${site.city} — type a word or pick a category to narrow the list.`}
       />
       <div className="mt-12">
-        <FaqExplorer items={items} categories={faqCategories.map((c) => c.label)} />
+        <FaqExplorer items={items} categories={categories} />
       </div>
     </LightSection>
   );
 }
 
 /** "Still not sure?" block with the ways to reach a counsellor. */
-export function FaqCounsellor() {
+export async function FaqCounsellor() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section className="relative isolate overflow-clip bg-hero-950 px-5 py-20 text-white lg:px-8 lg:py-28">
       <div className="bg-grid-dark mask-fade-b absolute inset-0 -z-10" />

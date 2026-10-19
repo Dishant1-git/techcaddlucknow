@@ -1,12 +1,14 @@
 // Sections of the Student Reviews page (/techcadd-lucknow-student-reviews).
 import { ArrowUpRight, Star } from "lucide-react";
-import { reviewCourses, reviews } from "@/lib/resources/reviews";
+import type { Review } from "@/lib/resources/reviews";
 import { googleReviews, site } from "@/lib/site";
 import { DarkSection, Eyebrow, GoogleG, Heading, LightSection, SectionHeading } from "../ui";
 import { Note } from "./Kit";
 import { ReviewsFilter } from "./ReviewsFilter";
 
-export function ReviewsList() {
+type ReviewData = { reviews: Review[]; courses: { course: string; count: number }[] };
+
+export function ReviewsList({ reviews, courses }: ReviewData) {
   return (
     <LightSection id="reviews" className="scroll-mt-24">
       <SectionHeading
@@ -23,13 +25,14 @@ export function ReviewsList() {
         shown unedited, and the rating and review count above are that listing&apos;s. Reviews from the {site.city}{" "}
         centre will be added as they come in.
       </Note>
-      <ReviewsFilter reviews={reviews} courses={reviewCourses} />
+      <ReviewsFilter reviews={reviews} courses={courses} />
     </LightSection>
   );
 }
 
 /** How the reviews on this page split by course. */
-export function ReviewsByCourse() {
+export function ReviewsByCourse({ reviews, courses: reviewCourses }: ReviewData) {
+  if (!reviews.length) return null;
   const max = Math.max(...reviewCourses.map((c) => c.count));
   const average = reviews.reduce((n, r) => n + r.rating, 0) / reviews.length;
   return (

@@ -2,6 +2,7 @@
 // (/after-12th-courses/<slug>) and Internship & Training programmes
 // (/internship-training-in-lucknow/<slug>). Import this from Server Components only: it
 // pulls in the whole of every content file.
+import type { CourseCms } from "./cms/types";
 import programmeContent from "./after12thContent.json";
 import programmeGuideContent from "./after12thGuides.json";
 import guideContent from "./courseGuides.json";
@@ -67,7 +68,7 @@ const officeAiTools = [
   "Microsoft Outlook",
 ];
 
-type RawCourse = {
+export type RawCourse = {
   summary: string;
   /** Label / value pairs shown under the hero; the first is the duration. */
   facts: string[][];
@@ -77,7 +78,7 @@ type RawCourse = {
   tools: string[];
   /** The tools again, grouped and each with a line on what it is used for. */
   toolGroups?: { title: string; tools: { name: string; text: string }[] }[];
-  projects: { title: string; text: string; tags: string[] }[];
+  projects: { title: string; text: string; tags: string[]; demoUrl?: string; repoUrl?: string; videoUrl?: string }[];
   role: { title: string; text: string } | null;
   hiredBy: string[];
 };
@@ -103,6 +104,10 @@ export type Course = RawCourse & {
   /** Page style: the AI courses and After 12th programmes each have their own. */
   theme: "course" | "ai" | "after12th";
   guide?: CourseGuide;
+  /** What an editor set in the CMS, for the parts of the page the bundled content has no field for. */
+  cms?: CourseCms;
+  /** A CMS badge in the editor's own words; shown instead of `badge`. */
+  badgeText?: string;
 };
 
 // The copy uses "{city}" wherever the branch is named.
@@ -154,7 +159,7 @@ function buildFaqs(name: string, c: RawCourse, duration?: string) {
   ].filter((f) => !!f);
 }
 
-function build(
+export function build(
   rawCourse: RawCourse,
   page: Pick<Course, "slug" | "label" | "title" | "parent" | "category" | "badge" | "related">,
   name: string,

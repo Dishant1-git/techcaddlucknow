@@ -24,11 +24,20 @@ import {
 } from "@/components/Sections";
 import { Stats } from "@/components/Stats";
 import { TechStack } from "@/components/TechStack";
-import { posts } from "@/lib/resources/blog";
+import { CategoryCards, FeaturedCourses } from "@/components/cms/HomeSections";
+import { getHomeFaqs, getPosts, getTestimonials } from "@/lib/cms/content";
+import { getCategories, getFeaturedCourses } from "@/lib/cms/courses";
 import { capabilities, technologies } from "@/lib/site";
 import { pickLogos, techLogos } from "@/lib/techLogos";
 
-export default function Home() {
+export default async function Home() {
+  const [posts, testimonials, faqs, featured, categories] = await Promise.all([
+    getPosts(),
+    getTestimonials(),
+    getHomeFaqs(),
+    getFeaturedCourses(),
+    getCategories(),
+  ]);
   return (
     <>
       <TopBar />
@@ -43,15 +52,18 @@ export default function Home() {
         <Process />
         <Fields />
         <CourseTracks />
+        {/* From the CMS: categories as cards, and courses marked "featured". */}
+        <CategoryCards categories={categories} />
+        <FeaturedCourses courses={featured} />
         <KeywordRows />
         <WordSequence />
         <WhyUs />
         <CampusLife />
-        <Testimonials />
+        <Testimonials items={testimonials} />
         <TechStack logos={pickLogos(techLogos, technologies.map((t) => t.name))} />
         <Capabilities logos={pickLogos(techLogos, capabilities.flatMap((c) => c.tools.map(([name]) => name)))} />
         <HomeBlog posts={posts.slice(0, 3)} />
-        <Faq />
+        <Faq items={faqs} />
         <HomeCta />
       </main>
       <Footer />

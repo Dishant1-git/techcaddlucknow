@@ -1,29 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  CourseAudience,
-  CourseFaq,
-  CourseHero,
-  CourseOutcomes,
-  CourseOverview,
-  CourseProjects,
-  CourseSyllabus,
-  CourseTools,
-  RelatedCourses,
-} from "@/components/CourseDetail";
-import {
-  CourseAudienceNote,
-  CourseTakeaways,
-  CourseWhyProgramme,
-  CourseReviews,
-  CourseWhyUs,
-} from "@/components/CourseGuide";
-import { Footer, WhatsAppButton } from "@/components/Footer";
-import { PhotoStrip, photoSets } from "@/components/PhotoStrip";
-import { Header, TopBar } from "@/components/Header";
-import { Motion } from "@/components/Motion";
-import { Cta } from "@/components/Sections";
-import { courseSlugList, getCourse } from "@/lib/courses";
+import { CourseView } from "@/components/CourseView";
+import { getCmsCourse, getCoursePage, getCourseReviews, getCourseSlugs } from "@/lib/cms/courses";
+import { seoMetadata } from "@/lib/cms/seo";
 import { site } from "@/lib/site";
 
 // Every course page is built ahead of time, so an unknown slug waits for the
@@ -33,57 +12,29 @@ export const ensureStatic = "navigation";
 // possible), so the dev-only "instant navigation" check is switched off here.
 export const instant = false;
 
-export function generateStaticParams() {
-  return courseSlugList.map((slug) => ({ slug }));
+// Bundled courses and the ones published in the CMS.
+export async function generateStaticParams() {
+  return (await getCourseSlugs()).map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/courses/[slug]">): Promise<Metadata> {
-  const course = getCourse((await params).slug);
+export async function generateMetadata({ params }: PageProps<"/courses/[slug]">): Promise<Metadata> {
+  const slug = (await params).slug;
+  const course = await getCoursePage(slug);
   if (!course) return {};
-  return {
+  const cms = await getCmsCourse(slug);
+  return seoMetadata({
+    seo: cms?.seo,
     title: `${course.title} in ${site.city} | ${site.name}`,
     description: course.summary,
-  };
+    path: `/courses/${slug}`,
+    image: course.cms?.thumbnail?.src,
+  });
 }
 
 export default async function CoursePage({ params }: PageProps<"/courses/[slug]">) {
-  const course = getCourse((await params).slug);
+  const slug = (await params).slug;
+  const course = await getCoursePage(slug);
   if (!course) notFound();
-
-  return (
-    <>
-      <TopBar />
-      <Header />
-      {/* The page palette: AI courses have their own (globals.css) */}
-      <main data-theme={course.theme}>
-        <CourseHero course={course} />
-        <CourseOverview course={course} />
-        {/* Courses with a content brief add its sections (CourseGuide.tsx). */}
-        {course.guide && <CourseAudience course={course} />}
-        <CourseAudienceNote course={course} />
-        <CourseWhyProgramme course={course} />
-        <CourseSyllabus course={course} />
-        <CourseTools course={course} />
-        <CourseTakeaways course={course} />
-        {!course.guide && <CourseAudience course={course} />}
-        <CourseProjects course={course} />
-        <CourseWhyUs course={course} />
-        <CourseOutcomes course={course} />
-        <CourseReviews course={course} />
-        <CourseFaq course={course} />
-        <RelatedCourses course={course} />
-        <PhotoStrip
-          title={<>Where you will <span className="text-gradient">learn</span></>}
-          text="Mentor-led labs, small groups and workshops — real photos from techcadd batches."
-          photos={course.theme === "ai" ? photoSets.ai : photoSets.labs}
-        />
-        <Cta course={course.label} enquiry={course.guide?.enquiry} />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-      <Motion />
-    </>
-  );
+  const reviews = await getCourseReviews(slug);
+  return <CourseView course={course} reviews={reviews} />;
 }

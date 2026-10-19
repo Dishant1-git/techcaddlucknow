@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 // Sections of the college partnerships page.
 import { Award, BookOpenCheck, Briefcase, GraduationCap, Phone, Presentation, Send, Trophy } from "lucide-react";
 import { partnerCta, partnershipFormats, partnershipSteps } from "@/lib/resources/partnerships";
@@ -71,7 +72,8 @@ export function PartnershipSteps() {
 }
 
 /** Proposal request for heads of department and training officers. */
-export function PartnerCta() {
+export async function PartnerCta() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section className="bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
       <div

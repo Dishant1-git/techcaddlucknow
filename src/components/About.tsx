@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "./NavLink";
 import {
   ArrowRight,
@@ -10,13 +11,14 @@ import {
   Target,
   Users,
 } from "lucide-react";
-import { aboutHighlights, aboutPrinciples, campusBadges, site, stats } from "@/lib/site";
+import { aboutHighlights, aboutPrinciples, campusBadges, site } from "@/lib/site";
 import { BookDemoButton } from "./Enquiry";
 import { Eyebrow, Heading, LightSection } from "./ui";
 
 const principleIcons = [Code, Users, Briefcase, Award];
 
-export function About() {
+export async function About() {
+  const { stats } = await getSite(); // CMS Settings' figures, or the built-in ones
   return (
     <LightSection id="about">
       {/* Intro */}

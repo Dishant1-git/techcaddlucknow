@@ -8,9 +8,14 @@ export type Photo = {
   src: string;
   alt: string;
   caption: string;
-  tag: GalleryTag;
+  /** A GalleryTag for bundled photos; a CMS album's title for uploaded ones. */
+  tag: string;
   w: number;
   h: number;
+  /** Served by the CMS rather than from public/, so not resized by next/image. */
+  remote?: boolean;
+  /** Where the photo leads when an editor set a link on it in the CMS. */
+  link?: string;
 };
 
 const sq = { w: 1600, h: 1600 };

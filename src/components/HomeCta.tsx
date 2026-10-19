@@ -1,8 +1,8 @@
 "use client";
+import { useSite } from "./SiteContext";
 
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Phone } from "lucide-react";
-import { site } from "@/lib/site";
 import { useEnquiry } from "./Enquiry";
 import { NavLink } from "./NavLink";
 
@@ -14,6 +14,7 @@ const promises = ["Free career counselling", "No registration fee", "Placement s
  * call button.
  */
 export function HomeCta() {
+  const site = useSite(); // CMS Settings, over the built-in details
   const { open } = useEnquiry();
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");

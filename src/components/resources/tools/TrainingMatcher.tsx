@@ -1,8 +1,8 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "../../NavLink";
 import { CheckCircle2, ClipboardCheck, FileDown, FileText, NotebookPen, Phone, Rocket } from "lucide-react";
 import { compliance, counsellorCard, projectTracks } from "@/lib/resources/tools/trainingMatcher";
 import { resourceRoutes } from "@/lib/resources/routes";
-import { site } from "@/lib/site";
 import { BookDemoButton } from "../../Enquiry";
 import { LightSection, SectionHeading } from "../../ui";
 
@@ -64,7 +64,8 @@ export function ProjectTracks() {
   );
 }
 
-export function Compliance() {
+export async function Compliance() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section className="overflow-clip bg-slate-50">
       <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-32">

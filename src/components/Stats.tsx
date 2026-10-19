@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Award, Briefcase, Target, Users } from "lucide-react";
-import { stats } from "@/lib/site";
+import { useSite } from "./SiteContext";
 
 const icons = { users: Users, briefcase: Briefcase, target: Target, award: Award };
 
@@ -40,12 +40,15 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   );
 }
 
+/** The headline figures: CMS Settings' list, or the built-in ones when it is empty. */
 export function Stats() {
+  const { stats } = useSite();
+  const fallbackIcons = ["users", "briefcase", "target", "award"] as const;
   return (
     <section data-reveal="scale" className="relative z-10 -mt-16 px-5 lg:px-8">
       <div className="mx-auto grid max-w-7xl grid-cols-2 overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-2xl shadow-hero-950/10 lg:grid-cols-4">
-        {stats.map((s) => {
-          const Icon = icons[s.icon];
+        {stats.map((s, i) => {
+          const Icon = icons[(s.icon as keyof typeof icons) ?? fallbackIcons[i % 4]] ?? icons[fallbackIcons[i % 4]];
           return (
             <div
               key={s.label}

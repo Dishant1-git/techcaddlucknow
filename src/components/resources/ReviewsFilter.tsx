@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { StarRating } from "../StarRating";
 import type { Review } from "@/lib/resources/reviews";
 import { Clamp, GoogleG } from "../ui";
 import { Chips } from "./Interactive";
@@ -43,11 +44,7 @@ export function ReviewsFilter({
           >
             <div className="flex items-center justify-between gap-3">
               <span className="rounded-full bg-brand/10 px-3 py-1 text-xs font-bold text-brand">{r.course}</span>
-              <span aria-label={`${r.rating} out of 5`} className="flex gap-0.5 text-sun">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <Star key={i} className={`size-4 ${i < r.rating ? "fill-current" : "text-slate-200"}`} />
-                ))}
-              </span>
+              <StarRating rating={r.rating} />
             </div>
             <blockquote className="mt-4 whitespace-pre-line leading-relaxed text-slate-700">
               <Clamp length={r.text.length}>
@@ -61,8 +58,15 @@ export function ReviewsFilter({
               <span className="min-w-0 flex-1">
                 <span className="block truncate font-display font-bold text-navy">{r.name}</span>
                 <span className="flex items-center gap-1.5 text-sm text-slate-500">
-                  <GoogleG className="size-3.5" /> Google review
+                  {(r.source ?? "google") === "google" ? (
+                    <>
+                      <GoogleG className="size-3.5" /> Google review
+                    </>
+                  ) : (
+                    <>{r.source === "walk-in" ? "Walk-in review" : "Website review"}</>
+                  )}
                 </span>
+                {r.reviewedOn && <span className="block text-xs text-slate-400">Reviewed on {r.reviewedOn}</span>}
               </span>
               {r.link && (
                 <a

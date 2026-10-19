@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { PageHero, PageShell } from "@/components/PageShell";
-import { CallbackStrip, HeroActions, NextSteps, StatBand } from "@/components/resources/Kit";
+import { HeroActions, NextSteps, StatBand } from "@/components/resources/Kit";
+import { CallbackStrip } from "@/components/resources/CallbackStrip";
 import { HeroIntro } from "@/components/resources/Kit";
+import { CategoriesBar } from "@/components/resources/ResourceCategories";
 import { PartnerCta, PartnershipFormats, PartnershipSteps } from "@/components/resources/Partnerships";
 import { partnershipStats, partnershipsHero, partnershipsNext } from "@/lib/resources/partnerships";
 import { site } from "@/lib/site";
@@ -28,6 +30,7 @@ export default function PartnershipsPage() {
           <HeroActions primary="Request a proposal" />
         </HeroIntro>
       </PageHero>
+      <CategoriesBar current="partnerships" />
       <StatBand items={partnershipStats} />
       {/* TODO: replace with Lucknow branch partner institutions — the content
           file's college list belongs to the Mohali branch, so it is left out. */}

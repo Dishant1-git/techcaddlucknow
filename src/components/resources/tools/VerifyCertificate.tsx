@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "../../NavLink";
 import { Award, Database, FileCheck2, Fingerprint, Mail, Phone } from "lucide-react";
 import { bgvMailto, securityFeatures } from "@/lib/resources/tools/verifyCertificate";
@@ -36,7 +37,8 @@ export function SecurityFeatures() {
   );
 }
 
-export function HrDesk() {
+export async function HrDesk() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section className="bg-slate-50 px-5 py-16 lg:px-8 lg:py-20">
       <div

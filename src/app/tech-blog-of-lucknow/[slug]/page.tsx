@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHero, PageShell } from "@/components/PageShell";
 import { ArticleBody, ArticleCover, ArticleHeader, RelatedPosts } from "@/components/resources/BlogPage";
-import { CallbackStrip } from "@/components/resources/Kit";
-import { getPost, posts, relatedPosts } from "@/lib/resources/blog";
+import { CallbackStrip } from "@/components/resources/CallbackStrip";
+import { getPost, getPosts, getRelatedPosts } from "@/lib/cms/content";
 import { resourceRoutes } from "@/lib/resources/routes";
+import { seoMetadata } from "@/lib/cms/seo";
 import { site } from "@/lib/site";
 
 // Every article is built ahead of time, so an unknown slug waits for the full
@@ -16,28 +17,27 @@ export const instant = false;
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+// Bundled articles and the ones published in the CMS.
+export async function generateStaticParams() {
+  return (await getPosts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = getPost((await params).slug);
+  const post = await getPost((await params).slug);
   if (!post) return {};
-  return {
+  const meta = seoMetadata({
+    seo: post.seo,
     title: `${post.title} | ${site.name} ${site.city}`,
     description: post.excerpt,
-    keywords: post.tags,
-    openGraph: {
-      type: "article",
-      title: post.title,
-      description: post.excerpt,
-      images: [`/images/gallery/${post.cover}.webp`],
-    },
-  };
+    path: post.href,
+    image: post.coverUrl ?? `/images/gallery/${post.cover}.webp`,
+    type: "article",
+  });
+  return { ...meta, keywords: meta.keywords ?? (post.tags.length ? post.tags : undefined) };
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const post = getPost((await params).slug);
+  const post = await getPost((await params).slug);
   if (!post) notFound();
 
   return (
@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: Props) {
       </PageHero>
       <ArticleCover post={post} />
       <ArticleBody post={post} />
-      <RelatedPosts posts={relatedPosts(post)} />
+      <RelatedPosts posts={await getRelatedPosts(post)} />
       <CallbackStrip />
     </PageShell>
   );

@@ -1,12 +1,15 @@
 "use client";
+import { useSite } from "./SiteContext";
 
 import { NavLink } from "./NavLink";
 import { useState } from "react";
 import { Mail, MessageCircle, Phone, Plus } from "lucide-react";
-import { faqs, site } from "@/lib/site";
+import { faqs as bundledFaqs } from "@/lib/site";
 import { DarkSection, Eyebrow, Heading } from "./ui";
 
-export function Faq() {
+/** Homepage FAQ; the page passes the CMS's featured questions first (lib/cms/content.ts). */
+export function Faq({ items: faqs = bundledFaqs }: { items?: { q: string; a: string }[] }) {
+  const site = useSite(); // CMS Settings, over the built-in details
   const [open, setOpen] = useState<number | null>(0);
 
   return (

@@ -4,7 +4,8 @@ import { Footer, WhatsAppButton } from "@/components/Footer";
 import { Header, TopBar } from "@/components/Header";
 import { Motion } from "@/components/Motion";
 import { Cta } from "@/components/Sections";
-import { courseCatalogue, courseHref, site } from "@/lib/site";
+import { getCourseCatalogue } from "@/lib/cms/courses";
+import { site } from "@/lib/site";
 import { courseLogos, pickLogos } from "@/lib/techLogos";
 
 export const metadata: Metadata = {
@@ -12,12 +13,9 @@ export const metadata: Metadata = {
   description: `Browse every course at ${site.name} ${site.city} — programming, AI and data, digital marketing, cyber security, cloud and CAD — with mentor-led labs, live projects and placement support.`,
 };
 
-const sections = courseCatalogue.map((cat) => ({
-  ...cat,
-  courses: cat.courses.map((c) => ({ ...c, href: courseHref(c.label) })),
-}));
-
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  // The bundled catalogue, plus courses published in the CMS.
+  const sections = await getCourseCatalogue();
   return (
     <>
       <TopBar />
@@ -28,7 +26,7 @@ export default function CoursesPage() {
           title="Best IT, AI & Software Courses"
           text="From AI and data to full-stack and cloud, each track is built like real industry work: mentor-led labs, live projects, interview-focused outcomes and placement support."
           sections={sections}
-          logos={pickLogos(courseLogos, sections.flatMap((s) => s.courses.map((c: { label: string; logo?: string }) => c.logo ?? c.label)))}
+          logos={pickLogos(courseLogos, sections.flatMap((s) => s.courses.map((c) => c.logo ?? c.label)))}
         />
         <Cta />
       </main>

@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 import { NavLink } from "./NavLink";
 import Image from "next/image";
 import Link from "next/link";
@@ -588,7 +589,8 @@ export function Journey() {
 }
 
 /** "Core Pillars & Leadership": the network's leadership team, then a campus-visit prompt. */
-export function LeadershipTeam() {
+export async function LeadershipTeam() {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <DarkSection id="team">
       <SectionHeading

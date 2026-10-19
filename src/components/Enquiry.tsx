@@ -1,4 +1,5 @@
 "use client";
+import { useSite } from "./SiteContext";
 
 import { NavLink } from "./NavLink";
 import {
@@ -24,7 +25,7 @@ import {
   Star,
   X,
 } from "lucide-react";
-import { googleReviews, site } from "@/lib/site";
+import { googleReviews } from "@/lib/site";
 import { enquiryCourses as allCourses, isValidName, isValidPhone, type EnquirySource } from "@/lib/enquiry";
 import { GoogleG } from "./ui";
 
@@ -50,6 +51,7 @@ const popularTracks = [
 ];
 
 export function EnquiryProvider({ children }: { children: ReactNode }) {
+  const site = useSite(); // CMS Settings, over the built-in details
   const [isOpen, setIsOpen] = useState(false);
   const [course, setCourse] = useState("");
   const [phone, setPhone] = useState("");

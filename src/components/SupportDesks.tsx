@@ -1,11 +1,11 @@
 "use client";
+import { useSite } from "./SiteContext";
 
 // "Support & Assistance" on the contact page: one tab per desk, each with its
 // contact details and quick actions. Desks are listed in src/lib/contact.ts.
 import { Briefcase, Building2, Globe, Headphones, Mail, MessageCircle, Phone, Users, type LucideIcon } from "lucide-react";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { supportDesks } from "@/lib/contact";
-import { site } from "@/lib/site";
 
 const tabIcons: Record<(typeof supportDesks)[number]["icon"], LucideIcon> = {
   students: Users,
@@ -15,6 +15,7 @@ const tabIcons: Record<(typeof supportDesks)[number]["icon"], LucideIcon> = {
 };
 
 export function SupportDesks() {
+  const site = useSite(); // CMS Settings, over the built-in details
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const desk = supportDesks[active];

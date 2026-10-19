@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { PageHero, PageShell } from "@/components/PageShell";
 import { DirectoryList } from "@/components/resources/DirectoryList";
-import { CallbackStrip, NextSteps, type NextLink } from "@/components/resources/Kit";
+import { NextSteps, type NextLink } from "@/components/resources/Kit";
+import { CallbackStrip } from "@/components/resources/CallbackStrip";
 import { LightSection } from "@/components/ui";
-import { directory, directoryGroups } from "@/lib/resources/directory";
+import { CategoriesBar } from "@/components/resources/ResourceCategories";
+import { getCmsPages, getEvents, getPosts } from "@/lib/cms/content";
+import { directory as bundled, type DirectoryEntry } from "@/lib/resources/directory";
 import { resourceRoutes } from "@/lib/resources/routes";
 import { site } from "@/lib/site";
 
@@ -34,7 +37,17 @@ const next: NextLink[] = [
   },
 ];
 
-export default function PagesDirectory() {
+export default async function PagesDirectory() {
+  // Pages, articles and events published in the CMS, ahead of the site's own pages.
+  const [pages, posts, events] = await Promise.all([getCmsPages(), getPosts(), getEvents()]);
+  const known = new Set(bundled.map((e) => e.href));
+  const fromCms: DirectoryEntry[] = [
+    ...pages.map((p) => ({ title: p.title, text: p.summary ?? "", href: `/${p.slug}`, group: "Pages" })),
+    ...posts.map((p) => ({ title: p.title, text: p.excerpt, href: p.href, group: "Blog" })),
+    ...events.flatMap((e) => (e.href ? [{ title: e.title, text: e.text, href: e.href, group: "Events" }] : [])),
+  ].filter((e) => !known.has(e.href));
+  const directory = [...fromCms, ...bundled];
+  const directoryGroups = [...new Set(directory.map((e) => e.group))];
   return (
     <PageShell>
       <PageHero
@@ -47,6 +60,7 @@ export default function PagesDirectory() {
         }
         text={`Guides, courses, tools and articles from ${site.name} ${site.city} — ${directory.length} pages in one place.`}
       />
+      <CategoriesBar current="pages" />
       <LightSection>
         <DirectoryList entries={directory} groups={directoryGroups} />
       </LightSection>

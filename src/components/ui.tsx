@@ -2,17 +2,44 @@ import { NavLink } from "./NavLink";
 import { useId, type ReactNode } from "react";
 import { site } from "@/lib/site";
 
-export function Logo({ className = "" }: { className?: string }) {
+/**
+ * The site logo. `src` is a logo uploaded in CMS Settings; it is drawn the same
+ * way as the built-in one, as a mask, so it keeps taking the surrounding text
+ * colour (white over the dark hero, navy on the white header bar and footer).
+ */
+export function Logo({ className = "", src, alt = site.name }: { className?: string; src?: string; alt?: string }) {
   return (
     <NavLink href="/#top" className={`inline-flex leading-none ${className}`}>
-      {/* The logo file is used as a mask, so it takes the surrounding text colour
-          (white over the dark hero, navy on the white header bar and footer). */}
       <span
         role="img"
-        aria-label={site.name}
-        className="block aspect-[952/262] h-9 bg-current min-[360px]:h-11 [mask:url(/images/tce.webp)_center/contain_no-repeat]"
+        aria-label={alt}
+        style={src ? { mask: `url("${src}") left center / contain no-repeat`, WebkitMask: `url("${src}") left center / contain no-repeat` } : undefined}
+        className={`block h-9 bg-current min-[360px]:h-11 ${src ? "aspect-[952/262]" : "aspect-[952/262] [mask:url(/images/tce.webp)_center/contain_no-repeat]"}`}
       />
     </NavLink>
+  );
+}
+
+/** Links to the profiles an editor listed in CMS Settings. */
+export function SocialLinks({ links, className = "" }: { links: { network: string; label: string; href: string }[]; className?: string }) {
+  if (!links.length) return null;
+  return (
+    <ul className={`flex flex-wrap items-center gap-2 ${className}`}>
+      {links.map((l) => (
+        <li key={l.network}>
+          <a
+            href={l.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${site.name} on ${l.label}`}
+            data-social={l.network}
+            className="inline-flex items-center rounded-full border border-current/20 px-3 py-1 text-xs font-semibold opacity-90 transition hover:opacity-100"
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }
 

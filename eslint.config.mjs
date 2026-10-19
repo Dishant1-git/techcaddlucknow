@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The CMS is its own project with its own lint setup.
+    "cms-techcadd/**",
   ]),
 ]);
 

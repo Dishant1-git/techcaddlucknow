@@ -34,6 +34,9 @@ export type SeminarEvent = {
   speaker?: string;
   type: EventType;
   status: EventStatus;
+  /** CMS events have a page of their own. */
+  href?: string;
+  image?: string;
 };
 
 const decode = (s: string) =>

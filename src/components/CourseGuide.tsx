@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 // Sections for courses that have a content brief (src/lib/courseGuides.json).
 // Each renders nothing for courses without one.
 import {
@@ -495,7 +496,8 @@ function UsCard({ item, index }: { item: GuideItem; index: number }) {
  * After 12th "Why techcadd": the heading and a booking card stay pinned on
  * the left while the reasons run down a numbered timeline on the right.
  */
-function WhyUsTimeline({ course, us }: { course: Course; us: NonNullable<Course["guide"]>["whyUs"] }) {
+async function WhyUsTimeline({ course, us }: { course: Course; us: NonNullable<Course["guide"]>["whyUs"] }) {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section id="why-techcadd" className="relative isolate scroll-mt-24 overflow-clip bg-white">
       <div className="bg-grid-light mask-fade-b absolute inset-0 -z-10" />
@@ -638,6 +640,19 @@ export function WhyTechcadd({ label, us }: { label: string; us?: WhyUsContent | 
 }
 
 export function CourseWhyUs({ course }: { course: Course }) {
+  // The editor's own reasons for this course win over the brief's and the site-wide ones.
+  if (course.cms?.whyPoints.length) {
+    return (
+      <WhyTechcadd
+        label={course.label}
+        us={{
+          intro: course.cms.whyIntro ?? "",
+          items: course.cms.whyPoints.map((p) => ({ title: p.title, text: p.body })),
+          close: null,
+        }}
+      />
+    );
+  }
   const us = course.guide?.whyUs;
   if (us?.items.length && isCompact(course)) return <WhyUsTimeline course={course} us={us} />;
   return <WhyTechcadd label={course.label} us={us?.items.length ? us : relatedGuide(course.label)?.guide.whyUs} />;
@@ -673,9 +688,10 @@ export function Reviews({ items, course }: { items?: ReviewItem[] | null; course
         </div>
 
         <ul data-stagger className="mt-14 columns-1 gap-5 sm:columns-2 lg:columns-3">
-          {items.map((r) => (
+          {items.map((r, i) => (
             <li
-              key={r.name + r.quote.slice(0, 20)}
+              // Briefs reuse names ("Simran K."), so position keeps keys unique.
+              key={`${i}-${r.name}`}
               className="mb-5 break-inside-avoid rounded-3xl border border-slate-100 bg-white p-6 shadow-xl shadow-hero-950/5"
             >
               <div className="flex items-center justify-between gap-3">

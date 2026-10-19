@@ -1,4 +1,5 @@
 "use client";
+import { useSite } from "../../SiteContext";
 
 import { NavLink } from "../../NavLink";
 import { useId, useState } from "react";
@@ -21,7 +22,6 @@ import {
 } from "lucide-react";
 import { estimateFor, locations, roles, type LocationId } from "@/lib/resources/tools/salary";
 import { resourceRoutes } from "@/lib/resources/routes";
-import { site } from "@/lib/site";
 import { BookDemoButton } from "../../Enquiry";
 import { choiceClass } from "./styles";
 
@@ -41,6 +41,7 @@ const icons: Record<string, typeof Code> = {
 };
 
 export function SalaryTool() {
+  const site = useSite(); // CMS Settings, over the built-in details
   const id = useId();
   const [roleTitle, setRoleTitle] = useState(roles[0].title);
   const [location, setLocation] = useState<LocationId>("lucknow");

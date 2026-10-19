@@ -1,3 +1,4 @@
+import { getSite } from "@/lib/cms/site";
 // Sections of the tech blog: the listing (/tech-blog-of-lucknow) and each article.
 import { NavLink } from "../NavLink";
 import Image from "next/image";
@@ -5,9 +6,9 @@ import { ArrowRight, ArrowUpRight, CalendarDays, Clock, Lightbulb, MessageCircle
 import { galleryPhoto } from "@/lib/gallery";
 import type { Block, ListItem, Post } from "@/lib/resources/blog";
 import { resourceRoutes } from "@/lib/resources/routes";
-import { site } from "@/lib/site";
 import { BookDemoButton } from "../Enquiry";
 import { Eyebrow, LightSection, SectionHeading } from "../ui";
+import { CategoriesCard, FeaturedCard } from "./ResourceCategories";
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -23,10 +24,12 @@ function Cover({ post, sizes, className = "" }: { post: Post; sizes: string; cla
   return (
     <div className={`relative overflow-hidden bg-slate-200 ${className}`}>
       <Image
-        src={p.src}
-        alt={p.alt}
+        src={post.coverUrl ?? p.src}
+        alt={post.coverUrl ? (post.coverAlt ?? "") : p.alt}
         fill
         sizes={sizes}
+        // Covers uploaded to the CMS are served by the CMS, not resized here.
+        unoptimized={!!post.coverUrl}
         className="object-cover transition-transform duration-700 group-hover:scale-105"
       />
     </div>
@@ -116,11 +119,13 @@ export function PostCard({ post }: { post: Post }) {
   );
 }
 
-export function PostGrid({ posts }: { posts: Post[] }) {
+/** Every article, beside the Categories and Featured sidebar. */
+export function PostGrid({ posts, featured = [] }: { posts: Post[]; featured?: Post[] }) {
   if (!posts.length) return null;
   return (
     <section className="bg-slate-50 px-5 py-20 lg:px-8 lg:py-28">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_18rem]">
+        <div>
         <SectionHeading
           eyebrow="All articles"
           title={
@@ -130,13 +135,18 @@ export function PostGrid({ posts }: { posts: Post[] }) {
           }
           text="Roadmaps, skills checklists and placement advice — what to learn, what to build and how to show it to an employer."
         />
-        <ul data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul data-stagger className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
           {posts.map((p) => (
             <li key={p.slug}>
               <PostCard post={p} />
             </li>
           ))}
         </ul>
+        </div>
+        <aside className="space-y-6 lg:sticky lg:top-32 lg:self-start">
+          <CategoriesCard current="blog" />
+          <FeaturedCard posts={featured} />
+        </aside>
       </div>
     </section>
   );
@@ -286,14 +296,18 @@ function BodyBlock({ block: b }: { block: Block }) {
   }
 }
 
-export function ArticleBody({ post }: { post: Post }) {
+export async function ArticleBody({ post }: { post: Post }) {
+  const site = await getSite(); // CMS Settings, over the built-in details
   return (
     <section className="bg-white px-5 pb-20 pt-14 lg:px-8 lg:pb-28 lg:pt-20">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <article className="mx-auto w-full max-w-3xl">
-          {post.body.map((b, i) => (
-            <BodyBlock key={i} block={b} />
-          ))}
+          {post.html ? (
+            // Written in the CMS editor; cleaned in lib/cms/html.ts.
+            <div className="cms-prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+          ) : (
+            post.body.map((b, i) => <BodyBlock key={i} block={b} />)
+          )}
 
           {post.tags.length > 0 && (
             <div className="mt-14 border-t border-slate-100 pt-8">
@@ -319,8 +333,9 @@ export function ArticleBody({ post }: { post: Post }) {
           </NavLink>
         </article>
 
-        <aside className="hidden lg:block">
-          <div className="sticky top-32 space-y-6">
+        <aside>
+          <div className="space-y-6 lg:sticky lg:top-32">
+            <CategoriesCard current="blog" />
             {post.toc.length > 1 && (
               <nav aria-label="On this page" className="rounded-3xl border border-slate-100 bg-slate-50 p-6">
                 <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">On this page</p>

@@ -2,12 +2,12 @@
 import Image from "next/image";
 import { Mic } from "lucide-react";
 import { galleryPhoto } from "@/lib/gallery";
-import { events, speakers } from "@/lib/resources/seminars";
+import { speakers, type SeminarEvent } from "@/lib/resources/seminars";
 import { DarkSection, Eyebrow, Heading, LightSection, SectionHeading } from "../ui";
 import { initials, Note } from "./Kit";
 import { SeminarsFilter } from "./SeminarsFilter";
 
-export function EventsList() {
+export function EventsList({ events }: { events: SeminarEvent[] }) {
   return (
     <LightSection id="events" className="scroll-mt-24">
       <SectionHeading
